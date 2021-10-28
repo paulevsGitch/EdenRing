@@ -1,0 +1,12 @@
+{
+	"required": true,
+	"minVersion": "0.8",
+	"package": "paulevs.edenring.mixin.common",
+	"compatibilityLevel": "JAVA_16",
+	"mixins": [
+		"BushBlockMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

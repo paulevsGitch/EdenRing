@@ -1,0 +1,9 @@
+{
+	"type": "edenring:edenring",
+	"generator": {
+		"type": "edenring:chunk_generator",
+		"biome_source": {
+			"type": "edenring:biome_source"
+		}
+	}
+}

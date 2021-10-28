@@ -1,0 +1,32 @@
+{
+	"schemaVersion": 1,
+	"id": "edenring",
+	"version": "${version}",
+	"name": "EdenRing",
+	"description": "Sci-Fi dimension mod with some unique things",
+	"authors": [
+		"paulevs"
+	],
+	"contact": {
+		"homepage": "https://www.curseforge.com/minecraft/mc-mods/edenring",
+		"issues": "https://github.com/paulevsGitch/edenring/issues",
+		"sources": "https://github.com/paulevsGitch/edenring"
+	},
+	"license": "MIT",
+	"icon": "assets/edenring/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"paulevs.edenring.EdenRing"
+		]
+	},
+	"mixins": [
+		"edenring.mixins.common.json",
+		"edenring.mixins.client.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.11.6",
+		"fabric": ">=0.36.0",
+		"minecraft": ">=1.17.1"
+	}
+}

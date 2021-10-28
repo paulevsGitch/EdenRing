@@ -1,6 +1,8 @@
 package paulevs.edenring.registries;
 
+import net.minecraft.data.worldgen.Features;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
 import net.minecraft.world.level.levelgen.surfacebuilders.ConfiguredSurfaceBuilder;
 import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilderBaseConfiguration;
@@ -42,6 +44,11 @@ public class EdenBiomes {
 		def.addFeature(EdenFeatures.SLATE_LAYER);
 		def.addFeature(EdenFeatures.CALCITE_LAYER);
 		def.addFeature(EdenFeatures.TUFF_LAYER);
+		def.addFeature(Decoration.UNDERGROUND_DECORATION, Features.ORE_GRANITE);
+		def.addFeature(Decoration.UNDERGROUND_DECORATION, Features.ORE_ANDESITE);
+		def.addFeature(Decoration.UNDERGROUND_DECORATION, Features.ORE_DIORITE);
+		def.addFeature(EdenFeatures.ORE_MOSSY_COBBLE);
+		def.addFeature(EdenFeatures.ORE_COBBLE);
 		return def;
 	}
 }

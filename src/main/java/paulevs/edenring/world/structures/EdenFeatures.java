@@ -21,5 +21,12 @@ public class EdenFeatures {
 	public static final BCLFeature CALCITE_LAYER = BCLFeature.makeChunkFeature(EdenRing.makeID("calcite_layer"), new StoneLayer(Blocks.CALCITE));
 	public static final BCLFeature TUFF_LAYER = BCLFeature.makeChunkFeature(EdenRing.makeID("tuff_layer"), new StoneLayer(Blocks.TUFF));
 	
+	public static final BCLFeature ORE_MOSSY_COBBLE = BCLFeature.makeChunkFeature(EdenRing.makeID("ore_mossy_cobble"), new DepthScatterFeature(
+		Blocks.MOSSY_COBBLESTONE, Blocks.STONE, Blocks.DEEPSLATE, Blocks.CALCITE, Blocks.TUFF
+	));
+	public static final BCLFeature ORE_COBBLE = BCLFeature.makeChunkFeature(EdenRing.makeID("ore_cobble"), new DepthScatterFeature(
+		Blocks.COBBLESTONE, Blocks.STONE, Blocks.DEEPSLATE, Blocks.CALCITE, Blocks.TUFF
+	));
+	
 	public static void init() {}
 }

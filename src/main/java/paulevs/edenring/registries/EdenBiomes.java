@@ -6,10 +6,12 @@ import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilderBaseConfiguration;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.world.biomes.StoneGardenBiome;
+import paulevs.edenring.world.structures.EdenFeatures;
 import ru.bclib.api.BiomeAPI;
 import ru.bclib.config.EntryConfig;
 import ru.bclib.config.IdConfig;
 import ru.bclib.world.biomes.BCLBiome;
+import ru.bclib.world.biomes.BCLBiomeDef;
 
 public class EdenBiomes {
 	private static final IdConfig CONFIG = new EntryConfig(EdenRing.MOD_ID, "biomes");
@@ -34,5 +36,12 @@ public class EdenBiomes {
 	public static int correctColor(int color) {
 		color *= 1.33F;
 		return color > 255 ? 255 : color;
+	}
+	
+	public static BCLBiomeDef addDefaultFeatures(BCLBiomeDef def) {
+		def.addFeature(EdenFeatures.SLATE_LAYER);
+		def.addFeature(EdenFeatures.CALCITE_LAYER);
+		def.addFeature(EdenFeatures.TUFF_LAYER);
+		return def;
 	}
 }

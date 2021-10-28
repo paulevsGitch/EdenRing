@@ -24,10 +24,14 @@ import java.util.Random;
 public class StonePillar extends DefaultFeature {
 	@Override
 	public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> featurePlaceContext) {
-		Random random = featurePlaceContext.random();
-		BlockPos center = featurePlaceContext.origin();
 		WorldGenLevel level = featurePlaceContext.level();
+		BlockPos center = featurePlaceContext.origin();
+		Random random = featurePlaceContext.random();
 		center = getPosOnSurface(level, center);
+		
+		if (center.getY() < 5) {
+			return false;
+		}
 		
 		float height = MHelper.randRange(1.5F, 3.5F, random);
 		center = center.above(Mth.floor(height));

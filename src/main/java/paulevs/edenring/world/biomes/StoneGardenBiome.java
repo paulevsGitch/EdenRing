@@ -14,7 +14,7 @@ import ru.bclib.world.biomes.BCLBiomeDef;
 public class StoneGardenBiome extends BCLBiome {
 	public StoneGardenBiome(IdConfig config, ConfiguredSurfaceBuilder surfaceBuilder) {
 		super(
-			new BCLBiomeDef(EdenRing.makeID("stone_garden"))
+			EdenBiomes.addDefaultFeatures(new BCLBiomeDef(EdenRing.makeID("stone_garden"))
 				.loadConfigValues(config)
 				.setCategory(BiomeCategory.PLAINS)
 				.setSurface(surfaceBuilder)
@@ -29,6 +29,6 @@ public class StoneGardenBiome extends BCLBiome {
 				.addFeature(EdenFeatures.STONE_PILLAR)
 				.setSkyColor(113, 178, 255)
 				.setFogColor(183, 212, 255)
-		);
+		));
 	}
 }

@@ -7,6 +7,7 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.chunk.ChunkAccess;
+import net.minecraft.world.level.levelgen.Heightmap.Types;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import ru.bclib.noise.OpenSimplexNoise;
@@ -44,7 +45,8 @@ public class StoneLayer extends DefaultFeature {
 				pos.setZ(z);
 				float offset = (float) OFFSET_NOISE.eval(wx * 0.03, wz * 0.03);
 				offset += (float) OFFSET_NOISE.eval(wx * 0.07, wz * 0.07) * 0.5F;
-				for (int y = 0; y < 256; y++) {
+				int maxY = chunk.getHeight(Types.WORLD_SURFACE_WG, x, z);
+				for (int y = 0; y < maxY; y++) {
 					pos.setY(y);
 					if (noise.eval(wx * 0.01, y * 0.1 + offset, wz * 0.01) > 0.3F && chunk.getBlockState(pos).is(Blocks.STONE)) {
 						chunk.setBlockState(pos, block.defaultBlockState(), false);

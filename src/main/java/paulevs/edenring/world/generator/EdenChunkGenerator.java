@@ -140,10 +140,10 @@ public class EdenChunkGenerator extends ChunkGenerator {
 		
 		for (int x = 0; x < 16; x++) {
 			int px = posX | x;
-			pos.setX(x);
+			pos.setX(px);
 			for (int z = 0; z < 16; z++) {
 				int pz = posZ | z;
-				pos.setZ(z);
+				pos.setZ(pz);
 				int q = chunkAccess.getHeight(Heightmap.Types.WORLD_SURFACE_WG, x, z) + 1;
 				double e = this.surfaceNoise.getSurfaceNoiseValue(px * 0.0625, pz * 0.0625, 0.0625, x * 0.0625D) * 15.0D;
 				worldGenRegion.getBiome(pos).buildSurfaceAt(worldgenRandom, chunkAccess, px, pz, q, e, STONE, WATER, this.getSeaLevel(), 0, worldGenRegion.getSeed());

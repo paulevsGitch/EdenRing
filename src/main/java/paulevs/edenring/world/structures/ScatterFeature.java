@@ -6,6 +6,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import ru.bclib.util.BlocksHelper;
@@ -22,11 +23,13 @@ public class ScatterFeature extends DefaultFeature {
 	}
 	
 	@Override
+	@SuppressWarnings("deprecation")
 	public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> featurePlaceContext) {
 		Random random = featurePlaceContext.random();
 		BlockPos center = featurePlaceContext.origin();
 		WorldGenLevel level = featurePlaceContext.level();
 		
+		BlockState state = block.defaultBlockState();
 		MutableBlockPos pos = new MutableBlockPos();
 		int count = MHelper.randRange(10, 20, random);
 		for (int i = 0; i < count; i++) {
@@ -38,8 +41,8 @@ public class ScatterFeature extends DefaultFeature {
 				pos.setY(center.getY() + y);
 				if (level.getBlockState(pos).isFaceSturdy(level, pos, Direction.UP)) {
 					pos.setY(pos.getY() + 1);
-					if (level.getBlockState(pos).isAir()) {
-						BlocksHelper.setWithoutUpdate(level, pos, block);
+					if (level.getBlockState(pos).isAir() && block.canSurvive(state, level, pos)) {
+						BlocksHelper.setWithoutUpdate(level, pos, state);
 						break;
 					}
 				}

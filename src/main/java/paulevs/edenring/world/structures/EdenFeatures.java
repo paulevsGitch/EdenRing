@@ -15,6 +15,10 @@ public class EdenFeatures {
 		EdenRing.makeID("cobble_floor"),
 		new FloorScatterFeature(Blocks.MOSSY_COBBLESTONE, EdenBlocks.EDEN_GRASS_BLOCK), 4
 	);
+	public static final BCLFeature GRASS_FLOOR = BCLFeature.makeVegetationFeature(
+		EdenRing.makeID("grass_floor"),
+		new FloorScatterFeature(Blocks.GRASS_BLOCK, EdenBlocks.EDEN_MYCELIUM), 4
+	);
 	public static final BCLFeature STONE_PILLAR = BCLFeature.makeRawGenFeature(EdenRing.makeID("stone_pillar"), new StonePillar(), 15);
 	
 	public static final BCLFeature SLATE_LAYER = BCLFeature.makeChunkFeature(EdenRing.makeID("slate_layer"), new StoneLayer(Blocks.DEEPSLATE));
@@ -27,6 +31,8 @@ public class EdenFeatures {
 	public static final BCLFeature ORE_COBBLE = BCLFeature.makeChunkFeature(EdenRing.makeID("ore_cobble"), new DepthScatterFeature(
 		Blocks.COBBLESTONE, Blocks.STONE, Blocks.DEEPSLATE, Blocks.CALCITE, Blocks.TUFF
 	));
+	
+	public static final BCLFeature MYCOTIC_GRASS = BCLFeature.makeVegetationFeature(EdenRing.makeID("mycotic_grass"), new ScatterFeature(EdenBlocks.MYCOTIC_GRASS), 8);
 	
 	public static void init() {}
 }

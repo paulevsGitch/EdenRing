@@ -48,7 +48,7 @@ public class StoneLayer extends DefaultFeature {
 				int maxY = chunk.getHeight(Types.WORLD_SURFACE_WG, x, z);
 				for (int y = 0; y < maxY; y++) {
 					pos.setY(y);
-					if (noise.eval(wx * 0.01, y * 0.1 + offset, wz * 0.01) > 0.3F && chunk.getBlockState(pos).is(Blocks.STONE)) {
+					if (noise.eval(wx * 0.01, y * 0.1 + offset, wz * 0.01) > 0.45F && chunk.getBlockState(pos).is(Blocks.STONE)) {
 						chunk.setBlockState(pos, block.defaultBlockState(), false);
 					}
 				}

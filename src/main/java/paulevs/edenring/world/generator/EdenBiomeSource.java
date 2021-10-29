@@ -7,8 +7,7 @@ import net.minecraft.resources.RegistryLookupCodec;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeSource;
 import paulevs.edenring.EdenRing;
-import ru.bclib.api.BiomeAPI;
-import ru.bclib.world.biomes.BCLBiome;
+import paulevs.edenring.registries.EdenBiomes;
 import ru.bclib.world.generator.BiomeMap;
 import ru.bclib.world.generator.BiomePicker;
 
@@ -37,10 +36,11 @@ public class EdenBiomeSource extends BiomeSource {
 		
 		if (picker == null) {
 			picker = new BiomePicker();
-			this.possibleBiomes.forEach(biome -> {
+			/*this.possibleBiomes.forEach(biome -> {
 				BCLBiome bclBiome = BiomeAPI.getBiome(biomeRegistry.getKey(biome));
 				picker.addBiome(bclBiome);
-			});
+			});*/
+			EdenBiomes.BIOMES.forEach(biome -> picker.addBiome(biome));
 			picker.rebuild();
 		}
 		picker.getBiomes().forEach(biome -> biome.updateActualBiomes(biomeRegistry));

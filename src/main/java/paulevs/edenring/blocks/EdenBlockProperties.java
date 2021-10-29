@@ -5,9 +5,9 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import ru.bclib.blocks.BlockProperties;
 
 public class EdenBlockProperties extends BlockProperties {
-	public static final EnumProperty<BaloonMushroomStemState> BALOON_MUSHROOM_STEM = EnumProperty.create("shape", BaloonMushroomStemState.class);
+	public static final EnumProperty<BalloonMushroomStemState> BALLOON_MUSHROOM_STEM = EnumProperty.create("shape", BalloonMushroomStemState.class);
 	
-	public enum BaloonMushroomStemState implements StringRepresentable {
+	public enum BalloonMushroomStemState implements StringRepresentable {
 		UP("up"),
 		NORTH_SOUTH("north_south"),
 		EAST_WEST("east_west"),
@@ -16,7 +16,7 @@ public class EdenBlockProperties extends BlockProperties {
 		
 		private final String name;
 		
-		BaloonMushroomStemState(String name) {
+		BalloonMushroomStemState(String name) {
 			this.name = name;
 		}
 		

@@ -6,8 +6,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.Random;
 
-public class BaloonMushroomSmallBlock extends CustomSaplingBlock {
-	public BaloonMushroomSmallBlock() {
+public class BalloonMushroomSmallBlock extends CustomSaplingBlock {
+	public BalloonMushroomSmallBlock() {
 		super(null);
 	}
 	

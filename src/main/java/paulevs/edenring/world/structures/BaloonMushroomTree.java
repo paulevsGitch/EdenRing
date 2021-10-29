@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import paulevs.edenring.blocks.EdenBlockProperties;
-import paulevs.edenring.blocks.EdenBlockProperties.BaloonMushroomStemState;
+import paulevs.edenring.blocks.EdenBlockProperties.BalloonMushroomStemState;
 import paulevs.edenring.registries.EdenBlocks;
 import ru.bclib.util.BlocksHelper;
 import ru.bclib.util.MHelper;
@@ -40,14 +40,14 @@ public class BaloonMushroomTree extends DefaultFeature {
 			return false;
 		}
 		
-		BlockState stem = EdenBlocks.BALOON_MUSHROOM_STEM.defaultBlockState();
+		BlockState stem = EdenBlocks.BALLOON_MUSHROOM_STEM.defaultBlockState();
 		if (h > 5 && random.nextInt(8) == 0) {
 			for (int i = 0; i < h; i++) {
 				pos.setY(center.getY() + i);
 				BlocksHelper.setWithoutUpdate(level, pos, stem);
 			}
 			
-			BlockState head = EdenBlocks.BALOON_MUSHROOM_BLOCK.defaultBlockState();
+			BlockState head = EdenBlocks.BALLOON_MUSHROOM_BLOCK.defaultBlockState();
 			for (int y = 0; y < 3; y++) {
 				pos.setY(center.getY() + h + y);
 				for (int x = -1; x < 2; x++) {
@@ -62,15 +62,15 @@ public class BaloonMushroomTree extends DefaultFeature {
 			}
 		}
 		else {
-			BlockState thin = stem.setValue(EdenBlockProperties.BALOON_MUSHROOM_STEM, BaloonMushroomStemState.THIN);
-			BlockState thin_up = stem.setValue(EdenBlockProperties.BALOON_MUSHROOM_STEM, BaloonMushroomStemState.THIN_TOP);
+			BlockState thin = stem.setValue(EdenBlockProperties.BALLOON_MUSHROOM_STEM, BalloonMushroomStemState.THIN);
+			BlockState thin_up = stem.setValue(EdenBlockProperties.BALLOON_MUSHROOM_STEM, BalloonMushroomStemState.THIN_TOP);
 			int hMax = h - 1;
 			for (int i = 0; i < h; i++) {
 				pos.setY(center.getY() + i);
 				BlocksHelper.setWithoutUpdate(level, pos, i == hMax ? thin_up : thin);
 			}
 			pos.setY(center.getY() + h);
-			BlocksHelper.setWithoutUpdate(level, pos, EdenBlocks.BALOON_MUSHROOM_BLOCK);
+			BlocksHelper.setWithoutUpdate(level, pos, EdenBlocks.BALLOON_MUSHROOM_BLOCK);
 		}
 		
 		return true;

@@ -22,7 +22,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import paulevs.edenring.EdenRing;
-import paulevs.edenring.blocks.EdenBlockProperties.BaloonMushroomStemState;
+import paulevs.edenring.blocks.EdenBlockProperties.BalloonMushroomStemState;
 import paulevs.edenring.registries.EdenBlocks;
 import ru.bclib.blocks.BaseBlockNotFull;
 import ru.bclib.client.models.ModelsHelper;
@@ -31,32 +31,33 @@ import ru.bclib.interfaces.RenderLayerProvider;
 
 import java.util.Map;
 
-public class BaloonMushroomStemBlock extends BaseBlockNotFull implements RenderLayerProvider {
-	public static final EnumProperty<BaloonMushroomStemState> BALOON_MUSHROOM_STEM = EdenBlockProperties.BALOON_MUSHROOM_STEM;
-	private static final Map<BaloonMushroomStemState, ResourceLocation> MODELS = Maps.newEnumMap(BaloonMushroomStemState.class);
-	private static final Map<BaloonMushroomStemState, VoxelShape> SHAPES = Maps.newEnumMap(BaloonMushroomStemState.class);
+public class BalloonMushroomStemBlock extends BaseBlockNotFull implements RenderLayerProvider {
+	public static final EnumProperty<BalloonMushroomStemState> BALLOON_MUSHROOM_STEM = EdenBlockProperties.BALLOON_MUSHROOM_STEM;
+	private static final Map<BalloonMushroomStemState, ResourceLocation> MODELS = Maps.newEnumMap(
+		BalloonMushroomStemState.class);
+	private static final Map<BalloonMushroomStemState, VoxelShape> SHAPES = Maps.newEnumMap(BalloonMushroomStemState.class);
 	
-	public BaloonMushroomStemBlock() {
+	public BalloonMushroomStemBlock() {
 		super(FabricBlockSettings.copyOf(Blocks.MUSHROOM_STEM));
 	}
 	
 	@Override
 	protected void createBlockStateDefinition(Builder<Block, BlockState> stateManager) {
-		stateManager.add(BALOON_MUSHROOM_STEM);
+		stateManager.add(BALLOON_MUSHROOM_STEM);
 	}
 	
 	@Override
 	@SuppressWarnings("deprecation")
 	public VoxelShape getShape(BlockState state, BlockGetter view, BlockPos pos, CollisionContext ePos) {
-		VoxelShape shape = SHAPES.get(state.getValue(BALOON_MUSHROOM_STEM));
+		VoxelShape shape = SHAPES.get(state.getValue(BALLOON_MUSHROOM_STEM));
 		return shape == null ? Shapes.block() : shape;
 	}
 	
 	@Override
 	@SuppressWarnings("deprecation")
 	public VoxelShape getCollisionShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
-		BaloonMushroomStemState shape = blockState.getValue(BALOON_MUSHROOM_STEM);
-		if (shape == BaloonMushroomStemState.UP || shape == BaloonMushroomStemState.NORTH_SOUTH || shape == BaloonMushroomStemState.EAST_WEST) {
+		BalloonMushroomStemState shape = blockState.getValue(BALLOON_MUSHROOM_STEM);
+		if (shape == BalloonMushroomStemState.UP || shape == BalloonMushroomStemState.NORTH_SOUTH || shape == BalloonMushroomStemState.EAST_WEST) {
 			return SHAPES.get(shape);
 		}
 		return Shapes.empty();
@@ -65,13 +66,13 @@ public class BaloonMushroomStemBlock extends BaseBlockNotFull implements RenderL
 	@Override
 	@Environment(EnvType.CLIENT)
 	public UnbakedModel getModelVariant(ResourceLocation stateId, BlockState blockState, Map<ResourceLocation, UnbakedModel> modelCache) {
-		BaloonMushroomStemState state = blockState.getValue(BALOON_MUSHROOM_STEM);
+		BalloonMushroomStemState state = blockState.getValue(BALLOON_MUSHROOM_STEM);
 		ResourceLocation modelId = MODELS.get(state);
 		if (modelId != null) {
-			if (state == BaloonMushroomStemState.NORTH_SOUTH) {
+			if (state == BalloonMushroomStemState.NORTH_SOUTH) {
 				return ModelsHelper.createRotatedModel(modelId, Axis.Z);
 			}
-			if (state == BaloonMushroomStemState.EAST_WEST) {
+			if (state == BalloonMushroomStemState.EAST_WEST) {
 				return ModelsHelper.createRotatedModel(modelId, Axis.X);
 			}
 			return ModelsHelper.createBlockSimple(modelId);
@@ -80,16 +81,10 @@ public class BaloonMushroomStemBlock extends BaseBlockNotFull implements RenderL
 	}
 	
 	@Override
-	@Environment(EnvType.CLIENT)
-	public BlockModel getItemModel(ResourceLocation resourceLocation) {
-		return ModelsHelper.createBlockItem(MODELS.get(BaloonMushroomStemState.UP));
-	}
-	
-	@Override
 	@SuppressWarnings("deprecation")
 	public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
-		BaloonMushroomStemState stem = state.getValue(BALOON_MUSHROOM_STEM);
-		if (stem == BaloonMushroomStemState.THIN || stem == BaloonMushroomStemState.THIN_TOP) {
+		BalloonMushroomStemState stem = state.getValue(BALLOON_MUSHROOM_STEM);
+		if (stem == BalloonMushroomStemState.THIN || stem == BalloonMushroomStemState.THIN_TOP) {
 			BlockPos sidePos = pos.below();
 			BlockState sideState = world.getBlockState(sidePos);
 			if (sideState.is(this) || sideState.isFaceSturdy(world, sidePos, Direction.UP)) {
@@ -108,7 +103,7 @@ public class BaloonMushroomStemBlock extends BaseBlockNotFull implements RenderL
 	@SuppressWarnings("deprecation")
 	public BlockState updateShape(BlockState state, Direction facing, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
 		if (!canSurvive(state, world, pos)) {
-			if (world.getBlockState(pos.above()).is(EdenBlocks.BALOON_MUSHROOM_BLOCK)) {
+			if (world.getBlockState(pos.above()).is(EdenBlocks.BALLOON_MUSHROOM_BLOCK)) {
 				world.removeBlock(pos.above(), true);
 			}
 			return Blocks.AIR.defaultBlockState();
@@ -117,17 +112,17 @@ public class BaloonMushroomStemBlock extends BaseBlockNotFull implements RenderL
 	}
 	
 	static {
-		SHAPES.put(BaloonMushroomStemState.UP, Block.box(4, 0, 4, 12, 16, 12));
-		SHAPES.put(BaloonMushroomStemState.NORTH_SOUTH, Block.box(4, 4, 0, 12, 12, 16));
-		SHAPES.put(BaloonMushroomStemState.EAST_WEST, Block.box(0, 4, 4, 16, 12, 12));
-		SHAPES.put(BaloonMushroomStemState.THIN, Block.box(7, 0, 7, 9, 16, 9));
-		SHAPES.put(BaloonMushroomStemState.THIN_TOP, Block.box(2, 0, 2, 14, 16, 14));
+		SHAPES.put(BalloonMushroomStemState.UP, Block.box(4, 0, 4, 12, 16, 12));
+		SHAPES.put(BalloonMushroomStemState.NORTH_SOUTH, Block.box(4, 4, 0, 12, 12, 16));
+		SHAPES.put(BalloonMushroomStemState.EAST_WEST, Block.box(0, 4, 4, 16, 12, 12));
+		SHAPES.put(BalloonMushroomStemState.THIN, Block.box(7, 0, 7, 9, 16, 9));
+		SHAPES.put(BalloonMushroomStemState.THIN_TOP, Block.box(2, 0, 2, 14, 16, 14));
 		
-		MODELS.put(BaloonMushroomStemState.UP, EdenRing.makeID("block/baloon_mushroom_stem"));
-		MODELS.put(BaloonMushroomStemState.NORTH_SOUTH, EdenRing.makeID("block/baloon_mushroom_stem"));
-		MODELS.put(BaloonMushroomStemState.EAST_WEST, EdenRing.makeID("block/baloon_mushroom_stem"));
-		MODELS.put(BaloonMushroomStemState.THIN, EdenRing.makeID("block/baloon_mushroom_stem_thin"));
-		MODELS.put(BaloonMushroomStemState.THIN_TOP, EdenRing.makeID("block/baloon_mushroom_stem_top"));
+		MODELS.put(BalloonMushroomStemState.UP, EdenRing.makeID("block/balloon_mushroom_stem"));
+		MODELS.put(BalloonMushroomStemState.NORTH_SOUTH, EdenRing.makeID("block/balloon_mushroom_stem"));
+		MODELS.put(BalloonMushroomStemState.EAST_WEST, EdenRing.makeID("block/balloon_mushroom_stem"));
+		MODELS.put(BalloonMushroomStemState.THIN, EdenRing.makeID("block/balloon_mushroom_stem_thin"));
+		MODELS.put(BalloonMushroomStemState.THIN_TOP, EdenRing.makeID("block/balloon_mushroom_stem_top"));
 	}
 	
 	@Override

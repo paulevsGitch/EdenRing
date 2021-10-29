@@ -17,7 +17,7 @@ public class EdenFeatures {
 	);
 	public static final BCLFeature GRASS_FLOOR = BCLFeature.makeVegetationFeature(
 		EdenRing.makeID("grass_floor"),
-		new FloorScatterFeature(Blocks.GRASS_BLOCK, EdenBlocks.EDEN_MYCELIUM), 4
+		new FloorScatterFeature(EdenBlocks.EDEN_GRASS_BLOCK, EdenBlocks.EDEN_MYCELIUM), 4
 	);
 	public static final BCLFeature STONE_PILLAR = BCLFeature.makeRawGenFeature(EdenRing.makeID("stone_pillar"), new StonePillar(), 15);
 	
@@ -33,6 +33,7 @@ public class EdenFeatures {
 	));
 	
 	public static final BCLFeature MYCOTIC_GRASS = BCLFeature.makeVegetationFeature(EdenRing.makeID("mycotic_grass"), new ScatterFeature(EdenBlocks.MYCOTIC_GRASS), 8);
+	public static final BCLFeature BALOON_MUSHROOM_TREE = BCLFeature.makeVegetationFeature(EdenRing.makeID("baloon_mushroom_tree"), new BaloonMushroomTree(), 8);
 	
 	public static void init() {}
 }

@@ -22,6 +22,7 @@ public class MycoticForestBiome extends BCLBiome {
 				.setFoliageColor(152, 90, 131)
 				.addFeature(Decoration.VEGETAL_DECORATION, Features.PATCH_GRASS_FOREST)
 				.addFeature(EdenFeatures.MYCOTIC_GRASS)
+				.addFeature(EdenFeatures.BALOON_MUSHROOM_TREE)
 				.addFeature(EdenFeatures.GRASS_FLOOR)
 				.setSkyColor(113, 178, 255)
 				.setFogColor(178, 112, 143)

@@ -16,20 +16,19 @@ import ru.bclib.world.features.DefaultFeature;
 
 import java.util.Random;
 
-public class BaloonMushroomTree extends DefaultFeature {
+public class BalloonMushroomTree extends DefaultFeature {
 	@Override
 	public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> featurePlaceContext) {
 		WorldGenLevel level = featurePlaceContext.level();
 		BlockPos center = featurePlaceContext.origin();
 		Random random = featurePlaceContext.random();
 		
-		MutableBlockPos pos = center.mutable();
-		
-		if (!(level.getBlockState(pos.below()).getBlock() instanceof GrassBlock)) {
+		if (!(level.getBlockState(center.below()).getBlock() instanceof GrassBlock)) {
 			return false;
 		}
 		
-		int h = MHelper.randRange(3, 12, random);
+		MutableBlockPos pos = center.mutable();
+		int h = MHelper.randRange(3, 9, random);
 		for (int i = 1; i <= h; i++) {
 			pos.setY(center.getY() + i);
 			if (!level.getBlockState(pos).isAir()) {
@@ -48,12 +47,17 @@ public class BaloonMushroomTree extends DefaultFeature {
 			}
 			
 			BlockState head = EdenBlocks.BALLOON_MUSHROOM_BLOCK.defaultBlockState();
-			for (int y = 0; y < 3; y++) {
-				pos.setY(center.getY() + h + y);
-				for (int x = -1; x < 2; x++) {
-					pos.setX(center.getX() + x);
-					for (int z = -1; z < 2; z++) {
-						pos.setZ(center.getZ() + z);
+			BlockState fur = stem.setValue(EdenBlockProperties.BALLOON_MUSHROOM_STEM, BalloonMushroomStemState.FUR);
+			for (int x = -1; x < 2; x++) {
+				pos.setX(center.getX() + x);
+				for (int z = -1; z < 2; z++) {
+					pos.setZ(center.getZ() + z);
+					pos.setY(center.getY() + h - 1);
+					if (level.getBlockState(pos).isAir()) {
+						BlocksHelper.setWithoutUpdate(level, pos, fur);
+					}
+					for (int y = 0; y < 3; y++) {
+						pos.setY(center.getY() + h + y);
 						if (level.getBlockState(pos).isAir()) {
 							BlocksHelper.setWithoutUpdate(level, pos, head);
 						}

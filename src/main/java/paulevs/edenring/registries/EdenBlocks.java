@@ -1,17 +1,20 @@
 package paulevs.edenring.registries;
 
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MaterialColor;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.blocks.BalloonMushroomBlock;
 import paulevs.edenring.blocks.BalloonMushroomSmallBlock;
 import paulevs.edenring.blocks.BalloonMushroomStemBlock;
 import paulevs.edenring.blocks.EdenGrassBlock;
+import paulevs.edenring.blocks.MossyStoneBlock;
 import paulevs.edenring.blocks.SimplePlantBlock;
 import paulevs.edenring.blocks.TexturedTerrainBlock;
-import paulevs.edenring.blocks.MossyStoneBlock;
 import ru.bclib.blocks.BaseLeavesBlock;
 import ru.bclib.complexmaterials.ComplexMaterial;
 import ru.bclib.complexmaterials.WoodenComplexMaterial;
@@ -40,5 +43,9 @@ public class EdenBlocks {
 	
 	private static Block register(String name, Block block) {
 		return REGISTRY.register(EdenRing.makeID(name), block);
+	}
+	
+	public static boolean never(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
+		return false;
 	}
 }

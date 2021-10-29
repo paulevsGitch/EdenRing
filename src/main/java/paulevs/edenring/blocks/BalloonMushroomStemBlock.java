@@ -4,12 +4,12 @@ import com.google.common.collect.Maps;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
@@ -33,17 +33,30 @@ import java.util.Map;
 
 public class BalloonMushroomStemBlock extends BaseBlockNotFull implements RenderLayerProvider {
 	public static final EnumProperty<BalloonMushroomStemState> BALLOON_MUSHROOM_STEM = EdenBlockProperties.BALLOON_MUSHROOM_STEM;
-	private static final Map<BalloonMushroomStemState, ResourceLocation> MODELS = Maps.newEnumMap(
-		BalloonMushroomStemState.class);
+	private static final Map<BalloonMushroomStemState, ResourceLocation> MODELS = Maps.newEnumMap(BalloonMushroomStemState.class);
 	private static final Map<BalloonMushroomStemState, VoxelShape> SHAPES = Maps.newEnumMap(BalloonMushroomStemState.class);
 	
 	public BalloonMushroomStemBlock() {
-		super(FabricBlockSettings.copyOf(Blocks.MUSHROOM_STEM));
+		super(FabricBlockSettings.copyOf(Blocks.MUSHROOM_STEM).noOcclusion().isSuffocating(EdenBlocks::never).isViewBlocking(EdenBlocks::never));
+		registerDefaultState(stateDefinition.any().setValue(BALLOON_MUSHROOM_STEM, BalloonMushroomStemState.UP));
 	}
 	
 	@Override
 	protected void createBlockStateDefinition(Builder<Block, BlockState> stateManager) {
 		stateManager.add(BALLOON_MUSHROOM_STEM);
+	}
+	
+	@Override
+	public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+		BlockState blockState = this.defaultBlockState();
+		
+		Axis axis = ctx.getClickedFace().getAxis();
+		switch (axis) {
+			case X: return blockState.setValue(BALLOON_MUSHROOM_STEM, BalloonMushroomStemState.EAST_WEST);
+			case Z: return blockState.setValue(BALLOON_MUSHROOM_STEM, BalloonMushroomStemState.NORTH_SOUTH);
+		}
+		
+		return blockState;
 	}
 	
 	@Override
@@ -84,6 +97,10 @@ public class BalloonMushroomStemBlock extends BaseBlockNotFull implements Render
 	@SuppressWarnings("deprecation")
 	public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
 		BalloonMushroomStemState stem = state.getValue(BALLOON_MUSHROOM_STEM);
+		if (stem == BalloonMushroomStemState.FUR) {
+			BlockPos sidePos = pos.above();
+			return world.getBlockState(sidePos).isFaceSturdy(world, sidePos, Direction.DOWN);
+		}
 		if (stem == BalloonMushroomStemState.THIN || stem == BalloonMushroomStemState.THIN_TOP) {
 			BlockPos sidePos = pos.below();
 			BlockState sideState = world.getBlockState(sidePos);
@@ -111,22 +128,29 @@ public class BalloonMushroomStemBlock extends BaseBlockNotFull implements Render
 		return state;
 	}
 	
+	@Override
+	public boolean propagatesSkylightDown(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
+		return blockState.getFluidState().isEmpty();
+	}
+	
+	@Override
+	public BCLRenderLayer getRenderLayer() {
+		return BCLRenderLayer.CUTOUT;
+	}
+	
 	static {
 		SHAPES.put(BalloonMushroomStemState.UP, Block.box(4, 0, 4, 12, 16, 12));
 		SHAPES.put(BalloonMushroomStemState.NORTH_SOUTH, Block.box(4, 4, 0, 12, 12, 16));
 		SHAPES.put(BalloonMushroomStemState.EAST_WEST, Block.box(0, 4, 4, 16, 12, 12));
 		SHAPES.put(BalloonMushroomStemState.THIN, Block.box(7, 0, 7, 9, 16, 9));
 		SHAPES.put(BalloonMushroomStemState.THIN_TOP, Block.box(2, 0, 2, 14, 16, 14));
+		SHAPES.put(BalloonMushroomStemState.FUR, Block.box(0, 7, 0, 16, 16, 16));
 		
 		MODELS.put(BalloonMushroomStemState.UP, EdenRing.makeID("block/balloon_mushroom_stem"));
 		MODELS.put(BalloonMushroomStemState.NORTH_SOUTH, EdenRing.makeID("block/balloon_mushroom_stem"));
 		MODELS.put(BalloonMushroomStemState.EAST_WEST, EdenRing.makeID("block/balloon_mushroom_stem"));
 		MODELS.put(BalloonMushroomStemState.THIN, EdenRing.makeID("block/balloon_mushroom_stem_thin"));
 		MODELS.put(BalloonMushroomStemState.THIN_TOP, EdenRing.makeID("block/balloon_mushroom_stem_top"));
-	}
-	
-	@Override
-	public BCLRenderLayer getRenderLayer() {
-		return BCLRenderLayer.CUTOUT;
+		MODELS.put(BalloonMushroomStemState.FUR, EdenRing.makeID("block/balloon_mushroom_fur"));
 	}
 }

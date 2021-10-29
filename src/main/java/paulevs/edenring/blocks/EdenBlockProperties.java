@@ -12,7 +12,8 @@ public class EdenBlockProperties extends BlockProperties {
 		NORTH_SOUTH("north_south"),
 		EAST_WEST("east_west"),
 		THIN("thin"),
-		THIN_TOP("thin_top");
+		THIN_TOP("thin_top"),
+		FUR("fur");
 		
 		private final String name;
 		

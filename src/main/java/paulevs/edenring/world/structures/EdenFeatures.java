@@ -32,8 +32,9 @@ public class EdenFeatures {
 		Blocks.COBBLESTONE, Blocks.STONE, Blocks.DEEPSLATE, Blocks.CALCITE, Blocks.TUFF
 	));
 	
-	public static final BCLFeature MYCOTIC_GRASS = BCLFeature.makeVegetationFeature(EdenRing.makeID("mycotic_grass"), new ScatterFeature(EdenBlocks.MYCOTIC_GRASS), 8);
-	public static final BCLFeature BALOON_MUSHROOM_TREE = BCLFeature.makeVegetationFeature(EdenRing.makeID("baloon_mushroom_tree"), new BaloonMushroomTree(), 8);
+	public static final BCLFeature MYCOTIC_GRASS = BCLFeature.makeVegetationFeature(EdenRing.makeID("mycotic_grass"), new ScatterFeature(EdenBlocks.MYCOTIC_GRASS), 12);
+	public static final BCLFeature BALLOON_MUSHROOM_SMALL = BCLFeature.makeVegetationFeature(EdenRing.makeID("balloon_mushroom_small"), new ScatterFeature(EdenBlocks.BALLOON_MUSHROOM_SMALL), 6);
+	public static final BCLFeature BALLOON_MUSHROOM_TREE = BCLFeature.makeVegetationFeature(EdenRing.makeID("balloon_mushroom_tree"), new BalloonMushroomTree(), 12);
 	
 	public static void init() {}
 }

@@ -9,15 +9,21 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexBuffer;
 import com.mojang.blaze3d.vertex.VertexFormat;
+import com.mojang.blaze3d.vertex.VertexFormat.Mode;
 import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
+import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.RenderBuffers;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Final;
@@ -27,6 +33,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import paulevs.edenring.EdenRing;
+import paulevs.edenring.registries.EdenBlocks;
 import ru.bclib.util.BackgroundInfo;
 import ru.bclib.util.MHelper;
 
@@ -49,6 +56,7 @@ public class LevelRendererMixin {
 	private static final ResourceLocation EDEN_STARS = EdenRing.makeID("textures/environment/stars.png");
 	private static final ResourceLocation EDEN_SUN_FADE = EdenRing.makeID("textures/environment/sun_fade.png");
 	private static final ResourceLocation EDEN_SUN = EdenRing.makeID("textures/environment/sun.png");
+	private static final ResourceLocation FRAME = EdenRing.makeID("textures/environment/frame.png");
 	
 	private static BufferBuilder eden_bufferBuilder;
 	private static VertexBuffer[] eden_horizon;
@@ -216,17 +224,16 @@ public class LevelRendererMixin {
 			// Render Planet //
 			
 			matrices.pushPose();
-			//matrices.mulPose(Vector3f.XP.rotation((float) Math.PI * 0.5F));
 			matrices.translate(0, 0, -100);
 			
 			matrix = matrices.last().pose();
 			RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 			RenderSystem.setShaderTexture(0, EDEN_PLANET_TEXTURE);
 			eden_bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-			eden_bufferBuilder.vertex(matrix, -140, -140, 0.0F).uv(0.0F, 0.0F).endVertex();
-			eden_bufferBuilder.vertex(matrix,  140, -140, 0.0F).uv(1.0F, 0.0F).endVertex();
-			eden_bufferBuilder.vertex(matrix,  140,  140, 0.0F).uv(1.0F, 1.0F).endVertex();
-			eden_bufferBuilder.vertex(matrix, -140,  140, 0.0F).uv(0.0F, 1.0F).endVertex();
+			eden_bufferBuilder.vertex(matrix, -140,  140, 0.0F).uv(0.0F, 0.0F).endVertex();
+			eden_bufferBuilder.vertex(matrix,  140,  140, 0.0F).uv(1.0F, 0.0F).endVertex();
+			eden_bufferBuilder.vertex(matrix,  140, -140, 0.0F).uv(1.0F, 1.0F).endVertex();
+			eden_bufferBuilder.vertex(matrix, -140, -140, 0.0F).uv(0.0F, 1.0F).endVertex();
 			eden_bufferBuilder.end();
 			BufferUploader.end(eden_bufferBuilder);
 			
@@ -288,6 +295,84 @@ public class LevelRendererMixin {
 		if (eden_isInIden()) {
 			info.cancel();
 		}
+	}
+	
+	@Inject(method = "renderLevel", at = @At("TAIL"))
+	public void eden_renderLevel(PoseStack poseStack, float f, long l, boolean bl, Camera camera, GameRenderer gameRenderer, LightTexture lightTexture, Matrix4f matrix4f, CallbackInfo info) {
+		if (minecraft.hitResult == null) {
+			return;
+		}
+		
+		ItemStack item = minecraft.player.getMainHandItem();
+		if (item != null && !(item.getItem() instanceof BlockItem) || ((BlockItem) item.getItem()).getBlock() != EdenBlocks.BALLOON_MUSHROOM_BLOCK) {
+			return;
+		}
+		
+		poseStack.pushPose();
+		
+		double dx = minecraft.hitResult.getLocation().x;
+		double dy = minecraft.hitResult.getLocation().y;
+		double dz = minecraft.hitResult.getLocation().z;
+		
+		if (minecraft.hitResult instanceof BlockHitResult) {
+			BlockHitResult bnr = (BlockHitResult) minecraft.hitResult;
+			if (!minecraft.level.getBlockState(bnr.getBlockPos()).isAir()) {
+				return;
+			}
+			dx = bnr.getBlockPos().getX();
+			dy = bnr.getBlockPos().getY();
+			dz = bnr.getBlockPos().getZ();
+		}
+		
+		dx -= camera.getPosition().x;
+		dy -= camera.getPosition().y;
+		dz -= camera.getPosition().z;
+		poseStack.translate(dx, dy, dz);
+		
+		Matrix4f matrix = poseStack.last().pose();
+		
+		RenderSystem.enableTexture();
+		RenderSystem.setShaderColor(1, 1, 1, 1);
+		RenderSystem.setShader(GameRenderer::getPositionTexShader);
+		RenderSystem.setShaderTexture(0, FRAME);
+		
+		eden_bufferBuilder.begin(Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+		
+		eden_bufferBuilder.vertex(matrix, -0.001F, -0.001F, -0.001F).uv(0.0F, 0.0F).endVertex();
+		eden_bufferBuilder.vertex(matrix,  1.001F, -0.001F, -0.001F).uv(1.0F, 0.0F).endVertex();
+		eden_bufferBuilder.vertex(matrix,  1.001F, -0.001F,  1.001F).uv(1.0F, 1.0F).endVertex();
+		eden_bufferBuilder.vertex(matrix, -0.001F, -0.001F,  1.001F).uv(0.0F, 1.0F).endVertex();
+		
+		eden_bufferBuilder.vertex(matrix, -0.001F,  1.001F,  1.001F).uv(0.0F, 1.0F).endVertex();
+		eden_bufferBuilder.vertex(matrix,  1.001F,  1.001F,  1.001F).uv(1.0F, 1.0F).endVertex();
+		eden_bufferBuilder.vertex(matrix,  1.001F,  1.001F, -0.001F).uv(1.0F, 0.0F).endVertex();
+		eden_bufferBuilder.vertex(matrix, -0.001F,  1.001F, -0.001F).uv(0.0F, 0.0F).endVertex();
+		
+		eden_bufferBuilder.vertex(matrix, 1.001F, -0.001F, -0.001F).uv(0.0F, 0.0F).endVertex();
+		eden_bufferBuilder.vertex(matrix, 1.001F,  1.001F, -0.001F).uv(1.0F, 0.0F).endVertex();
+		eden_bufferBuilder.vertex(matrix, 1.001F,  1.001F,  1.001F).uv(1.0F, 1.0F).endVertex();
+		eden_bufferBuilder.vertex(matrix, 1.001F, -0.001F,  1.001F).uv(0.0F, 1.0F).endVertex();
+		
+		eden_bufferBuilder.vertex(matrix, -0.001F, -0.001F,  1.001F).uv(0.0F, 1.0F).endVertex();
+		eden_bufferBuilder.vertex(matrix, -0.001F,  1.001F,  1.001F).uv(1.0F, 1.0F).endVertex();
+		eden_bufferBuilder.vertex(matrix, -0.001F,  1.001F, -0.001F).uv(1.0F, 0.0F).endVertex();
+		eden_bufferBuilder.vertex(matrix, -0.001F, -0.001F, -0.001F).uv(0.0F, 0.0F).endVertex();
+		
+		eden_bufferBuilder.vertex(matrix, -0.001F, -0.001F,  1.001F).uv(0.0F, 0.0F).endVertex();
+		eden_bufferBuilder.vertex(matrix,  1.001F, -0.001F,  1.001F).uv(1.0F, 0.0F).endVertex();
+		eden_bufferBuilder.vertex(matrix,  1.001F,  1.001F,  1.001F).uv(1.0F, 1.0F).endVertex();
+		eden_bufferBuilder.vertex(matrix, -0.001F,  1.001F,  1.001F).uv(0.0F, 1.0F).endVertex();
+		
+		eden_bufferBuilder.vertex(matrix, -0.001F,  1.001F, -0.001F).uv(0.0F, 1.0F).endVertex();
+		eden_bufferBuilder.vertex(matrix,  1.001F,  1.001F, -0.001F).uv(1.0F, 1.0F).endVertex();
+		eden_bufferBuilder.vertex(matrix,  1.001F, -0.001F, -0.001F).uv(1.0F, 0.0F).endVertex();
+		eden_bufferBuilder.vertex(matrix, -0.001F, -0.001F, -0.001F).uv(0.0F, 0.0F).endVertex();
+		
+		eden_bufferBuilder.end();
+		
+		BufferUploader.end(eden_bufferBuilder);
+		
+		poseStack.popPose();
 	}
 	
 	private boolean eden_isInIden() {

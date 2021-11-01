@@ -2,8 +2,10 @@ package paulevs.edenring.registries;
 
 import com.google.common.collect.Lists;
 import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.data.worldgen.Carvers;
 import net.minecraft.data.worldgen.Features;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.GenerationStep.Carving;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
 import net.minecraft.world.level.levelgen.surfacebuilders.ConfiguredSurfaceBuilder;
 import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilder;
@@ -31,22 +33,16 @@ public class EdenBiomes {
 		Blocks.DIRT.defaultBlockState(),
 		Blocks.DIRT.defaultBlockState()
 	);
-	private static final SurfaceBuilderBaseConfiguration CONFIG_GOLDEN_GRASS = new SurfaceBuilderBaseConfiguration(
-		EdenBlocks.GOLDEN_GRASS_BLOCK.defaultBlockState(),
-		Blocks.DIRT.defaultBlockState(),
-		Blocks.DIRT.defaultBlockState()
-	);
 	private static final SurfaceBuilderBaseConfiguration CONFIG_MYCELIUM = new SurfaceBuilderBaseConfiguration(
 		EdenBlocks.EDEN_MYCELIUM.defaultBlockState(),
 		Blocks.DIRT.defaultBlockState(),
 		Blocks.DIRT.defaultBlockState()
 	);
 	private static final ConfiguredSurfaceBuilder DEFAULT_BUILDER = registerSurf("default_grass", SurfaceBuilder.DEFAULT.configured(CONFIG_GRASS));
-	private static final ConfiguredSurfaceBuilder GOLDEN_BUILDER = registerSurf("golden_grass", SurfaceBuilder.DEFAULT.configured(CONFIG_GOLDEN_GRASS));
 	private static final ConfiguredSurfaceBuilder MYCELIUM_BUILDER = registerSurf("mycelium", SurfaceBuilder.DEFAULT.configured(CONFIG_MYCELIUM));
 	
 	public static final BCLBiome STONE_GARDEN = register(new StoneGardenBiome(CONFIG, DEFAULT_BUILDER));
-	public static final BCLBiome GOLDEN_FOREST = register(new GoldenForestBiome(CONFIG, GOLDEN_BUILDER));
+	public static final BCLBiome GOLDEN_FOREST = register(new GoldenForestBiome(CONFIG, DEFAULT_BUILDER));
 	public static final BCLBiome MYCOTIC_FOREST = register(new MycoticForestBiome(CONFIG, MYCELIUM_BUILDER));
 	
 	public static void init() {
@@ -72,6 +68,10 @@ public class EdenBiomes {
 		def.addFeature(Decoration.UNDERGROUND_DECORATION, Features.ORE_DIORITE);
 		def.addFeature(EdenFeatures.ORE_MOSSY_COBBLE);
 		def.addFeature(EdenFeatures.ORE_COBBLE);
+		def.addFeature(EdenFeatures.ORE_COAL);
+		def.addFeature(EdenFeatures.ORE_IRON);
+		def.addFeature(EdenFeatures.ORE_COPPER);
+		def.addCarver(Carving.AIR, Carvers.CAVE);
 		return def;
 	}
 	

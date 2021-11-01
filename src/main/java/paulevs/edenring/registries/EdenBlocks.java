@@ -13,6 +13,7 @@ import paulevs.edenring.blocks.BalloonMushroomSmallBlock;
 import paulevs.edenring.blocks.BalloonMushroomStemBlock;
 import paulevs.edenring.blocks.EdenGrassBlock;
 import paulevs.edenring.blocks.MossyStoneBlock;
+import paulevs.edenring.blocks.OverlayPlantBlock;
 import paulevs.edenring.blocks.SimplePlantBlock;
 import paulevs.edenring.blocks.TexturedTerrainBlock;
 import ru.bclib.blocks.BaseLeavesBlock;
@@ -25,7 +26,6 @@ public class EdenBlocks {
 	public static final BlockRegistry REGISTRY = new BlockRegistry(EdenRing.EDEN_TAB, new PathConfig(EdenRing.MOD_ID, "blocks"));
 	
 	public static final Block EDEN_GRASS_BLOCK = register("eden_grass", new EdenGrassBlock());
-	public static final Block GOLDEN_GRASS_BLOCK = register("golden_grass", new TexturedTerrainBlock());
 	public static final Block EDEN_MYCELIUM = register("eden_mycelium", new TexturedTerrainBlock());
 	public static final Block MOSSY_STONE = register("mossy_stone", new MossyStoneBlock());
 	
@@ -38,6 +38,7 @@ public class EdenBlocks {
 	public static final ComplexMaterial BALLOON_MUSHROOM_MATERIAL = new WoodenComplexMaterial(EdenRing.MOD_ID, "balloon_mushroom", "eden", MaterialColor.COLOR_PURPLE, MaterialColor.COLOR_PURPLE).init(REGISTRY, EdenItems.REGISTRY, new PathConfig(EdenRing.MOD_ID, "recipes"));
 	
 	public static final Block MYCOTIC_GRASS = register("mycotic_grass", new SimplePlantBlock(true));
+	public static final Block GOLDEN_GRASS = register("golden_grass", new OverlayPlantBlock(true));
 	
 	public static void init() {}
 	

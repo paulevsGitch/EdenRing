@@ -1,6 +1,7 @@
 {
 	"parent": "block/grass_block",
 	"textures": {
+		"top": "%top%",
 		"side": "%side%",
 		"overlay": "%overlay%"
 	}

@@ -31,6 +31,15 @@ public class EdenFeatures {
 	public static final BCLFeature ORE_COBBLE = BCLFeature.makeChunkFeature(EdenRing.makeID("ore_cobble"), new DepthScatterFeature(
 		Blocks.COBBLESTONE, Blocks.STONE, Blocks.DEEPSLATE, Blocks.CALCITE, Blocks.TUFF
 	));
+	public static final BCLFeature ORE_COAL = BCLFeature.makeChunkFeature(EdenRing.makeID("ore_coal"), new DepthScatterFeature(
+		Blocks.COAL_ORE, 20, 5, Blocks.STONE, Blocks.DEEPSLATE, Blocks.CALCITE, Blocks.TUFF
+	));
+	public static final BCLFeature ORE_IRON = BCLFeature.makeChunkFeature(EdenRing.makeID("ore_iron"), new DepthScatterFeature(
+		Blocks.IRON_ORE, 16, 4, Blocks.STONE, Blocks.DEEPSLATE, Blocks.CALCITE, Blocks.TUFF
+	));
+	public static final BCLFeature ORE_COPPER = BCLFeature.makeChunkFeature(EdenRing.makeID("ore_copper"), new DepthScatterFeature(
+		Blocks.COPPER_ORE, 16, 4, Blocks.STONE, Blocks.DEEPSLATE, Blocks.CALCITE, Blocks.TUFF
+	));
 	
 	public static final BCLFeature MYCOTIC_GRASS = BCLFeature.makeVegetationFeature(EdenRing.makeID("mycotic_grass"), new ScatterFeature(EdenBlocks.MYCOTIC_GRASS), 12);
 	public static final BCLFeature BALLOON_MUSHROOM_SMALL = BCLFeature.makeVegetationFeature(EdenRing.makeID("balloon_mushroom_small"), new ScatterFeature(EdenBlocks.BALLOON_MUSHROOM_SMALL), 6);

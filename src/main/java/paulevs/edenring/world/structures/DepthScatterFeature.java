@@ -16,11 +16,23 @@ import java.util.Random;
 
 public class DepthScatterFeature extends DefaultFeature {
 	private Block block;
-	private Block[] walls;
+	private Block[] scatterIn;
+	private int minCount;
+	private int maxCount;
+	private int minRadius;
+	private int maxRadius;
 	
-	public DepthScatterFeature(Block block, Block... walls) {
+	public DepthScatterFeature(Block block, int count, int radius, Block... scatterIn) {
 		this.block = block;
-		this.walls = walls;
+		this.scatterIn = scatterIn;
+		this.minCount = count / 3;
+		this.maxCount = count;
+		this.minRadius = radius / 2;
+		this.maxRadius = radius;
+	}
+	
+	public DepthScatterFeature(Block block, Block... scatterIn) {
+		this(block, 50, 8, scatterIn);
 	}
 	
 	@Override
@@ -34,20 +46,22 @@ public class DepthScatterFeature extends DefaultFeature {
 		
 		MutableBlockPos pos = new MutableBlockPos();
 		
-		int iterations = MHelper.randRange(10, 50, random);
+		int iterations = MHelper.randRange(minCount, maxCount, random);
 		for (int n = 0; n < iterations; n++) {
 			int wx = posX | random.nextInt(16);
 			int wz = posZ | random.nextInt(16);
 			int wy = random.nextInt(256);
-			int count = MHelper.randRange(30, 100, random);
+			int radius = MHelper.randRange(minRadius, maxRadius, random);
+			int count = (int) (radius * radius * MHelper.randRange(0.7F, 2F, random));
+			float multiplier = radius / 3.0F;
 			for (int i = 0; i < count; i++) {
-				int px = wx + Mth.floor(Mth.clamp(random.nextGaussian() * 2, -8, 8));
-				int py = wy + Mth.floor(Mth.clamp(random.nextGaussian() * 2, -8, 8));
-				int pz = wz + Mth.floor(Mth.clamp(random.nextGaussian() * 2, -8, 8));
+				int px = wx + Mth.floor(Mth.clamp(random.nextGaussian() * multiplier, -radius, radius));
+				int py = wy + Mth.floor(Mth.clamp(random.nextGaussian() * multiplier, -radius, radius));
+				int pz = wz + Mth.floor(Mth.clamp(random.nextGaussian() * multiplier, -radius, radius));
 				pos.set(px, py, pz);
 				
 				BlockState state = level.getBlockState(pos);
-				for (Block b: walls) {
+				for (Block b: scatterIn) {
 					if (state.is(b)) {
 						BlocksHelper.setWithoutUpdate(level, pos, block);
 						break;

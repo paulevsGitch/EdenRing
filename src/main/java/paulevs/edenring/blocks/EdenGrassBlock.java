@@ -51,6 +51,7 @@ public class EdenGrassBlock extends GrassBlock implements BlockModelProvider, Cu
 	public BlockModel getBlockModel(ResourceLocation blockId, BlockState blockState) {
 		String modId = blockId.getNamespace();
 		Map<String, String> textures = Maps.newHashMap();
+		textures.put("%top%", "minecraft:block/grass_block_top");
 		textures.put("%side%", modId + ":block/grass_side");
 		textures.put("%overlay%", modId + ":block/grass_side_overlay");
 		Optional<String> pattern = PatternsHelper.createJson(EdenRing.makeID("patterns/block/grass_block.json"), textures);

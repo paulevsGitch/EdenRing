@@ -18,7 +18,7 @@ public class StoneGardenBiome extends BCLBiome {
 				.loadConfigValues(config)
 				.setCategory(BiomeCategory.PLAINS)
 				.setSurface(surfaceBuilder)
-				.setPlantsColor(EdenBiomes.correctColor(122), EdenBiomes.correctColor(143), EdenBiomes.correctColor(85))
+				.setPlantsColor(162, 190, 113)
 				.addFeature(Decoration.VEGETAL_DECORATION, Features.PATCH_GRASS_FOREST)
 				.addFeature(Decoration.VEGETAL_DECORATION, Features.PATCH_TALL_GRASS)
 				.addFeature(Decoration.VEGETAL_DECORATION, Features.MOSS_PATCH)

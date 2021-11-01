@@ -23,6 +23,7 @@ import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
 import net.minecraft.world.level.levelgen.synth.PerlinSimplexNoise;
 import net.minecraft.world.level.levelgen.synth.SurfaceNoise;
+import ru.bclib.util.MHelper;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -140,10 +141,10 @@ public class EdenChunkGenerator extends ChunkGenerator {
 		
 		for (int x = 0; x < 16; x++) {
 			int px = posX | x;
-			pos.setX(px);
 			for (int z = 0; z < 16; z++) {
 				int pz = posZ | z;
-				pos.setZ(pz);
+				pos.setX(px + MHelper.randRange(-3, 3, worldgenRandom));
+				pos.setZ(pz + MHelper.randRange(-3, 3, worldgenRandom));
 				int q = chunkAccess.getHeight(Heightmap.Types.WORLD_SURFACE_WG, x, z) + 1;
 				double e = this.surfaceNoise.getSurfaceNoiseValue(px * 0.0625, pz * 0.0625, 0.0625, x * 0.0625D) * 15.0D;
 				worldGenRegion.getBiome(pos).buildSurfaceAt(worldgenRandom, chunkAccess, px, pz, q, e, STONE, WATER, this.getSeaLevel(), 0, worldGenRegion.getSeed());

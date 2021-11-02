@@ -4,10 +4,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import paulevs.edenring.blocks.EdenGrassBlock;
 import paulevs.edenring.registries.EdenBlocks;
+import ru.bclib.blocks.BlockProperties;
+import ru.bclib.blocks.BlockProperties.TripleShape;
 import ru.bclib.noise.OpenSimplexNoise;
 import ru.bclib.sdf.SDF;
 import ru.bclib.sdf.operator.SDFDisplacement;
@@ -58,7 +61,26 @@ public class StonePillar extends DefaultFeature {
 			return disp;
 		}).setSource(sdf);
 		
+		BlockState bottom = EdenBlocks.EDEN_VINE.defaultBlockState().setValue(BlockProperties.TRIPLE_SHAPE, TripleShape.BOTTOM);
+		BlockState middle = EdenBlocks.EDEN_VINE.defaultBlockState().setValue(BlockProperties.TRIPLE_SHAPE, TripleShape.MIDDLE);
+		BlockState top = EdenBlocks.EDEN_VINE.defaultBlockState().setValue(BlockProperties.TRIPLE_SHAPE, TripleShape.TOP);
+		BlockState roots = Blocks.HANGING_ROOTS.defaultBlockState();
 		sdf.addPostProcess(info -> {
+			if (info.getState().is(EdenBlocks.EDEN_VINE) || info.getState().is(Blocks.HANGING_ROOTS)) {
+				return info.getState();
+			}
+			if (info.getPos().getY() > 3 && info.getStateDown().isAir() && random.nextInt(8) == 0) {
+				if (random.nextBoolean()) {
+					info.setBlockPos(info.getPos().below(), roots);
+				}
+				else {
+					int h = MHelper.randRange(1, 3, random);
+					for (int i = 0; i < h; i++) {
+						int p = i + 1;
+						info.setBlockPos(info.getPos().below(p), i == 0 ? top : i == p ? bottom : middle);
+					}
+				}
+			}
 			if (info.getStateUp().isAir() && noise.eval(info.getPos().getX() * 0.4F, info.getPos().getY() * 0.4F, info.getPos().getZ() * 0.4F) > 0.1) {
 				if (random.nextInt(5) == 0) {
 					info.setBlockPos(info.getPos().above(), Blocks.GRASS.defaultBlockState());

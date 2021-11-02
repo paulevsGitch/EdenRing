@@ -36,15 +36,11 @@ public class EdenBiomeSource extends BiomeSource {
 		
 		if (picker == null) {
 			picker = new BiomePicker();
-			/*this.possibleBiomes.forEach(biome -> {
-				BCLBiome bclBiome = BiomeAPI.getBiome(biomeRegistry.getKey(biome));
-				picker.addBiome(bclBiome);
-			});*/
 			EdenBiomes.BIOMES.forEach(biome -> picker.addBiome(biome));
 			picker.rebuild();
 		}
 		picker.getBiomes().forEach(biome -> biome.updateActualBiomes(biomeRegistry));
-		map = new BiomeMap(0, GeneratorOptions.biomeSize, picker);
+		map = new BiomeMap(TerrainGenerator.seed, GeneratorOptions.biomeSize, picker);
 	}
 	
 	@Override
@@ -54,13 +50,17 @@ public class EdenBiomeSource extends BiomeSource {
 	
 	@Override
 	public BiomeSource withSeed(long seed) {
-		EdenBiomeSource source = new EdenBiomeSource(biomeRegistry);
-		map = new BiomeMap(seed, GeneratorOptions.biomeSize, picker);
-		return source;
+		return new EdenBiomeSource(biomeRegistry);
 	}
 	
 	@Override
 	public Biome getNoiseBiome(int x, int y, int z) {
+		if (map.getSeed() != TerrainGenerator.seed) {
+			map = new BiomeMap(TerrainGenerator.seed, GeneratorOptions.biomeSize, picker);
+		}
+		if ((x & 63) == 0 && (z & 63) == 0) {
+			map.clearCache();
+		}
 		return map.getBiome(x, z).getActualBiome();
 	}
 }

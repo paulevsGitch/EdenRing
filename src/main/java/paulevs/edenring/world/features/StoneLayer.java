@@ -13,8 +13,6 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
 import ru.bclib.noise.OpenSimplexNoise;
 import ru.bclib.world.features.DefaultFeature;
 
-import java.util.Random;
-
 public class StoneLayer extends DefaultFeature {
 	private static final OpenSimplexNoise OFFSET_NOISE = new OpenSimplexNoise("stone".hashCode());
 	private OpenSimplexNoise noise;
@@ -29,7 +27,6 @@ public class StoneLayer extends DefaultFeature {
 	public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> featurePlaceContext) {
 		WorldGenLevel level = featurePlaceContext.level();
 		BlockPos center = featurePlaceContext.origin();
-		Random random = featurePlaceContext.random();
 		
 		int posX = center.getX() & 0xFFFFFFF0;
 		int posZ = center.getZ() & 0xFFFFFFF0;

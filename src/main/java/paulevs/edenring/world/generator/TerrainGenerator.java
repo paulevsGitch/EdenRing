@@ -27,6 +27,7 @@ public class TerrainGenerator {
 	private static IslandLayer smallIslands;
 	private static OpenSimplexNoise noise1;
 	private static OpenSimplexNoise noise2;
+	protected static long seed;
 	
 	public static void initNoise(long seed) {
 		Random random = new Random(seed);
@@ -35,6 +36,7 @@ public class TerrainGenerator {
 		smallIslands = new IslandLayer(random.nextInt(), GeneratorOptions.smallOptions);
 		noise1 = new OpenSimplexNoise(random.nextInt());
 		noise2 = new OpenSimplexNoise(random.nextInt());
+		TerrainGenerator.seed = seed;
 		TERRAIN_BOOL_CACHE_MAP.clear();
 	}
 	

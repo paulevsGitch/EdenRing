@@ -11,10 +11,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.dimension.DimensionType;
 import paulevs.edenring.registries.EdenBiomes;
 import paulevs.edenring.registries.EdenBlocks;
+import paulevs.edenring.world.features.EdenFeatures;
 import paulevs.edenring.world.generator.EdenBiomeSource;
 import paulevs.edenring.world.generator.EdenChunkGenerator;
 import paulevs.edenring.world.generator.GeneratorOptions;
-import paulevs.edenring.world.features.EdenFeatures;
 import ru.bclib.registry.BaseRegistry;
 
 public class EdenRing implements ModInitializer {

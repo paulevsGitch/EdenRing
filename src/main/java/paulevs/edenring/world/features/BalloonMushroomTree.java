@@ -1,4 +1,4 @@
-package paulevs.edenring.world.structures;
+package paulevs.edenring.world.features;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;

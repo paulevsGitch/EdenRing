@@ -14,7 +14,7 @@ import paulevs.edenring.registries.EdenBlocks;
 import paulevs.edenring.world.generator.EdenBiomeSource;
 import paulevs.edenring.world.generator.EdenChunkGenerator;
 import paulevs.edenring.world.generator.GeneratorOptions;
-import paulevs.edenring.world.structures.EdenFeatures;
+import paulevs.edenring.world.features.EdenFeatures;
 import ru.bclib.registry.BaseRegistry;
 
 public class EdenRing implements ModInitializer {

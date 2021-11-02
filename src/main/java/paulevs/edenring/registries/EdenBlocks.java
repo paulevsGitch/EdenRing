@@ -14,6 +14,7 @@ import paulevs.edenring.blocks.BalloonMushroomStemBlock;
 import paulevs.edenring.blocks.EdenGrassBlock;
 import paulevs.edenring.blocks.MossyStoneBlock;
 import paulevs.edenring.blocks.OverlayPlantBlock;
+import paulevs.edenring.blocks.OverlayVineBlock;
 import paulevs.edenring.blocks.SimplePlantBlock;
 import paulevs.edenring.blocks.TexturedTerrainBlock;
 import ru.bclib.blocks.BaseLeavesBlock;
@@ -39,6 +40,8 @@ public class EdenBlocks {
 	
 	public static final Block MYCOTIC_GRASS = register("mycotic_grass", new SimplePlantBlock(true));
 	public static final Block GOLDEN_GRASS = register("golden_grass", new OverlayPlantBlock(true));
+	
+	public static final Block EDEN_VINE = register("eden_vine", new OverlayVineBlock());
 	
 	public static void init() {}
 	

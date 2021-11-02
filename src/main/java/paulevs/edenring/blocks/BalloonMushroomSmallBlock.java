@@ -5,10 +5,11 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import paulevs.edenring.registries.EdenBlocks;
-import paulevs.edenring.world.structures.EdenFeatures;
+import paulevs.edenring.world.features.EdenFeatures;
 
 import java.util.Random;
 
@@ -24,7 +25,13 @@ public class BalloonMushroomSmallBlock extends CustomSaplingBlock {
 	
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter view, BlockPos pos, CollisionContext ePos) {
-		return SHAPE;
+		Vec3 vec3d = state.getOffset(view, pos);
+		return SHAPE.move(vec3d.x, vec3d.y, vec3d.z);
+	}
+	
+	@Override
+	public OffsetType getOffsetType() {
+		return OffsetType.XZ;
 	}
 	
 	@Override

@@ -1,10 +1,12 @@
-package paulevs.edenring.world.structures;
+package paulevs.edenring.world.features;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import ru.bclib.util.BlocksHelper;
@@ -13,30 +15,37 @@ import ru.bclib.world.features.DefaultFeature;
 
 import java.util.Random;
 
-public class FloorScatterFeature extends DefaultFeature {
+public class ScatterFeature extends DefaultFeature {
 	private Block block;
-	private Block floor;
 	
-	public FloorScatterFeature(Block block, Block floor) {
+	public ScatterFeature(Block block) {
 		this.block = block;
-		this.floor = floor;
 	}
 	
 	@Override
+	@SuppressWarnings("deprecation")
 	public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> featurePlaceContext) {
 		Random random = featurePlaceContext.random();
 		BlockPos center = featurePlaceContext.origin();
 		WorldGenLevel level = featurePlaceContext.level();
 		
+		BlockState state = block.defaultBlockState();
 		MutableBlockPos pos = new MutableBlockPos();
-		int count = MHelper.randRange(100, 200, random);
+		int count = MHelper.randRange(10, 20, random);
 		for (int i = 0; i < count; i++) {
-			int px = center.getX() + Mth.floor(Mth.clamp(random.nextGaussian() * 2, -8, 8));
-			int py = center.getY() + Mth.floor(Mth.clamp(random.nextGaussian() * 2, -8, 8));
-			int pz = center.getZ() + Mth.floor(Mth.clamp(random.nextGaussian() * 2, -8, 8));
-			pos.set(px, py, pz);
-			if (level.getBlockState(pos).is(floor)) {
-				BlocksHelper.setWithoutUpdate(level, pos, block);
+			int px = center.getX() + Mth.floor(Mth.clamp(random.nextGaussian() * 2 + 0.5F, -8, 8));
+			int pz = center.getZ() + Mth.floor(Mth.clamp(random.nextGaussian() * 2 + 0.5F, -8, 8));
+			pos.setX(px);
+			pos.setZ(pz);
+			for (int y = 5; y > -5; y--) {
+				pos.setY(center.getY() + y);
+				if (level.getBlockState(pos).isFaceSturdy(level, pos, Direction.UP)) {
+					pos.setY(pos.getY() + 1);
+					if (level.getBlockState(pos).isAir() && block.canSurvive(state, level, pos)) {
+						BlocksHelper.setWithoutUpdate(level, pos, state);
+						break;
+					}
+				}
 			}
 		}
 		

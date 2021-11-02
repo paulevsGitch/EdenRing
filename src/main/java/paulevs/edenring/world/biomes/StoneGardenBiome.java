@@ -6,7 +6,7 @@ import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
 import net.minecraft.world.level.levelgen.surfacebuilders.ConfiguredSurfaceBuilder;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.registries.EdenBiomes;
-import paulevs.edenring.world.structures.EdenFeatures;
+import paulevs.edenring.world.features.EdenFeatures;
 import ru.bclib.config.IdConfig;
 import ru.bclib.world.biomes.BCLBiome;
 import ru.bclib.world.biomes.BCLBiomeDef;
@@ -27,6 +27,8 @@ public class StoneGardenBiome extends BCLBiome {
 				.addFeature(EdenFeatures.MOSS_FLOOR)
 				.addFeature(EdenFeatures.MOSS_LAYER)
 				.addFeature(EdenFeatures.STONE_PILLAR)
+				.addFeature(EdenFeatures.EDEN_VINE)
+				.addFeature(EdenFeatures.ROOTS)
 				.setSkyColor(113, 178, 255)
 				.setFogColor(183, 212, 255)
 		));

@@ -15,7 +15,9 @@ import paulevs.edenring.world.features.EdenFeatures;
 import paulevs.edenring.world.generator.EdenBiomeSource;
 import paulevs.edenring.world.generator.EdenChunkGenerator;
 import paulevs.edenring.world.generator.GeneratorOptions;
+import ru.bclib.BCLib;
 import ru.bclib.registry.BaseRegistry;
+import ru.bclib.util.TranslationHelper;
 
 public class EdenRing implements ModInitializer {
 	public static final String MOD_ID = "edenring";
@@ -36,6 +38,11 @@ public class EdenRing implements ModInitializer {
 		EdenBiomes.init();
 		Registry.register(Registry.CHUNK_GENERATOR, makeID("chunk_generator"), EdenChunkGenerator.CODEC);
 		Registry.register(Registry.BIOME_SOURCE, makeID("biome_source"), EdenBiomeSource.CODEC);
+		
+		if (BCLib.isDevEnvironment()) {
+			TranslationHelper.printMissingEnNames(MOD_ID);
+			TranslationHelper.printMissingNames(MOD_ID, "ru_ru");
+		}
 	}
 	
 	public static ResourceLocation makeID(String path) {

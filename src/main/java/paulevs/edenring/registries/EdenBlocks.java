@@ -1,11 +1,19 @@
 package paulevs.edenring.registries;
 
 
+import net.fabricmc.fabric.mixin.object.builder.AbstractBlockAccessor;
+import net.fabricmc.fabric.mixin.object.builder.AbstractBlockSettingsAccessor;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.GrassBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.blocks.BalloonMushroomBlock;
@@ -17,10 +25,12 @@ import paulevs.edenring.blocks.OverlayPlantBlock;
 import paulevs.edenring.blocks.OverlayVineBlock;
 import paulevs.edenring.blocks.SimplePlantBlock;
 import paulevs.edenring.blocks.TexturedTerrainBlock;
+import ru.bclib.api.TagAPI;
 import ru.bclib.blocks.BaseLeavesBlock;
 import ru.bclib.complexmaterials.ComplexMaterial;
 import ru.bclib.complexmaterials.WoodenComplexMaterial;
 import ru.bclib.config.PathConfig;
+import ru.bclib.mixin.common.ComposterBlockAccessor;
 import ru.bclib.registry.BlockRegistry;
 
 public class EdenBlocks {
@@ -43,7 +53,26 @@ public class EdenBlocks {
 	
 	public static final Block EDEN_VINE = register("eden_vine", new OverlayVineBlock());
 	
-	public static void init() {}
+	public static void init() {
+		Registry.BLOCK.stream().filter(block -> Registry.BLOCK.getKey(block).getNamespace().equals(EdenRing.MOD_ID)).forEach(block -> {
+			Properties properties = ((AbstractBlockAccessor) block).getSettings();
+			Material material = ((AbstractBlockSettingsAccessor) properties).getMaterial();
+			
+			if (block instanceof BaseLeavesBlock) {
+				TagAPI.addTag(BlockTags.MINEABLE_WITH_HOE, block);
+				TagAPI.addTag(BlockTags.LEAVES, block);
+				TagAPI.addTag(ItemTags.LEAVES, block);
+				ComposterBlockAccessor.callAdd(0.3F, block);
+			}
+			else if (block instanceof GrassBlock) {
+				TagAPI.addTag(BlockTags.MINEABLE_WITH_SHOVEL, block);
+			}
+			else if (material == Material.PLANT || material == Material.REPLACEABLE_PLANT) {
+				TagAPI.addTag(BlockTags.MINEABLE_WITH_HOE, block);
+				ComposterBlockAccessor.callAdd(0.1F, block);
+			}
+		});
+	}
 	
 	private static Block register(String name, Block block) {
 		return REGISTRY.register(EdenRing.makeID(name), block);

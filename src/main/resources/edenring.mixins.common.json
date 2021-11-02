@@ -4,8 +4,8 @@
 	"package": "paulevs.edenring.mixin.common",
 	"compatibilityLevel": "JAVA_16",
 	"mixins": [
-		"ServerLevelMixin",
-		"BushBlockMixin"
+		"BushBlockMixin",
+		"ServerLevelMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

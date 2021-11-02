@@ -3,6 +3,8 @@ package paulevs.edenring.world.features;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.GrassBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
@@ -16,14 +18,15 @@ import ru.bclib.world.features.DefaultFeature;
 
 import java.util.Random;
 
-public class BalloonMushroomTree extends DefaultFeature {
+public class BalloonMushroomTreeFeature extends DefaultFeature {
 	@Override
 	public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> featurePlaceContext) {
 		WorldGenLevel level = featurePlaceContext.level();
 		BlockPos center = featurePlaceContext.origin();
 		Random random = featurePlaceContext.random();
 		
-		if (!(level.getBlockState(center.below()).getBlock() instanceof GrassBlock)) {
+		Block below = level.getBlockState(center.below()).getBlock();
+		if (!(below instanceof GrassBlock) && below != Blocks.DIRT) {
 			return false;
 		}
 		

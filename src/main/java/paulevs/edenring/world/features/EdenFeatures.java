@@ -44,7 +44,9 @@ public class EdenFeatures {
 	public static final BCLFeature MYCOTIC_GRASS = BCLFeature.makeVegetationFeature(EdenRing.makeID("mycotic_grass"), new ScatterFeature(EdenBlocks.MYCOTIC_GRASS), 12);
 	public static final BCLFeature GOLDEN_GRASS = BCLFeature.makeVegetationFeature(EdenRing.makeID("golden_grass"), new ScatterFeature(EdenBlocks.GOLDEN_GRASS), 8);
 	public static final BCLFeature BALLOON_MUSHROOM_SMALL = BCLFeature.makeVegetationFeature(EdenRing.makeID("balloon_mushroom_small"), new ScatterFeature(EdenBlocks.BALLOON_MUSHROOM_SMALL), 6);
-	public static final BCLFeature BALLOON_MUSHROOM_TREE = BCLFeature.makeVegetationFeature(EdenRing.makeID("balloon_mushroom_tree"), new BalloonMushroomTree(), 12);
+	
+	public static final BCLFeature BALLOON_MUSHROOM_TREE = BCLFeature.makeVegetationFeature(EdenRing.makeID("balloon_mushroom_tree"), new BalloonMushroomTreeFeature(), 12);
+	public static final BCLFeature AURITIS_TREE = BCLFeature.makeVegetationFeature(EdenRing.makeID("auritis_tree"), new AuritisTreeFeature(), 5);
 	
 	public static final BCLFeature EDEN_VINE = BCLFeature.makeVegetationFeature(EdenRing.makeID("eden_vine"), new VineFeature(), 2);
 	public static final BCLFeature ROOTS = BCLFeature.makeVegetationFeature(EdenRing.makeID("roots"), new RootsFeature(), 4);

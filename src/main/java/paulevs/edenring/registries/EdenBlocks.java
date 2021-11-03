@@ -29,6 +29,7 @@ import paulevs.edenring.blocks.SimplePlantBlock;
 import paulevs.edenring.blocks.TexturedTerrainBlock;
 import ru.bclib.api.TagAPI;
 import ru.bclib.blocks.BaseLeavesBlock;
+import ru.bclib.blocks.BaseVineBlock;
 import ru.bclib.complexmaterials.ComplexMaterial;
 import ru.bclib.complexmaterials.WoodenComplexMaterial;
 import ru.bclib.config.PathConfig;
@@ -76,6 +77,10 @@ public class EdenBlocks {
 			else if (material == Material.PLANT || material == Material.REPLACEABLE_PLANT) {
 				TagAPI.addTag(BlockTags.MINEABLE_WITH_HOE, block);
 				ComposterBlockAccessor.callAdd(0.1F, block);
+			}
+			
+			if (block instanceof BaseVineBlock) {
+				TagAPI.addTag(BlockTags.CLIMBABLE, block);
 			}
 		});
 	}

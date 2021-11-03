@@ -4,6 +4,7 @@ import com.google.common.collect.Maps;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -27,10 +28,12 @@ import paulevs.edenring.blocks.EdenBlockProperties.PulseTreeState;
 import paulevs.edenring.registries.EdenBlocks;
 import ru.bclib.blocks.BaseBlockNotFull;
 import ru.bclib.client.models.ModelsHelper;
+import ru.bclib.client.models.PatternsHelper;
 import ru.bclib.client.render.BCLRenderLayer;
 import ru.bclib.interfaces.RenderLayerProvider;
 
 import java.util.Map;
+import java.util.Optional;
 
 public class PulseTreeBlock extends BaseBlockNotFull implements RenderLayerProvider {
 	public static final EnumProperty<PulseTreeState> PULSE_TREE = EdenBlockProperties.PULSE_TREE;
@@ -81,6 +84,13 @@ public class PulseTreeBlock extends BaseBlockNotFull implements RenderLayerProvi
 		ResourceLocation modelId = EdenRing.makeID("block/pulse_tree_" + state.getSerializedName());
 		
 		return ModelsHelper.createBlockSimple(modelId);
+	}
+	
+	@Override
+	@Environment(EnvType.CLIENT)
+	public BlockModel getItemModel(ResourceLocation resourceLocation) {
+		Optional<String> pattern = PatternsHelper.createJson(EdenRing.makeID("models/block/pulse_tree_up.json"), Maps.newHashMap());
+		return ModelsHelper.fromPattern(pattern);
 	}
 	
 	@Override

@@ -15,9 +15,9 @@ import java.util.Random;
 
 public class FloorScatterFeature extends DefaultFeature {
 	private Block block;
-	private Block floor;
+	private Block[] floor;
 	
-	public FloorScatterFeature(Block block, Block floor) {
+	public FloorScatterFeature(Block block, Block... floor) {
 		this.block = block;
 		this.floor = floor;
 	}
@@ -35,8 +35,11 @@ public class FloorScatterFeature extends DefaultFeature {
 			int py = center.getY() + Mth.floor(Mth.clamp(random.nextGaussian() * 2, -8, 8));
 			int pz = center.getZ() + Mth.floor(Mth.clamp(random.nextGaussian() * 2, -8, 8));
 			pos.set(px, py, pz);
-			if (level.getBlockState(pos).is(floor)) {
-				BlocksHelper.setWithoutUpdate(level, pos, block);
+			for (Block block: floor) {
+				if (level.getBlockState(pos).is(block)) {
+					BlocksHelper.setWithoutUpdate(level, pos, block);
+					break;
+				}
 			}
 		}
 		

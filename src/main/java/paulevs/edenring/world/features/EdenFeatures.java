@@ -9,11 +9,11 @@ public class EdenFeatures {
 	public static final BCLFeature MOSS_LAYER = BCLFeature.makeVegetationFeature(EdenRing.makeID("moss_layer"), new ScatterFeature(Blocks.MOSS_CARPET), 4);
 	public static final BCLFeature MOSS_FLOOR = BCLFeature.makeVegetationFeature(
 		EdenRing.makeID("moss_floor"),
-		new FloorScatterFeature(Blocks.MOSS_BLOCK, EdenBlocks.EDEN_GRASS_BLOCK), 4
+		new FloorScatterFeature(Blocks.MOSS_BLOCK, EdenBlocks.EDEN_GRASS_BLOCK, Blocks.DIRT), 4
 	);
 	public static final BCLFeature COBBLE_FLOOR = BCLFeature.makeVegetationFeature(
 		EdenRing.makeID("cobble_floor"),
-		new FloorScatterFeature(Blocks.MOSSY_COBBLESTONE, EdenBlocks.EDEN_GRASS_BLOCK), 4
+		new FloorScatterFeature(Blocks.MOSSY_COBBLESTONE, EdenBlocks.EDEN_GRASS_BLOCK, Blocks.DIRT), 4
 	);
 	public static final BCLFeature GRASS_FLOOR = BCLFeature.makeVegetationFeature(
 		EdenRing.makeID("grass_floor"),

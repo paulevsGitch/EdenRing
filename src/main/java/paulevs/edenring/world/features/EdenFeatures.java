@@ -47,6 +47,7 @@ public class EdenFeatures {
 	
 	public static final BCLFeature BALLOON_MUSHROOM_TREE = BCLFeature.makeVegetationFeature(EdenRing.makeID("balloon_mushroom_tree"), new BalloonMushroomTreeFeature(), 12);
 	public static final BCLFeature AURITIS_TREE = BCLFeature.makeVegetationFeature(EdenRing.makeID("auritis_tree"), new AuritisTreeFeature(), 5);
+	public static final BCLFeature PULSE_TREE = BCLFeature.makeVegetationFeature(EdenRing.makeID("pulse_tree"), new PulseTreeFeature(), 50);
 	
 	public static final BCLFeature EDEN_VINE = BCLFeature.makeVegetationFeature(EdenRing.makeID("eden_vine"), new VineFeature(), 2);
 	public static final BCLFeature ROOTS = BCLFeature.makeVegetationFeature(EdenRing.makeID("roots"), new RootsFeature(), 4);

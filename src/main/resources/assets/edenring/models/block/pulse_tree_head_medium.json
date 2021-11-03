@@ -1,0 +1,74 @@
+{
+	"__comment": "Designed by Paulevs with Cubik Studio - https://cubik.studio",
+	"parent": "block/block",
+	"textures": {
+		"particle": "edenring:block/pulse_tree_stem",
+		"texture": "edenring:block/pulse_tree_stem",
+		"side": "edenring:block/pulse_tree_side_medium",
+		"top": "edenring:block/pulse_tree_top_medium",
+		"bottom": "edenring:block/pulse_tree_bottom_medium"
+	},
+	"elements": [ 	 
+		{
+			"__comment": "Box1",
+			"from": [ 6, 0, 6 ],
+			"to": [ 10, 12, 10 ],
+			"faces": {
+				"down": { "uv": [ 4, 0, 8, 4 ], "texture": "#texture", "cullface": "down" },
+				"north": { "uv": [ 0, 4, 4, 16 ], "texture": "#texture" },
+				"south": { "uv": [ 0, 4, 4, 16 ], "texture": "#texture" },
+				"west": { "uv": [ 0, 4, 4, 16 ], "texture": "#texture" },
+				"east": { "uv": [ 0, 4, 4, 16 ], "texture": "#texture" }
+			}
+		},
+		{
+			"__comment": "Box2",
+			"from": [ 2, 12, 2 ],
+			"to": [ 14, 16, 14 ],
+			"faces": {
+				"down": { "uv": [ 2, 2, 14, 14 ], "texture": "#bottom" },
+				"up": { "uv": [ 2, 2, 14, 14 ], "texture": "#top", "cullface": "up" },
+				"north": { "uv": [ 2, 0, 14, 4 ], "texture": "#side" },
+				"south": { "uv": [ 2, 0, 14, 4 ], "texture": "#side" },
+				"west": { "uv": [ 2, 0, 14, 4 ], "texture": "#side" },
+				"east": { "uv": [ 2, 0, 14, 4 ], "texture": "#side" }
+			}
+		},
+		{
+			"__comment": "PlaneX5",
+			"from": [ 4, 7, 0 ],
+			"to": [ 4, 12, 16 ],
+			"faces": {
+				"west": { "uv": [ 0, 4, 16, 9 ], "texture": "#side" },
+				"east": { "uv": [ 0, 4, 16, 9 ], "texture": "#side" }
+			}
+		},
+		{
+			"__comment": "PlaneX5",
+			"from": [ 12, 7, 0 ],
+			"to": [ 12, 12, 16 ],
+			"faces": {
+				"west": { "uv": [ 0, 4, 16, 9 ], "texture": "#side" },
+				"east": { "uv": [ 0, 4, 16, 9 ], "texture": "#side" }
+			}
+		},
+		{
+			"__comment": "PlaneZ7",
+			"from": [ 0, 8, 4 ],
+			"to": [ 16, 12, 4 ],
+			"faces": {
+				"north": { "uv": [ 0, 4, 16, 8 ], "texture": "#side" },
+				"south": { "uv": [ 0, 4, 16, 8 ], "texture": "#side" }
+			}
+		},
+		{
+			"__comment": "PlaneZ7",
+			"from": [ 0, 8, 12 ],
+			"to": [ 16, 12, 12 ],
+			"faces": {
+				"north": { "uv": [ 0, 4, 16, 8 ], "texture": "#side" },
+				"south": { "uv": [ 0, 4, 16, 8 ], "texture": "#side" }
+			}
+		}
+	]
+}

@@ -24,6 +24,7 @@ import paulevs.edenring.blocks.EdenGrassBlock;
 import paulevs.edenring.blocks.MossyStoneBlock;
 import paulevs.edenring.blocks.OverlayPlantBlock;
 import paulevs.edenring.blocks.OverlayVineBlock;
+import paulevs.edenring.blocks.PulseTreeBlock;
 import paulevs.edenring.blocks.SimplePlantBlock;
 import paulevs.edenring.blocks.TexturedTerrainBlock;
 import ru.bclib.api.TagAPI;
@@ -48,7 +49,10 @@ public class EdenBlocks {
 	public static final Block BALLOON_MUSHROOM_SMALL = register("balloon_mushroom_small", new BalloonMushroomSmallBlock());
 	public static final Block BALLOON_MUSHROOM_BLOCK = register("balloon_mushroom_block", new BalloonMushroomBlock());
 	public static final Block BALLOON_MUSHROOM_STEM = register("balloon_mushroom_stem", new BalloonMushroomStemBlock());
-	public static final ComplexMaterial BALLOON_MUSHROOM_MATERIAL = new WoodenComplexMaterial(EdenRing.MOD_ID, "balloon_mushroom", "eden", MaterialColor.COLOR_PURPLE, MaterialColor.COLOR_PURPLE).init(REGISTRY, EdenItems.REGISTRY, new PathConfig(EdenRing.MOD_ID, "recipes"));
+	public static final ComplexMaterial BALLOON_MUSHROOM_MATERIAL = new WoodenComplexMaterial(EdenRing.MOD_ID, "balloon_mushroom", "eden", MaterialColor.COLOR_PURPLE, MaterialColor.COLOR_PURPLE).init(REGISTRY, EdenItems.REGISTRY, EdenRecipes.CONFIG);
+	
+	public static final Block PULSE_TREE = register("pulse_tree", new PulseTreeBlock());
+	public static final ComplexMaterial PULSE_TREE_MATERIAL = new WoodenComplexMaterial(EdenRing.MOD_ID, "pulse_tree", "eden", MaterialColor.COLOR_CYAN, MaterialColor.COLOR_CYAN).init(REGISTRY, EdenItems.REGISTRY, EdenRecipes.CONFIG);
 	
 	public static final Block MYCOTIC_GRASS = register("mycotic_grass", new SimplePlantBlock(true));
 	public static final Block GOLDEN_GRASS = register("golden_grass", new OverlayPlantBlock(true));

@@ -14,6 +14,7 @@ import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilderConfigur
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.world.biomes.GoldenForestBiome;
 import paulevs.edenring.world.biomes.MycoticForestBiome;
+import paulevs.edenring.world.biomes.PulseForest;
 import paulevs.edenring.world.biomes.StoneGardenBiome;
 import paulevs.edenring.world.features.EdenFeatures;
 import ru.bclib.api.BiomeAPI;
@@ -44,6 +45,7 @@ public class EdenBiomes {
 	public static final BCLBiome STONE_GARDEN = register(new StoneGardenBiome(CONFIG, DEFAULT_BUILDER));
 	public static final BCLBiome GOLDEN_FOREST = register(new GoldenForestBiome(CONFIG, DEFAULT_BUILDER));
 	public static final BCLBiome MYCOTIC_FOREST = register(new MycoticForestBiome(CONFIG, MYCELIUM_BUILDER));
+	public static final BCLBiome PULSE_FOREST = register(new PulseForest(CONFIG, DEFAULT_BUILDER));
 	
 	public static void init() {
 		CONFIG.saveChanges();
@@ -52,11 +54,6 @@ public class EdenBiomes {
 	private static BCLBiome register(BCLBiome biome) {
 		BIOMES.add(biome);
 		return BiomeAPI.registerBiome(biome);
-	}
-	
-	public static int correctColor(int color) {
-		color *= 1.33F;
-		return color > 255 ? 255 : color;
 	}
 	
 	public static BCLBiomeDef addDefaultFeatures(BCLBiomeDef def) {

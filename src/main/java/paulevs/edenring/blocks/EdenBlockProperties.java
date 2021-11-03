@@ -6,6 +6,7 @@ import ru.bclib.blocks.BlockProperties;
 
 public class EdenBlockProperties extends BlockProperties {
 	public static final EnumProperty<BalloonMushroomStemState> BALLOON_MUSHROOM_STEM = EnumProperty.create("shape", BalloonMushroomStemState.class);
+	public static final EnumProperty<PulseTreeState> PULSE_TREE = EnumProperty.create("shape", PulseTreeState.class);
 	
 	public enum BalloonMushroomStemState implements StringRepresentable {
 		UP("up"),
@@ -18,6 +19,31 @@ public class EdenBlockProperties extends BlockProperties {
 		private final String name;
 		
 		BalloonMushroomStemState(String name) {
+			this.name = name;
+		}
+		
+		@Override
+		public String getSerializedName() {
+			return this.name;
+		}
+		
+		@Override
+		public String toString() {
+			return this.name;
+		}
+	}
+	
+	public enum PulseTreeState implements StringRepresentable {
+		UP("up"),
+		NORTH_SOUTH("north_south"),
+		EAST_WEST("east_west"),
+		HEAD_BIG("head_big"),
+		HEAD_MEDIUM("head_medium"),
+		HEAD_SMALL("head_small");
+		
+		private final String name;
+		
+		PulseTreeState(String name) {
 			this.name = name;
 		}
 		

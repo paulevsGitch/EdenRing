@@ -42,7 +42,7 @@ public class ScatterFeature extends DefaultFeature {
 				if (level.getBlockState(pos).isFaceSturdy(level, pos, Direction.UP)) {
 					pos.setY(pos.getY() + 1);
 					if (level.getBlockState(pos).isAir() && block.canSurvive(state, level, pos)) {
-						BlocksHelper.setWithoutUpdate(level, pos, state);
+						placeBlock(level, pos, state);
 						break;
 					}
 				}
@@ -50,5 +50,9 @@ public class ScatterFeature extends DefaultFeature {
 		}
 		
 		return true;
+	}
+	
+	protected void placeBlock(WorldGenLevel level, BlockPos pos, BlockState state) {
+		BlocksHelper.setWithoutUpdate(level, pos, state);
 	}
 }

@@ -27,6 +27,7 @@ public class StoneGardenBiome extends BCLBiome {
 				.addFeature(EdenFeatures.MOSS_FLOOR)
 				.addFeature(EdenFeatures.MOSS_LAYER)
 				.addFeature(EdenFeatures.STONE_PILLAR)
+				.addFeature(EdenFeatures.VIOLUM_RARE)
 				.addFeature(EdenFeatures.EDEN_VINE)
 				.addFeature(EdenFeatures.ROOTS)
 				.setSkyColor(113, 178, 255)

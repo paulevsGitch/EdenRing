@@ -23,6 +23,7 @@ public class PulseForest extends BCLBiome {
 				.addFeature(Decoration.VEGETAL_DECORATION, Features.PATCH_TALL_GRASS)
 				.addFeature(Decoration.VEGETAL_DECORATION, Features.PATCH_LARGE_FERN)
 				.addFeature(EdenFeatures.PULSE_TREE)
+				.addFeature(EdenFeatures.VIOLUM_DENSE)
 				.addFeature(EdenFeatures.EDEN_VINE)
 				.setSkyColor(113, 178, 255)
 				.setFogColor(115, 235, 242)

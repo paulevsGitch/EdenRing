@@ -16,11 +16,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import paulevs.edenring.EdenRing;
-import paulevs.edenring.blocks.AuritisOuterLeaves;
 import paulevs.edenring.blocks.BalloonMushroomBlock;
 import paulevs.edenring.blocks.BalloonMushroomSmallBlock;
 import paulevs.edenring.blocks.BalloonMushroomStemBlock;
+import paulevs.edenring.blocks.CustomSaplingBlock;
 import paulevs.edenring.blocks.EdenGrassBlock;
+import paulevs.edenring.blocks.EdenMossBlock;
 import paulevs.edenring.blocks.MossyStoneBlock;
 import paulevs.edenring.blocks.OverlayDoublePlantBlock;
 import paulevs.edenring.blocks.OverlayPlantBlock;
@@ -28,6 +29,7 @@ import paulevs.edenring.blocks.OverlayVineBlock;
 import paulevs.edenring.blocks.PulseTreeBlock;
 import paulevs.edenring.blocks.SimplePlantBlock;
 import paulevs.edenring.blocks.TexturedTerrainBlock;
+import paulevs.edenring.world.features.EdenFeatures;
 import ru.bclib.api.TagAPI;
 import ru.bclib.blocks.BaseLeavesBlock;
 import ru.bclib.blocks.BaseVineBlock;
@@ -44,8 +46,8 @@ public class EdenBlocks {
 	public static final Block EDEN_MYCELIUM = register("eden_mycelium", new TexturedTerrainBlock());
 	public static final Block MOSSY_STONE = register("mossy_stone", new MossyStoneBlock());
 	
+	public static final Block AURITIS_SAPLING = register("auritis_sapling", new CustomSaplingBlock(() -> EdenFeatures.AURITIS_TREE.getFeature()));
 	public static final Block AURITIS_LEAVES = register("auritis_leaves", new BaseLeavesBlock(Blocks.OAK_SAPLING, MaterialColor.GOLD));
-	public static final Block AURITIS_OUTER_LEAVES = register("auritis_outer_leaves", new AuritisOuterLeaves());
 	public static final ComplexMaterial AURITIS_MATERIAL = new WoodenComplexMaterial(EdenRing.MOD_ID, "auritis", "eden", MaterialColor.COLOR_BROWN, MaterialColor.GOLD).init(REGISTRY, EdenItems.REGISTRY, new PathConfig(EdenRing.MOD_ID, "recipes"));
 	
 	public static final Block BALLOON_MUSHROOM_SMALL = register("balloon_mushroom_small", new BalloonMushroomSmallBlock());
@@ -53,8 +55,11 @@ public class EdenBlocks {
 	public static final Block BALLOON_MUSHROOM_STEM = register("balloon_mushroom_stem", new BalloonMushroomStemBlock());
 	public static final ComplexMaterial BALLOON_MUSHROOM_MATERIAL = new WoodenComplexMaterial(EdenRing.MOD_ID, "balloon_mushroom", "eden", MaterialColor.COLOR_PURPLE, MaterialColor.COLOR_PURPLE).init(REGISTRY, EdenItems.REGISTRY, EdenRecipes.CONFIG);
 	
+	public static final Block PULSE_TREE_SAPLING = register("pulse_tree_sapling", new CustomSaplingBlock(() -> EdenFeatures.PULSE_TREE.getFeature()));
 	public static final Block PULSE_TREE = register("pulse_tree", new PulseTreeBlock());
 	public static final ComplexMaterial PULSE_TREE_MATERIAL = new WoodenComplexMaterial(EdenRing.MOD_ID, "pulse_tree", "eden", MaterialColor.COLOR_CYAN, MaterialColor.COLOR_CYAN).init(REGISTRY, EdenItems.REGISTRY, EdenRecipes.CONFIG);
+	
+	public static final Block EDEN_MOSS = register("eden_moss", new EdenMossBlock());
 	
 	public static final Block MYCOTIC_GRASS = register("mycotic_grass", new SimplePlantBlock(true));
 	public static final Block GOLDEN_GRASS = register("golden_grass", new OverlayPlantBlock(true));

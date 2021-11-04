@@ -7,17 +7,19 @@ import ru.bclib.world.features.BCLFeature;
 
 public class EdenFeatures {
 	public static final BCLFeature MOSS_LAYER = BCLFeature.makeVegetationFeature(EdenRing.makeID("moss_layer"), new ScatterFeature(Blocks.MOSS_CARPET), 4);
+	public static final BCLFeature EDEN_MOSS_LAYER = BCLFeature.makeVegetationFeature(EdenRing.makeID("eden_moss_layer"), new ScatterFeature(EdenBlocks.EDEN_MOSS), 6);
+	
 	public static final BCLFeature MOSS_FLOOR = BCLFeature.makeVegetationFeature(
 		EdenRing.makeID("moss_floor"),
-		new FloorScatterFeature(Blocks.MOSS_BLOCK, EdenBlocks.EDEN_GRASS_BLOCK, Blocks.DIRT), 4
+		new FloorScatterFeature(Blocks.MOSS_BLOCK, EdenBlocks.EDEN_GRASS_BLOCK, Blocks.DIRT), 16
 	);
 	public static final BCLFeature COBBLE_FLOOR = BCLFeature.makeVegetationFeature(
 		EdenRing.makeID("cobble_floor"),
-		new FloorScatterFeature(Blocks.MOSSY_COBBLESTONE, EdenBlocks.EDEN_GRASS_BLOCK, Blocks.DIRT), 4
+		new FloorScatterFeature(Blocks.MOSSY_COBBLESTONE, EdenBlocks.EDEN_GRASS_BLOCK, Blocks.DIRT), 8
 	);
 	public static final BCLFeature GRASS_FLOOR = BCLFeature.makeVegetationFeature(
 		EdenRing.makeID("grass_floor"),
-		new FloorScatterFeature(EdenBlocks.EDEN_GRASS_BLOCK, EdenBlocks.EDEN_MYCELIUM), 4
+		new FloorScatterFeature(EdenBlocks.EDEN_GRASS_BLOCK, EdenBlocks.EDEN_MYCELIUM), 6
 	);
 	public static final BCLFeature STONE_PILLAR = BCLFeature.makeRawGenFeature(EdenRing.makeID("stone_pillar"), new StonePillar(), 15);
 	
@@ -49,7 +51,7 @@ public class EdenFeatures {
 	public static final BCLFeature VIOLUM_RARE = BCLFeature.makeVegetationFeature(EdenRing.makeID("violum_rare"), new DoubleScatterFeature(EdenBlocks.VIOLUM), 1);
 	
 	public static final BCLFeature BALLOON_MUSHROOM_TREE = BCLFeature.makeVegetationFeature(EdenRing.makeID("balloon_mushroom_tree"), new BalloonMushroomTreeFeature(), 12);
-	public static final BCLFeature AURITIS_TREE = BCLFeature.makeVegetationFeature(EdenRing.makeID("auritis_tree"), new AuritisTreeFeature(), 5);
+	public static final BCLFeature AURITIS_TREE = BCLFeature.makeVegetationFeature(EdenRing.makeID("auritis_tree"), new AuritisTreeFeature(), 10);
 	public static final BCLFeature PULSE_TREE = BCLFeature.makeVegetationFeature(EdenRing.makeID("pulse_tree"), new PulseTreeFeature(), 50);
 	
 	public static final BCLFeature EDEN_VINE = BCLFeature.makeVegetationFeature(EdenRing.makeID("eden_vine"), new VineFeature(), 2);

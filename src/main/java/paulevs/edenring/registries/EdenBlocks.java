@@ -87,6 +87,9 @@ public class EdenBlocks {
 				TagAPI.addTag(BlockTags.MINEABLE_WITH_HOE, block);
 				ComposterBlockAccessor.callAdd(0.1F, block);
 			}
+			else if (material == Material.STONE) {
+				TagAPI.addTag(BlockTags.MINEABLE_WITH_PICKAXE, block);
+			}
 			
 			if (block instanceof BaseVineBlock) {
 				TagAPI.addTag(BlockTags.CLIMBABLE, block);
@@ -95,6 +98,8 @@ public class EdenBlocks {
 		
 		BonemealAPI.addLandGrass(EdenBiomes.GOLDEN_FOREST.getID(), GOLDEN_GRASS, EDEN_GRASS_BLOCK);
 		BonemealAPI.addLandGrass(EdenBiomes.GOLDEN_FOREST.getID(), Blocks.GRASS, EDEN_GRASS_BLOCK);
+		
+		BonemealAPI.addSpreadableBlock(MOSSY_STONE, Blocks.STONE);
 	}
 	
 	private static Block register(String name, Block block) {

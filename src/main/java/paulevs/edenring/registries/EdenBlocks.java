@@ -30,6 +30,7 @@ import paulevs.edenring.blocks.PulseTreeBlock;
 import paulevs.edenring.blocks.SimplePlantBlock;
 import paulevs.edenring.blocks.TexturedTerrainBlock;
 import paulevs.edenring.world.features.EdenFeatures;
+import ru.bclib.api.BonemealAPI;
 import ru.bclib.api.TagAPI;
 import ru.bclib.blocks.BaseLeavesBlock;
 import ru.bclib.blocks.BaseVineBlock;
@@ -91,6 +92,9 @@ public class EdenBlocks {
 				TagAPI.addTag(BlockTags.CLIMBABLE, block);
 			}
 		});
+		
+		BonemealAPI.addLandGrass(EdenBiomes.GOLDEN_FOREST.getID(), GOLDEN_GRASS, EDEN_GRASS_BLOCK);
+		BonemealAPI.addLandGrass(EdenBiomes.GOLDEN_FOREST.getID(), Blocks.GRASS, EDEN_GRASS_BLOCK);
 	}
 	
 	private static Block register(String name, Block block) {

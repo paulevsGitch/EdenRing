@@ -26,13 +26,13 @@ import java.util.Random;
 
 public class AuritisTreeFeature extends DefaultFeature {
 	@Override
+	@SuppressWarnings("deprecation")
 	public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> featurePlaceContext) {
 		WorldGenLevel level = featurePlaceContext.level();
 		BlockPos center = featurePlaceContext.origin();
 		Random random = featurePlaceContext.random();
 		
-		Block below = level.getBlockState(center.below()).getBlock();
-		if (!(below instanceof GrassBlock) && below != Blocks.DIRT) {
+		if (!EdenBlocks.AURITIS_SAPLING.canSurvive(EdenBlocks.AURITIS_SAPLING.defaultBlockState(), level, center)) {
 			return false;
 		}
 		
@@ -54,7 +54,7 @@ public class AuritisTreeFeature extends DefaultFeature {
 				pos.setY(center.getY() + i);
 				if (canReplace(level.getBlockState(pos))) {
 					BlocksHelper.setWithoutUpdate(level, pos, i == h ? bark : log);
-					if (i == h && random.nextInt(4) > 0) {
+					if (natural && i == h && random.nextInt(4) > 0) {
 						pos.setY(pos.getY() + 1);
 						if (canReplace(level.getBlockState(pos))) {
 							BlocksHelper.setWithoutUpdate(level, pos, moss);

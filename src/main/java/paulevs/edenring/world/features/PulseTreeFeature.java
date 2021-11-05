@@ -21,13 +21,13 @@ import java.util.Random;
 
 public class PulseTreeFeature extends DefaultFeature {
 	@Override
+	@SuppressWarnings("deprecation")
 	public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> featurePlaceContext) {
 		WorldGenLevel level = featurePlaceContext.level();
 		BlockPos center = featurePlaceContext.origin();
 		Random random = featurePlaceContext.random();
 		
-		Block below = level.getBlockState(center.below()).getBlock();
-		if (!(below instanceof GrassBlock) && below != Blocks.DIRT) {
+		if (!EdenBlocks.PULSE_TREE_SAPLING.canSurvive(EdenBlocks.PULSE_TREE_SAPLING.defaultBlockState(), level, center)) {
 			return false;
 		}
 		

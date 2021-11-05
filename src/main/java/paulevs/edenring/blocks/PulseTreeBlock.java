@@ -10,6 +10,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
@@ -20,6 +22,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -31,9 +34,14 @@ import ru.bclib.client.models.ModelsHelper;
 import ru.bclib.client.models.PatternsHelper;
 import ru.bclib.client.render.BCLRenderLayer;
 import ru.bclib.interfaces.RenderLayerProvider;
+import ru.bclib.util.MHelper;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Random;
 
 public class PulseTreeBlock extends BaseBlockNotFull implements RenderLayerProvider {
 	public static final EnumProperty<PulseTreeState> PULSE_TREE = EdenBlockProperties.PULSE_TREE;
@@ -108,7 +116,8 @@ public class PulseTreeBlock extends BaseBlockNotFull implements RenderLayerProvi
 	@Override
 	@SuppressWarnings("deprecation")
 	public BlockState updateShape(BlockState state, Direction facing, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
-		return canSurvive(state, world, pos) ? state : Blocks.AIR.defaultBlockState();
+		world.getBlockTicks().scheduleTick(pos, this, 1);
+		return state;
 	}
 	
 	@Override
@@ -119,6 +128,28 @@ public class PulseTreeBlock extends BaseBlockNotFull implements RenderLayerProvi
 	@Override
 	public BCLRenderLayer getRenderLayer() {
 		return BCLRenderLayer.CUTOUT;
+	}
+	
+	@Override
+	@SuppressWarnings("deprecation")
+	public void tick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, Random random) {
+		if (!canSurvive(blockState, serverLevel, blockPos)) {
+			serverLevel.destroyBlock(blockPos, true);
+		}
+	}
+	
+	@Override
+	public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+		List<ItemStack> drop = new ArrayList<>();
+		drop.add(new ItemStack(this));
+		PulseTreeState stem = state.getValue(PULSE_TREE);
+		if (stem != PulseTreeState.UP && stem != PulseTreeState.NORTH_SOUTH && stem != PulseTreeState.EAST_WEST && MHelper.RANDOM.nextInt(4) == 0) {
+			drop.add(new ItemStack(EdenBlocks.PULSE_TREE_SAPLING));
+		}
+		else if (stem == PulseTreeState.HEAD_SMALL) {
+			drop.add(new ItemStack(EdenBlocks.PULSE_TREE_SAPLING));
+		}
+		return drop;
 	}
 	
 	static {

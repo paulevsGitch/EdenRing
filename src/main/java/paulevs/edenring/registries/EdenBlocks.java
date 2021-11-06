@@ -19,6 +19,7 @@ import paulevs.edenring.EdenRing;
 import paulevs.edenring.blocks.BalloonMushroomBlock;
 import paulevs.edenring.blocks.BalloonMushroomSmallBlock;
 import paulevs.edenring.blocks.BalloonMushroomStemBlock;
+import paulevs.edenring.blocks.BrainTreeBlock;
 import paulevs.edenring.blocks.CustomSaplingBlock;
 import paulevs.edenring.blocks.EdenGrassBlock;
 import paulevs.edenring.blocks.EdenMossBlock;
@@ -59,6 +60,10 @@ public class EdenBlocks {
 	public static final Block PULSE_TREE_SAPLING = register("pulse_tree_sapling", new CustomSaplingBlock(() -> EdenFeatures.PULSE_TREE.getFeature()));
 	public static final Block PULSE_TREE = register("pulse_tree", new PulseTreeBlock());
 	public static final ComplexMaterial PULSE_TREE_MATERIAL = new WoodenComplexMaterial(EdenRing.MOD_ID, "pulse_tree", "eden", MaterialColor.COLOR_CYAN, MaterialColor.COLOR_CYAN).init(REGISTRY, EdenItems.REGISTRY, EdenRecipes.CONFIG);
+	
+	public static final Block BRAIN_TREE_BLOCK_IRON = register("brain_tree_block_iron", new BrainTreeBlock(MaterialColor.COLOR_LIGHT_GRAY));
+	public static final Block BRAIN_TREE_BLOCK_COPPER = register("brain_tree_block_copper", new BrainTreeBlock(MaterialColor.COLOR_ORANGE));
+	public static final Block BRAIN_TREE_BLOCK_GOLD = register("brain_tree_block_gold", new BrainTreeBlock(MaterialColor.GOLD));
 	
 	public static final Block EDEN_MOSS = register("eden_moss", new EdenMossBlock());
 	

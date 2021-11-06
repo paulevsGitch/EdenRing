@@ -10,15 +10,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.dimension.DimensionType;
 import paulevs.edenring.registries.EdenBiomes;
+import paulevs.edenring.registries.EdenBlockEntities;
 import paulevs.edenring.registries.EdenBlocks;
 import paulevs.edenring.registries.EdenRecipes;
 import paulevs.edenring.world.features.EdenFeatures;
 import paulevs.edenring.world.generator.EdenBiomeSource;
 import paulevs.edenring.world.generator.EdenChunkGenerator;
 import paulevs.edenring.world.generator.GeneratorOptions;
-import ru.bclib.BCLib;
 import ru.bclib.registry.BaseRegistry;
-import ru.bclib.util.TranslationHelper;
 
 public class EdenRing implements ModInitializer {
 	public static final String MOD_ID = "edenring";
@@ -35,16 +34,12 @@ public class EdenRing implements ModInitializer {
 	public void onInitialize() {
 		GeneratorOptions.init();
 		EdenBlocks.init();
+		EdenBlockEntities.init();
 		EdenFeatures.init();
 		EdenBiomes.init();
 		EdenRecipes.init();
 		Registry.register(Registry.CHUNK_GENERATOR, makeID("chunk_generator"), EdenChunkGenerator.CODEC);
 		Registry.register(Registry.BIOME_SOURCE, makeID("biome_source"), EdenBiomeSource.CODEC);
-		
-		if (BCLib.isDevEnvironment()) {
-			TranslationHelper.printMissingEnNames(MOD_ID);
-			TranslationHelper.printMissingNames(MOD_ID, "ru_ru");
-		}
 	}
 	
 	public static ResourceLocation makeID(String path) {

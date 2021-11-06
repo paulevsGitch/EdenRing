@@ -18,6 +18,9 @@
 	"entrypoints": {
 		"main": [
 			"paulevs.edenring.EdenRing"
+		],
+		"client": [
+			"paulevs.edenring.EdenRingClient"
 		]
 	},
 	"mixins": [

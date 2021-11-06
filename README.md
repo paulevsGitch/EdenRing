@@ -8,7 +8,7 @@ Importing:
 
 * Clone repo
 * Edit gradle.properties if necessary
-* Run command line in folder: gradlew genSources eclipse (or Another-IDE-Name)
+* Run command line in folder: gradlew genSources idea (or eclipse)
 * Import project to IDE
 
 Building:

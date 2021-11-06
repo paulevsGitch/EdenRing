@@ -54,6 +54,6 @@ public class BrainTreeBlock extends BaseBlockWithEntity implements BlockModelPro
 	@Override
 	@Environment(EnvType.CLIENT)
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
-		return BrainTreeBlockEntity::clientTick;
+		return level.isClientSide() ? BrainTreeBlockEntity::clientTick : BrainTreeBlockEntity::serverTick;
 	}
 }

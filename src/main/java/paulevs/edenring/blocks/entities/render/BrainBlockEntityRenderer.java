@@ -14,7 +14,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity.AnimationStatus;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.blocks.entities.BrainTreeBlockEntity;
 
@@ -44,13 +43,10 @@ public class BrainBlockEntityRenderer <T extends BrainTreeBlockEntity> implement
 		float scale = 1.1F + Mth.sin(sinAngle) * 0.05F;
 		if (entity.isActive()) {
 			alpha *= animation;
-			//scale *= animation;
 			scale = Mth.lerp(animation, 1.0F, scale);
 		}
 		else {
-			//float delta = 1.0F - animation;
 			alpha *= 1.0F - animation;
-			//scale *= delta;
 			scale = Mth.lerp(animation, scale, 1.0F);
 		}
 		

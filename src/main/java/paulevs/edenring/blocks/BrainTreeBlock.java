@@ -26,7 +26,8 @@ public class BrainTreeBlock extends BaseBlockWithEntity implements BlockModelPro
 	public static final BooleanProperty	ACTIVE = BlockProperties.ACTIVE;
 	
 	public BrainTreeBlock(MaterialColor color) {
-		super(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).color(color).lightLevel(state -> state.getValue(ACTIVE) ? 9 : 0));
+		//super(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).color(color).lightLevel(state -> state.getValue(ACTIVE) ? 9 : 0));
+		super(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).color(color));
 		this.registerDefaultState(this.getStateDefinition().any().setValue(ACTIVE, false));
 	}
 	
@@ -37,6 +38,7 @@ public class BrainTreeBlock extends BaseBlockWithEntity implements BlockModelPro
 	
 	@Override
 	public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
+		//return blockState.getValue(ACTIVE) ? new BrainTreeBlockEntity(blockPos, blockState) : null;
 		return new BrainTreeBlockEntity(blockPos, blockState);
 	}
 	
@@ -51,9 +53,9 @@ public class BrainTreeBlock extends BaseBlockWithEntity implements BlockModelPro
 		return this.getBlockModel(blockId, this.defaultBlockState());
 	}
 	
-	@Override
+	/*@Override
 	@Environment(EnvType.CLIENT)
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
 		return level.isClientSide() ? BrainTreeBlockEntity::clientTick : BrainTreeBlockEntity::serverTick;
-	}
+	}*/
 }

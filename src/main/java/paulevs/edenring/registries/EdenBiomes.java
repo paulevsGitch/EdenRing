@@ -12,9 +12,10 @@ import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilderBaseConfiguration;
 import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilderConfiguration;
 import paulevs.edenring.EdenRing;
+import paulevs.edenring.world.biomes.BrainstormBiome;
 import paulevs.edenring.world.biomes.GoldenForestBiome;
 import paulevs.edenring.world.biomes.MycoticForestBiome;
-import paulevs.edenring.world.biomes.PulseForest;
+import paulevs.edenring.world.biomes.PulseForestBiome;
 import paulevs.edenring.world.biomes.StoneGardenBiome;
 import paulevs.edenring.world.features.EdenFeatures;
 import ru.bclib.api.BiomeAPI;
@@ -45,7 +46,8 @@ public class EdenBiomes {
 	public static final BCLBiome STONE_GARDEN = register(new StoneGardenBiome(CONFIG, DEFAULT_BUILDER));
 	public static final BCLBiome GOLDEN_FOREST = register(new GoldenForestBiome(CONFIG, DEFAULT_BUILDER));
 	public static final BCLBiome MYCOTIC_FOREST = register(new MycoticForestBiome(CONFIG, MYCELIUM_BUILDER));
-	public static final BCLBiome PULSE_FOREST = register(new PulseForest(CONFIG, DEFAULT_BUILDER));
+	public static final BCLBiome PULSE_FOREST = register(new PulseForestBiome(CONFIG, DEFAULT_BUILDER));
+	public static final BCLBiome BRAINSTORM = register(new BrainstormBiome(CONFIG, DEFAULT_BUILDER));
 	
 	public static void init() {
 		CONFIG.saveChanges();

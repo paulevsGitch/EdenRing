@@ -103,7 +103,7 @@ public class BrainTreeBlockEntity extends BlockEntity implements BlockEntityClie
 		BrainTreeBlockEntity brain = (BrainTreeBlockEntity) entity;
 		if (brain.ticks == 0) {
 			boolean stateActive = !state.getValue(BlockProperties.ACTIVE);
-			level.setBlockAndUpdate(blockPos, state.setValue(BlockProperties.ACTIVE, stateActive));
+			//level.setBlockAndUpdate(blockPos, state.setValue(BlockProperties.ACTIVE, stateActive));
 			brain.ticks = stateActive ? MHelper.randRange(40, 80, level.random) : MHelper.randRange(100, 200, level.random);
 			brain.active = stateActive;
 			brain.status = 0;

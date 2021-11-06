@@ -11,22 +11,17 @@ import ru.bclib.config.IdConfig;
 import ru.bclib.world.biomes.BCLBiome;
 import ru.bclib.world.biomes.BCLBiomeDef;
 
-public class PulseForest extends BCLBiome {
-	public PulseForest(IdConfig config, ConfiguredSurfaceBuilder surfaceBuilder) {
+public class BrainstormBiome extends BCLBiome {
+	public BrainstormBiome(IdConfig config, ConfiguredSurfaceBuilder surfaceBuilder) {
 		super(EdenBiomes.addDefaultFeatures(
-			new BCLBiomeDef(EdenRing.makeID("pulse_forest"))
+			new BCLBiomeDef(EdenRing.makeID("brainstorm"))
 				.loadConfigValues(config)
 				.setCategory(BiomeCategory.FOREST)
 				.setSurface(surfaceBuilder)
 				.setPlantsColor(121, 238, 248)
-				.addFeature(Decoration.VEGETAL_DECORATION, Features.PATCH_GRASS_FOREST)
-				.addFeature(Decoration.VEGETAL_DECORATION, Features.PATCH_TALL_GRASS)
-				.addFeature(Decoration.VEGETAL_DECORATION, Features.PATCH_LARGE_FERN)
-				.addFeature(EdenFeatures.PULSE_TREE)
-				.addFeature(EdenFeatures.VIOLUM_DENSE)
-				.addFeature(EdenFeatures.EDEN_VINE)
+				.addFeature(EdenFeatures.BRAIN_TREE)
 				.setSkyColor(113, 178, 255)
-				.setFogColor(115, 235, 242)
+				.setFogColor(113, 178, 255)
 		));
 	}
 }

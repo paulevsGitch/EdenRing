@@ -29,6 +29,10 @@ public class BrainBlockEntityRenderer <T extends BrainTreeBlockEntity> implement
 	public void render(T entity, float tickDelta, PoseStack poseStack, MultiBufferSource multiBufferSource, int light, int overlay) {
 		int status = entity.getStatus();
 		
+		if (status == 0 || status != 0) {
+			return;
+		}
+		
 		if (status == 0 && !entity.isActive()) {
 			return;
 		}

@@ -27,6 +27,7 @@ public class BrainTreeBlock extends BaseBlockWithEntity implements BlockModelPro
 	
 	public BrainTreeBlock(MaterialColor color) {
 		super(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).color(color).lightLevel(state -> state.getValue(ACTIVE) ? 9 : 0));
+		this.registerDefaultState(this.getStateDefinition().any().setValue(ACTIVE, false));
 	}
 	
 	@Override

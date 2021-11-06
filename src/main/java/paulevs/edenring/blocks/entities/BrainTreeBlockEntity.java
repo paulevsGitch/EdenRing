@@ -19,7 +19,7 @@ public class BrainTreeBlockEntity extends BlockEntity {
 	private long animation;
 	
 	@Environment(EnvType.CLIENT)
-	private AnimationStatus status = AnimationStatus.CLOSED;
+	private int status;
 	
 	public BrainTreeBlockEntity(BlockPos blockPos, BlockState blockState) {
 		super(EdenBlockEntities.BRAIN_BLOCK, blockPos, blockState);
@@ -47,31 +47,23 @@ public class BrainTreeBlockEntity extends BlockEntity {
 		if (tag.contains("isActive")) {
 			active = tag.getBoolean("isActive");
 		}
-		status = active ? AnimationStatus.OPENED : AnimationStatus.CLOSED;
+		status = active ? 5 : 0;
 	}
 	
 	@Environment(EnvType.CLIENT)
 	public static <T extends BlockEntity> void clientTick(Level level, BlockPos blockPos, BlockState state, T entity) {
 		BrainTreeBlockEntity brain = (BrainTreeBlockEntity) entity;
-		brain.active = state.getValue(BlockProperties.ACTIVE);
-		brain.animation++;
+		boolean activate = state.getValue(BlockProperties.ACTIVE);
 		
-		if (brain.active) {
-			if (brain.status == AnimationStatus.CLOSED) {
-				brain.status = AnimationStatus.OPENING;
-			}
-			else if (brain.status == AnimationStatus.OPENING) {
-				brain.status = AnimationStatus.OPENED;
-			}
+		if (activate != brain.active) {
+			brain.status = 0;
 		}
-		else {
-			if (brain.status == AnimationStatus.OPENED) {
-				brain.status = AnimationStatus.CLOSING;
-			}
-			else if (brain.status == AnimationStatus.CLOSING) {
-				brain.status = AnimationStatus.CLOSED;
-			}
+		else if (brain.status < 5) {
+			brain.status++;
 		}
+		
+		brain.active = activate;
+		brain.animation++;
 	}
 	
 	@Environment(EnvType.CLIENT)
@@ -80,7 +72,7 @@ public class BrainTreeBlockEntity extends BlockEntity {
 	}
 	
 	@Environment(EnvType.CLIENT)
-	public AnimationStatus getStatus() {
+	public int getStatus() {
 		return status;
 	}
 }

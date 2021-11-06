@@ -28,23 +28,36 @@ public class BrainBlockEntityRenderer <T extends BrainTreeBlockEntity> implement
 	
 	@Override
 	public void render(T entity, float tickDelta, PoseStack poseStack, MultiBufferSource multiBufferSource, int light, int overlay) {
-		if (!entity.isActive()) {
+		int status = entity.getStatus();
+		
+		if (status == 0 && !entity.isActive()) {
 			return;
 		}
 		
-		AnimationStatus status = entity.getStatus();
-		float alpha = 0.75F;
-		if (status == AnimationStatus.OPENING) {
-			alpha *= tickDelta;
-		}
-		else if (status == AnimationStatus.CLOSING) {
-			alpha *= 1.0F - tickDelta;
+		float sinAngle = (float) ((((double) entity.getAnimation() + tickDelta) * 0.1) % (Math.PI * 2));
+		float animation = (status + tickDelta) / 5.0F;
+		if (animation > 1) {
+			animation = 1;
 		}
 		
+		float alpha = 0.75F;
+		float scale = 1.1F + Mth.sin(sinAngle) * 0.05F;
+		if (entity.isActive()) {
+			alpha *= animation;
+			//scale *= animation;
+			scale = Mth.lerp(animation, 1.0F, scale);
+		}
+		else {
+			//float delta = 1.0F - animation;
+			alpha *= 1.0F - animation;
+			//scale *= delta;
+			scale = Mth.lerp(animation, scale, 1.0F);
+		}
+		
+		float offset = (scale - 1.0F) * 0.5F;
 		poseStack.pushPose();
-		//poseStack.translate(-0.5F, -0.5F, -0.5F);
-		poseStack.scale(1.1F, 1.1F, 1.1F);
-		poseStack.translate(-0.05F, -0.05F, -0.05F);
+		poseStack.scale(scale, scale, scale);
+		poseStack.translate(-offset, -offset, -offset);
 		Matrix4f matrix = poseStack.last().pose();
 		
 		//RenderSystem.blendFuncSeparate(SourceFactor.SRC_ALPHA, DestFactor.ONE, SourceFactor.ONE, DestFactor.ZERO);

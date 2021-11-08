@@ -13,6 +13,7 @@ import paulevs.edenring.registries.EdenBiomes;
 import paulevs.edenring.registries.EdenBlockEntities;
 import paulevs.edenring.registries.EdenBlocks;
 import paulevs.edenring.registries.EdenRecipes;
+import paulevs.edenring.world.EdenPortal;
 import paulevs.edenring.world.features.EdenFeatures;
 import paulevs.edenring.world.generator.EdenBiomeSource;
 import paulevs.edenring.world.generator.EdenChunkGenerator;
@@ -40,6 +41,7 @@ public class EdenRing implements ModInitializer {
 		EdenRecipes.init();
 		Registry.register(Registry.CHUNK_GENERATOR, makeID("chunk_generator"), EdenChunkGenerator.CODEC);
 		Registry.register(Registry.BIOME_SOURCE, makeID("biome_source"), EdenBiomeSource.CODEC);
+		EdenPortal.init();
 	}
 	
 	public static ResourceLocation makeID(String path) {

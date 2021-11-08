@@ -4,10 +4,12 @@
 	"package": "paulevs.edenring.mixin.common",
 	"compatibilityLevel": "JAVA_16",
 	"mixins": [
-		"BushBlockMixin",
-		"EntityMixin",
+		"AmethystClusterBlockMixin",
+		"FlintAndSteelItemMixin",
 		"LivingEntityMixin",
-		"ServerLevelMixin"
+		"ServerLevelMixin",
+		"BushBlockMixin",
+		"EntityMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

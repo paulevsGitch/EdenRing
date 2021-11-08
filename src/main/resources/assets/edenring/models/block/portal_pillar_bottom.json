@@ -4,7 +4,7 @@
 		"particle": "edenring:block/portal_pillar_side_bottom",
 		"side": "edenring:block/portal_pillar_side_bottom",
 		"top": "edenring:block/portal_pillar_top",
-		"bottom": "edenring:block/copper_block"
+		"bottom": "minecraft:block/copper_block"
 	},
 	"elements": [ 	 
 		{

@@ -23,6 +23,8 @@ import paulevs.edenring.blocks.BrainTreeBlock;
 import paulevs.edenring.blocks.CustomSaplingBlock;
 import paulevs.edenring.blocks.EdenGrassBlock;
 import paulevs.edenring.blocks.EdenMossBlock;
+import paulevs.edenring.blocks.EdenPortalBlock;
+import paulevs.edenring.blocks.EdenPortalCenterBlock;
 import paulevs.edenring.blocks.MossyStoneBlock;
 import paulevs.edenring.blocks.OverlayDoublePlantBlock;
 import paulevs.edenring.blocks.OverlayPlantBlock;
@@ -73,6 +75,9 @@ public class EdenBlocks {
 	public static final Block VIOLUM = register("violum", new OverlayDoublePlantBlock());
 	
 	public static final Block EDEN_VINE = register("eden_vine", new OverlayVineBlock());
+	
+	public static final Block PORTAL_BLOCK = register("portal_block", new EdenPortalBlock());
+	public static final Block PORTAL_CENTER = register("portal_center", new EdenPortalCenterBlock());
 	
 	public static void init() {
 		Registry.BLOCK.stream().filter(block -> Registry.BLOCK.getKey(block).getNamespace().equals(EdenRing.MOD_ID)).forEach(block -> {

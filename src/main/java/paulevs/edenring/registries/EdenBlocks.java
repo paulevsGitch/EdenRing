@@ -76,8 +76,8 @@ public class EdenBlocks {
 	
 	public static final Block EDEN_VINE = register("eden_vine", new OverlayVineBlock());
 	
-	public static final Block PORTAL_BLOCK = register("portal_block", new EdenPortalBlock());
-	public static final Block PORTAL_CENTER = register("portal_center", new EdenPortalCenterBlock());
+	public static final Block PORTAL_BLOCK = registerBO("portal_block", new EdenPortalBlock());
+	public static final Block PORTAL_CENTER = registerBO("portal_center", new EdenPortalCenterBlock());
 	
 	public static void init() {
 		Registry.BLOCK.stream().filter(block -> Registry.BLOCK.getKey(block).getNamespace().equals(EdenRing.MOD_ID)).forEach(block -> {
@@ -114,6 +114,10 @@ public class EdenBlocks {
 	
 	private static Block register(String name, Block block) {
 		return REGISTRY.register(EdenRing.makeID(name), block);
+	}
+	
+	private static Block registerBO(String name, Block block) {
+		return REGISTRY.registerBlockOnly(EdenRing.makeID(name), block);
 	}
 	
 	public static boolean never(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {

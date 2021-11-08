@@ -7,12 +7,14 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -23,6 +25,8 @@ import ru.bclib.client.models.BasePatterns;
 import ru.bclib.client.models.ModelsHelper;
 import ru.bclib.client.models.PatternsHelper;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -62,6 +66,12 @@ public class EdenPortalBlock extends BaseBlockNotFull {
 	public VoxelShape getShape(BlockState state, BlockGetter view, BlockPos pos, CollisionContext ePos) {
 		VoxelShape shape = BOUNDS.get(state.getValue(EDEN_PORTAL));
 		return shape == null ? Shapes.block() : shape;
+	}
+	
+	@Override
+	public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+		Block drop = state.getValue(EDEN_PORTAL) == EdenPortalState.PILLAR_TOP ? Blocks.AMETHYST_BLOCK : Blocks.WAXED_COPPER_BLOCK;
+		return Collections.singletonList(new ItemStack(drop));
 	}
 	
 	static {

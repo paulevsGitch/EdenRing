@@ -5,6 +5,7 @@
 	"biome.edenring.mycotic_forest": "Mycotic Forest",
 	"biome.edenring.stone_garden": "Stone Garden",
 	"biome.edenring.pulse_forest": "Pulse Forest",
+	"biome.edenring.brainstorm": "Brainstorm",
 	
 	"block.edenring.auritis_outer_leaves": "Auritis Outer Leaves",
 	"block.edenring.auritis_bark": "Auritis Bark",
@@ -84,5 +85,11 @@
 	"block.edenring.pulse_tree_stripped_bark": "Pulse Tree Stripped Bark",
 	"block.edenring.pulse_tree_stripped_log": "Pulse Tree Stripped Log",
 	"block.edenring.pulse_tree_trapdoor": "Pulse Tree Trapdoor",
-	"block.edenring.violum": "Violum"
+	"block.edenring.violum": "Violum",
+	
+	"block.edenring.brain_tree_block_copper": "Copper Brain Tree Block",
+	"block.edenring.brain_tree_block_gold": "Gold Brain Tree Block",
+	"block.edenring.brain_tree_block_iron": "Iron Brain Tree Block",
+	"block.edenring.portal_block": "Portal Block",
+	"block.edenring.portal_center": "Portal Center"
 }

@@ -5,6 +5,7 @@
 	"biome.edenring.mycotic_forest": "Микотический лес",
 	"biome.edenring.stone_garden": "Каменный сад",
 	"biome.edenring.pulse_forest": "Пульсирующий лес",
+	"biome.edenring.brainstorm": "Мозговой шторм",
 	
 	"block.edenring.auritis_outer_leaves": "Внешние листья ауритиса",
 	"block.edenring.auritis_bark": "Кора ауритиса",
@@ -84,5 +85,11 @@
 	"block.edenring.pulse_tree_stripped_bark": "Обтёсанная кора пульсирующего дерева",
 	"block.edenring.pulse_tree_stripped_log": "Обтёсанное бревно пульсирующего дерева",
 	"block.edenring.pulse_tree_trapdoor": "Люк из пульсирующего дерева",
-	"block.edenring.violum": "Виолум"
+	"block.edenring.violum": "Виолум",
+	
+	"block.edenring.brain_tree_block_copper": "Медный блок мозгового дерева",
+	"block.edenring.brain_tree_block_gold": "Золотой блок мозгового дерева",
+	"block.edenring.brain_tree_block_iron": "Железный блок мозгового дерева",
+	"block.edenring.portal_block": "Блок портала",
+	"block.edenring.portal_center": "Центр портала"
 }

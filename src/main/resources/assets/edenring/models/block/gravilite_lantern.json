@@ -1,0 +1,23 @@
+{
+	"__comment": "Designed by Paulevs with Cubik Studio - https://cubik.studio",
+	"parent": "block/block",
+	"textures": {
+		"particle": "edenring:block/gravilite_lantern",
+		"texture": "edenring:block/gravilite_lantern"
+	},
+	"elements": [ 	 
+		{
+			"__comment": "Box2",
+			"from": [ 4, 0, 4 ],
+			"to": [ 12, 8, 12 ],
+			"faces": {
+				"down": { "uv": [ 8, 0, 16, 8 ], "texture": "#texture" },
+				"up": { "uv": [ 8, 8, 16, 16 ], "texture": "#texture" },
+				"north": { "uv": [ 8, 8, 16, 16 ], "texture": "#texture" },
+				"south": { "uv": [ 8, 8, 16, 16 ], "texture": "#texture" },
+				"west": { "uv": [ 8, 8, 16, 16 ], "texture": "#texture" },
+				"east": { "uv": [ 8, 8, 16, 16 ], "texture": "#texture" }
+			}
+		}
+	]
+}

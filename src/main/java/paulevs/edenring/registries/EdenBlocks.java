@@ -26,7 +26,10 @@ import paulevs.edenring.blocks.EdenMossBlock;
 import paulevs.edenring.blocks.EdenPortalBlock;
 import paulevs.edenring.blocks.EdenPortalCenterBlock;
 import paulevs.edenring.blocks.GraviliteBlock;
+import paulevs.edenring.blocks.GraviliteLampBlock;
+import paulevs.edenring.blocks.GraviliteLanternBlock;
 import paulevs.edenring.blocks.GraviliteShardsBlock;
+import paulevs.edenring.blocks.GraviliteTallLanternBlock;
 import paulevs.edenring.blocks.MossyStoneBlock;
 import paulevs.edenring.blocks.OverlayDoublePlantBlock;
 import paulevs.edenring.blocks.OverlayPlantBlock;
@@ -80,6 +83,9 @@ public class EdenBlocks {
 	
 	public static final Block GRAVILITE = register("gravilite", new GraviliteBlock());
 	public static final Block GRAVILITE_SHARDS = register("gravilite_shards", new GraviliteShardsBlock());
+	public static final Block GRAVILITE_LAMP = register("gravilite_lamp", new GraviliteLampBlock());
+	public static final Block GRAVILITE_LANTERN = register("gravilite_lantern", new GraviliteLanternBlock());
+	public static final Block GRAVILITE_LANTERN_TALL = register("gravilite_lantern_tall", new GraviliteTallLanternBlock());
 	
 	public static final Block PORTAL_BLOCK = registerBO("portal_block", new EdenPortalBlock());
 	public static final Block PORTAL_CENTER = registerBO("portal_center", new EdenPortalCenterBlock());

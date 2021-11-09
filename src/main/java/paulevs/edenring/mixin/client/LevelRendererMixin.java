@@ -136,16 +136,13 @@ public class LevelRendererMixin {
 			
 			matrices.pushPose();
 			matrices.mulPose(Vector3f.XP.rotation(-0.4F));
-			//matrices.mulPose(Vector3f.YP.rotation((float) (time * 0.01)));
 			matrices.mulPose(Vector3f.YP.rotation((float) Math.PI * 0.5F - dayTime * (float) Math.PI * 2.0F));
 			
 			RenderSystem.setShaderTexture(0, EDEN_STARS);
-			eden_renderBuffer(matrices, matrix4f,
-				eden_stars, DefaultVertexFormat.POSITION_TEX, 1.0F, 1.0F, 1.0F, skyBlend * 0.5F + 0.5F);
+			eden_renderBuffer(matrices, matrix4f, eden_stars, DefaultVertexFormat.POSITION_TEX, 1.0F, 1.0F, 1.0F, skyBlend * 0.5F + 0.5F);
 			
 			RenderSystem.setShaderTexture(0, EDEN_HORIZON);
-			eden_renderBuffer(matrices, matrix4f,
-				eden_nebula, DefaultVertexFormat.POSITION_TEX, 1.0F, 1.0F, 1.0F, skyBlend * 0.75F + 0.25F);
+			eden_renderBuffer(matrices, matrix4f, eden_nebula, DefaultVertexFormat.POSITION_TEX, 1.0F, 1.0F, 1.0F, skyBlend * 0.75F + 0.25F);
 			
 			// Render Sun //
 			
@@ -163,7 +160,7 @@ public class LevelRendererMixin {
 			eden_bufferBuilder.end();
 			BufferUploader.end(eden_bufferBuilder);
 			
-			dayTime = (float) Math.cos(dayTime * Math.PI * 2) * 1.1F;// + 1.1F;
+			dayTime = (float) Math.cos(dayTime * Math.PI * 2) * 1.1F;
 			dayTime = Mth.clamp(dayTime, 0.3F, 1.0F);
 			RenderSystem.setShaderColor(1.0F, dayTime, dayTime, 1.0F);
 			RenderSystem.setShaderTexture(0, EDEN_SUN);
@@ -185,7 +182,6 @@ public class LevelRendererMixin {
 			
 			RenderSystem.clear(GL11.GL_DEPTH_BUFFER_BIT, Minecraft.ON_OSX);
 			RenderSystem.depthMask(true);
-			//RenderSystem.enableBlend();
 			RenderSystem.defaultBlendFunc();
 			RenderSystem.enableDepthTest();
 			

@@ -94,5 +94,9 @@
 	"block.edenring.portal_center": "Portal Center",
 	
 	"block.edenring.gravilite": "Gravilite",
-	"block.edenring.gravilite_shards": "Gravilite Shards"
+	"block.edenring.gravilite_shards": "Gravilite Shards",
+	
+	"block.edenring.gravilite_lamp": "Gravilite Lamp",
+	"block.edenring.gravilite_lantern": "Gravilite Lantern",
+	"block.edenring.gravilite_lantern_tall": "Tall Gravilite Lantern"
 }

@@ -91,5 +91,8 @@
 	"block.edenring.brain_tree_block_gold": "Gold Brain Tree Block",
 	"block.edenring.brain_tree_block_iron": "Iron Brain Tree Block",
 	"block.edenring.portal_block": "Portal Block",
-	"block.edenring.portal_center": "Portal Center"
+	"block.edenring.portal_center": "Portal Center",
+	
+	"block.edenring.gravilite": "Gravilite",
+	"block.edenring.gravilite_shards": "Gravilite Shards"
 }

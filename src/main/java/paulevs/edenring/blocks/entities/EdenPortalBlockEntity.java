@@ -112,6 +112,7 @@ public class EdenPortalBlockEntity extends BlockEntity {
 						((EdenPortable) player).setPortalTimeout(20);
 					}
 					else {
+						e.ejectPassengers();
 						Entity newEntity = e.getType().create(destination);
 						newEntity.restoreFrom(e);
 						e.remove(RemovalReason.CHANGED_DIMENSION);

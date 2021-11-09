@@ -9,6 +9,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Entity.RemovalReason;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -111,11 +112,12 @@ public class EdenPortalBlockEntity extends BlockEntity {
 						((EdenPortable) player).setPortalTimeout(20);
 					}
 					else {
-						Entity newEntity = e.changeDimension(destination);
-						if (newEntity != null) {
-							newEntity.teleportTo(exit.getX() + 0.5, exit.getY(), exit.getZ() + 0.5);
-							((EdenPortable) newEntity).setPortalTimeout(20);
-						}
+						Entity newEntity = e.getType().create(destination);
+						newEntity.restoreFrom(e);
+						e.remove(RemovalReason.CHANGED_DIMENSION);
+						destination.addDuringTeleport(newEntity);
+						((EdenPortable) newEntity).setPortalTimeout(100);
+						newEntity.teleportTo(exit.getX() + 0.5, exit.getY(), exit.getZ() + 0.5);
 					}
 				}
 			}

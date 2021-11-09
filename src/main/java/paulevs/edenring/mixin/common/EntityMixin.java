@@ -1,11 +1,13 @@
 package paulevs.edenring.mixin.common;
 
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.interfaces.EdenPortable;
 
@@ -40,6 +42,20 @@ public class EntityMixin implements EdenPortable {
 		int time = getPortalTimeout();
 		if (time > 0) {
 			setPortalTimeout(time - 1);
+		}
+	}
+	
+	@Inject(method = "save", at = @At("HEAD"))
+	private void eden_saveEntity(CompoundTag compoundTag, CallbackInfoReturnable<Boolean> info) {
+		if (getPortalTimeout() > 0) {
+			compoundTag.putInt("edenPortalTimeout", getPortalTimeout());
+		}
+	}
+	
+	@Inject(method = "load", at = @At("HEAD"))
+	private void eden_loadEntity(CompoundTag compoundTag, CallbackInfo info) {
+		if (compoundTag != null && compoundTag.contains("edenPortalTimeout")) {
+			setPortalTimeout(compoundTag.getInt("edenPortalTimeout"));
 		}
 	}
 }

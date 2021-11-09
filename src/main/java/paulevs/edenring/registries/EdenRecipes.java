@@ -1,6 +1,5 @@
 package paulevs.edenring.registries;
 
-import net.minecraft.world.item.Items;
 import paulevs.edenring.EdenRing;
 import ru.bclib.api.TagAPI;
 import ru.bclib.config.PathConfig;

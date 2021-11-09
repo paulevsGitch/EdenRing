@@ -1,9 +1,13 @@
 package paulevs.edenring.blocks;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Vec3i;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -11,20 +15,25 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.MaterialColor;
+import paulevs.edenring.EdenRing;
 import ru.bclib.blocks.BaseBlock;
 import ru.bclib.blocks.BlockProperties;
+import ru.bclib.client.models.ModelsHelper;
+import ru.bclib.client.models.PatternsHelper;
 import ru.bclib.client.render.BCLRenderLayer;
 import ru.bclib.interfaces.BlockModelProvider;
 import ru.bclib.interfaces.RenderLayerProvider;
 import ru.bclib.util.MHelper;
 
+import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
 
 public class BrainTreeBlock extends BaseBlock implements BlockModelProvider, RenderLayerProvider {
 	public static final BooleanProperty	ACTIVE = BlockProperties.ACTIVE;
 	
 	public BrainTreeBlock(MaterialColor color) {
-		super(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).color(color).lightLevel(state -> state.getValue(ACTIVE) ? 9 : 0).randomTicks());
+		super(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).color(color).lightLevel(state -> state.getValue(ACTIVE) ? 15 : 0).randomTicks());
 		this.registerDefaultState(this.getStateDefinition().any().setValue(ACTIVE, false));
 	}
 	
@@ -70,6 +79,13 @@ public class BrainTreeBlock extends BaseBlock implements BlockModelProvider, Ren
 			return ModelsHelper.fromPattern(pattern);
 		}
 	}*/
+	
+	@Override
+	@Environment(EnvType.CLIENT)
+	public UnbakedModel getModelVariant(ResourceLocation stateId, BlockState blockState, Map<ResourceLocation, UnbakedModel> modelCache) {
+		Optional<String> pattern = PatternsHelper.createBlockSimple(blockState.getValue(ACTIVE) ? EdenRing.makeID(stateId.getPath() + "_active") : stateId);
+		return ModelsHelper.fromPattern(pattern);
+	}
 	
 	@Override
 	public BCLRenderLayer getRenderLayer() {

@@ -49,14 +49,7 @@ public class GraviliteShardsBlock extends BaseAttachedBlock implements BlockMode
 	@Override
 	@Environment(EnvType.CLIENT)
 	public UnbakedModel getModelVariant(ResourceLocation stateId, BlockState blockState, Map<ResourceLocation, UnbakedModel> modelCache) {
-		/*if (blockState.getValue(FACING) == Direction.UP) {
-			Map<String, String> textures = Maps.newHashMap();
-			textures.put("%modid%", stateId.getNamespace());
-			textures.put("%texture%", stateId.getPath());
-			Optional<String> pattern = PatternsHelper.createJson(BasePatterns.BLOCK_CROSS, textures);
-			return ModelsHelper.fromPattern(pattern);
-		}*/
-		ModelResourceLocation shardsUp = new ModelResourceLocation(stateId.getNamespace(), stateId.getPath(), "facing:up");
+		ModelResourceLocation shardsUp = new ModelResourceLocation(stateId.getNamespace(), stateId.getPath(), this.defaultBlockState().toString());
 		
 		if (!modelCache.containsKey(shardsUp)) {
 			Map<String, String> textures = Maps.newHashMap();

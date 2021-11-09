@@ -58,5 +58,7 @@ public class EdenFeatures {
 	public static final BCLFeature EDEN_VINE = BCLFeature.makeVegetationFeature(EdenRing.makeID("eden_vine"), new VineFeature(), 2);
 	public static final BCLFeature ROOTS = BCLFeature.makeVegetationFeature(EdenRing.makeID("roots"), new RootsFeature(), 4);
 	
+	public static final BCLFeature GRAVILITE_CRYSTAL = BCLFeature.makeRawGenFeature(EdenRing.makeID("gravilite_crystal"), new GraviliteCrystalFeature(), 100);
+	
 	public static void init() {}
 }

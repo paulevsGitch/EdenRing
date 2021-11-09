@@ -70,6 +70,7 @@ public class EdenBiomes {
 		def.addFeature(EdenFeatures.ORE_COAL);
 		def.addFeature(EdenFeatures.ORE_IRON);
 		def.addFeature(EdenFeatures.ORE_COPPER);
+		def.addFeature(EdenFeatures.GRAVILITE_CRYSTAL);
 		def.addCarver(Carving.AIR, Carvers.CAVE);
 		return def;
 	}

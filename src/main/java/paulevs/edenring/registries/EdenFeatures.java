@@ -1,8 +1,20 @@
-package paulevs.edenring.world.features;
+package paulevs.edenring.registries;
 
 import net.minecraft.world.level.block.Blocks;
 import paulevs.edenring.EdenRing;
-import paulevs.edenring.registries.EdenBlocks;
+import paulevs.edenring.world.features.AuritisTreeFeature;
+import paulevs.edenring.world.features.BalloonMushroomTreeFeature;
+import paulevs.edenring.world.features.BrainTreeFeature;
+import paulevs.edenring.world.features.DepthScatterFeature;
+import paulevs.edenring.world.features.DoubleScatterFeature;
+import paulevs.edenring.world.features.FloorScatterFeature;
+import paulevs.edenring.world.features.GraviliteCrystalFeature;
+import paulevs.edenring.world.features.PulseTreeFeature;
+import paulevs.edenring.world.features.RootsFeature;
+import paulevs.edenring.world.features.ScatterFeature;
+import paulevs.edenring.world.features.StoneLayer;
+import paulevs.edenring.world.features.StonePillar;
+import paulevs.edenring.world.features.VineFeature;
 import ru.bclib.world.features.BCLFeature;
 
 public class EdenFeatures {
@@ -21,6 +33,7 @@ public class EdenFeatures {
 		EdenRing.makeID("grass_floor"),
 		new FloorScatterFeature(EdenBlocks.EDEN_GRASS_BLOCK, EdenBlocks.EDEN_MYCELIUM), 6
 	);
+	
 	public static final BCLFeature STONE_PILLAR = BCLFeature.makeRawGenFeature(EdenRing.makeID("stone_pillar"), new StonePillar(), 15);
 	
 	public static final BCLFeature SLATE_LAYER = BCLFeature.makeChunkFeature(EdenRing.makeID("slate_layer"), new StoneLayer(Blocks.DEEPSLATE));
@@ -46,6 +59,9 @@ public class EdenFeatures {
 	public static final BCLFeature MYCOTIC_GRASS = BCLFeature.makeVegetationFeature(EdenRing.makeID("mycotic_grass"), new ScatterFeature(EdenBlocks.MYCOTIC_GRASS), 12);
 	public static final BCLFeature GOLDEN_GRASS = BCLFeature.makeVegetationFeature(EdenRing.makeID("golden_grass"), new ScatterFeature(EdenBlocks.GOLDEN_GRASS), 8);
 	public static final BCLFeature BALLOON_MUSHROOM_SMALL = BCLFeature.makeVegetationFeature(EdenRing.makeID("balloon_mushroom_small"), new ScatterFeature(EdenBlocks.BALLOON_MUSHROOM_SMALL), 6);
+	public static final BCLFeature IRON_GRASS = BCLFeature.makeVegetationFeature(EdenRing.makeID("iron_grass"), new ScatterFeature(EdenBlocks.IRON_GRASS), 3);
+	public static final BCLFeature COPPER_GRASS = BCLFeature.makeVegetationFeature(EdenRing.makeID("copper_grass"), new ScatterFeature(EdenBlocks.COPPER_GRASS), 3);
+	public static final BCLFeature GOLD_GRASS = BCLFeature.makeVegetationFeature(EdenRing.makeID("gold_grass"), new ScatterFeature(EdenBlocks.GOLD_GRASS), 3);
 	
 	public static final BCLFeature VIOLUM_DENSE = BCLFeature.makeVegetationFeature(EdenRing.makeID("violum_dense"), new DoubleScatterFeature(EdenBlocks.VIOLUM), 8);
 	public static final BCLFeature VIOLUM_RARE = BCLFeature.makeVegetationFeature(EdenRing.makeID("violum_rare"), new DoubleScatterFeature(EdenBlocks.VIOLUM), 1);

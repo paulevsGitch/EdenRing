@@ -17,7 +17,6 @@ import paulevs.edenring.world.biomes.GoldenForestBiome;
 import paulevs.edenring.world.biomes.MycoticForestBiome;
 import paulevs.edenring.world.biomes.PulseForestBiome;
 import paulevs.edenring.world.biomes.StoneGardenBiome;
-import paulevs.edenring.world.features.EdenFeatures;
 import ru.bclib.api.BiomeAPI;
 import ru.bclib.config.EntryConfig;
 import ru.bclib.config.IdConfig;

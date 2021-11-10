@@ -4,12 +4,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.material.Material;
 import paulevs.edenring.registries.EdenBlocks;
+import ru.bclib.blocks.BlockProperties;
 import ru.bclib.util.BlocksHelper;
 import ru.bclib.util.MHelper;
 import ru.bclib.world.features.DefaultFeature;
@@ -20,10 +20,15 @@ public class BrainTreeFeature extends DefaultFeature {
 	private static final BlockState[] TYPES = new BlockState[3];
 	
 	@Override
+	@SuppressWarnings("deprecation")
 	public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> featurePlaceContext) {
 		WorldGenLevel level = featurePlaceContext.level();
 		BlockPos center = featurePlaceContext.origin();
 		Random random = featurePlaceContext.random();
+		
+		if (!EdenBlocks.PULSE_TREE_SAPLING.canSurvive(EdenBlocks.PULSE_TREE_SAPLING.defaultBlockState(), level, center)) {
+			return false;
+		}
 		
 		if (TYPES[0] == null) {
 			TYPES[0] = EdenBlocks.BRAIN_TREE_BLOCK_IRON.defaultBlockState();
@@ -32,7 +37,8 @@ public class BrainTreeFeature extends DefaultFeature {
 		}
 		
 		BlockState brain = TYPES[random.nextInt(3)];
-		BlockState stem = Blocks.OAK_LOG.defaultBlockState();
+		BlockState brainActive = brain.setValue(BlockProperties.ACTIVE, true);
+		BlockState stem = EdenBlocks.BRAIN_TREE_LOG.defaultBlockState();
 		
 		MutableBlockPos pos = center.mutable();
 		int h = MHelper.randRange(2, 4, random);
@@ -40,10 +46,23 @@ public class BrainTreeFeature extends DefaultFeature {
 		BlocksHelper.setWithoutUpdate(level, pos, stem);
 		for (int i = 1; i < h; i++) {
 			pos.setY(center.getY() + i);
-			if (canReplace(level.getBlockState(pos))) {
-				BlocksHelper.setWithoutUpdate(level, pos, stem);
-			}
+			setBlock(level, pos, stem);
 		}
+		
+		pos.setY(center.getY() + h);
+		setBlock(level, pos, stem);
+		pos.setY(pos.getY() + 1);
+		setBlock(level, pos, stem);
+		setBlock(level, pos.north(), stem);
+		setBlock(level, pos.south(), stem);
+		setBlock(level, pos.east(), stem);
+		setBlock(level, pos.west(), stem);
+		
+		pos.setY(pos.getY() + 1);
+		setBlock(level, pos.north(), stem);
+		setBlock(level, pos.south(), stem);
+		setBlock(level, pos.east(), stem);
+		setBlock(level, pos.west(), stem);
 		
 		for (int y = 0; y < 4; y++) {
 			pos.setY(center.getY() + h + y);
@@ -51,9 +70,7 @@ public class BrainTreeFeature extends DefaultFeature {
 				pos.setX(center.getX() + x);
 				for (int z = -1; z < 2; z++) {
 					pos.setZ(center.getZ() + z);
-					if (canReplace(level.getBlockState(pos))) {
-						BlocksHelper.setWithoutUpdate(level, pos, brain);
-					}
+					setBlock(level, pos, random.nextInt(16) == 0 ? brainActive : brain);
 				}
 			}
 		}
@@ -66,14 +83,20 @@ public class BrainTreeFeature extends DefaultFeature {
 				for (int z = -2; z < 3; z++) {
 					pos.setZ(center.getZ() + z);
 					int az = Mth.abs(z);
-					if ((ax != 2 || az != 2 || ax != az) && canReplace(level.getBlockState(pos))) {
-						BlocksHelper.setWithoutUpdate(level, pos, brain);
+					if (ax != 2 || az != 2 || ax != az) {
+						setBlock(level, pos, random.nextInt(16) == 0 ? brainActive : brain);
 					}
 				}
 			}
 		}
 		
 		return true;
+	}
+	
+	private void setBlock(WorldGenLevel level, BlockPos pos, BlockState state) {
+		if (canReplace(level.getBlockState(pos))) {
+			BlocksHelper.setWithoutUpdate(level, pos, state);
+		}
 	}
 	
 	private boolean canReplace(BlockState state) {

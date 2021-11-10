@@ -15,11 +15,11 @@ import java.util.Random;
 
 public class FloorScatterFeature extends DefaultFeature {
 	private Block block;
-	private Block[] floor;
+	private Block[] floors;
 	
-	public FloorScatterFeature(Block block, Block... floor) {
+	public FloorScatterFeature(Block block, Block... floors) {
 		this.block = block;
-		this.floor = floor;
+		this.floors = floors;
 	}
 	
 	@Override
@@ -35,8 +35,8 @@ public class FloorScatterFeature extends DefaultFeature {
 			int py = center.getY() + Mth.floor(Mth.clamp(random.nextGaussian() * 2, -8, 8));
 			int pz = center.getZ() + Mth.floor(Mth.clamp(random.nextGaussian() * 2, -8, 8));
 			pos.set(px, py, pz);
-			for (Block block: floor) {
-				if (level.getBlockState(pos).is(block)) {
+			for (Block floor: floors) {
+				if (level.getBlockState(pos).is(floor)) {
 					BlocksHelper.setWithoutUpdate(level, pos, block);
 					break;
 				}

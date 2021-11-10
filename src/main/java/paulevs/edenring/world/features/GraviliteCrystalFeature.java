@@ -37,7 +37,7 @@ public class GraviliteCrystalFeature extends DefaultFeature {
 		
 		BlockState crystalBottom = EdenBlocks.GRAVILITE_SHARDS.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN);
 		BlockState crystalTop = EdenBlocks.GRAVILITE_SHARDS.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP);
-		BlockState pillar = EdenBlocks.GRAVILITE.defaultBlockState();
+		BlockState pillar = EdenBlocks.GRAVILITE_BLOCK.defaultBlockState();
 		
 		int height = MHelper.randRange(8, 12, random);
 		makeCluster(level, center, height, random, pillar, crystalTop, crystalBottom);

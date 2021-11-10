@@ -1,10 +1,12 @@
 package paulevs.edenring.world.biomes;
 
+import net.minecraft.data.worldgen.Features;
 import net.minecraft.world.level.biome.Biome.BiomeCategory;
+import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
 import net.minecraft.world.level.levelgen.surfacebuilders.ConfiguredSurfaceBuilder;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.registries.EdenBiomes;
-import paulevs.edenring.world.features.EdenFeatures;
+import paulevs.edenring.registries.EdenFeatures;
 import ru.bclib.config.IdConfig;
 import ru.bclib.world.biomes.BCLBiome;
 import ru.bclib.world.biomes.BCLBiomeDef;
@@ -16,10 +18,16 @@ public class BrainstormBiome extends BCLBiome {
 				.loadConfigValues(config)
 				.setCategory(BiomeCategory.FOREST)
 				.setSurface(surfaceBuilder)
-				.setPlantsColor(121, 238, 248)
+				.setPlantsColor(200, 200, 200)
+				.addFeature(Decoration.VEGETAL_DECORATION, Features.PATCH_GRASS_FOREST)
+				.addFeature(Decoration.VEGETAL_DECORATION, Features.PATCH_TALL_GRASS)
+				.addFeature(EdenFeatures.IRON_GRASS)
+				.addFeature(EdenFeatures.COPPER_GRASS)
+				.addFeature(EdenFeatures.GOLD_GRASS)
 				.addFeature(EdenFeatures.BRAIN_TREE)
 				.setSkyColor(113, 178, 255)
-				.setFogColor(113, 178, 255)
+				.setFogColor(180, 180, 180)
+				.setFogDensity(2.5F)
 		));
 	}
 }

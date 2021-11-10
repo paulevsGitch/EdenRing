@@ -20,6 +20,7 @@ import paulevs.edenring.blocks.BalloonMushroomBlock;
 import paulevs.edenring.blocks.BalloonMushroomSmallBlock;
 import paulevs.edenring.blocks.BalloonMushroomStemBlock;
 import paulevs.edenring.blocks.BrainTreeBlock;
+import paulevs.edenring.blocks.BrainTreeLogBlock;
 import paulevs.edenring.blocks.CustomSaplingBlock;
 import paulevs.edenring.blocks.EdenGrassBlock;
 import paulevs.edenring.blocks.EdenMossBlock;
@@ -37,7 +38,6 @@ import paulevs.edenring.blocks.OverlayVineBlock;
 import paulevs.edenring.blocks.PulseTreeBlock;
 import paulevs.edenring.blocks.SimplePlantBlock;
 import paulevs.edenring.blocks.TexturedTerrainBlock;
-import paulevs.edenring.world.features.EdenFeatures;
 import ru.bclib.api.BonemealAPI;
 import ru.bclib.api.TagAPI;
 import ru.bclib.blocks.BaseLeavesBlock;
@@ -68,6 +68,7 @@ public class EdenBlocks {
 	public static final Block PULSE_TREE = register("pulse_tree", new PulseTreeBlock());
 	public static final ComplexMaterial PULSE_TREE_MATERIAL = new WoodenComplexMaterial(EdenRing.MOD_ID, "pulse_tree", "eden", MaterialColor.COLOR_CYAN, MaterialColor.COLOR_CYAN).init(REGISTRY, EdenItems.REGISTRY, EdenRecipes.CONFIG);
 	
+	public static final Block BRAIN_TREE_LOG = register("brain_tree_log", new BrainTreeLogBlock());
 	public static final Block BRAIN_TREE_BLOCK_IRON = register("brain_tree_block_iron", new BrainTreeBlock(MaterialColor.COLOR_LIGHT_GRAY));
 	public static final Block BRAIN_TREE_BLOCK_COPPER = register("brain_tree_block_copper", new BrainTreeBlock(MaterialColor.COLOR_ORANGE));
 	public static final Block BRAIN_TREE_BLOCK_GOLD = register("brain_tree_block_gold", new BrainTreeBlock(MaterialColor.GOLD));
@@ -76,12 +77,15 @@ public class EdenBlocks {
 	
 	public static final Block MYCOTIC_GRASS = register("mycotic_grass", new SimplePlantBlock(true));
 	public static final Block GOLDEN_GRASS = register("golden_grass", new OverlayPlantBlock(true));
+	public static final Block IRON_GRASS = register("iron_grass", new OverlayPlantBlock(true));
+	public static final Block COPPER_GRASS = register("copper_grass", new OverlayPlantBlock(true));
+	public static final Block GOLD_GRASS = register("gold_grass", new OverlayPlantBlock(true));
 	
 	public static final Block VIOLUM = register("violum", new OverlayDoublePlantBlock());
 	
 	public static final Block EDEN_VINE = register("eden_vine", new OverlayVineBlock());
 	
-	public static final Block GRAVILITE = register("gravilite", new GraviliteBlock());
+	public static final Block GRAVILITE_BLOCK = register("gravilite_block", new GraviliteBlock());
 	public static final Block GRAVILITE_SHARDS = register("gravilite_shards", new GraviliteShardsBlock());
 	public static final Block GRAVILITE_LAMP = register("gravilite_lamp", new GraviliteLampBlock());
 	public static final Block GRAVILITE_LANTERN = register("gravilite_lantern", new GraviliteLanternBlock());

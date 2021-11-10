@@ -5,11 +5,11 @@
 	"compatibilityLevel": "JAVA_16",
 	"mixins": [
 		"AmethystClusterBlockMixin",
+		"BushBlockMixin",
+		"EntityMixin",
 		"FlintAndSteelItemMixin",
 		"LivingEntityMixin",
-		"ServerLevelMixin",
-		"BushBlockMixin",
-		"EntityMixin"
+		"ServerLevelMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

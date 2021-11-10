@@ -43,7 +43,7 @@ public class LivingEntityMixin {
 		MutableBlockPos pos = entity.blockPosition().mutable();
 		int dist = 8;
 		for (int i = 0; i < 8; i++) {
-			if (entity.level.getBlockState(pos).is(EdenBlocks.GRAVILITE)) {
+			if (entity.level.getBlockState(pos).is(EdenBlocks.GRAVILITE_BLOCK)) {
 				dist = i;
 				break;
 			}

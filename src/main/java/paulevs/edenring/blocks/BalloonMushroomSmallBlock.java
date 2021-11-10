@@ -9,7 +9,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import paulevs.edenring.registries.EdenBlocks;
-import paulevs.edenring.world.features.EdenFeatures;
+import paulevs.edenring.registries.EdenFeatures;
 
 import java.util.Random;
 

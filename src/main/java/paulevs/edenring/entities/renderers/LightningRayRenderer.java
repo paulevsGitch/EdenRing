@@ -1,0 +1,83 @@
+package paulevs.edenring.entities.renderers;
+
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Matrix3f;
+import com.mojang.math.Matrix4f;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.phys.Vec3;
+import paulevs.edenring.entities.LightningRayEntity;
+
+public class LightningRayRenderer extends EntityRenderer<LightningRayEntity> {
+	private static final ResourceLocation GUARDIAN_BEAM_LOCATION = new ResourceLocation("textures/entity/guardian_beam.png");
+	private static final RenderType BEAM_RENDER_TYPE = RenderType.eyes(GUARDIAN_BEAM_LOCATION);
+	private static final Matrix3f NORMAL = new Matrix3f();
+	private static final Vec3 SIDE = new Vec3(1, 0, 0);
+	private static final Vec3 UP = new Vec3(0, 1, 0);
+	private static final int COLOR = 15 << 4 | 15;
+	
+	public LightningRayRenderer(Context context) {
+		super(context);
+		this.shadowRadius = 0.0F;
+	}
+	
+	@Override
+	public ResourceLocation getTextureLocation(LightningRayEntity entity) {
+		return GUARDIAN_BEAM_LOCATION;
+	}
+	
+	@Override
+	public void render(LightningRayEntity entity, float f, float deltaTick, PoseStack poseStack, MultiBufferSource multiBufferSource, int i) {
+		if (entity.getDir() == null) {
+			return;
+		}
+		
+		Vec3 axis = entity.getDir();
+		if (axis.x == 0 && axis.y == 0 && axis.z == 0) {
+			return;
+		}
+		
+		float time = (entity.tickCount + deltaTick) * 0.5F;
+		float dv = (float) axis.length() + time;
+		Vec3 side = axis.y == 1 || axis.y == -1 ? SIDE : axis.cross(UP).normalize();
+		float x1 = (float) side.x * 0.25F;
+		float y1 = (float) side.y * 0.25F;
+		float z1 = (float) side.z * 0.25F;
+		float x2 = (float) axis.x - x1;
+		float y2 = (float) axis.y - y1;
+		float z2 = (float) axis.z - z1;
+		float x3 = (float) axis.x + x1;
+		float y3 = (float) axis.y + y1;
+		float z3 = (float) axis.z + z1;
+		
+		//VertexConsumer vertexConsumer = multiBufferSource.getBuffer(RenderType.lightning());
+		RenderSystem.setShaderColor(1, 1, 1, 1);
+		VertexConsumer vertexConsumer = multiBufferSource.getBuffer(RenderType.eyes(this.getTextureLocation(entity)));
+		//VertexConsumer vertexConsumer = multiBufferSource.getBuffer(BEAM_RENDER_TYPE);
+		poseStack.pushPose();
+		Matrix4f matrix4f = poseStack.last().pose();
+		vertex(vertexConsumer, matrix4f, -x1, y1, -z1, 0.0F, time);
+		vertex(vertexConsumer, matrix4f,  x2, y2,  z2, 0.0F,   dv);
+		vertex(vertexConsumer, matrix4f,  x3, y3,  z3, 0.5F,   dv);
+		vertex(vertexConsumer, matrix4f,  x1, y1,  z1, 0.5F, time);
+		poseStack.popPose();
+		super.render(entity, f, deltaTick, poseStack, multiBufferSource, i);
+	}
+	
+	private void vertex(VertexConsumer vertexConsumer, Matrix4f matrix4f, float x, float y, float z, float u, float v) {
+		vertexConsumer
+			.vertex(matrix4f, x, y, z)
+			.color(255, 255, 255, 255)
+			.uv(u, v)
+			.overlayCoords(OverlayTexture.NO_OVERLAY)
+			.uv2(COLOR)
+			.normal(NORMAL, 0, 1, 0)
+			.endVertex();
+	}
+}

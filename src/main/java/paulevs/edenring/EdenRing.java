@@ -12,8 +12,10 @@ import net.minecraft.world.level.dimension.DimensionType;
 import paulevs.edenring.registries.EdenBiomes;
 import paulevs.edenring.registries.EdenBlockEntities;
 import paulevs.edenring.registries.EdenBlocks;
+import paulevs.edenring.registries.EdenEntities;
 import paulevs.edenring.registries.EdenFeatures;
 import paulevs.edenring.registries.EdenRecipes;
+import paulevs.edenring.registries.EdenSounds;
 import paulevs.edenring.world.EdenPortal;
 import paulevs.edenring.world.generator.EdenBiomeSource;
 import paulevs.edenring.world.generator.EdenChunkGenerator;
@@ -34,8 +36,10 @@ public class EdenRing implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		GeneratorOptions.init();
+		EdenSounds.init();
 		EdenBlocks.init();
 		EdenBlockEntities.init();
+		EdenEntities.init();
 		EdenFeatures.init();
 		EdenBiomes.init();
 		EdenRecipes.init();

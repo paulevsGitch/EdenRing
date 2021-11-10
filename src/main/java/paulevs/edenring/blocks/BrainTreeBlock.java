@@ -10,12 +10,19 @@ import net.minecraft.core.Vec3i;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.ArmorMaterials;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -40,6 +47,7 @@ import ru.bclib.interfaces.BlockModelProvider;
 import ru.bclib.interfaces.RenderLayerProvider;
 import ru.bclib.util.MHelper;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -47,6 +55,12 @@ import java.util.Random;
 
 public class BrainTreeBlock extends BaseBlock implements BlockModelProvider, RenderLayerProvider {
 	public static final BooleanProperty	ACTIVE = BlockProperties.ACTIVE;
+	private static final ArmorMaterial[] PROTECTIVE = new ArmorMaterial[] {
+		ArmorMaterials.CHAIN,
+		ArmorMaterials.IRON,
+		ArmorMaterials.GOLD,
+		ArmorMaterials.NETHERITE
+	};
 	
 	public BrainTreeBlock(MaterialColor color) {
 		super(FabricBlockSettings.copyOf(Blocks.COPPER_BLOCK).color(color).lightLevel(state -> state.getValue(ACTIVE) ? 15 : 0).randomTicks());
@@ -61,7 +75,7 @@ public class BrainTreeBlock extends BaseBlock implements BlockModelProvider, Ren
 	@Override
 	@SuppressWarnings("deprecation")
 	public void randomTick(BlockState state, ServerLevel world, BlockPos pos, Random random) {
-		if (!world.isClientSide() && random.nextInt(512) == 0 && BiomeAPI.getFromBiome(world.getBiome(pos)) == EdenBiomes.BRAINSTORM) {
+		if (!world.isClientSide() && random.nextInt(1024) == 0 && BiomeAPI.getFromBiome(world.getBiome(pos)) == EdenBiomes.BRAINSTORM) {
 			int px = pos.getX() + MHelper.randRange(-16, 16, random);
 			int pz = pos.getZ() + MHelper.randRange(-16, 16, random);
 			int py = world.getHeight(Types.WORLD_SURFACE, px, pz);
@@ -123,6 +137,41 @@ public class BrainTreeBlock extends BaseBlock implements BlockModelProvider, Ren
 				lightningRay.teleportTo(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 				lightningRay.setEnd(entity.position());
 				world.addFreshEntity(lightningRay);
+				
+				world.playLocalSound(
+					entity.getX(),
+					entity.getY(),
+					entity.getZ(),
+					SoundEvents.LIGHTNING_BOLT_IMPACT,
+					SoundSource.WEATHER,
+					MHelper.randRange(1.0F, 5.0F, random),
+					MHelper.randRange(0.5F, 1.5F, random),
+					false
+				);
+				
+				if (entity.isInvulnerable() || (entity instanceof Player && ((Player) entity).isCreative())) {
+					return;
+				}
+				
+				float resistance = 0;
+				Iterator<ItemStack> iterator = entity.getArmorSlots().iterator();
+				while (iterator.hasNext()) {
+					ItemStack stack = iterator.next();
+					if (stack.getItem() instanceof ArmorItem) {
+						ArmorItem item = (ArmorItem) stack.getItem();
+						ArmorMaterial material = item.getMaterial();
+						for (ArmorMaterial m: PROTECTIVE) {
+							if (material == m) {
+								resistance += 0.25F;
+								break;
+							}
+						}
+					}
+				}
+				
+				if (resistance < 1) {
+					entity.hurt(DamageSource.LIGHTNING_BOLT, (1 - resistance) * 3F);
+				}
 			}
 		}
 	}
@@ -152,9 +201,8 @@ public class BrainTreeBlock extends BaseBlock implements BlockModelProvider, Ren
 				blockPos.getZ() + 0.5,
 				EdenSounds.BLOCK_ELECTRIC,
 				SoundSource.BLOCKS,
-				//MHelper.randRange(1.0F, 2.0F, random),
-				0.3F,
-				MHelper.randRange(0.9F, 1.4F, random),
+				MHelper.randRange(1.0F, 5.0F, random),
+				MHelper.randRange(0.5F, 1.5F, random),
 				false
 			);
 		}

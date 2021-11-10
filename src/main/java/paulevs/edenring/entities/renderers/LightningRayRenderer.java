@@ -1,7 +1,7 @@
 package paulevs.edenring.entities.renderers;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.PoseStack.Pose;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix3f;
 import com.mojang.math.Matrix4f;
@@ -10,17 +10,18 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
 import paulevs.edenring.entities.LightningRayEntity;
 
 public class LightningRayRenderer extends EntityRenderer<LightningRayEntity> {
 	private static final ResourceLocation GUARDIAN_BEAM_LOCATION = new ResourceLocation("textures/entity/guardian_beam.png");
-	private static final RenderType BEAM_RENDER_TYPE = RenderType.eyes(GUARDIAN_BEAM_LOCATION);
+	private static final RenderType BEAM_RENDER_TYPE = RenderType.entityTranslucent(GUARDIAN_BEAM_LOCATION, true);
 	private static final Matrix3f NORMAL = new Matrix3f();
 	private static final Vec3 SIDE = new Vec3(1, 0, 0);
 	private static final Vec3 UP = new Vec3(0, 1, 0);
-	private static final int COLOR = 15 << 4 | 15;
+	private static final int COLOR = 15728880;
 	
 	public LightningRayRenderer(Context context) {
 		super(context);
@@ -30,6 +31,16 @@ public class LightningRayRenderer extends EntityRenderer<LightningRayEntity> {
 	@Override
 	public ResourceLocation getTextureLocation(LightningRayEntity entity) {
 		return GUARDIAN_BEAM_LOCATION;
+	}
+	
+	@Override
+	protected int getSkyLightLevel(LightningRayEntity entity, BlockPos blockPos) {
+		return 15;
+	}
+	
+	@Override
+	protected int getBlockLightLevel(LightningRayEntity entity, BlockPos blockPos) {
+		return 15;
 	}
 	
 	@Override
@@ -43,7 +54,7 @@ public class LightningRayRenderer extends EntityRenderer<LightningRayEntity> {
 			return;
 		}
 		
-		float time = (entity.tickCount + deltaTick) * 0.5F;
+		float time = -(entity.tickCount + deltaTick) * 0.75F;
 		float dv = (float) axis.length() + time;
 		Vec3 side = axis.y == 1 || axis.y == -1 ? SIDE : axis.cross(UP).normalize();
 		float x1 = (float) side.x * 0.25F;
@@ -56,28 +67,28 @@ public class LightningRayRenderer extends EntityRenderer<LightningRayEntity> {
 		float y3 = (float) axis.y + y1;
 		float z3 = (float) axis.z + z1;
 		
-		//VertexConsumer vertexConsumer = multiBufferSource.getBuffer(RenderType.lightning());
-		RenderSystem.setShaderColor(1, 1, 1, 1);
-		VertexConsumer vertexConsumer = multiBufferSource.getBuffer(RenderType.eyes(this.getTextureLocation(entity)));
-		//VertexConsumer vertexConsumer = multiBufferSource.getBuffer(BEAM_RENDER_TYPE);
+		VertexConsumer vertexConsumer = multiBufferSource.getBuffer(BEAM_RENDER_TYPE);//multiBufferSource.getBuffer(RenderType.entityCutoutNoCull(getTextureLocation(entity)));
 		poseStack.pushPose();
-		Matrix4f matrix4f = poseStack.last().pose();
-		vertex(vertexConsumer, matrix4f, -x1, y1, -z1, 0.0F, time);
-		vertex(vertexConsumer, matrix4f,  x2, y2,  z2, 0.0F,   dv);
-		vertex(vertexConsumer, matrix4f,  x3, y3,  z3, 0.5F,   dv);
-		vertex(vertexConsumer, matrix4f,  x1, y1,  z1, 0.5F, time);
+		Pose lastPose = poseStack.last();
+		Matrix4f pose = lastPose.pose();
+		Matrix3f normal = lastPose.normal();
+		vertex(vertexConsumer, pose, normal, -x1, y1, -z1, 0.0F, time);
+		vertex(vertexConsumer, pose, normal,  x2, y2,  z2, 0.0F,   dv);
+		vertex(vertexConsumer, pose, normal,  x3, y3,  z3, 0.5F,   dv);
+		vertex(vertexConsumer, pose, normal,  x1, y1,  z1, 0.5F, time);
 		poseStack.popPose();
+		
 		super.render(entity, f, deltaTick, poseStack, multiBufferSource, i);
 	}
 	
-	private void vertex(VertexConsumer vertexConsumer, Matrix4f matrix4f, float x, float y, float z, float u, float v) {
+	private void vertex(VertexConsumer vertexConsumer, Matrix4f pose, Matrix3f normal, float x, float y, float z, float u, float v) {
 		vertexConsumer
-			.vertex(matrix4f, x, y, z)
+			.vertex(pose, x, y, z)
 			.color(255, 255, 255, 255)
 			.uv(u, v)
 			.overlayCoords(OverlayTexture.NO_OVERLAY)
 			.uv2(COLOR)
-			.normal(NORMAL, 0, 1, 0)
+			.normal(normal, 0, 1, 0)
 			.endVertex();
 	}
 }

@@ -15,7 +15,7 @@ public class GeneratorOptions {
 		bigOptions = new LayerOptions("terrain.layers.bigIslands", config, 300, 200, 128, 20);
 		mediumOptions = new LayerOptions("terrain.layers.mediumIslands", config, 150, 100, 128, 40);
 		smallOptions = new LayerOptions("terrain.layers.smallIslands", config, 60, 50, 128, 60);
-		biomeSize = config.getInt("biomes", "size", 256);
+		biomeSize = config.getInt("biomes", "size", 128);
 		
 		config.saveChanges();
 	}

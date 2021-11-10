@@ -4,17 +4,17 @@
 		"sounds": [
 			{
 				"name": "edenring:block/electric_1",
-				"volume": 1.0,
+				"volume": 0.1,
 				"stream": false
 			},
 			{
 				"name": "edenring:block/electric_2",
-				"volume": 1.0,
+				"volume": 0.1,
 				"stream": false
 			},
 			{
 				"name": "edenring:block/electric_3",
-				"volume": 1.0,
+				"volume": 0.1,
 				"stream": false
 			}
 		]

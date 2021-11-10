@@ -245,6 +245,7 @@ public class LevelRendererMixin {
 				
 				matrices.pushPose();
 				matrices.mulPose(Vector3f.YP.rotation((float) (time * 0.0002)));
+				float density = Mth.clamp(BackgroundInfo.fogDensity, 1, 2);
 				eden_renderBuffer(
 					matrices,
 					matrix4f,
@@ -253,7 +254,7 @@ public class LevelRendererMixin {
 					BackgroundInfo.fogColorRed,
 					BackgroundInfo.fogColorGreen,
 					BackgroundInfo.fogColorBlue,
-					(1.0F - skyBlend) * 0.5F
+					(1.0F - skyBlend) * 0.5F * density
 				);
 				matrices.popPose();
 				

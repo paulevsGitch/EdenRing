@@ -123,7 +123,7 @@ public class EdenBlocks {
 					ComposterBlockAccessor.callAdd(0.1F, block);
 				}
 			}
-			else if (material == Material.STONE) {
+			else if (material == Material.STONE || material == Material.METAL || material == Material.HEAVY_METAL || material == Material.AMETHYST) {
 				TagAPI.addTag(BlockTags.MINEABLE_WITH_PICKAXE, block);
 			}
 			

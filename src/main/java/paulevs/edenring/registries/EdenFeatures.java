@@ -32,7 +32,7 @@ public class EdenFeatures {
 	);
 	public static final BCLFeature GRASS_FLOOR = BCLFeature.makeVegetationFeature(
 		EdenRing.makeID("grass_floor"),
-		new FloorScatterFeature(EdenBlocks.EDEN_GRASS_BLOCK, EdenBlocks.EDEN_MYCELIUM), 6
+		new FloorScatterFeature(EdenBlocks.EDEN_GRASS_BLOCK, true, EdenBlocks.EDEN_MYCELIUM, Blocks.SAND), 6
 	);
 	public static final BCLFeature GRAVEL_FLOOR = BCLFeature.makeVegetationFeature(
 		EdenRing.makeID("gravel_floor"),

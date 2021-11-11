@@ -17,7 +17,7 @@ public class AuritisLeavesBlock extends BaseLeavesBlock {
 	
 	@Override
 	public void animateTick(BlockState blockState, Level level, BlockPos pos, Random random) {
-		if (random.nextInt(32) == 0 && level.getBlockState(pos.below()).isAir()) {
+		if (random.nextInt(128) == 0 && level.getBlockState(pos.below()).isAir()) {
 			float dx = random.nextFloat();
 			float dz = random.nextFloat();
 			level.addParticle(EdenParticles.AURITIS_LEAF_PARTICLE, pos.getX() + dx, pos.getY() - 0.01F, pos.getZ() + dz, 0, 0, 0);

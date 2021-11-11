@@ -4,9 +4,9 @@ package paulevs.edenring.registries;
 import net.fabricmc.fabric.mixin.object.builder.AbstractBlockAccessor;
 import net.fabricmc.fabric.mixin.object.builder.AbstractBlockSettingsAccessor;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -18,6 +18,7 @@ import net.minecraft.world.level.material.MaterialColor;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.blocks.AquatusBlock;
 import paulevs.edenring.blocks.AquatusRootsBlock;
+import paulevs.edenring.blocks.AquatusSapling;
 import paulevs.edenring.blocks.BalloonMushroomBlock;
 import paulevs.edenring.blocks.BalloonMushroomSmallBlock;
 import paulevs.edenring.blocks.BalloonMushroomStemBlock;
@@ -75,6 +76,7 @@ public class EdenBlocks {
 	public static final Block BRAIN_TREE_BLOCK_COPPER = register("brain_tree_block_copper", new BrainTreeBlock(MaterialColor.COLOR_ORANGE));
 	public static final Block BRAIN_TREE_BLOCK_GOLD = register("brain_tree_block_gold", new BrainTreeBlock(MaterialColor.GOLD));
 	
+	public static final Block AQUATUS_SAPLING = register("aquatus_sapling", new AquatusSapling());
 	public static final Block AQUATUS_BLOCK = register("aquatus_block", new AquatusBlock());
 	public static final Block AQUATUS_ROOTS = registerBO("aquatus_roots", new AquatusRootsBlock());
 	
@@ -100,7 +102,8 @@ public class EdenBlocks {
 	public static final Block PORTAL_CENTER = registerBO("portal_center", new EdenPortalCenterBlock());
 	
 	public static void init() {
-		Registry.BLOCK.stream().filter(block -> Registry.BLOCK.getKey(block).getNamespace().equals(EdenRing.MOD_ID)).forEach(block -> {
+		//Registry.BLOCK.stream().filter(block -> Registry.BLOCK.getKey(block).getNamespace().equals(EdenRing.MOD_ID)).forEach(block -> {
+		BlockRegistry.getModBlocks(EdenRing.MOD_ID).forEach(block -> {
 			Properties properties = ((AbstractBlockAccessor) block).getSettings();
 			Material material = ((AbstractBlockSettingsAccessor) properties).getMaterial();
 			
@@ -115,7 +118,9 @@ public class EdenBlocks {
 			}
 			else if (material == Material.PLANT || material == Material.REPLACEABLE_PLANT) {
 				TagAPI.addTag(BlockTags.MINEABLE_WITH_HOE, block);
-				ComposterBlockAccessor.callAdd(0.1F, block);
+				if (block.asItem() != Items.AIR) {
+					ComposterBlockAccessor.callAdd(0.1F, block);
+				}
 			}
 			else if (material == Material.STONE) {
 				TagAPI.addTag(BlockTags.MINEABLE_WITH_PICKAXE, block);

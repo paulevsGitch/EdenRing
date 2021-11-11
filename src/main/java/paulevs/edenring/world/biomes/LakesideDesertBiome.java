@@ -1,10 +1,7 @@
 package paulevs.edenring.world.biomes;
 
-import net.minecraft.data.worldgen.Features;
 import net.minecraft.world.level.biome.Biome.BiomeCategory;
-import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
 import net.minecraft.world.level.levelgen.surfacebuilders.ConfiguredSurfaceBuilder;
-import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilderBaseConfiguration;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.registries.EdenBiomes;
 import paulevs.edenring.registries.EdenFeatures;

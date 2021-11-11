@@ -9,6 +9,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -17,22 +19,27 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import paulevs.edenring.EdenRing;
+import paulevs.edenring.registries.EdenBlocks;
 import ru.bclib.blocks.BaseBlockNotFull;
 import ru.bclib.client.models.BasePatterns;
 import ru.bclib.client.models.ModelsHelper;
 import ru.bclib.client.models.PatternsHelper;
 import ru.bclib.client.render.BCLRenderLayer;
 import ru.bclib.interfaces.RenderLayerProvider;
-import ru.bclib.util.BlocksHelper;
 import ru.bclib.util.MHelper;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 
 public class AquatusRootsBlock extends BaseBlockNotFull implements RenderLayerProvider {
+	private static final VoxelShape TOP_SHAPE = box(1, 8, 1, 15, 16, 15);
 	public static final BooleanProperty UP = BlockStateProperties.UP;
 	
 	public AquatusRootsBlock() {
@@ -92,6 +99,17 @@ public class AquatusRootsBlock extends BaseBlockNotFull implements RenderLayerPr
 		if (canReplace(level.getBlockState(repPos))) {
 			level.setBlockAndUpdate(repPos, random.nextInt(4) == 0 ? Blocks.GRAVEL.defaultBlockState() : Blocks.SAND.defaultBlockState());
 		}
+	}
+	
+	@Override
+	public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+		return state.getValue(UP) && MHelper.RANDOM.nextInt(4) == 0 ? Collections.singletonList(new ItemStack(EdenBlocks.AQUATUS_SAPLING)) : Collections.EMPTY_LIST;
+	}
+	
+	@Override
+	@SuppressWarnings("deprecation")
+	public VoxelShape getShape(BlockState state, BlockGetter view, BlockPos pos, CollisionContext ePos) {
+		return state.getValue(UP) ? TOP_SHAPE : super.getShape(state, view, pos, ePos);
 	}
 	
 	private boolean canReplace(BlockState state) {

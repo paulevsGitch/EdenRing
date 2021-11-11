@@ -1,6 +1,5 @@
 package paulevs.edenring.world.features;
 
-import net.minecraft.BlockUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.world.level.WorldGenLevel;
@@ -120,7 +119,7 @@ public class AquatusFeature extends DefaultFeature {
 	}
 	
 	private boolean canReplace(BlockState state) {
-		return state.isAir() || state.getMaterial().isReplaceable() || state.getMaterial().equals(Material.PLANT);
+		return state.isAir() || state.is(EdenBlocks.AQUATUS_BLOCK) || state.getMaterial().isReplaceable() || state.getMaterial().equals(Material.PLANT);
 	}
 	
 	private void setBlock(WorldGenLevel level, BlockPos pos, BlockState state) {

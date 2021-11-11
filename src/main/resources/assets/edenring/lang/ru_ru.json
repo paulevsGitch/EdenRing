@@ -107,5 +107,6 @@
 	"block.edenring.copper_grass": "Медная трава",
 	"block.edenring.gold_grass": "Золотая трава",
 	"block.edenring.iron_grass": "Железная трава",
-	"entity.edenring.lightning_ray": "Молния"
+	"entity.edenring.lightning_ray": "Молния",
+	"block.edenring.aquatus_sapling": "Саженец акватуса"
 }

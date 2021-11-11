@@ -107,5 +107,6 @@
 	"block.edenring.copper_grass": "Copper Grass",
 	"block.edenring.gold_grass": "Gold Grass",
 	"block.edenring.iron_grass": "Iron Grass",
-	"entity.edenring.lightning_ray": "Lightning Ray"
+	"entity.edenring.lightning_ray": "Lightning Ray",
+	"block.edenring.aquatus_sapling": "Aquatus Sapling"
 }

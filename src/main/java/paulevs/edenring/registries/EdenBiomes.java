@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.Carvers;
 import net.minecraft.data.worldgen.Features;
+import net.minecraft.data.worldgen.SurfaceBuilders;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep.Carving;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
@@ -14,6 +15,7 @@ import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilderConfigur
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.world.biomes.BrainstormBiome;
 import paulevs.edenring.world.biomes.GoldenForestBiome;
+import paulevs.edenring.world.biomes.LakesideDesertBiome;
 import paulevs.edenring.world.biomes.MycoticForestBiome;
 import paulevs.edenring.world.biomes.PulseForestBiome;
 import paulevs.edenring.world.biomes.StoneGardenBiome;
@@ -47,6 +49,7 @@ public class EdenBiomes {
 	public static final BCLBiome MYCOTIC_FOREST = register(new MycoticForestBiome(CONFIG, MYCELIUM_BUILDER));
 	public static final BCLBiome PULSE_FOREST = register(new PulseForestBiome(CONFIG, DEFAULT_BUILDER));
 	public static final BCLBiome BRAINSTORM = register(new BrainstormBiome(CONFIG, DEFAULT_BUILDER));
+	public static final BCLBiome LAKESIDE_DESERT = register(new LakesideDesertBiome(CONFIG, SurfaceBuilders.DESERT));
 	
 	public static void init() {
 		CONFIG.saveChanges();

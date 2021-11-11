@@ -6,6 +6,7 @@
 	"biome.edenring.stone_garden": "Каменный сад",
 	"biome.edenring.pulse_forest": "Пульсирующий лес",
 	"biome.edenring.brainstorm": "Мозговой шторм",
+	"biome.edenring.lakeside_desert": "Озёрная пустыня",
 	
 	"block.edenring.auritis_outer_leaves": "Внешние листья ауритиса",
 	"block.edenring.auritis_bark": "Кора ауритиса",
@@ -98,5 +99,13 @@
 	
 	"block.edenring.gravilite_lamp": "Лампа из гравилита",
 	"block.edenring.gravilite_lantern": "Фонарь из гравилита",
-	"block.edenring.gravilite_lantern_tall": "Высокий фонарь из гравилита"
+	"block.edenring.gravilite_lantern_tall": "Высокий фонарь из гравилита",
+	
+	"block.edenring.aquatus_block": "Блок акватуса",
+	"block.edenring.aquatus_roots": "Корни акватуса",
+	"block.edenring.brain_tree_log": "Бревно мозгового дерева",
+	"block.edenring.copper_grass": "Медная трава",
+	"block.edenring.gold_grass": "Золотая трава",
+	"block.edenring.iron_grass": "Железная трава",
+	"entity.edenring.lightning_ray": "Молния"
 }

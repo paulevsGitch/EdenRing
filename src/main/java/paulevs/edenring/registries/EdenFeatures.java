@@ -2,6 +2,7 @@ package paulevs.edenring.registries;
 
 import net.minecraft.world.level.block.Blocks;
 import paulevs.edenring.EdenRing;
+import paulevs.edenring.world.features.AquatusFeature;
 import paulevs.edenring.world.features.AuritisTreeFeature;
 import paulevs.edenring.world.features.BalloonMushroomTreeFeature;
 import paulevs.edenring.world.features.BrainTreeFeature;
@@ -32,6 +33,10 @@ public class EdenFeatures {
 	public static final BCLFeature GRASS_FLOOR = BCLFeature.makeVegetationFeature(
 		EdenRing.makeID("grass_floor"),
 		new FloorScatterFeature(EdenBlocks.EDEN_GRASS_BLOCK, EdenBlocks.EDEN_MYCELIUM), 6
+	);
+	public static final BCLFeature GRAVEL_FLOOR = BCLFeature.makeVegetationFeature(
+		EdenRing.makeID("gravel_floor"),
+		new FloorScatterFeature(Blocks.GRAVEL, Blocks.SAND), 6
 	);
 	
 	public static final BCLFeature STONE_PILLAR = BCLFeature.makeRawGenFeature(EdenRing.makeID("stone_pillar"), new StonePillar(), 15);
@@ -70,6 +75,7 @@ public class EdenFeatures {
 	public static final BCLFeature AURITIS_TREE = BCLFeature.makeVegetationFeature(EdenRing.makeID("auritis_tree"), new AuritisTreeFeature(), 10);
 	public static final BCLFeature PULSE_TREE = BCLFeature.makeVegetationFeature(EdenRing.makeID("pulse_tree"), new PulseTreeFeature(), 50);
 	public static final BCLFeature BRAIN_TREE = BCLFeature.makeVegetationFeature(EdenRing.makeID("brain_tree"), new BrainTreeFeature(), 8);
+	public static final BCLFeature AQUATUS = BCLFeature.makeVegetationFeature(EdenRing.makeID("aquatus"), new AquatusFeature(), 8);
 	
 	public static final BCLFeature EDEN_VINE = BCLFeature.makeVegetationFeature(EdenRing.makeID("eden_vine"), new VineFeature(), 2);
 	public static final BCLFeature ROOTS = BCLFeature.makeVegetationFeature(EdenRing.makeID("roots"), new RootsFeature(), 4);

@@ -6,6 +6,7 @@
 	"biome.edenring.stone_garden": "Stone Garden",
 	"biome.edenring.pulse_forest": "Pulse Forest",
 	"biome.edenring.brainstorm": "Brainstorm",
+	"biome.edenring.lakeside_desert": "Lakeside Desert",
 	
 	"block.edenring.auritis_outer_leaves": "Auritis Outer Leaves",
 	"block.edenring.auritis_bark": "Auritis Bark",
@@ -98,5 +99,13 @@
 	
 	"block.edenring.gravilite_lamp": "Gravilite Lamp",
 	"block.edenring.gravilite_lantern": "Gravilite Lantern",
-	"block.edenring.gravilite_lantern_tall": "Tall Gravilite Lantern"
+	"block.edenring.gravilite_lantern_tall": "Tall Gravilite Lantern",
+	
+	"block.edenring.aquatus_block": "Aquatus Block",
+	"block.edenring.aquatus_roots": "Aquatus Roots",
+	"block.edenring.brain_tree_log": "Brain Tree Log",
+	"block.edenring.copper_grass": "Copper Grass",
+	"block.edenring.gold_grass": "Gold Grass",
+	"block.edenring.iron_grass": "Iron Grass",
+	"entity.edenring.lightning_ray": "Lightning Ray"
 }

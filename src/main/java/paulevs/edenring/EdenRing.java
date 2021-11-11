@@ -30,7 +30,7 @@ public class EdenRing implements ModInitializer {
 	public static final CreativeModeTab EDEN_TAB = FabricItemGroupBuilder
 		.create(makeID("eden_tab"))
 		.icon(() -> new ItemStack(EdenBlocks.MOSSY_STONE))
-		.appendItems(stacks -> stacks.addAll(BaseRegistry.getModBlocks(MOD_ID).stream().map(ItemStack::new).toList()))
+		.appendItems(stacks -> stacks.addAll(BaseRegistry.getModBlockItems(MOD_ID).stream().map(ItemStack::new).toList()))
 		.build();
 	
 	@Override

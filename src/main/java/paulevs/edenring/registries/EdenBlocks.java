@@ -16,6 +16,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import paulevs.edenring.EdenRing;
+import paulevs.edenring.blocks.AquatusBlock;
+import paulevs.edenring.blocks.AquatusRootsBlock;
 import paulevs.edenring.blocks.BalloonMushroomBlock;
 import paulevs.edenring.blocks.BalloonMushroomSmallBlock;
 import paulevs.edenring.blocks.BalloonMushroomStemBlock;
@@ -72,6 +74,9 @@ public class EdenBlocks {
 	public static final Block BRAIN_TREE_BLOCK_IRON = register("brain_tree_block_iron", new BrainTreeBlock(MaterialColor.COLOR_LIGHT_GRAY));
 	public static final Block BRAIN_TREE_BLOCK_COPPER = register("brain_tree_block_copper", new BrainTreeBlock(MaterialColor.COLOR_ORANGE));
 	public static final Block BRAIN_TREE_BLOCK_GOLD = register("brain_tree_block_gold", new BrainTreeBlock(MaterialColor.GOLD));
+	
+	public static final Block AQUATUS_BLOCK = register("aquatus_block", new AquatusBlock());
+	public static final Block AQUATUS_ROOTS = registerBO("aquatus_roots", new AquatusRootsBlock());
 	
 	public static final Block EDEN_MOSS = register("eden_moss", new EdenMossBlock());
 	

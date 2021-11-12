@@ -17,12 +17,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.ChunkStatus;
 import net.minecraft.world.level.levelgen.Heightmap.Types;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.AABB;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.interfaces.EdenPortable;
 import paulevs.edenring.registries.EdenBlockEntities;
 import paulevs.edenring.registries.EdenBlocks;
+import paulevs.edenring.registries.EdenFeatures;
 import paulevs.edenring.world.EdenPortal;
 
 import java.util.List;
@@ -89,6 +91,15 @@ public class EdenPortalBlockEntity extends BlockEntity {
 		MutableBlockPos exit = getExit(destination, blockPos);
 		if (exit.getY() == -255) {
 			getLand(destination, exit);
+			if (exit.getY() == 130 && destination.getBlockState(exit.below(2)).isAir()) {
+				EdenFeatures.SMALL_ISLAND.getFeature().place(new FeaturePlaceContext(
+					destination,
+					destination.getChunkSource().getGenerator(),
+					destination.random,
+					exit.below(2),
+					null
+				));
+			}
 			EdenPortal.buildPortal(destination, exit);
 		}
 		
@@ -149,7 +160,7 @@ public class EdenPortalBlockEntity extends BlockEntity {
 		int maxY = chunk.getHeight(Types.WORLD_SURFACE, pos.getX(), pos.getZ()) + 3;
 		
 		if (maxY < 1) {
-			pos.move(chunk.getPos().getMinBlockX(), 2, chunk.getPos().getMinBlockZ()).setY(128);
+			pos.move(chunk.getPos().getMinBlockX(), 2, chunk.getPos().getMinBlockZ()).setY(128 + 2);
 			return;
 		}
 		

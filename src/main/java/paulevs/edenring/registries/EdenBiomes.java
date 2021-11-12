@@ -67,6 +67,7 @@ public class EdenBiomes {
 		def.addFeature(Decoration.UNDERGROUND_DECORATION, Features.ORE_GRANITE);
 		def.addFeature(Decoration.UNDERGROUND_DECORATION, Features.ORE_ANDESITE);
 		def.addFeature(Decoration.UNDERGROUND_DECORATION, Features.ORE_DIORITE);
+		def.addFeature(EdenFeatures.SMALL_ISLAND);
 		def.addFeature(EdenFeatures.ORE_MOSSY_COBBLE);
 		def.addFeature(EdenFeatures.ORE_COBBLE);
 		def.addFeature(EdenFeatures.ORE_COAL);

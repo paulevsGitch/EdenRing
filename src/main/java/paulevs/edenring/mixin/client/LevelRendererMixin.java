@@ -315,6 +315,25 @@ public class LevelRendererMixin {
 				matrices.popPose();
 			}
 			
+			// Render Blindness //
+			
+			if (BackgroundInfo.blindness > 0) {
+				RenderSystem.clear(GL11.GL_DEPTH_BUFFER_BIT, Minecraft.ON_OSX);
+				RenderSystem.disableDepthTest();
+				RenderSystem.defaultBlendFunc();
+				RenderSystem.disableTexture();
+				
+				RenderSystem.setShaderColor(0, 0, 0, BackgroundInfo.blindness);
+				RenderSystem.setShader(GameRenderer::getPositionShader);
+				eden_bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION);
+				eden_bufferBuilder.vertex(matrix4f, -10.0F, -10.0F, 0.0F).endVertex();
+				eden_bufferBuilder.vertex(matrix4f, 10.0F, -10.0F, 0.0F).endVertex();
+				eden_bufferBuilder.vertex(matrix4f, 10.0F, 10.0F, 0.0F).endVertex();
+				eden_bufferBuilder.vertex(matrix4f, -10.0F, 10.0F, 0.0F).endVertex();
+				eden_bufferBuilder.end();
+				BufferUploader.end(eden_bufferBuilder);
+			}
+			
 			// Finalize //
 			
 			RenderSystem.clear(GL11.GL_DEPTH_BUFFER_BIT, Minecraft.ON_OSX);

@@ -9,6 +9,7 @@
 		"LightningBoltMixin",
 		"LivingEntityMixin",
 		"ServerLevelMixin",
+		"ItemEntityMixin",
 		"BushBlockMixin",
 		"EntityMixin"
 	],

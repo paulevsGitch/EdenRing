@@ -1,4 +1,4 @@
-package paulevs.edenring;
+package paulevs.edenring.blocks;
 
 import com.google.common.collect.Maps;
 import net.fabricmc.api.EnvType;

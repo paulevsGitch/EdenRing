@@ -118,3 +118,29 @@ artifacts {
     archives sourcesJar
     archives javadocJar
 }
+
+def env = System.getenv()
+
+import org.kohsuke.github.GHReleaseBuilder
+import org.kohsuke.github.GitHub
+
+task release(dependsOn: [remapJar, sourcesJar, javadocJar]) {
+    onlyIf {
+        env.GITHUB_TOKEN
+    }
+
+    doLast {
+        def github = GitHub.connectUsingOAuth(env.GITHUB_TOKEN as String)
+        def repository = github.getRepository("paulevsGitch/EdenRing")
+
+        def releaseBuilder = new GHReleaseBuilder(repository, version as String)
+        releaseBuilder.name("${archivesBaseName}-${version}")
+        releaseBuilder.body("A changelog can be found at https://github.com/paulevsGitch/EdenRing/commits")
+        releaseBuilder.commitish("master")
+
+        def ghRelease = releaseBuilder.create()
+        ghRelease.uploadAsset(file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"), "application/java-archive");
+        ghRelease.uploadAsset(file("${project.buildDir}/libs/${archivesBaseName}-${version}-sources.jar"), "application/java-archive");
+        ghRelease.uploadAsset(file("${project.buildDir}/libs/${archivesBaseName}-${version}-javadoc.jar"), "application/java-archive");
+    }
+}

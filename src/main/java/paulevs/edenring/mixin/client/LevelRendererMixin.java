@@ -55,6 +55,8 @@ public class LevelRendererMixin {
 	private static final ResourceLocation EDEN_RINGS_TEXTURE = EdenRing.makeID("textures/environment/rings.png");
 	private static final ResourceLocation EDEN_HORIZON_BW = EdenRing.makeID("textures/environment/horizon_bw.png");
 	private static final ResourceLocation EDEN_HORIZON = EdenRing.makeID("textures/environment/horizon.png");
+	private static final ResourceLocation EDEN_NEBULA1 = EdenRing.makeID("textures/environment/nebula_1.png");
+	private static final ResourceLocation EDEN_NEBULA2 = EdenRing.makeID("textures/environment/nebula_2.png");
 	private static final ResourceLocation EDEN_STARS = EdenRing.makeID("textures/environment/stars.png");
 	private static final ResourceLocation EDEN_SUN_FADE = EdenRing.makeID("textures/environment/sun_fade.png");
 	private static final ResourceLocation EDEN_SUN = EdenRing.makeID("textures/environment/sun.png");
@@ -64,7 +66,7 @@ public class LevelRendererMixin {
 	private static BufferBuilder eden_bufferBuilder;
 	private static VertexBuffer[] eden_horizon;
 	private static VertexBuffer eden_stars;
-	private static VertexBuffer eden_nebula;
+	private static VertexBuffer[] eden_nebula;
 	
 	@Inject(method = "<init>*", at = @At("TAIL"))
 	private void eden_onRendererInit(Minecraft client, RenderBuffers bufferBuilders, CallbackInfo info) {
@@ -74,11 +76,18 @@ public class LevelRendererMixin {
 			eden_horizon = new VertexBuffer[2];
 		}
 		
+		if (eden_nebula == null) {
+			eden_nebula = new VertexBuffer[3];
+		}
+		
 		eden_horizon[0] = eden_buildBufferHorizon(eden_bufferBuilder, eden_horizon[0], 20);
 		eden_horizon[1] = eden_buildBufferHorizon(eden_bufferBuilder, eden_horizon[1], 40);
-		eden_nebula = eden_buildBufferHorizon(eden_bufferBuilder, eden_nebula, 30);
+		eden_nebula[0] = eden_buildBufferHorizon(eden_bufferBuilder, eden_nebula[0], 30);
 		
-		eden_stars = eden_buildBufferStars(eden_bufferBuilder, eden_stars, 0.1, 0.7, 5000, 41315);
+		eden_stars = eden_buildBufferStars(eden_bufferBuilder, eden_stars, 0.1, 0.7, 5000, 4, 41315);
+		
+		eden_nebula[1] = eden_buildBufferStars(eden_bufferBuilder, eden_nebula[1], 20, 60, 10, 1, 235);
+		eden_nebula[2] = eden_buildBufferStars(eden_bufferBuilder, eden_nebula[2], 20, 60, 10, 1, 352);
 		
 		Random random = new Random(0);
 		for (int i = 0; i < EDEN_MOONS.length; i++) {
@@ -149,8 +158,16 @@ public class LevelRendererMixin {
 			RenderSystem.setShaderTexture(0, EDEN_STARS);
 			eden_renderBuffer(matrices, matrix4f, eden_stars, DefaultVertexFormat.POSITION_TEX, 1.0F, 1.0F, 1.0F, skyBlend * 0.5F + 0.5F);
 			
+			float nebulaBlend = skyBlend * 0.75F + 0.25F;
+			float nebulaBlend2 = nebulaBlend * 0.15F;
+			RenderSystem.setShaderTexture(0, EDEN_NEBULA1);
+			eden_renderBuffer(matrices, matrix4f, eden_nebula[1], DefaultVertexFormat.POSITION_TEX, 1.0F, 1.0F, 1.0F, nebulaBlend2);
+			
+			RenderSystem.setShaderTexture(0, EDEN_NEBULA2);
+			eden_renderBuffer(matrices, matrix4f, eden_nebula[2], DefaultVertexFormat.POSITION_TEX, 1.0F, 1.0F, 1.0F, nebulaBlend2);
+			
 			RenderSystem.setShaderTexture(0, EDEN_HORIZON);
-			eden_renderBuffer(matrices, matrix4f, eden_nebula, DefaultVertexFormat.POSITION_TEX, 1.0F, 1.0F, 1.0F, skyBlend * 0.75F + 0.25F);
+			eden_renderBuffer(matrices, matrix4f, eden_nebula[0], DefaultVertexFormat.POSITION_TEX, 1.0F, 1.0F, 1.0F, nebulaBlend);
 			
 			// Render Sun //
 			
@@ -444,20 +461,20 @@ public class LevelRendererMixin {
 		}
 	}
 	
-	private VertexBuffer eden_buildBufferStars(BufferBuilder bufferBuilder, VertexBuffer buffer, double minSize, double maxSize, int count, long seed) {
+	private VertexBuffer eden_buildBufferStars(BufferBuilder bufferBuilder, VertexBuffer buffer, double minSize, double maxSize, int count, int verticalCount, long seed) {
 		if (buffer != null) {
 			buffer.close();
 		}
 		
 		buffer = new VertexBuffer();
-		eden_makeStars(bufferBuilder, minSize, maxSize, count, seed);
+		eden_makeStars(bufferBuilder, minSize, maxSize, count, verticalCount, seed);
 		bufferBuilder.end();
 		buffer.upload(bufferBuilder);
 		
 		return buffer;
 	}
 	
-	private void eden_makeStars(BufferBuilder buffer, double minSize, double maxSize, int count, long seed) {
+	private void eden_makeStars(BufferBuilder buffer, double minSize, double maxSize, int count, int verticalCount, long seed) {
 		Random random = new Random(seed);
 		buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 		
@@ -486,7 +503,7 @@ public class LevelRendererMixin {
 				double u = Math.cos(s);
 				
 				int pos = 0;
-				float minV = random.nextInt(4) / 4F;
+				float minV = verticalCount < 2 ? 0 : (float) random.nextInt(verticalCount) / verticalCount;
 				for (int v = 0; v < 4; ++v) {
 					double x = (double) ((v & 2) - 1) * size;
 					double y = (double) ((v + 1 & 2) - 1) * size;
@@ -497,7 +514,7 @@ public class LevelRendererMixin {
 					double af = ae * n - ab * o;
 					double ah = ab * n + ae * o;
 					float texU = (pos >> 1) & 1;
-					float texV = (((pos + 1) >> 1) & 1) / 4F + minV;
+					float texV = (float) (((pos + 1) >> 1) & 1) / verticalCount + minV;
 					pos++;
 					buffer.vertex(j + af, k + ad, l + ah).uv(texU, texV).endVertex();
 				}

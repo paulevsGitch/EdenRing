@@ -20,7 +20,7 @@ public final class MoonInfo {
 	public MoonInfo(Random random) {
 		orbitState = random.nextFloat() * (float) Math.PI * 2;
 		orbitRadius = MHelper.randRange(10F, 30F, random);
-		orbitAngle = MHelper.randRange(-15F, 15F, random);
+		orbitAngle = MHelper.randRange(-30F, 30F, random);
 		speed = MHelper.randRange(0.5F, 2F, random);
 		size = MHelper.randRange(0.5F, 1.5F, random);
 		

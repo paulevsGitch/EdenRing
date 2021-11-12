@@ -34,6 +34,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.registries.EdenBlocks;
+import paulevs.edenring.world.MoonInfo;
 import ru.bclib.util.BackgroundInfo;
 import ru.bclib.util.MHelper;
 
@@ -49,6 +50,7 @@ public class LevelRendererMixin {
 	private int ticks;
 	
 	private static final ResourceLocation EDEN_PLANET_TEXTURE = EdenRing.makeID("textures/environment/planet.png");
+	private static final ResourceLocation EDEN_MOON_TEXTURE = EdenRing.makeID("textures/environment/moon.png");
 	private static final ResourceLocation EDEN_RINGS_SOFT_TEXTURE = EdenRing.makeID("textures/environment/rings_soft.png");
 	private static final ResourceLocation EDEN_RINGS_TEXTURE = EdenRing.makeID("textures/environment/rings.png");
 	private static final ResourceLocation EDEN_HORIZON_BW = EdenRing.makeID("textures/environment/horizon_bw.png");
@@ -56,7 +58,8 @@ public class LevelRendererMixin {
 	private static final ResourceLocation EDEN_STARS = EdenRing.makeID("textures/environment/stars.png");
 	private static final ResourceLocation EDEN_SUN_FADE = EdenRing.makeID("textures/environment/sun_fade.png");
 	private static final ResourceLocation EDEN_SUN = EdenRing.makeID("textures/environment/sun.png");
-	private static final ResourceLocation FRAME = EdenRing.makeID("textures/environment/frame.png");
+	private static final ResourceLocation EDEN_FRAME = EdenRing.makeID("textures/environment/frame.png");
+	private static final MoonInfo[] EDEN_MOONS = new MoonInfo[8];
 	
 	private static BufferBuilder eden_bufferBuilder;
 	private static VertexBuffer[] eden_horizon;
@@ -76,6 +79,11 @@ public class LevelRendererMixin {
 		eden_nebula = eden_buildBufferHorizon(eden_bufferBuilder, eden_nebula, 30);
 		
 		eden_stars = eden_buildBufferStars(eden_bufferBuilder, eden_stars, 0.1, 0.7, 5000, 41315);
+		
+		Random random = new Random(0);
+		for (int i = 0; i < EDEN_MOONS.length; i++) {
+			EDEN_MOONS[i] = new MoonInfo(random);
+		}
 	}
 	
 	@Inject(method = "renderSky", at = @At("HEAD"), cancellable = true)
@@ -160,9 +168,9 @@ public class LevelRendererMixin {
 			eden_bufferBuilder.end();
 			BufferUploader.end(eden_bufferBuilder);
 			
-			dayTime = (float) Math.cos(dayTime * Math.PI * 2) * 1.1F;
-			dayTime = Mth.clamp(dayTime, 0.3F, 1.0F);
-			RenderSystem.setShaderColor(1.0F, dayTime, dayTime, 1.0F);
+			float color = (float) Math.cos(dayTime * Math.PI * 2) * 1.1F;
+			color = Mth.clamp(color, 0.3F, 1.0F);
+			RenderSystem.setShaderColor(1.0F, color, color, 1.0F);
 			RenderSystem.setShaderTexture(0, EDEN_SUN);
 			RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 			eden_bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
@@ -216,6 +224,23 @@ public class LevelRendererMixin {
 			}
 			
 			matrices.popPose();
+			
+			// Render Moons //
+			
+			int frame = (int) (dayTime * 12);
+			float v0 = frame / 12F;
+			float v1 = v0 + 0.083F;
+			
+			/*for (int i = 0; i < 8; i++) {
+				float orbit = (i / 8F + dayTime) * (float) Math.PI * 2;
+				eden_renderMoon(matrices, orbit, i + 10F, i / 3F + 1F, v0, v1);
+			}*/
+			
+			for (int i = 0; i < EDEN_MOONS.length; i++) {
+				MoonInfo moon = EDEN_MOONS[i];
+				double position = (moon.orbitState + dayTime) * moon.speed;
+				eden_renderMoon(matrices, position, moon.orbitRadius, moon.orbitAngle, moon.size, v0, v1, moon.color);
+			}
 			
 			// Render Planet //
 			
@@ -331,7 +356,7 @@ public class LevelRendererMixin {
 		RenderSystem.enableTexture();
 		RenderSystem.setShaderColor(1, 1, 1, 1);
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
-		RenderSystem.setShaderTexture(0, FRAME);
+		RenderSystem.setShaderTexture(0, EDEN_FRAME);
 		
 		eden_bufferBuilder.begin(Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 		
@@ -478,5 +503,26 @@ public class LevelRendererMixin {
 				}
 			}
 		}
+	}
+	
+	private void eden_renderMoon(PoseStack matrices, double orbitPosition, float orbitRadius, float orbitAngle, float size, float v0, float v1, Vector3f color) {
+		float offset1 = (float) Math.sin(orbitPosition);
+		float offset2 = (float) Math.cos(orbitPosition);
+		
+		matrices.pushPose();
+		matrices.translate(offset1 * (70 + orbitRadius), offset1 * orbitAngle, offset2 * orbitRadius - 100);
+		
+		Matrix4f matrix = matrices.last().pose();
+		RenderSystem.setShaderColor(color.x(), color.y(), color.z(), 1F);
+		RenderSystem.setShaderTexture(0, EDEN_MOON_TEXTURE);
+		eden_bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+		eden_bufferBuilder.vertex(matrix, -size,  size, 0.0F).uv(0.0F, v0).endVertex();
+		eden_bufferBuilder.vertex(matrix,  size,  size, 0.0F).uv(1.0F, v0).endVertex();
+		eden_bufferBuilder.vertex(matrix,  size, -size, 0.0F).uv(1.0F, v1).endVertex();
+		eden_bufferBuilder.vertex(matrix, -size, -size, 0.0F).uv(0.0F, v1).endVertex();
+		eden_bufferBuilder.end();
+		BufferUploader.end(eden_bufferBuilder);
+		
+		matrices.popPose();
 	}
 }

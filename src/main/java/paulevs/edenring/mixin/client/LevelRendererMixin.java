@@ -248,11 +248,6 @@ public class LevelRendererMixin {
 			float v0 = frame / 12F;
 			float v1 = v0 + 0.083F;
 			
-			/*for (int i = 0; i < 8; i++) {
-				float orbit = (i / 8F + dayTime) * (float) Math.PI * 2;
-				eden_renderMoon(matrices, orbit, i + 10F, i / 3F + 1F, v0, v1);
-			}*/
-			
 			for (int i = 0; i < EDEN_MOONS.length; i++) {
 				MoonInfo moon = EDEN_MOONS[i];
 				double position = (moon.orbitState + dayTime) * moon.speed;

@@ -26,6 +26,13 @@ public class EdenRecipes {
 			.addMaterial('#', EdenBlocks.BALLOON_MUSHROOM_STEM)
 			.build();
 		
+		GridRecipe
+			.make(EdenRing.makeID("pulse_tree_block"), EdenBlocks.PULSE_TREE_MATERIAL.getBlock(WoodenComplexMaterial.BLOCK_LOG))
+			.checkConfig(CONFIG)
+			.setShape("##", "##")
+			.addMaterial('#', EdenBlocks.PULSE_TREE)
+			.build();
+		
 		GridRecipe.make(EdenRing.makeID("yellow_dye"), Items.YELLOW_DYE).checkConfig(CONFIG).setList("#").addMaterial('#', EdenBlocks.GOLDEN_GRASS).build();
 		GridRecipe.make(EdenRing.makeID("magenta_dye"), Items.MAGENTA_DYE).checkConfig(CONFIG).setList("#").addMaterial('#', EdenBlocks.VIOLUM).build();
 		
@@ -41,7 +48,7 @@ public class EdenRecipes {
 			.build();
 		
 		FurnaceRecipe.make(EdenRing.MOD_ID, "iron_nugget", EdenBlocks.IRON_GRASS, Items.IRON_NUGGET).checkConfig(CONFIG).buildWithBlasting();
-		FurnaceRecipe.make(EdenRing.MOD_ID, "gold_nugget", EdenBlocks.GOLDEN_GRASS, Items.GOLD_NUGGET).checkConfig(CONFIG).buildWithBlasting();
+		FurnaceRecipe.make(EdenRing.MOD_ID, "gold_nugget", EdenBlocks.GOLD_GRASS, Items.GOLD_NUGGET).checkConfig(CONFIG).buildWithBlasting();
 		
 		CONFIG.saveChanges();
 	}

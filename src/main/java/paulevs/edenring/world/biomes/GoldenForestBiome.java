@@ -26,6 +26,7 @@ public class GoldenForestBiome extends BCLBiome {
 				.addFeature(EdenFeatures.EDEN_MOSS_LAYER)
 				.addFeature(EdenFeatures.GOLDEN_GRASS)
 				.addFeature(EdenFeatures.EDEN_VINE)
+				.addFeature(EdenFeatures.ORE_GOLD)
 				.setSkyColor(113, 178, 255)
 				.setFogColor(183, 212, 255)
 		));

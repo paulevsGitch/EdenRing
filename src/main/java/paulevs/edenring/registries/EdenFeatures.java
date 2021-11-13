@@ -1,5 +1,6 @@
 package paulevs.edenring.registries;
 
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.world.features.AquatusFeature;
@@ -10,6 +11,7 @@ import paulevs.edenring.world.features.DepthScatterFeature;
 import paulevs.edenring.world.features.DoubleScatterFeature;
 import paulevs.edenring.world.features.FloorScatterFeature;
 import paulevs.edenring.world.features.GraviliteCrystalFeature;
+import paulevs.edenring.world.features.LayeredBulbFeature;
 import paulevs.edenring.world.features.PulseTreeFeature;
 import paulevs.edenring.world.features.RootsFeature;
 import paulevs.edenring.world.features.ScatterFeature;
@@ -60,6 +62,19 @@ public class EdenFeatures {
 	));
 	public static final BCLFeature ORE_COPPER = BCLFeature.makeChunkFeature(EdenRing.makeID("ore_copper"), new DepthScatterFeature(
 		Blocks.COPPER_ORE, 16, 4, Blocks.STONE, Blocks.DEEPSLATE, Blocks.CALCITE, Blocks.TUFF
+	));
+	public static final BCLFeature ORE_GOLD = BCLFeature.makeChunkFeature(EdenRing.makeID("ore_gold"), new DepthScatterFeature(
+		Blocks.GOLD_ORE, 8, 2, Blocks.STONE, Blocks.DEEPSLATE, Blocks.CALCITE, Blocks.TUFF
+	));
+	
+	public static final BCLFeature LAYERED_IRON = BCLFeature.makeChunkFeature(EdenRing.makeID("layered_iron"), new LayeredBulbFeature(
+		new Block[] { Blocks.RAW_IRON_BLOCK, Blocks.IRON_ORE }, 32, 6, Blocks.STONE, Blocks.DEEPSLATE, Blocks.CALCITE, Blocks.TUFF
+	));
+	public static final BCLFeature LAYERED_COPPER = BCLFeature.makeChunkFeature(EdenRing.makeID("layered_copper"), new LayeredBulbFeature(
+		new Block[] { Blocks.RAW_COPPER_BLOCK, Blocks.COPPER_ORE }, 32, 6, Blocks.STONE, Blocks.DEEPSLATE, Blocks.CALCITE, Blocks.TUFF
+	));
+	public static final BCLFeature LAYERED_GOLD = BCLFeature.makeChunkFeature(EdenRing.makeID("layered_gold"), new LayeredBulbFeature(
+		new Block[] { Blocks.RAW_GOLD_BLOCK, Blocks.GOLD_ORE }, 16, 4, Blocks.STONE, Blocks.DEEPSLATE, Blocks.CALCITE, Blocks.TUFF
 	));
 	
 	public static final BCLFeature MYCOTIC_GRASS = BCLFeature.makeVegetationFeature(EdenRing.makeID("mycotic_grass"), new ScatterFeature(EdenBlocks.MYCOTIC_GRASS), 12);

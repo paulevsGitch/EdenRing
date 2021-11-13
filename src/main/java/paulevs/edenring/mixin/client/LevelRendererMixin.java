@@ -357,7 +357,7 @@ public class LevelRendererMixin {
 	
 	@Inject(method = "renderLevel", at = @At("TAIL"))
 	public void eden_renderLevel(PoseStack poseStack, float f, long l, boolean bl, Camera camera, GameRenderer gameRenderer, LightTexture lightTexture, Matrix4f matrix4f, CallbackInfo info) {
-		if (minecraft.hitResult == null) {
+		if (minecraft.hitResult == null || !(minecraft.hitResult instanceof BlockHitResult)) {
 			return;
 		}
 		
@@ -368,19 +368,14 @@ public class LevelRendererMixin {
 		
 		poseStack.pushPose();
 		
-		double dx = minecraft.hitResult.getLocation().x;
-		double dy = minecraft.hitResult.getLocation().y;
-		double dz = minecraft.hitResult.getLocation().z;
-		
-		if (minecraft.hitResult instanceof BlockHitResult) {
-			BlockHitResult bnr = (BlockHitResult) minecraft.hitResult;
-			if (!minecraft.level.getBlockState(bnr.getBlockPos()).isAir()) {
-				return;
-			}
-			dx = bnr.getBlockPos().getX();
-			dy = bnr.getBlockPos().getY();
-			dz = bnr.getBlockPos().getZ();
+		BlockHitResult bnr = (BlockHitResult) minecraft.hitResult;
+		if (!minecraft.level.getBlockState(bnr.getBlockPos()).isAir()) {
+			return;
 		}
+		
+		double dx = bnr.getBlockPos().getX();
+		double dy = bnr.getBlockPos().getY();
+		double dz = bnr.getBlockPos().getZ();
 		
 		dx -= camera.getPosition().x;
 		dy -= camera.getPosition().y;

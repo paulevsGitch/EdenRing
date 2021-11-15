@@ -1,7 +1,6 @@
 package paulevs.edenring.world.biomes;
 
 import net.minecraft.data.worldgen.Features;
-import net.minecraft.world.level.biome.Biome.BiomeCategory;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
 import net.minecraft.world.level.levelgen.surfacebuilders.ConfiguredSurfaceBuilder;
 import paulevs.edenring.EdenRing;
@@ -16,7 +15,6 @@ public class LakesideDesertBiome extends BCLBiome {
 		super(EdenBiomes.addDefaultFeatures(
 			new BCLBiomeDef(EdenRing.makeID("lakeside_desert"))
 				.loadConfigValues(config)
-				.setCategory(BiomeCategory.DESERT)
 				.setSurface(surfaceBuilder)
 				.addFeature(EdenFeatures.GRAVEL_FLOOR)
 				.addFeature(EdenFeatures.GRASS_FLOOR)

@@ -109,6 +109,10 @@ public class BrainTreeBlock extends BaseBlock implements BlockModelProvider, Ren
 		if (!entities.isEmpty()) {
 			LivingEntity entity = entities.get(random.nextInt(entities.size()));
 			
+			if (entity instanceof Player && ((Player) entity).isCreative()) {
+				return;
+			}
+			
 			MutableBlockPos mpos = pos.mutable();
 			float dx = (float) (entity.getX() - pos.getX() - 0.5);
 			float dy = (float) (entity.getY() - pos.getY() - 0.5);
@@ -149,7 +153,7 @@ public class BrainTreeBlock extends BaseBlock implements BlockModelProvider, Ren
 					false
 				);
 				
-				if (entity.isInvulnerable() || (entity instanceof Player && ((Player) entity).isCreative())) {
+				if (entity.isInvulnerable()) {
 					return;
 				}
 				

@@ -1,7 +1,6 @@
 package paulevs.edenring.world.biomes;
 
 import net.minecraft.data.worldgen.Features;
-import net.minecraft.world.level.biome.Biome.BiomeCategory;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
 import net.minecraft.world.level.levelgen.surfacebuilders.ConfiguredSurfaceBuilder;
 import paulevs.edenring.EdenRing;
@@ -16,7 +15,6 @@ public class PulseForestBiome extends BCLBiome {
 		super(EdenBiomes.addDefaultFeatures(
 			new BCLBiomeDef(EdenRing.makeID("pulse_forest"))
 				.loadConfigValues(config)
-				.setCategory(BiomeCategory.FOREST)
 				.setSurface(surfaceBuilder)
 				.setPlantsColor(121, 238, 248)
 				.addFeature(Decoration.VEGETAL_DECORATION, Features.PATCH_GRASS_FOREST)

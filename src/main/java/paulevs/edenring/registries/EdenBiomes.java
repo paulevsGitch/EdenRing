@@ -14,6 +14,7 @@ import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilderBaseConf
 import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilderConfiguration;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.world.biomes.BrainstormBiome;
+import paulevs.edenring.world.biomes.ErodedCaveBiome;
 import paulevs.edenring.world.biomes.GoldenForestBiome;
 import paulevs.edenring.world.biomes.LakesideDesertBiome;
 import paulevs.edenring.world.biomes.MycoticForestBiome;
@@ -29,7 +30,8 @@ import java.util.List;
 
 public class EdenBiomes {
 	private static final IdConfig CONFIG = new EntryConfig(EdenRing.MOD_ID, "biomes");
-	public static final List<BCLBiome> BIOMES = Lists.newArrayList();
+	public static final List<BCLBiome> BIOMES_LAND = Lists.newArrayList();
+	public static final List<BCLBiome> BIOMES_CAVE = Lists.newArrayList();
 	
 	private static final SurfaceBuilderBaseConfiguration CONFIG_GRASS = new SurfaceBuilderBaseConfiguration(
 		EdenBlocks.EDEN_GRASS_BLOCK.defaultBlockState(),
@@ -44,19 +46,26 @@ public class EdenBiomes {
 	private static final ConfiguredSurfaceBuilder DEFAULT_BUILDER = registerSurf("default_grass", SurfaceBuilder.DEFAULT.configured(CONFIG_GRASS));
 	private static final ConfiguredSurfaceBuilder MYCELIUM_BUILDER = registerSurf("mycelium", SurfaceBuilder.DEFAULT.configured(CONFIG_MYCELIUM));
 	
-	public static final BCLBiome STONE_GARDEN = register(new StoneGardenBiome(CONFIG, DEFAULT_BUILDER));
-	public static final BCLBiome GOLDEN_FOREST = register(new GoldenForestBiome(CONFIG, DEFAULT_BUILDER));
-	public static final BCLBiome MYCOTIC_FOREST = register(new MycoticForestBiome(CONFIG, MYCELIUM_BUILDER));
-	public static final BCLBiome PULSE_FOREST = register(new PulseForestBiome(CONFIG, DEFAULT_BUILDER));
-	public static final BCLBiome BRAINSTORM = register(new BrainstormBiome(CONFIG, DEFAULT_BUILDER));
-	public static final BCLBiome LAKESIDE_DESERT = register(new LakesideDesertBiome(CONFIG, SurfaceBuilders.DESERT));
+	public static final BCLBiome STONE_GARDEN = registerLand(new StoneGardenBiome(CONFIG, DEFAULT_BUILDER));
+	public static final BCLBiome GOLDEN_FOREST = registerLand(new GoldenForestBiome(CONFIG, DEFAULT_BUILDER));
+	public static final BCLBiome MYCOTIC_FOREST = registerLand(new MycoticForestBiome(CONFIG, MYCELIUM_BUILDER));
+	public static final BCLBiome PULSE_FOREST = registerLand(new PulseForestBiome(CONFIG, DEFAULT_BUILDER));
+	public static final BCLBiome BRAINSTORM = registerLand(new BrainstormBiome(CONFIG, DEFAULT_BUILDER));
+	public static final BCLBiome LAKESIDE_DESERT = registerLand(new LakesideDesertBiome(CONFIG, SurfaceBuilders.DESERT));
+	
+	public static final BCLBiome ERODED_CAVE = registerCave(new ErodedCaveBiome(CONFIG, SurfaceBuilders.DESERT));
 	
 	public static void init() {
 		CONFIG.saveChanges();
 	}
 	
-	private static BCLBiome register(BCLBiome biome) {
-		BIOMES.add(biome);
+	private static BCLBiome registerLand(BCLBiome biome) {
+		BIOMES_LAND.add(biome);
+		return BiomeAPI.registerBiome(biome);
+	}
+	
+	private static BCLBiome registerCave(BCLBiome biome) {
+		BIOMES_CAVE.add(biome);
 		return BiomeAPI.registerBiome(biome);
 	}
 	
@@ -74,6 +83,7 @@ public class EdenBiomes {
 		def.addFeature(EdenFeatures.ORE_IRON);
 		def.addFeature(EdenFeatures.ORE_COPPER);
 		def.addFeature(EdenFeatures.GRAVILITE_CRYSTAL);
+		def.addFeature(EdenFeatures.ROUND_CAVE);
 		def.addCarver(Carving.AIR, Carvers.CAVE);
 		return def;
 	}

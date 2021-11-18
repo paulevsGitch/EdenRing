@@ -1,9 +1,10 @@
-package paulevs.edenring.world.features;
+package paulevs.edenring.world.features.plants;
 
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import paulevs.edenring.registries.EdenBlocks;
+import paulevs.edenring.world.features.basic.CeilScatterFeature;
 import ru.bclib.blocks.BlockProperties;
 import ru.bclib.blocks.BlockProperties.TripleShape;
 import ru.bclib.util.BlocksHelper;

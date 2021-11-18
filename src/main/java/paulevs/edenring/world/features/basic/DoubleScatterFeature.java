@@ -1,4 +1,4 @@
-package paulevs.edenring.world.features;
+package paulevs.edenring.world.features.basic;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.WorldGenLevel;

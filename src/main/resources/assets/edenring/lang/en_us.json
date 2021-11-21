@@ -109,5 +109,15 @@
 	"block.edenring.iron_grass": "Iron Grass",
 	"entity.edenring.lightning_ray": "Lightning Ray",
 	"block.edenring.aquatus_sapling": "Aquatus Sapling",
-	"block.edenring.gravity_compressor": "Gravity Compressor"
+	"block.edenring.gravity_compressor": "Gravity Compressor",
+	
+	"gui.edenring.book.number_prefix": "§8",
+	
+	"gui.edenring.book.tof_line_1": "§8§lTable Of",
+	"gui.edenring.book.tof_line_2": "§8§lContents",
+	
+	"gui.edenring.book.world_structure": "§8§l● World Structure",
+	"gui.edenring.book.flora": "§8§l● Flora",
+	"gui.edenring.book.fauna": "§8§m§l● Fauna",
+	"gui.edenring.book.materials": "§8§l● Materials"
 }

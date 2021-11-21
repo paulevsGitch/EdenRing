@@ -14,6 +14,7 @@ import paulevs.edenring.registries.EdenBlockEntities;
 import paulevs.edenring.registries.EdenBlocks;
 import paulevs.edenring.registries.EdenEntities;
 import paulevs.edenring.registries.EdenFeatures;
+import paulevs.edenring.registries.EdenItems;
 import paulevs.edenring.registries.EdenRecipes;
 import paulevs.edenring.registries.EdenSounds;
 import paulevs.edenring.world.EdenPortal;
@@ -31,6 +32,7 @@ public class EdenRing implements ModInitializer {
 		.create(makeID("eden_tab"))
 		.icon(() -> new ItemStack(EdenBlocks.MOSSY_STONE))
 		.appendItems(stacks -> stacks.addAll(BaseRegistry.getModBlockItems(MOD_ID).stream().map(ItemStack::new).toList()))
+		.appendItems(stacks -> stacks.addAll(BaseRegistry.getModItems(MOD_ID).stream().map(ItemStack::new).toList()))
 		.build();
 	
 	@Override
@@ -40,6 +42,7 @@ public class EdenRing implements ModInitializer {
 		EdenBlocks.init();
 		EdenBlockEntities.init();
 		EdenEntities.init();
+		EdenItems.init();
 		EdenFeatures.init();
 		EdenBiomes.init();
 		EdenRecipes.init();

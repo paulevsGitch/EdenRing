@@ -51,7 +51,6 @@ import ru.bclib.blocks.BaseVineBlock;
 import ru.bclib.complexmaterials.ComplexMaterial;
 import ru.bclib.complexmaterials.WoodenComplexMaterial;
 import ru.bclib.config.PathConfig;
-import ru.bclib.mixin.common.ComposterBlockAccessor;
 import ru.bclib.registry.BlockRegistry;
 
 public class EdenBlocks {

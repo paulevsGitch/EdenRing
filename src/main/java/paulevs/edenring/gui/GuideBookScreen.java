@@ -3,11 +3,15 @@ package paulevs.edenring.gui;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.chat.NarratorChatListener;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.locale.Language;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
 import paulevs.edenring.EdenRing;
 
 import java.awt.Point;
@@ -41,14 +45,17 @@ public class GuideBookScreen extends Screen {
 	
 	@Override
 	public boolean mouseClicked(double x, double y, int i) {
-		if (pageIndex < pages.length - 2 && x > arrowNext.x && y > arrowNext.y && x < arrowNext.x + 16 && y < arrowNext.x + 16) {
+		SoundManager soundManager = Minecraft.getInstance().getSoundManager();
+		if (pageIndex < pages.length - 2 && x > arrowNext.x && y > arrowNext.y && x < arrowNext.x + 16 && y < arrowNext.y + 16) {
 			pageIndex = pageIndex == 0 ? 1 : pageIndex + 2;
+			soundManager.play(SimpleSoundInstance.forUI(SoundEvents.BOOK_PAGE_TURN, 1.0F));
 		}
-		else if (pageIndex > 0 && x > arrowBack.x && y > arrowBack.y && x < arrowBack.x + 16 && y < arrowBack.x + 16) {
+		if (pageIndex > 0 && x > arrowBack.x && y > arrowBack.y && x < arrowBack.x + 16 && y < arrowBack.y + 16) {
 			pageIndex -= 2;
 			if (pageIndex < 0) {
 				pageIndex = 0;
 			}
+			soundManager.play(SimpleSoundInstance.forUI(SoundEvents.BOOK_PAGE_TURN, 1.0F));
 		}
 		return super.mouseClicked(x, y, i);
 	}

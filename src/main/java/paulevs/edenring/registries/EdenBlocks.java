@@ -44,6 +44,7 @@ import paulevs.edenring.blocks.PulseTreeBlock;
 import paulevs.edenring.blocks.SimplePlantBlock;
 import paulevs.edenring.blocks.TexturedTerrainBlock;
 import ru.bclib.api.BonemealAPI;
+import ru.bclib.api.ComposterAPI;
 import ru.bclib.api.TagAPI;
 import ru.bclib.blocks.BaseLeavesBlock;
 import ru.bclib.blocks.BaseVineBlock;
@@ -106,7 +107,6 @@ public class EdenBlocks {
 	public static final Block PORTAL_CENTER = registerBO("portal_center", new EdenPortalCenterBlock());
 	
 	public static void init() {
-		//Registry.BLOCK.stream().filter(block -> Registry.BLOCK.getKey(block).getNamespace().equals(EdenRing.MOD_ID)).forEach(block -> {
 		BlockRegistry.getModBlocks(EdenRing.MOD_ID).forEach(block -> {
 			Properties properties = ((AbstractBlockAccessor) block).getSettings();
 			Material material = ((AbstractBlockSettingsAccessor) properties).getMaterial();
@@ -115,7 +115,7 @@ public class EdenBlocks {
 				TagAPI.addTag(BlockTags.MINEABLE_WITH_HOE, block);
 				TagAPI.addTag(BlockTags.LEAVES, block);
 				TagAPI.addTag(ItemTags.LEAVES, block);
-				ComposterBlockAccessor.callAdd(0.3F, block);
+				ComposterAPI.allowCompost(0.3F, block);
 			}
 			else if (block instanceof GrassBlock) {
 				TagAPI.addTag(BlockTags.MINEABLE_WITH_SHOVEL, block);
@@ -123,7 +123,7 @@ public class EdenBlocks {
 			else if (material == Material.PLANT || material == Material.REPLACEABLE_PLANT) {
 				TagAPI.addTag(BlockTags.MINEABLE_WITH_HOE, block);
 				if (block.asItem() != Items.AIR) {
-					ComposterBlockAccessor.callAdd(0.1F, block);
+					ComposterAPI.allowCompost(0.1F, block);
 				}
 			}
 			else if (material == Material.STONE || material == Material.METAL || material == Material.HEAVY_METAL || material == Material.AMETHYST) {

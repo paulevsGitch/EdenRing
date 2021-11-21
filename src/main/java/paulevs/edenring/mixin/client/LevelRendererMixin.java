@@ -244,7 +244,7 @@ public class LevelRendererMixin {
 			
 			// Render Moons //
 			
-			int frame = (int) (dayTime * 12);
+			int frame = (int) (dayTime * 12 + 0.5F);
 			float v0 = frame / 12F;
 			float v1 = v0 + 0.083F;
 			

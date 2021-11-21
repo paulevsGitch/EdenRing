@@ -116,8 +116,8 @@
 	"gui.edenring.book.tof_line_1": "§8§lTable Of",
 	"gui.edenring.book.tof_line_2": "§8§lContents",
 	
-	"gui.edenring.book.world_structure": "§8§l● World Structure",
-	"gui.edenring.book.flora": "§8§l● Flora",
-	"gui.edenring.book.fauna": "§8§m§l● Fauna",
-	"gui.edenring.book.materials": "§8§l● Materials"
+	"gui.edenring.book.world_structure": "§8● §lWorld Structure",
+	"gui.edenring.book.flora": "§8● §lFlora",
+	"gui.edenring.book.fauna": "§8● §m§lFauna",
+	"gui.edenring.book.materials": "§8● §lMaterials"
 }

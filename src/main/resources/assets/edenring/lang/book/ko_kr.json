@@ -1,0 +1,94 @@
+{
+  "lineNumberPrefix": "§8",
+  "pages": [
+    {
+      "entries": [
+        {
+          "type": "illustration",
+          "image": "edenring:textures/gui/illustrations/planet_logo.png",
+		  "width": 128,
+		  "height": 128,
+		  "centered": true
+        }
+      ]
+    },
+	
+    {
+      "name": "table_of_contents",
+      "entries": [
+        { "type": "title", "title": "§8§l목" },
+        { "type": "title", "title": "§8§l차" },
+        {
+          "type": "illustration",
+          "image": "edenring:textures/gui/illustrations/separator.png",
+		  "width": 128,
+		  "height": 16
+        },
+        {
+          "type": "text",
+          "lines": [
+            "§8● §l에덴의 세계",
+            "§8● §l중력",
+            "§8● §l생물군계",
+            "§8● §l플로라"
+          ]
+        }
+      ]
+    },
+	
+	{
+	  "entries": [
+	    { "type": "title", "title": "§8§l설명" },
+        {
+          "type": "text",
+          "lines": [
+            "§8이름: 에덴",
+            "§8질량: 28.5 Em",
+            "§8분류: 거대 얼음",
+            "§8대기:",
+            "§8  62% 질소(N2)",
+            "§8  18% 물(H2O)",
+            "§8  12% 암모니아(NH3)",
+            "§8  05% 수소(H2)",
+            "§8  03% 기타",
+			"§8위성:",
+			"§8  8개",
+			"§8  고리계"
+          ]
+        },
+		{
+          "type": "illustration",
+          "image": "edenring:textures/gui/illustrations/separator.png",
+		  "width": 128,
+		  "height": 16
+        }
+      ]
+	},
+	{
+      "name": "world_structure",
+      "entries": [
+        {
+          "type": "text",
+          "lines": [
+            "§8에덴은 G2 별을 돌고 있는",
+            "§8크고 푸른",
+            "§8가스 행성입니다.",
+			"§8그 행성은 생명체가",
+			"§8살 수 있는 지역에 있지만",
+			"§8생명체가 살기에",
+			"§8적합하지 않습니다. 그러나",
+			"§8그것의 고리는",
+			"§8지구와 비슷한 대기와",
+			"§8중력 이상을 가지고",
+			"§8있습니다. 고리계는",
+			"§8독특한 생명체를 위한",
+			"§8보금자리이며",
+			"§8다양한 자원, 생물군계,",
+			"§8살아있는 유기체를",
+			"§8포함하고 있습니다."
+          ]
+        }
+      ]
+    }
+  ]
+}

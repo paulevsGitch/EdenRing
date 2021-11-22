@@ -1,0 +1,94 @@
+{
+  "lineNumberPrefix": "§8",
+  "pages": [
+    {
+      "entries": [
+        {
+          "type": "illustration",
+          "image": "edenring:textures/gui/illustrations/planet_logo.png",
+		  "width": 128,
+		  "height": 128,
+		  "centered": true
+        }
+      ]
+    },
+	
+    {
+      "name": "table_of_contents",
+      "entries": [
+        { "type": "title", "title": "§8§lTable Of" },
+        { "type": "title", "title": "§8§lContents" },
+        {
+          "type": "illustration",
+          "image": "edenring:textures/gui/illustrations/separator.png",
+		  "width": 128,
+		  "height": 16
+        },
+        {
+          "type": "text",
+          "lines": [
+            "§8● §lWorld of Eden",
+            "§8● §lGravity",
+            "§8● §lBiomes",
+            "§8● §lFlora"
+          ]
+        }
+      ]
+    },
+	
+	{
+	  "entries": [
+	    { "type": "title", "title": "§8§lDescription" },
+        {
+          "type": "text",
+          "lines": [
+            "§8Name: Eden",
+            "§8Mass: 28.5 Em",
+            "§8Class: Ice Giant",
+            "§8Atmosphere:",
+            "§8  62% N2",
+            "§8  18% H2O",
+            "§8  12% NH3",
+            "§8  05% H2",
+            "§8  03% Other",
+			"§8Satellites:",
+			"§8  8 Inner Moons",
+			"§8  Ring System"
+          ]
+        },
+		{
+          "type": "illustration",
+          "image": "edenring:textures/gui/illustrations/separator.png",
+		  "width": 128,
+		  "height": 16
+        }
+      ]
+	},
+	{
+      "name": "world_structure",
+      "entries": [
+        {
+          "type": "text",
+          "lines": [
+            "§8Eden is a large blue",
+            "§8gas giant planet",
+            "§8orbiting the G2 star.",
+			"§8The planet is in",
+			"§8habitable zone, but it",
+			"§8is not suitable for",
+			"§8life. However its rings",
+			"§8have some gravity",
+			"§8anomalies and the",
+			"§8atmosphere similar",
+			"§8to Earth. Ring system",
+			"§8is a home for unique",
+			"§8life and contain",
+			"§8various resources,",
+			"§8biomes and living",
+			"§8organisms."
+          ]
+        }
+      ]
+    }
+  ]
+}

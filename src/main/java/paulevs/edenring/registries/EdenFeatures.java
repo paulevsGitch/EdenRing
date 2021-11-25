@@ -84,6 +84,7 @@ public class EdenFeatures {
 	public static final BCLFeature IRON_GRASS = BCLFeature.makeVegetationFeature(EdenRing.makeID("iron_grass"), new ScatterFeature(EdenBlocks.IRON_GRASS), 3);
 	public static final BCLFeature COPPER_GRASS = BCLFeature.makeVegetationFeature(EdenRing.makeID("copper_grass"), new ScatterFeature(EdenBlocks.COPPER_GRASS), 3);
 	public static final BCLFeature GOLD_GRASS = BCLFeature.makeVegetationFeature(EdenRing.makeID("gold_grass"), new ScatterFeature(EdenBlocks.GOLD_GRASS), 3);
+	public static final BCLFeature LONLIX = BCLFeature.makeVegetationFeature(EdenRing.makeID("lonlix"), new ScatterFeature(EdenBlocks.LONLIX), 3);
 	
 	public static final BCLFeature VIOLUM_DENSE = BCLFeature.makeVegetationFeature(EdenRing.makeID("violum_dense"), new DoubleScatterFeature(EdenBlocks.VIOLUM), 8);
 	public static final BCLFeature VIOLUM_RARE = BCLFeature.makeVegetationFeature(EdenRing.makeID("violum_rare"), new DoubleScatterFeature(EdenBlocks.VIOLUM), 1);

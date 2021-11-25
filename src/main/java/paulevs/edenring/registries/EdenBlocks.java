@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import paulevs.edenring.EdenRing;
+import paulevs.edenring.blocks.AlaespesBlock;
 import paulevs.edenring.blocks.AquatusBlock;
 import paulevs.edenring.blocks.AquatusRootsBlock;
 import paulevs.edenring.blocks.AquatusSapling;
@@ -89,8 +90,10 @@ public class EdenBlocks {
 	public static final Block IRON_GRASS = register("iron_grass", new OverlayPlantBlock(true));
 	public static final Block COPPER_GRASS = register("copper_grass", new OverlayPlantBlock(true));
 	public static final Block GOLD_GRASS = register("gold_grass", new OverlayPlantBlock(true));
+	public static final Block LONLIX = register("lonlix", new OverlayPlantBlock(true));
 	
 	public static final Block VIOLUM = register("violum", new OverlayDoublePlantBlock());
+	public static final Block ALAESPES = register("alaespes", new AlaespesBlock());
 	
 	public static final Block EDEN_VINE = register("eden_vine", new OverlayVineBlock());
 	

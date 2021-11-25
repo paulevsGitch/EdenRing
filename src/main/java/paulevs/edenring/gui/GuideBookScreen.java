@@ -38,30 +38,10 @@ public class GuideBookScreen extends Screen {
 		super(NarratorChatListener.NO_TITLE);
 		
 		if (ENTRY_REGISTRY.isEmpty()) {
-			ENTRY_REGISTRY.put("title", TitlePageEntry::new);
 			ENTRY_REGISTRY.put("text", TextPageEntry::new);
+			ENTRY_REGISTRY.put("title", TitlePageEntry::new);
 			ENTRY_REGISTRY.put("illustration", IllustrationPageEntry::new);
 		}
-		
-		/*arrowNext = new Point();
-		arrowBack = new Point();
-		pagePrefix = getTxt("number_prefix");
-		textColor = getTxt("def_text_color");
-		pages = new PageInfo[] {
-			new PageInfo("Cover"),
-			
-			new PageInfo().addEntry(new CenteredIllustrationPageEntry(getImg("planet_logo"), 128, 128)),
-			new PageInfo("toc")
-				.addEntry(new TitlePageEntry(getTxt("toc_line_1")))
-				.addEntry(new TitlePageEntry(getTxt("toc_line_2")))
-				.addEntry(new IllustrationPageEntry(getImg("separator"), 128, 16))
-				.addEntry(new TextEntry(getTxt("world_structure"), getTxt("flora"), getTxt("fauna"), getTxt("materials"))),
-			
-			new PageInfo().addEntry(new CenteredIllustrationPageEntry(getImg("planet_logo"), 128, 128)),
-			new PageInfo("world").addEntry(new TextEntry(
-				getTxt("eden_desc").split("\n")
-			)),
-		};*/
 		
 		arrowNext = new Point();
 		arrowBack = new Point();

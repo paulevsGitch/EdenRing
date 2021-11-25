@@ -1,5 +1,6 @@
 package paulevs.edenring;
 
+import com.google.common.collect.Lists;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.core.Registry;
@@ -23,16 +24,18 @@ import paulevs.edenring.world.generator.EdenChunkGenerator;
 import paulevs.edenring.world.generator.GeneratorOptions;
 import ru.bclib.registry.BaseRegistry;
 
+import java.util.List;
+
 public class EdenRing implements ModInitializer {
 	public static final String MOD_ID = "edenring";
 	
 	public static final ResourceKey<DimensionType> EDEN_RING_TYPE_KEY = ResourceKey.create(Registry.DIMENSION_TYPE_REGISTRY, makeID(MOD_ID));
 	public static final ResourceKey<Level> EDEN_RING_KEY = ResourceKey.create(Registry.DIMENSION_REGISTRY, makeID(MOD_ID));
+	public static final List<ItemStack> ITEM_LIST = Lists.newArrayList();
 	public static final CreativeModeTab EDEN_TAB = FabricItemGroupBuilder
 		.create(makeID("eden_tab"))
 		.icon(() -> new ItemStack(EdenBlocks.MOSSY_STONE))
-		.appendItems(stacks -> stacks.addAll(BaseRegistry.getModBlockItems(MOD_ID).stream().map(ItemStack::new).toList()))
-		.appendItems(stacks -> stacks.addAll(BaseRegistry.getModItems(MOD_ID).stream().map(ItemStack::new).toList()))
+		.appendItems(stacks -> stacks.addAll(ITEM_LIST))
 		.build();
 	
 	@Override
@@ -49,6 +52,9 @@ public class EdenRing implements ModInitializer {
 		Registry.register(Registry.CHUNK_GENERATOR, makeID("chunk_generator"), EdenChunkGenerator.CODEC);
 		Registry.register(Registry.BIOME_SOURCE, makeID("biome_source"), EdenBiomeSource.CODEC);
 		EdenPortal.init();
+		
+		ITEM_LIST.addAll(BaseRegistry.getModBlockItems(MOD_ID).stream().map(ItemStack::new).toList());
+		ITEM_LIST.addAll(BaseRegistry.getModItems(MOD_ID).stream().map(ItemStack::new).toList());
 	}
 	
 	public static ResourceLocation makeID(String path) {

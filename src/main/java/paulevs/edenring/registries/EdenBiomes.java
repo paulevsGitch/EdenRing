@@ -20,6 +20,7 @@ import paulevs.edenring.world.biomes.LakesideDesertBiome;
 import paulevs.edenring.world.biomes.MycoticForestBiome;
 import paulevs.edenring.world.biomes.PulseForestBiome;
 import paulevs.edenring.world.biomes.StoneGardenBiome;
+import paulevs.edenring.world.biomes.WindValleyBiome;
 import ru.bclib.api.BiomeAPI;
 import ru.bclib.config.EntryConfig;
 import ru.bclib.config.IdConfig;
@@ -52,6 +53,7 @@ public class EdenBiomes {
 	public static final BCLBiome PULSE_FOREST = registerLand(new PulseForestBiome(CONFIG, DEFAULT_BUILDER));
 	public static final BCLBiome BRAINSTORM = registerLand(new BrainstormBiome(CONFIG, DEFAULT_BUILDER));
 	public static final BCLBiome LAKESIDE_DESERT = registerLand(new LakesideDesertBiome(CONFIG, SurfaceBuilders.DESERT));
+	public static final BCLBiome WIND_VALLEY = registerLand(new WindValleyBiome(CONFIG, DEFAULT_BUILDER));
 	
 	public static final BCLBiome ERODED_CAVE = registerCave(new ErodedCaveBiome(CONFIG, SurfaceBuilders.DESERT));
 	

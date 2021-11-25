@@ -1,6 +1,32 @@
 {
 	"textures": [
-		"edenring:auritis_leaf_1",
-		"edenring:auritis_leaf_2"
+		"edenring:wind_1_0",
+		"edenring:wind_1_1",
+		"edenring:wind_1_2",
+		"edenring:wind_1_3",
+		"edenring:wind_1_4",
+		"edenring:wind_1_5",
+		"edenring:wind_1_6",
+		"edenring:wind_1_7",
+		"edenring:wind_1_8",
+		"edenring:wind_1_9",
+		
+		"edenring:wind_2_0",
+		"edenring:wind_2_1",
+		"edenring:wind_2_2",
+		"edenring:wind_2_3",
+		"edenring:wind_2_4",
+		"edenring:wind_2_5",
+		"edenring:wind_2_6",
+		"edenring:wind_2_7",
+		
+		"edenring:wind_3_0",
+		"edenring:wind_3_1",
+		"edenring:wind_3_2",
+		"edenring:wind_3_3",
+		"edenring:wind_3_4",
+		"edenring:wind_3_5",
+		"edenring:wind_3_6",
+		"edenring:wind_3_7"
 	]
 }

@@ -7,9 +7,11 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.particles.SimpleParticleType;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.particles.LeafParticle;
+import paulevs.edenring.particles.WindParticle;
 
 public class EdenParticles {
 	public static final SimpleParticleType AURITIS_LEAF_PARTICLE = register("auritis_leaf_particle", LeafParticle.ParticleFactory::new);
+	public static final SimpleParticleType WIND_PARTICLE = register("wind_particle", WindParticle.ParticleFactory::new);
 	
 	public static void init() {}
 	

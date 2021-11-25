@@ -57,10 +57,6 @@ public class LeafParticle extends TextureSheetParticle {
 			this.setAlpha((this.lifetime - this.age) / 40F);
 		}
 		
-		if (this.age >= this.lifetime) {
-			this.remove();
-		}
-		
 		this.xd = Mth.lerp(delta, preVX, nextVX);
 		this.yd = Mth.lerp(delta, preVY, nextVY);
 		this.zd = Mth.lerp(delta, preVZ, nextVZ);

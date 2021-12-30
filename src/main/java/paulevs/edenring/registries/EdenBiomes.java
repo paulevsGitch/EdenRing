@@ -1,31 +1,21 @@
 package paulevs.edenring.registries;
 
 import com.google.common.collect.Lists;
-import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.Carvers;
-import net.minecraft.data.worldgen.Features;
-import net.minecraft.data.worldgen.SurfaceBuilders;
+import net.minecraft.data.worldgen.features.OreFeatures;
+import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
+import net.minecraft.data.worldgen.placement.OrePlacements;
+import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep.Carving;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
-import net.minecraft.world.level.levelgen.surfacebuilders.ConfiguredSurfaceBuilder;
-import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilder;
-import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilderBaseConfiguration;
-import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilderConfiguration;
 import paulevs.edenring.EdenRing;
-import paulevs.edenring.world.biomes.BrainstormBiome;
-import paulevs.edenring.world.biomes.ErodedCaveBiome;
-import paulevs.edenring.world.biomes.GoldenForestBiome;
-import paulevs.edenring.world.biomes.LakesideDesertBiome;
-import paulevs.edenring.world.biomes.MycoticForestBiome;
-import paulevs.edenring.world.biomes.PulseForestBiome;
-import paulevs.edenring.world.biomes.StoneGardenBiome;
-import paulevs.edenring.world.biomes.WindValleyBiome;
-import ru.bclib.api.BiomeAPI;
+import ru.bclib.api.biomes.BCLBiomeBuilder;
+import ru.bclib.api.biomes.BiomeAPI;
+import ru.bclib.api.surface.SurfaceRuleBuilder;
 import ru.bclib.config.EntryConfig;
 import ru.bclib.config.IdConfig;
 import ru.bclib.world.biomes.BCLBiome;
-import ru.bclib.world.biomes.BCLBiomeDef;
 
 import java.util.List;
 
@@ -34,7 +24,7 @@ public class EdenBiomes {
 	public static final List<BCLBiome> BIOMES_LAND = Lists.newArrayList();
 	public static final List<BCLBiome> BIOMES_CAVE = Lists.newArrayList();
 	
-	private static final SurfaceBuilderBaseConfiguration CONFIG_GRASS = new SurfaceBuilderBaseConfiguration(
+	/*private static final SurfaceBuilderBaseConfiguration CONFIG_GRASS = new SurfaceBuilderBaseConfiguration(
 		EdenBlocks.EDEN_GRASS_BLOCK.defaultBlockState(),
 		Blocks.DIRT.defaultBlockState(),
 		Blocks.DIRT.defaultBlockState()
@@ -45,17 +35,20 @@ public class EdenBiomes {
 		Blocks.DIRT.defaultBlockState()
 	);
 	private static final ConfiguredSurfaceBuilder DEFAULT_BUILDER = registerSurf("default_grass", SurfaceBuilder.DEFAULT.configured(CONFIG_GRASS));
-	private static final ConfiguredSurfaceBuilder MYCELIUM_BUILDER = registerSurf("mycelium", SurfaceBuilder.DEFAULT.configured(CONFIG_MYCELIUM));
+	private static final ConfiguredSurfaceBuilder MYCELIUM_BUILDER = registerSurf("mycelium", SurfaceBuilder.DEFAULT.configured(CONFIG_MYCELIUM));*/
 	
-	public static final BCLBiome STONE_GARDEN = registerLand(new StoneGardenBiome(CONFIG, DEFAULT_BUILDER));
-	public static final BCLBiome GOLDEN_FOREST = registerLand(new GoldenForestBiome(CONFIG, DEFAULT_BUILDER));
-	public static final BCLBiome MYCOTIC_FOREST = registerLand(new MycoticForestBiome(CONFIG, MYCELIUM_BUILDER));
-	public static final BCLBiome PULSE_FOREST = registerLand(new PulseForestBiome(CONFIG, DEFAULT_BUILDER));
-	public static final BCLBiome BRAINSTORM = registerLand(new BrainstormBiome(CONFIG, DEFAULT_BUILDER));
-	public static final BCLBiome LAKESIDE_DESERT = registerLand(new LakesideDesertBiome(CONFIG, SurfaceBuilders.DESERT));
-	public static final BCLBiome WIND_VALLEY = registerLand(new WindValleyBiome(CONFIG, DEFAULT_BUILDER));
+	// LAND //
+	public static final BCLBiome STONE_GARDEN = registerLand(makeStoneGardenBiome());
+	// TODO make all biomes
+	public static final BCLBiome GOLDEN_FOREST = registerLand(makeStoneGardenBiome());
+	public static final BCLBiome MYCOTIC_FOREST = registerLand(makeStoneGardenBiome());
+	public static final BCLBiome PULSE_FOREST = registerLand(makeStoneGardenBiome());
+	public static final BCLBiome BRAINSTORM = registerLand(makeStoneGardenBiome());
+	public static final BCLBiome LAKESIDE_DESERT = registerLand(makeStoneGardenBiome());
+	public static final BCLBiome WIND_VALLEY = registerLand(makeStoneGardenBiome());
 	
-	public static final BCLBiome ERODED_CAVE = registerCave(new ErodedCaveBiome(CONFIG, SurfaceBuilders.DESERT));
+	// CAVES //
+	public static final BCLBiome ERODED_CAVE = registerCave(makeStoneGardenBiome());
 	
 	public static void init() {
 		CONFIG.saveChanges();
@@ -71,26 +64,53 @@ public class EdenBiomes {
 		return BiomeAPI.registerBiome(biome);
 	}
 	
-	public static BCLBiomeDef addDefaultFeatures(BCLBiomeDef def) {
-		def.addFeature(EdenFeatures.SLATE_LAYER);
-		def.addFeature(EdenFeatures.CALCITE_LAYER);
-		def.addFeature(EdenFeatures.TUFF_LAYER);
-		def.addFeature(Decoration.UNDERGROUND_DECORATION, Features.ORE_GRANITE);
-		def.addFeature(Decoration.UNDERGROUND_DECORATION, Features.ORE_ANDESITE);
-		def.addFeature(Decoration.UNDERGROUND_DECORATION, Features.ORE_DIORITE);
-		def.addFeature(EdenFeatures.SMALL_ISLAND);
-		def.addFeature(EdenFeatures.ORE_MOSSY_COBBLE);
-		def.addFeature(EdenFeatures.ORE_COBBLE);
-		def.addFeature(EdenFeatures.ORE_COAL);
-		def.addFeature(EdenFeatures.ORE_IRON);
-		def.addFeature(EdenFeatures.ORE_COPPER);
-		def.addFeature(EdenFeatures.GRAVILITE_CRYSTAL);
-		def.addFeature(EdenFeatures.ROUND_CAVE);
-		def.addCarver(Carving.AIR, Carvers.CAVE);
-		return def;
+	private static BCLBiomeBuilder addDefaultFeatures(BCLBiomeBuilder builder) {
+		return builder
+			.feature(EdenFeatures.SLATE_LAYER)
+			.feature(EdenFeatures.CALCITE_LAYER)
+			.feature(EdenFeatures.TUFF_LAYER)
+			.feature(Decoration.UNDERGROUND_DECORATION, OrePlacements.ORE_GRANITE_UPPER)
+			.feature(Decoration.UNDERGROUND_DECORATION, OrePlacements.ORE_ANDESITE_UPPER)
+			.feature(Decoration.UNDERGROUND_DECORATION, OrePlacements.ORE_DIORITE_UPPER)
+			.feature(EdenFeatures.SMALL_ISLAND)
+			.feature(EdenFeatures.ORE_MOSSY_COBBLE)
+			.feature(EdenFeatures.ORE_COBBLE)
+			.feature(EdenFeatures.ORE_COAL)
+			.feature(EdenFeatures.ORE_IRON)
+			.feature(EdenFeatures.ORE_COPPER)
+			.feature(EdenFeatures.GRAVILITE_CRYSTAL)
+			.feature(EdenFeatures.ROUND_CAVE)
+			.carver(Carving.AIR, Carvers.CAVE);
 	}
 	
-	private static <SC extends SurfaceBuilderConfiguration> ConfiguredSurfaceBuilder<SC> registerSurf(String name, ConfiguredSurfaceBuilder<SC> configuredSurfaceBuilder) {
-		return BuiltinRegistries.register(BuiltinRegistries.CONFIGURED_SURFACE_BUILDER, EdenRing.makeID(name), configuredSurfaceBuilder);
+	private static BCLBiomeBuilder addDefaultSurface(BCLBiomeBuilder builder) {
+		return builder.surface(SurfaceRuleBuilder
+			.start()
+			.surface(Blocks.GRASS_BLOCK.defaultBlockState())
+			.subsurface(Blocks.DIRT.defaultBlockState(), 3)
+			.build()
+		);
+	}
+	
+	private static BCLBiome makeStoneGardenBiome() {
+		BCLBiomeBuilder builder = BCLBiomeBuilder.start(EdenRing.makeID("stone_garden"));
+		addDefaultFeatures(builder);
+		addDefaultSurface(builder);
+		return builder
+			.skyColor(113, 178, 255)
+			.fogColor(183, 212, 255)
+			.plantsColor(162, 190, 113)
+			.feature(Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_FOREST)
+			.feature(Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_TALL_GRASS)
+			.feature(Decoration.VEGETAL_DECORATION, MiscOverworldPlacements.FOREST_ROCK)
+			.feature(EdenFeatures.COBBLE_FLOOR)
+			.feature(EdenFeatures.MOSS_FLOOR)
+			.feature(EdenFeatures.MOSS_LAYER)
+			.feature(EdenFeatures.EDEN_MOSS_LAYER)
+			.feature(EdenFeatures.STONE_PILLAR)
+			.feature(EdenFeatures.VIOLUM_RARE)
+			.feature(EdenFeatures.EDEN_VINE)
+			.feature(EdenFeatures.ROOTS)
+			.build();
 	}
 }

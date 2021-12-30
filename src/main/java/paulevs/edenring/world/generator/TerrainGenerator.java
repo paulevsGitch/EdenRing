@@ -4,8 +4,11 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeSource;
+import net.minecraft.world.level.biome.Climate.Sampler;
+import ru.bclib.api.biomes.BiomeAPI;
 import ru.bclib.noise.OpenSimplexNoise;
 import ru.bclib.util.MHelper;
+import ru.bclib.world.biomes.BCLBiome;
 
 import java.awt.Point;
 import java.util.List;
@@ -27,15 +30,20 @@ public class TerrainGenerator {
 	private static IslandLayer smallIslands;
 	private static OpenSimplexNoise noise1;
 	private static OpenSimplexNoise noise2;
+	private static Sampler sampler;
 	protected static long seed;
 	
-	public static void initNoise(long seed) {
+	public static void initNoise(long seed, Sampler sampler) {
+		if (TerrainGenerator.seed == seed && sampler != null) {
+			return;
+		}
 		Random random = new Random(seed);
 		largeIslands = new IslandLayer(random.nextInt(), GeneratorOptions.bigOptions);
 		mediumIslands = new IslandLayer(random.nextInt(), GeneratorOptions.mediumOptions);
 		smallIslands = new IslandLayer(random.nextInt(), GeneratorOptions.smallOptions);
 		noise1 = new OpenSimplexNoise(random.nextInt());
 		noise2 = new OpenSimplexNoise(random.nextInt());
+		TerrainGenerator.sampler = sampler;
 		TerrainGenerator.seed = seed;
 		TERRAIN_BOOL_CACHE_MAP.clear();
 	}
@@ -75,20 +83,23 @@ public class TerrainGenerator {
 	}
 	
 	private static float getAverageDepth(BiomeSource biomeSource, int x, int z) {
-		if (getBiome(biomeSource, x, z).getDepth() < 0.1F) {
+		if (getBiome(biomeSource, x, z).getTerrainHeight() < 0.1F) {
 			return 0F;
 		}
 		float depth = 0F;
 		for (int i = 0; i < OFFS.length; i++) {
 			int px = x + OFFS[i].x;
 			int pz = z + OFFS[i].y;
-			depth += getBiome(biomeSource, px, pz).getDepth() * COEF[i];
+			depth += getBiome(biomeSource, px, pz).getTerrainHeight() * COEF[i];
 		}
 		return depth;
 	}
 	
-	private static Biome getBiome(BiomeSource biomeSource, int x, int z) {
-		return biomeSource.getNoiseBiome(x, 0, z);
+	private static BCLBiome getBiome(BiomeSource biomeSource, int x, int z) {
+		if (biomeSource instanceof EdenBiomeSource) {
+			return EdenBiomeSource.class.cast(biomeSource).getLandBiome(x, z);
+		}
+		return BiomeAPI.getBiome(biomeSource.getNoiseBiome(x, 0, z, sampler));
 	}
 	
 	/**
@@ -178,5 +189,9 @@ public class TerrainGenerator {
 		for (int i = 0; i < COEF.length; i++) {
 			COEF[i] = coef.get(i) / sum;
 		}
+	}
+	
+	public static Sampler getSampler() {
+		return sampler;
 	}
 }

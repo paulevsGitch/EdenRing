@@ -22,7 +22,7 @@ import java.util.concurrent.Executor;
 @Mixin(ServerLevel.class)
 public class ServerLevelMixin {
 	@Inject(method = "<init>*", at = @At("TAIL"))
-	private void eden_mayPlaceOn(MinecraftServer minecraftServer, Executor executor, LevelStorageAccess levelStorageAccess, ServerLevelData serverLevelData, ResourceKey<Level> resourceKey, DimensionType dimensionType, ChunkProgressListener chunkProgressListener, ChunkGenerator chunkGenerator, boolean bl, long l, List<CustomSpawner> list, boolean bl2, CallbackInfo info) {
-		TerrainGenerator.initNoise(l);
+	private void eden_onServerInit(MinecraftServer minecraftServer, Executor executor, LevelStorageAccess levelStorageAccess, ServerLevelData serverLevelData, ResourceKey<Level> resourceKey, DimensionType dimensionType, ChunkProgressListener chunkProgressListener, ChunkGenerator chunkGenerator, boolean bl, long seed, List<CustomSpawner> list, boolean bl2, CallbackInfo info) {
+		TerrainGenerator.initNoise(seed, chunkGenerator.climateSampler());
 	}
 }

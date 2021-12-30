@@ -2,7 +2,7 @@ package paulevs.edenring.registries;
 
 import com.google.common.collect.Lists;
 import net.minecraft.data.worldgen.Carvers;
-import net.minecraft.data.worldgen.features.OreFeatures;
+import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
 import net.minecraft.data.worldgen.placement.OrePlacements;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
@@ -100,6 +100,8 @@ public class EdenBiomes {
 			.skyColor(113, 178, 255)
 			.fogColor(183, 212, 255)
 			.plantsColor(162, 190, 113)
+			.waterColor(4159204)
+			.waterFogColor(329011)
 			.feature(Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_FOREST)
 			.feature(Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_TALL_GRASS)
 			.feature(Decoration.VEGETAL_DECORATION, MiscOverworldPlacements.FOREST_ROCK)

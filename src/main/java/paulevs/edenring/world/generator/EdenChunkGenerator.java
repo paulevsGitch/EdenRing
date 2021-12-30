@@ -1,14 +1,20 @@
 package paulevs.edenring.world.generator;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.Util;
+import net.minecraft.core.BlockPos.MutableBlockPos;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.RegistryLookupCodec;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.WorldGenRegion;
 import net.minecraft.util.Mth;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.LevelHeightAccessor;
 import net.minecraft.world.level.NoiseColumn;
 import net.minecraft.world.level.StructureFeatureManager;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeManager;
 import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.biome.Climate.Sampler;
@@ -16,19 +22,32 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.Aquifer.FluidPicker;
+import net.minecraft.world.level.levelgen.Aquifer.FluidStatus;
 import net.minecraft.world.level.levelgen.GenerationStep.Carving;
 import net.minecraft.world.level.levelgen.Heightmap.Types;
+import net.minecraft.world.level.levelgen.NoiseChunk;
+import net.minecraft.world.level.levelgen.NoiseSampler;
 import net.minecraft.world.level.levelgen.StructureSettings;
+import net.minecraft.world.level.levelgen.SurfaceRules;
+import net.minecraft.world.level.levelgen.SurfaceRules.RuleSource;
+import net.minecraft.world.level.levelgen.SurfaceSystem;
+import net.minecraft.world.level.levelgen.WorldGenerationContext;
 import net.minecraft.world.level.levelgen.WorldgenRandom;
+import net.minecraft.world.level.levelgen.WorldgenRandom.Algorithm;
 import net.minecraft.world.level.levelgen.XoroshiroRandomSource;
 import net.minecraft.world.level.levelgen.blending.Blender;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
-import net.minecraft.world.level.levelgen.synth.PerlinSimplexNoise;
+import net.minecraft.world.level.levelgen.synth.NormalNoise;
+import ru.bclib.api.biomes.BiomeAPI;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 
@@ -36,6 +55,7 @@ import java.util.concurrent.Executor;
 public class EdenChunkGenerator extends ChunkGenerator {
 	public static final Codec<EdenChunkGenerator> CODEC = RecordCodecBuilder.create(
 		(instance) -> instance.group(
+			RegistryLookupCodec.create(Registry.NOISE_REGISTRY).forGetter(noiseBasedChunkGenerator -> noiseBasedChunkGenerator.registry),
 			BiomeSource.CODEC.fieldOf("biome_source").forGetter((surfaceChunkGenerator) -> surfaceChunkGenerator.runtimeBiomeSource)
 		).apply(instance, instance.stable(EdenChunkGenerator::new))
 	);
@@ -44,10 +64,30 @@ public class EdenChunkGenerator extends ChunkGenerator {
 	private static final BlockState WATER = Blocks.WATER.defaultBlockState();
 	
 	private static final NoiseColumn AIR_COLUMN;
-	private static PerlinSimplexNoise surfaceNoise;
+	private static final FluidPicker FLUID_PICKER;
 	
-	public EdenChunkGenerator(BiomeSource biomeSource) {
+	private final Registry<NormalNoise.NoiseParameters> registry;
+	private SurfaceSystem surfaceSystem;
+	private RuleSource rule;
+	
+	public EdenChunkGenerator(Registry<NormalNoise.NoiseParameters> registry, BiomeSource biomeSource) {
 		super(biomeSource, biomeSource, makeSettings(), 0);
+		this.registry = registry;
+		this.surfaceSystem = new SurfaceSystem(
+			registry,
+			STONE,
+			0,
+			0,
+			Algorithm.XOROSHIRO
+		);
+		Set<Biome> biomes = biomeSource.possibleBiomes();
+		List<RuleSource> rules = new ArrayList(biomes.size());
+		biomes.forEach(biome -> {
+			ResourceLocation id = BiomeAPI.getBiomeID(biome);
+			System.out.println(id);
+			rules.add(BiomeAPI.getSurfaceRule(id));
+		});
+		rule = SurfaceRules.sequence(rules.toArray(new RuleSource[rules.size()]));
 	}
 	
 	private static StructureSettings makeSettings() {
@@ -63,8 +103,8 @@ public class EdenChunkGenerator extends ChunkGenerator {
 	
 	@Override
 	public ChunkGenerator withSeed(long seed) {
-		EdenChunkGenerator generator = new EdenChunkGenerator(this.runtimeBiomeSource.withSeed(seed));
-		generator.surfaceNoise = new PerlinSimplexNoise(new WorldgenRandom(new XoroshiroRandomSource(seed)), Lists.newArrayList(-3, -2, -1, 0));
+		EdenChunkGenerator generator = new EdenChunkGenerator(registry, this.runtimeBiomeSource.withSeed(seed));
+		generator.surfaceSystem = new SurfaceSystem(registry, Blocks.STONE.defaultBlockState(), 0, seed, Algorithm.XOROSHIRO);
 		return generator;
 	}
 	
@@ -80,7 +120,23 @@ public class EdenChunkGenerator extends ChunkGenerator {
 	
 	@Override
 	public void buildSurface(WorldGenRegion worldGenRegion, StructureFeatureManager structureFeatureManager, ChunkAccess chunkAccess) {
-	
+		WorldGenerationContext worldGenerationContext = new WorldGenerationContext(this, worldGenRegion);
+		NoiseChunk noiseChunk = chunkAccess.getOrCreateNoiseChunk(
+			NoiseSampler.class.cast(TerrainGenerator.getSampler()),
+			() -> null,
+			null,
+			FLUID_PICKER,
+			Blender.of(worldGenRegion)
+		);
+		this.surfaceSystem.buildSurface(
+			worldGenRegion.getBiomeManager(),
+			worldGenRegion.registryAccess().registryOrThrow(Registry.BIOME_REGISTRY),
+			false,
+			worldGenerationContext,
+			chunkAccess,
+			noiseChunk,
+			rule
+		);
 	}
 	
 	@Override
@@ -93,11 +149,11 @@ public class EdenChunkGenerator extends ChunkGenerator {
 	
 	@Override
 	public CompletableFuture<ChunkAccess> fillFromNoise(Executor executor, Blender blender, StructureFeatureManager structureFeatureManager, ChunkAccess chunkAccess) {
-		return null;
+		fill(chunkAccess);
+		return CompletableFuture.supplyAsync(Util.wrapThreadWithTaskName("wgen_fill_noise", () -> this.fill(chunkAccess)), executor);
 	}
 	
-	/*@Override
-	public void buildSurfaceAndBedrock(WorldGenRegion worldGenRegion, ChunkAccess chunkAccess) {
+	private ChunkAccess fill(ChunkAccess chunkAccess) {
 		ChunkPos chunkPos = chunkAccess.getPos();
 		int posX = chunkPos.x << 4;
 		int posZ = chunkPos.z << 4;
@@ -163,7 +219,7 @@ public class EdenChunkGenerator extends ChunkGenerator {
 			}
 		}
 		
-		for (int x = 0; x < 16; x++) {
+		/*for (int x = 0; x < 16; x++) {
 			int px = posX | x;
 			for (int z = 0; z < 16; z++) {
 				int pz = posZ | z;
@@ -173,13 +229,10 @@ public class EdenChunkGenerator extends ChunkGenerator {
 				//double e = this.surfaceNoise.getValue(px * 0.0625, pz * 0.0625) * 15.0D;
 				//worldGenRegion.getBiome(pos).buildSurfaceAt(worldgenRandom, chunkAccess, px, pz, q, e, STONE, WATER, this.getSeaLevel(), 0, worldGenRegion.getSeed());
 			}
-		}
+		}*/
+		
+		return chunkAccess;
 	}
-	
-	@Override
-	public CompletableFuture<ChunkAccess> fillFromNoise(Executor executor, StructureFeatureManager structureFeatureManager, ChunkAccess chunkAccess) {
-		return CompletableFuture.completedFuture(chunkAccess);
-	}*/
 	
 	@Override
 	public int getBaseHeight(int x, int z, Types types, LevelHeightAccessor accessor) {
@@ -247,8 +300,11 @@ public class EdenChunkGenerator extends ChunkGenerator {
 	}
 	
 	static {
+		BlockState air = Blocks.AIR.defaultBlockState();
 		BlockState[] states = new BlockState[256];
-		Arrays.fill(states, Blocks.AIR.defaultBlockState());
+		Arrays.fill(states, air);
 		AIR_COLUMN = new NoiseColumn(0, states);
+		FluidStatus AIR = new FluidStatus(0, air);
+		FLUID_PICKER = (i, j, k) -> AIR;
 	}
 }

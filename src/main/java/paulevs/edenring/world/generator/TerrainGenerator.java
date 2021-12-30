@@ -2,7 +2,6 @@ package paulevs.edenring.world.generator;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.biome.Climate.Sampler;
 import ru.bclib.api.biomes.BiomeAPI;

@@ -1,6 +1,5 @@
 package paulevs.edenring;
 
-import com.google.common.collect.Lists;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.core.Registry;
@@ -23,8 +22,6 @@ import paulevs.edenring.world.generator.EdenBiomeSource;
 import paulevs.edenring.world.generator.EdenChunkGenerator;
 import paulevs.edenring.world.generator.GeneratorOptions;
 import ru.bclib.registry.BaseRegistry;
-
-import java.util.List;
 
 public class EdenRing implements ModInitializer {
 	public static final String MOD_ID = "edenring";

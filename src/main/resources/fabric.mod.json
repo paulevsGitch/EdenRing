@@ -28,9 +28,9 @@
 		"edenring.mixins.client.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.11.6",
-		"fabric": ">=0.41.0",
-		"minecraft": ">=1.17.1",
-		"bclib": ">=0.5.2"
+		"fabricloader": ">=0.12.9",
+		"fabric": ">=0.44.0",
+		"minecraft": "1.18.x",
+		"bclib": ">=1.2.0"
 	}
 }

@@ -26,7 +26,6 @@ import paulevs.edenring.blocks.BalloonMushroomSmallBlock;
 import paulevs.edenring.blocks.BalloonMushroomStemBlock;
 import paulevs.edenring.blocks.BrainTreeBlock;
 import paulevs.edenring.blocks.BrainTreeLogBlock;
-import paulevs.edenring.blocks.CustomSaplingBlock;
 import paulevs.edenring.blocks.EdenGrassBlock;
 import paulevs.edenring.blocks.EdenMossBlock;
 import paulevs.edenring.blocks.EdenPortalBlock;
@@ -49,6 +48,7 @@ import ru.bclib.api.ComposterAPI;
 import ru.bclib.api.TagAPI;
 import ru.bclib.blocks.BaseLeavesBlock;
 import ru.bclib.blocks.BaseVineBlock;
+import ru.bclib.blocks.FeatureSaplingBlock;
 import ru.bclib.complexmaterials.ComplexMaterial;
 import ru.bclib.complexmaterials.WoodenComplexMaterial;
 import ru.bclib.config.PathConfig;
@@ -61,7 +61,7 @@ public class EdenBlocks {
 	public static final Block EDEN_MYCELIUM = register("eden_mycelium", new TexturedTerrainBlock());
 	public static final Block MOSSY_STONE = register("mossy_stone", new MossyStoneBlock());
 	
-	public static final Block AURITIS_SAPLING = register("auritis_sapling", new CustomSaplingBlock(() -> EdenFeatures.AURITIS_TREE.getFeature()));
+	public static final Block AURITIS_SAPLING = register("auritis_sapling", new FeatureSaplingBlock((state) -> EdenFeatures.AURITIS_TREE.getFeature()));
 	public static final Block AURITIS_LEAVES = register("auritis_leaves", new AuritisLeavesBlock());
 	public static final ComplexMaterial AURITIS_MATERIAL = new WoodenComplexMaterial(EdenRing.MOD_ID, "auritis", "eden", MaterialColor.COLOR_BROWN, MaterialColor.GOLD).init(REGISTRY, EdenItems.REGISTRY, new PathConfig(EdenRing.MOD_ID, "recipes"));
 	
@@ -70,7 +70,7 @@ public class EdenBlocks {
 	public static final Block BALLOON_MUSHROOM_STEM = register("balloon_mushroom_stem", new BalloonMushroomStemBlock());
 	public static final ComplexMaterial BALLOON_MUSHROOM_MATERIAL = new WoodenComplexMaterial(EdenRing.MOD_ID, "balloon_mushroom", "eden", MaterialColor.COLOR_PURPLE, MaterialColor.COLOR_PURPLE).init(REGISTRY, EdenItems.REGISTRY, EdenRecipes.CONFIG);
 	
-	public static final Block PULSE_TREE_SAPLING = register("pulse_tree_sapling", new CustomSaplingBlock(() -> EdenFeatures.PULSE_TREE.getFeature()));
+	public static final Block PULSE_TREE_SAPLING = register("pulse_tree_sapling", new FeatureSaplingBlock((state) -> EdenFeatures.PULSE_TREE.getFeature()));
 	public static final Block PULSE_TREE = register("pulse_tree", new PulseTreeBlock());
 	public static final ComplexMaterial PULSE_TREE_MATERIAL = new WoodenComplexMaterial(EdenRing.MOD_ID, "pulse_tree", "eden", MaterialColor.COLOR_CYAN, MaterialColor.COLOR_CYAN).init(REGISTRY, EdenItems.REGISTRY, EdenRecipes.CONFIG);
 	

@@ -115,7 +115,7 @@ public class PulseTreeBlock extends BaseBlockNotFull implements RenderLayerProvi
 	@Override
 	@SuppressWarnings("deprecation")
 	public BlockState updateShape(BlockState state, Direction facing, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
-		world.getBlockTicks().scheduleTick(pos, this, 1);
+		world.scheduleTick(pos, this, 1);
 		return state;
 	}
 	

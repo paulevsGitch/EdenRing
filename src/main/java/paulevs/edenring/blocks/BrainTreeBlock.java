@@ -37,7 +37,7 @@ import paulevs.edenring.entities.LightningRayEntity;
 import paulevs.edenring.registries.EdenBiomes;
 import paulevs.edenring.registries.EdenEntities;
 import paulevs.edenring.registries.EdenSounds;
-import ru.bclib.api.BiomeAPI;
+import ru.bclib.api.biomes.BiomeAPI;
 import ru.bclib.blocks.BaseBlock;
 import ru.bclib.blocks.BlockProperties;
 import ru.bclib.client.models.ModelsHelper;

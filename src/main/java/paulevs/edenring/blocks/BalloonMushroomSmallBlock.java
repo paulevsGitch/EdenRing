@@ -10,14 +10,15 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import paulevs.edenring.registries.EdenBlocks;
 import paulevs.edenring.registries.EdenFeatures;
+import ru.bclib.blocks.FeatureSaplingBlock;
 
 import java.util.Random;
 
-public class BalloonMushroomSmallBlock extends CustomSaplingBlock {
+public class BalloonMushroomSmallBlock extends FeatureSaplingBlock {
 	private static final VoxelShape SHAPE = Block.box(4, 0, 4, 12, 8, 12);
 	
 	public BalloonMushroomSmallBlock() {
-		super(() -> EdenFeatures.BALLOON_MUSHROOM_TREE.getFeature());
+		super((state) -> EdenFeatures.BALLOON_MUSHROOM_TREE.getFeature());
 	}
 	
 	@Override

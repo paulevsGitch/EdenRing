@@ -5,10 +5,11 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import paulevs.edenring.registries.EdenFeatures;
+import ru.bclib.blocks.FeatureSaplingBlock;
 
-public class AquatusSapling extends CustomSaplingBlock {
+public class AquatusSapling extends FeatureSaplingBlock {
 	public AquatusSapling() {
-		super(() -> EdenFeatures.AQUATUS.getFeature());
+		super((state) -> EdenFeatures.AQUATUS.getFeature());
 	}
 	
 	@Override

@@ -28,6 +28,7 @@ import paulevs.edenring.registries.EdenFeatures;
 import paulevs.edenring.world.EdenPortal;
 
 import java.util.List;
+import java.util.Optional;
 
 public class EdenPortalBlockEntity extends BlockEntity {
 	private int checkTicks;
@@ -93,6 +94,7 @@ public class EdenPortalBlockEntity extends BlockEntity {
 			getLand(destination, exit);
 			if (exit.getY() == 130 && destination.getBlockState(exit.below(2)).isAir()) {
 				EdenFeatures.SMALL_ISLAND.getFeature().place(new FeaturePlaceContext(
+					Optional.empty(),
 					destination,
 					destination.getChunkSource().getGenerator(),
 					destination.random,

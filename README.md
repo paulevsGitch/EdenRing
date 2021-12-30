@@ -2,7 +2,7 @@
 
 # Eden Ring
 
-Custom Sci-Fi dimension mod for Fabric, MC 1.17.1
+Custom Sci-Fi dimension mod for Fabric, MC 1.18.1
 
 Importing:
 

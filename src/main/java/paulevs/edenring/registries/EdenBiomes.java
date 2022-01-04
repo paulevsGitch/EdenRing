@@ -65,7 +65,7 @@ public class EdenBiomes {
 			.feature(EdenFeatures.ORE_IRON)
 			.feature(EdenFeatures.ORE_COPPER)
 			.feature(EdenFeatures.GRAVILITE_CRYSTAL)
-			.feature(EdenFeatures.ROUND_CAVE)
+			//.feature(EdenFeatures.ROUND_CAVE)
 			.carver(Carving.AIR, Carvers.CAVE);
 	}
 	
@@ -224,7 +224,6 @@ public class EdenBiomes {
 		addDefaultSurface(builder);
 		setDefaultColors(builder);
 		return builder
-			.fogDensity(2.5F)
 			.skyColor(113, 178, 255)
 			.fogColor(183, 212, 255)
 			.grassColor(225, 84, 72)

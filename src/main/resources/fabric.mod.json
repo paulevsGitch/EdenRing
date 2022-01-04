@@ -20,7 +20,7 @@
 			"paulevs.edenring.EdenRing"
 		],
 		"client": [
-			"paulevs.edenring.EdenRingClient"
+			"paulevs.edenring.client.EdenRingClient"
 		]
 	},
 	"mixins": [

@@ -19,7 +19,6 @@ import paulevs.edenring.registries.EdenRecipes;
 import paulevs.edenring.registries.EdenSounds;
 import paulevs.edenring.world.EdenPortal;
 import paulevs.edenring.world.generator.EdenBiomeSource;
-import paulevs.edenring.world.generator.EdenChunkGenerator;
 import paulevs.edenring.world.generator.GeneratorOptions;
 import ru.bclib.registry.BaseRegistry;
 

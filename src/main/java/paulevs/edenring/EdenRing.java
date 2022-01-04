@@ -47,7 +47,7 @@ public class EdenRing implements ModInitializer {
 		EdenFeatures.init();
 		EdenBiomes.init();
 		EdenRecipes.init();
-		Registry.register(Registry.CHUNK_GENERATOR, makeID("chunk_generator"), EdenChunkGenerator.CODEC);
+		//Registry.register(Registry.CHUNK_GENERATOR, makeID("chunk_generator"), EdenChunkGenerator.CODEC);
 		Registry.register(Registry.BIOME_SOURCE, makeID("biome_source"), EdenBiomeSource.CODEC);
 		EdenPortal.init();
 	}

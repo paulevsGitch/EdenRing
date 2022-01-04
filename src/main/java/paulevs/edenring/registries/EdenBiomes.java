@@ -40,12 +40,12 @@ public class EdenBiomes {
 	// LAND //
 	public static final BCLBiome STONE_GARDEN = registerLand(makeStoneGardenBiome());
 	// TODO make all biomes
-	public static final BCLBiome GOLDEN_FOREST = registerLand(makeStoneGardenBiome());
-	public static final BCLBiome MYCOTIC_FOREST = registerLand(makeStoneGardenBiome());
-	public static final BCLBiome PULSE_FOREST = registerLand(makeStoneGardenBiome());
-	public static final BCLBiome BRAINSTORM = registerLand(makeStoneGardenBiome());
-	public static final BCLBiome LAKESIDE_DESERT = registerLand(makeStoneGardenBiome());
-	public static final BCLBiome WIND_VALLEY = registerLand(makeStoneGardenBiome());
+	public static final BCLBiome GOLDEN_FOREST = STONE_GARDEN;//registerLand(makeStoneGardenBiome());
+	public static final BCLBiome MYCOTIC_FOREST = STONE_GARDEN;//registerLand(makeStoneGardenBiome());
+	public static final BCLBiome PULSE_FOREST = STONE_GARDEN;//registerLand(makeStoneGardenBiome());
+	public static final BCLBiome BRAINSTORM = STONE_GARDEN;//registerLand(makeStoneGardenBiome());
+	public static final BCLBiome LAKESIDE_DESERT = STONE_GARDEN;//registerLand(makeStoneGardenBiome());
+	public static final BCLBiome WIND_VALLEY = STONE_GARDEN;//registerLand(makeStoneGardenBiome());
 	
 	// CAVES //
 	public static final BCLBiome ERODED_CAVE = registerCave(makeStoneGardenBiome());

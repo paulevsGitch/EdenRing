@@ -167,7 +167,7 @@ public class EdenChunkGenerator extends ChunkGenerator {
 			int z = i / 3;
 			int px = ((x << 3) + posX) >> 3;
 			int pz = ((z << 3) + posZ) >> 3;
-			TerrainGenerator.fillTerrainDensity(buffer[x][z], px, pz, runtimeBiomeSource);
+			//TerrainGenerator.fillTerrainDensity(buffer[x][z], px, pz, runtimeBiomeSource);
 		}
 		
 		for (int i = 0; i < 4; i++) {
@@ -246,7 +246,7 @@ public class EdenChunkGenerator extends ChunkGenerator {
 			int iz = i >> 1;
 			int px = ((ix << 3) + posX) >> 3;
 			int pz = ((iz << 3) + posZ) >> 3;
-			TerrainGenerator.fillTerrainDensity(buffer[ix][iz], px, pz, runtimeBiomeSource);
+			//TerrainGenerator.fillTerrainDensity(buffer[ix][iz], px, pz, runtimeBiomeSource);
 		}
 		
 		for (int j = 30; j >= 0; j--) {

@@ -2,6 +2,7 @@ package paulevs.edenring.world.generator;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import net.minecraft.util.Mth;
 import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.biome.Climate.Sampler;
 import ru.bclib.api.biomes.BiomeAPI;
@@ -19,8 +20,6 @@ public class TerrainGenerator {
 	private static final Map<Point, TerrainBoolCache> TERRAIN_BOOL_CACHE_MAP = Maps.newHashMap();
 	private static final ReentrantLock LOCKER = new ReentrantLock();
 	private static final Point POS = new Point();
-	private static final double SCALE_XZ = 8.0;
-	private static final double SCALE_Y = 8.0;
 	private static final float[] COEF;
 	private static final Point[] OFFS;
 	
@@ -29,44 +28,45 @@ public class TerrainGenerator {
 	private static IslandLayer smallIslands;
 	private static OpenSimplexNoise noise1;
 	private static OpenSimplexNoise noise2;
+	private static BiomeSource biomeSource;
 	private static Sampler sampler;
 	protected static long seed;
 	
-	public static void initNoise(long seed, Sampler sampler) {
-		if (TerrainGenerator.seed == seed && sampler != null) {
-			return;
-		}
+	public static void initNoise(long seed, Sampler sampler, BiomeSource biomeSource) {
 		Random random = new Random(seed);
 		largeIslands = new IslandLayer(random.nextInt(), GeneratorOptions.bigOptions);
 		mediumIslands = new IslandLayer(random.nextInt(), GeneratorOptions.mediumOptions);
 		smallIslands = new IslandLayer(random.nextInt(), GeneratorOptions.smallOptions);
 		noise1 = new OpenSimplexNoise(random.nextInt());
 		noise2 = new OpenSimplexNoise(random.nextInt());
+		TerrainGenerator.biomeSource = biomeSource;
 		TerrainGenerator.sampler = sampler;
 		TerrainGenerator.seed = seed;
 		TERRAIN_BOOL_CACHE_MAP.clear();
 	}
 	
-	public static void fillTerrainDensity(float[] buffer, int x, int z, BiomeSource biomeSource) {
+	public static void fillTerrainDensity(double[] buffer, int posX, int posZ, double scaleXZ, double scaleY) {
 		LOCKER.lock();
 		
 		largeIslands.clearCache();
 		mediumIslands.clearCache();
 		smallIslands.clearCache();
 		
+		int x = Mth.floor(posX / scaleXZ);
+		int z = Mth.floor(posZ / scaleXZ);
 		double distortion1 = noise1.eval(x * 0.1, z * 0.1) * 20 + noise2.eval(x * 0.2, z * 0.2) * 10 + noise1.eval(x * 0.4, z * 0.4) * 5;
 		double distortion2 = noise2.eval(x * 0.1, z * 0.1) * 20 + noise1.eval(x * 0.2, z * 0.2) * 10 + noise2.eval(x * 0.4, z * 0.4) * 5;
-		double px = (double) x * SCALE_XZ + distortion1;
-		double pz = (double) z * SCALE_XZ + distortion2;
+		double px = x * scaleXZ + distortion1;
+		double pz = z * scaleXZ + distortion2;
 		
 		largeIslands.updatePositions(px, pz);
 		mediumIslands.updatePositions(px, pz);
 		smallIslands.updatePositions(px, pz);
 		
-		float height = getAverageDepth(biomeSource, x << 1, z << 1) * 0.5F;
+		float height = getAverageDepth(x << 1, z << 1) * 0.5F;
 		
 		for (int y = 0; y < buffer.length; y++) {
-			double py = (double) y * SCALE_Y;
+			double py = y * scaleY;
 			float dist = largeIslands.getDensity(px, py, pz, height);
 			dist = dist > 1 ? dist : MHelper.max(dist, mediumIslands.getDensity(px, py, pz, height));
 			dist = dist > 1 ? dist : MHelper.max(dist, smallIslands.getDensity(px, py, pz, height));
@@ -81,92 +81,24 @@ public class TerrainGenerator {
 		LOCKER.unlock();
 	}
 	
-	private static float getAverageDepth(BiomeSource biomeSource, int x, int z) {
-		if (getBiome(biomeSource, x, z).getTerrainHeight() < 0.1F) {
+	private static float getAverageDepth(int x, int z) {
+		if (getBiome(x, z).getTerrainHeight() < 0.1F) {
 			return 0F;
 		}
 		float depth = 0F;
 		for (int i = 0; i < OFFS.length; i++) {
 			int px = x + OFFS[i].x;
 			int pz = z + OFFS[i].y;
-			depth += getBiome(biomeSource, px, pz).getTerrainHeight() * COEF[i];
+			depth += getBiome(px, pz).getTerrainHeight() * COEF[i];
 		}
 		return depth;
 	}
 	
-	private static BCLBiome getBiome(BiomeSource biomeSource, int x, int z) {
+	private static BCLBiome getBiome(int x, int z) {
 		if (biomeSource instanceof EdenBiomeSource) {
 			return EdenBiomeSource.class.cast(biomeSource).getLandBiome(x, z);
 		}
 		return BiomeAPI.getBiome(biomeSource.getNoiseBiome(x, 0, z, sampler));
-	}
-	
-	/**
-	 * Check if this is land
-	 *
-	 * @param x - biome pos x
-	 * @param z - biome pos z
-	 */
-	public static boolean isLand(int x, int z) {
-		int sectionX = TerrainBoolCache.scaleCoordinate(x);
-		int sectionZ = TerrainBoolCache.scaleCoordinate(z);
-		
-		LOCKER.lock();
-		POS.setLocation(sectionX, sectionZ);
-		
-		TerrainBoolCache section = TERRAIN_BOOL_CACHE_MAP.get(POS);
-		if (section == null) {
-			if (TERRAIN_BOOL_CACHE_MAP.size() > 64) {
-				TERRAIN_BOOL_CACHE_MAP.clear();
-			}
-			section = new TerrainBoolCache();
-			TERRAIN_BOOL_CACHE_MAP.put(new Point(POS.x, POS.y), section);
-		}
-		byte value = section.getData(x, z);
-		if (value > 0) {
-			LOCKER.unlock();
-			return value > 1;
-		}
-		
-		double px = (x >> 1) + 0.5;
-		double pz = (z >> 1) + 0.5;
-		
-		double distortion1 = noise1.eval(px * 0.1, pz * 0.1) * 20 + noise2.eval(px * 0.2, pz * 0.2) * 10 + noise1.eval(
-			px * 0.4,
-			pz * 0.4
-		) * 5;
-		double distortion2 = noise2.eval(px * 0.1, pz * 0.1) * 20 + noise1.eval(px * 0.2, pz * 0.2) * 10 + noise2.eval(
-			px * 0.4,
-			pz * 0.4
-		) * 5;
-		px = px * SCALE_XZ + distortion1;
-		pz = pz * SCALE_XZ + distortion2;
-		
-		largeIslands.updatePositions(px, pz);
-		mediumIslands.updatePositions(px, pz);
-		smallIslands.updatePositions(px, pz);
-		
-		boolean result = false;
-		for (int y = 0; y < 32; y++) {
-			double py = (double) y * SCALE_Y;
-			float dist = largeIslands.getDensity(px, py, pz);
-			dist = dist > 1 ? dist : MHelper.max(dist, mediumIslands.getDensity(px, py, pz));
-			dist = dist > 1 ? dist : MHelper.max(dist, smallIslands.getDensity(px, py, pz));
-			if (dist > -0.5F) {
-				dist += noise1.eval(px * 0.01, py * 0.01, pz * 0.01) * 0.02 + 0.02;
-				dist += noise2.eval(px * 0.05, py * 0.05, pz * 0.05) * 0.01 + 0.01;
-				dist += noise1.eval(px * 0.1, py * 0.1, pz * 0.1) * 0.005 + 0.005;
-			}
-			if (dist > -0.01) {
-				result = true;
-				break;
-			}
-		}
-		
-		section.setData(x, z, (byte) (result ? 2 : 1));
-		LOCKER.unlock();
-		
-		return result;
 	}
 	
 	static {

@@ -27,7 +27,7 @@ public class BalloonMushroomBlockItem extends BlockItem {
 		Vec3 vec = new Vec3(0, 0, 1).xRot(-player.getXRot() * Mth.DEG_TO_RAD).yRot(-player.getYHeadRot() * Mth.DEG_TO_RAD);
 		BlockHitResult hit = level.isBlockInLine(new ClipBlockStateContext(
 			player.getEyePosition(),
-			player.getEyePosition().add(vec.scale(4.5)),
+			player.getEyePosition().add(vec.scale(4.9)),
 			state -> state.isAir()
 		));
 		

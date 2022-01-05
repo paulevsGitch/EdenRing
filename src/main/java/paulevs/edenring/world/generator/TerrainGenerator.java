@@ -32,7 +32,7 @@ public class TerrainGenerator {
 	private static Sampler sampler;
 	protected static long seed;
 	
-	public static void initNoise(long seed, Sampler sampler, BiomeSource biomeSource) {
+	public static void init(long seed, Sampler sampler, BiomeSource biomeSource) {
 		Random random = new Random(seed);
 		largeIslands = new IslandLayer(random.nextInt(), GeneratorOptions.bigOptions);
 		mediumIslands = new IslandLayer(random.nextInt(), GeneratorOptions.mediumOptions);

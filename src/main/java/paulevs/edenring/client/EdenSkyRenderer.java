@@ -29,50 +29,50 @@ import ru.bclib.util.MHelper;
 import java.util.Random;
 
 public class EdenSkyRenderer implements SkyRenderer {
-	private static final ResourceLocation EDEN_PLANET_TEXTURE = EdenRing.makeID("textures/environment/planet.png");
-	private static final ResourceLocation EDEN_MOON_TEXTURE = EdenRing.makeID("textures/environment/moon.png");
-	private static final ResourceLocation EDEN_RINGS_SOFT_TEXTURE = EdenRing.makeID("textures/environment/rings_soft.png");
-	private static final ResourceLocation EDEN_RINGS_TEXTURE = EdenRing.makeID("textures/environment/rings.png");
-	private static final ResourceLocation EDEN_HORIZON_BW = EdenRing.makeID("textures/environment/horizon_bw.png");
-	private static final ResourceLocation EDEN_HORIZON = EdenRing.makeID("textures/environment/horizon.png");
-	private static final ResourceLocation EDEN_NEBULA1 = EdenRing.makeID("textures/environment/nebula_1.png");
-	private static final ResourceLocation EDEN_NEBULA2 = EdenRing.makeID("textures/environment/nebula_2.png");
-	private static final ResourceLocation EDEN_STARS = EdenRing.makeID("textures/environment/stars.png");
-	private static final ResourceLocation EDEN_SUN_FADE = EdenRing.makeID("textures/environment/sun_fade.png");
-	private static final ResourceLocation EDEN_SUN = EdenRing.makeID("textures/environment/sun.png");
-	private static final ResourceLocation EDEN_FRAME = EdenRing.makeID("textures/environment/frame.png");
-	private static final MoonInfo[] EDEN_MOONS = new MoonInfo[8];
+	private static final ResourceLocation PLANET_TEXTURE = EdenRing.makeID("textures/environment/planet.png");
+	private static final ResourceLocation MOON_TEXTURE = EdenRing.makeID("textures/environment/moon.png");
+	private static final ResourceLocation RINGS_SOFT_TEXTURE = EdenRing.makeID("textures/environment/rings_soft.png");
+	private static final ResourceLocation RINGS_TEXTURE = EdenRing.makeID("textures/environment/rings.png");
+	private static final ResourceLocation HORIZON_BW = EdenRing.makeID("textures/environment/horizon_bw.png");
+	private static final ResourceLocation HORIZON = EdenRing.makeID("textures/environment/horizon.png");
+	private static final ResourceLocation NEBULA1 = EdenRing.makeID("textures/environment/nebula_1.png");
+	private static final ResourceLocation NEBULA2 = EdenRing.makeID("textures/environment/nebula_2.png");
+	private static final ResourceLocation STARS = EdenRing.makeID("textures/environment/stars.png");
+	private static final ResourceLocation SUN_FADE = EdenRing.makeID("textures/environment/sun_fade.png");
+	private static final ResourceLocation SUN = EdenRing.makeID("textures/environment/sun.png");
+	private static final MoonInfo[] MOONS = new MoonInfo[8];
 	
-	private static BufferBuilder eden_bufferBuilder;
-	private static VertexBuffer[] eden_horizon;
-	private static VertexBuffer eden_stars;
-	private static VertexBuffer[] eden_nebula;
+	private static BufferBuilder bufferBuilder;
+	private static VertexBuffer[] horizon;
+	private static VertexBuffer[] nebula;
+	private static VertexBuffer stars;
 	private boolean shouldInit = true;
 	
 	private void init() {
 		shouldInit = false;
-		eden_bufferBuilder = Tesselator.getInstance().getBuilder();
+		bufferBuilder = Tesselator.getInstance().getBuilder();
 		
-		if (eden_horizon == null) {
-			eden_horizon = new VertexBuffer[2];
+		if (horizon == null) {
+			horizon = new VertexBuffer[3];
 		}
 		
-		if (eden_nebula == null) {
-			eden_nebula = new VertexBuffer[3];
+		if (nebula == null) {
+			nebula = new VertexBuffer[3];
 		}
 		
-		eden_horizon[0] = eden_buildBufferHorizon(eden_bufferBuilder, eden_horizon[0], 20);
-		eden_horizon[1] = eden_buildBufferHorizon(eden_bufferBuilder, eden_horizon[1], 40);
-		eden_nebula[0] = eden_buildBufferHorizon(eden_bufferBuilder, eden_nebula[0], 30);
+		horizon[0] = buildBufferHorizon(bufferBuilder, horizon[0], 20);
+		horizon[1] = buildBufferHorizon(bufferBuilder, horizon[1], 40);
+		horizon[2] = buildBufferHorizon(bufferBuilder, horizon[2], 100);
 		
-		eden_stars = eden_buildBufferStars(eden_bufferBuilder, eden_stars, 0.1, 0.7, 5000, 4, 41315);
+		nebula[0] = buildBufferHorizon(bufferBuilder, nebula[0], 30);
+		nebula[1] = buildBufferStars(bufferBuilder, nebula[1], 20, 60, 10, 1, 235);
+		nebula[2] = buildBufferStars(bufferBuilder, nebula[2], 20, 60, 10, 1, 352);
 		
-		eden_nebula[1] = eden_buildBufferStars(eden_bufferBuilder, eden_nebula[1], 20, 60, 10, 1, 235);
-		eden_nebula[2] = eden_buildBufferStars(eden_bufferBuilder, eden_nebula[2], 20, 60, 10, 1, 352);
+		stars = buildBufferStars(bufferBuilder, stars, 0.1, 0.7, 5000, 4, 41315);
 		
 		Random random = new Random(0);
-		for (int i = 0; i < EDEN_MOONS.length; i++) {
-			EDEN_MOONS[i] = new MoonInfo(random);
+		for (int i = 0; i < MOONS.length; i++) {
+			MOONS[i] = new MoonInfo(random);
 		}
 	}
 	
@@ -128,13 +128,13 @@ public class EdenSkyRenderer implements SkyRenderer {
 		
 		RenderSystem.setShaderColor(skyR, skyG, skyB, 1.0F);
 		RenderSystem.setShader(GameRenderer::getPositionShader);
-		eden_bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION);
-		eden_bufferBuilder.vertex(projectionMatrix, -10.0F, -10.0F, 0.0F).endVertex();
-		eden_bufferBuilder.vertex(projectionMatrix,  10.0F, -10.0F, 0.0F).endVertex();
-		eden_bufferBuilder.vertex(projectionMatrix,  10.0F,  10.0F, 0.0F).endVertex();
-		eden_bufferBuilder.vertex(projectionMatrix, -10.0F,  10.0F, 0.0F).endVertex();
-		eden_bufferBuilder.end();
-		BufferUploader.end(eden_bufferBuilder);
+		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION);
+		bufferBuilder.vertex(projectionMatrix, -10.0F, -10.0F, 0.0F).endVertex();
+		bufferBuilder.vertex(projectionMatrix,  10.0F, -10.0F, 0.0F).endVertex();
+		bufferBuilder.vertex(projectionMatrix,  10.0F,  10.0F, 0.0F).endVertex();
+		bufferBuilder.vertex(projectionMatrix, -10.0F,  10.0F, 0.0F).endVertex();
+		bufferBuilder.end();
+		BufferUploader.end(bufferBuilder);
 		
 		// Render Nebula And Stars //
 		
@@ -148,19 +148,19 @@ public class EdenSkyRenderer implements SkyRenderer {
 		poseStack.mulPose(Vector3f.XP.rotation(-0.4F));
 		poseStack.mulPose(Vector3f.YP.rotation((float) Math.PI * 0.5F - dayTime * (float) Math.PI * 2.0F));
 		
-		RenderSystem.setShaderTexture(0, EDEN_STARS);
-		eden_renderBuffer(poseStack, projectionMatrix, eden_stars, DefaultVertexFormat.POSITION_TEX, 1.0F, 1.0F, 1.0F, skyBlend * 0.5F + 0.5F);
+		RenderSystem.setShaderTexture(0, STARS);
+		renderBuffer(poseStack, projectionMatrix, stars, DefaultVertexFormat.POSITION_TEX, 1.0F, 1.0F, 1.0F, skyBlend * 0.5F + 0.5F);
 		
 		float nebulaBlend = skyBlend * 0.75F + 0.25F;
 		float nebulaBlend2 = nebulaBlend * 0.15F;
-		RenderSystem.setShaderTexture(0, EDEN_NEBULA1);
-		eden_renderBuffer(poseStack, projectionMatrix, eden_nebula[1], DefaultVertexFormat.POSITION_TEX, 1.0F, 1.0F, 1.0F, nebulaBlend2);
+		RenderSystem.setShaderTexture(0, NEBULA1);
+		renderBuffer(poseStack, projectionMatrix, nebula[1], DefaultVertexFormat.POSITION_TEX, 1.0F, 1.0F, 1.0F, nebulaBlend2);
 		
-		RenderSystem.setShaderTexture(0, EDEN_NEBULA2);
-		eden_renderBuffer(poseStack, projectionMatrix, eden_nebula[2], DefaultVertexFormat.POSITION_TEX, 1.0F, 1.0F, 1.0F, nebulaBlend2);
+		RenderSystem.setShaderTexture(0, NEBULA2);
+		renderBuffer(poseStack, projectionMatrix, nebula[2], DefaultVertexFormat.POSITION_TEX, 1.0F, 1.0F, 1.0F, nebulaBlend2);
 		
-		RenderSystem.setShaderTexture(0, EDEN_HORIZON);
-		eden_renderBuffer(poseStack, projectionMatrix, eden_nebula[0], DefaultVertexFormat.POSITION_TEX, 1.0F, 1.0F, 1.0F, nebulaBlend);
+		RenderSystem.setShaderTexture(0, HORIZON);
+		renderBuffer(poseStack, projectionMatrix, nebula[0], DefaultVertexFormat.POSITION_TEX, 1.0F, 1.0F, 1.0F, nebulaBlend);
 		
 		// Render Sun //
 		
@@ -169,27 +169,27 @@ public class EdenSkyRenderer implements SkyRenderer {
 		Matrix4f matrix = poseStack.last().pose();
 		
 		RenderSystem.setShaderColor(skyR, skyG, skyB, 1.0F);
-		RenderSystem.setShaderTexture(0, EDEN_SUN_FADE);
-		eden_bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-		eden_bufferBuilder.vertex(matrix, -80.0F, 100.0F, -80.0F).uv(0.0F, 0.0F).endVertex();
-		eden_bufferBuilder.vertex(matrix,  80.0F, 100.0F, -80.0F).uv(1.0F, 0.0F).endVertex();
-		eden_bufferBuilder.vertex(matrix,  80.0F, 100.0F,  80.0F).uv(1.0F, 1.0F).endVertex();
-		eden_bufferBuilder.vertex(matrix, -80.0F, 100.0F,  80.0F).uv(0.0F, 1.0F).endVertex();
-		eden_bufferBuilder.end();
-		BufferUploader.end(eden_bufferBuilder);
+		RenderSystem.setShaderTexture(0, SUN_FADE);
+		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+		bufferBuilder.vertex(matrix, -80.0F, 100.0F, -80.0F).uv(0.0F, 0.0F).endVertex();
+		bufferBuilder.vertex(matrix,  80.0F, 100.0F, -80.0F).uv(1.0F, 0.0F).endVertex();
+		bufferBuilder.vertex(matrix,  80.0F, 100.0F,  80.0F).uv(1.0F, 1.0F).endVertex();
+		bufferBuilder.vertex(matrix, -80.0F, 100.0F,  80.0F).uv(0.0F, 1.0F).endVertex();
+		bufferBuilder.end();
+		BufferUploader.end(bufferBuilder);
 		
 		float color = (float) Math.cos(dayTime * Math.PI * 2) * 1.1F;
 		color = Mth.clamp(color, 0.3F, 1.0F);
 		RenderSystem.setShaderColor(1.0F, color, color, 1.0F);
-		RenderSystem.setShaderTexture(0, EDEN_SUN);
+		RenderSystem.setShaderTexture(0, SUN);
 		RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-		eden_bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-		eden_bufferBuilder.vertex(matrix, -30.0F, 100.0F, -30.0F).uv(0.0F, 0.0F).endVertex();
-		eden_bufferBuilder.vertex(matrix,  30.0F, 100.0F, -30.0F).uv(1.0F, 0.0F).endVertex();
-		eden_bufferBuilder.vertex(matrix,  30.0F, 100.0F,  30.0F).uv(1.0F, 1.0F).endVertex();
-		eden_bufferBuilder.vertex(matrix, -30.0F, 100.0F,  30.0F).uv(0.0F, 1.0F).endVertex();
-		eden_bufferBuilder.end();
-		BufferUploader.end(eden_bufferBuilder);
+		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+		bufferBuilder.vertex(matrix, -30.0F, 100.0F, -30.0F).uv(0.0F, 0.0F).endVertex();
+		bufferBuilder.vertex(matrix,  30.0F, 100.0F, -30.0F).uv(1.0F, 0.0F).endVertex();
+		bufferBuilder.vertex(matrix,  30.0F, 100.0F,  30.0F).uv(1.0F, 1.0F).endVertex();
+		bufferBuilder.vertex(matrix, -30.0F, 100.0F,  30.0F).uv(0.0F, 1.0F).endVertex();
+		bufferBuilder.end();
+		BufferUploader.end(bufferBuilder);
 		RenderSystem.defaultBlendFunc();
 		
 		poseStack.popPose();
@@ -210,27 +210,27 @@ public class EdenSkyRenderer implements SkyRenderer {
 		poseStack.mulPose(Vector3f.XP.rotation(angle));
 		
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-		RenderSystem.setShaderTexture(0, EDEN_RINGS_SOFT_TEXTURE);
+		RenderSystem.setShaderTexture(0, RINGS_SOFT_TEXTURE);
 		
 		matrix = poseStack.last().pose();
-		eden_bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-		eden_bufferBuilder.vertex(matrix, -130.0F, 0.0F, -130.0F).uv(0.0F, 0.0F).endVertex();
-		eden_bufferBuilder.vertex(matrix,  130.0F, 0.0F, -130.0F).uv(1.0F, 0.0F).endVertex();
-		eden_bufferBuilder.vertex(matrix,  130.0F, 0.0F,  130.0F).uv(1.0F, 1.0F).endVertex();
-		eden_bufferBuilder.vertex(matrix, -130.0F, 0.0F,  130.0F).uv(0.0F, 1.0F).endVertex();
-		eden_bufferBuilder.end();
-		BufferUploader.end(eden_bufferBuilder);
+		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+		bufferBuilder.vertex(matrix, -130.0F, 0.0F, -130.0F).uv(0.0F, 0.0F).endVertex();
+		bufferBuilder.vertex(matrix,  130.0F, 0.0F, -130.0F).uv(1.0F, 0.0F).endVertex();
+		bufferBuilder.vertex(matrix,  130.0F, 0.0F,  130.0F).uv(1.0F, 1.0F).endVertex();
+		bufferBuilder.vertex(matrix, -130.0F, 0.0F,  130.0F).uv(0.0F, 1.0F).endVertex();
+		bufferBuilder.end();
+		BufferUploader.end(bufferBuilder);
 		
 		if (py > 0) {
 			RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, (float) py);
-			RenderSystem.setShaderTexture(0, EDEN_RINGS_TEXTURE);
-			eden_bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-			eden_bufferBuilder.vertex(matrix, -130.0F, 0.01F, -130.0F).uv(0.0F, 0.0F).endVertex();
-			eden_bufferBuilder.vertex(matrix,  130.0F, 0.01F, -130.0F).uv(1.0F, 0.0F).endVertex();
-			eden_bufferBuilder.vertex(matrix,  130.0F, 0.01F,  130.0F).uv(1.0F, 1.0F).endVertex();
-			eden_bufferBuilder.vertex(matrix, -130.0F, 0.01F,  130.0F).uv(0.0F, 1.0F).endVertex();
-			eden_bufferBuilder.end();
-			BufferUploader.end(eden_bufferBuilder);
+			RenderSystem.setShaderTexture(0, RINGS_TEXTURE);
+			bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+			bufferBuilder.vertex(matrix, -130.0F, 0.01F, -130.0F).uv(0.0F, 0.0F).endVertex();
+			bufferBuilder.vertex(matrix,  130.0F, 0.01F, -130.0F).uv(1.0F, 0.0F).endVertex();
+			bufferBuilder.vertex(matrix,  130.0F, 0.01F,  130.0F).uv(1.0F, 1.0F).endVertex();
+			bufferBuilder.vertex(matrix, -130.0F, 0.01F,  130.0F).uv(0.0F, 1.0F).endVertex();
+			bufferBuilder.end();
+			BufferUploader.end(bufferBuilder);
 		}
 		
 		poseStack.popPose();
@@ -241,10 +241,10 @@ public class EdenSkyRenderer implements SkyRenderer {
 		float v0 = frame / 12F;
 		float v1 = v0 + 0.083F;
 		
-		for (int i = 0; i < EDEN_MOONS.length; i++) {
-			MoonInfo moon = EDEN_MOONS[i];
+		for (int i = 0; i < MOONS.length; i++) {
+			MoonInfo moon = MOONS[i];
 			double position = (moon.orbitState + dayTime) * moon.speed;
-			eden_renderMoon(poseStack, position, moon.orbitRadius, moon.orbitAngle, moon.size, v0, v1, moon.color);
+			renderMoon(poseStack, position, moon.orbitRadius, moon.orbitAngle, moon.size, v0, v1, moon.color);
 		}
 		
 		// Render Planet //
@@ -254,14 +254,14 @@ public class EdenSkyRenderer implements SkyRenderer {
 		
 		matrix = poseStack.last().pose();
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-		RenderSystem.setShaderTexture(0, EDEN_PLANET_TEXTURE);
-		eden_bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-		eden_bufferBuilder.vertex(matrix, -140,  140, 0.0F).uv(0.0F, 0.0F).endVertex();
-		eden_bufferBuilder.vertex(matrix,  140,  140, 0.0F).uv(1.0F, 0.0F).endVertex();
-		eden_bufferBuilder.vertex(matrix,  140, -140, 0.0F).uv(1.0F, 1.0F).endVertex();
-		eden_bufferBuilder.vertex(matrix, -140, -140, 0.0F).uv(0.0F, 1.0F).endVertex();
-		eden_bufferBuilder.end();
-		BufferUploader.end(eden_bufferBuilder);
+		RenderSystem.setShaderTexture(0, PLANET_TEXTURE);
+		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+		bufferBuilder.vertex(matrix, -140,  140, 0.0F).uv(0.0F, 0.0F).endVertex();
+		bufferBuilder.vertex(matrix,  140,  140, 0.0F).uv(1.0F, 0.0F).endVertex();
+		bufferBuilder.vertex(matrix,  140, -140, 0.0F).uv(1.0F, 1.0F).endVertex();
+		bufferBuilder.vertex(matrix, -140, -140, 0.0F).uv(0.0F, 1.0F).endVertex();
+		bufferBuilder.end();
+		BufferUploader.end(bufferBuilder);
 		
 		poseStack.popPose();
 		
@@ -271,15 +271,32 @@ public class EdenSkyRenderer implements SkyRenderer {
 			RenderSystem.clear(GL11.GL_DEPTH_BUFFER_BIT, Minecraft.ON_OSX);
 			RenderSystem.depthMask(false);
 			RenderSystem.disableDepthTest();
-			RenderSystem.setShaderTexture(0, EDEN_HORIZON_BW);
+			RenderSystem.setShaderTexture(0, HORIZON_BW);
+			
+			if (BackgroundInfo.fogDensity > 1) {
+				float density = Mth.clamp(BackgroundInfo.fogDensity - 1.5F, 0, 1);
+				poseStack.pushPose();
+				poseStack.mulPose(Vector3f.YP.rotation((float) (-time * 0.00003)));
+				renderBuffer(
+					poseStack,
+					projectionMatrix,
+					horizon[1],
+					DefaultVertexFormat.POSITION_TEX,
+					BackgroundInfo.fogColorRed * 0.7F,
+					BackgroundInfo.fogColorGreen * 0.7F,
+					BackgroundInfo.fogColorBlue * 0.7F,
+					(1.0F - skyBlend) * density
+				);
+				poseStack.popPose();
+			}
 			
 			poseStack.pushPose();
 			poseStack.mulPose(Vector3f.YP.rotation((float) (time * 0.0002)));
 			float density = Mth.clamp(BackgroundInfo.fogDensity, 1, 2);
-			eden_renderBuffer(
+			renderBuffer(
 				poseStack,
 				projectionMatrix,
-				eden_horizon[0],
+				horizon[0],
 				DefaultVertexFormat.POSITION_TEX,
 				BackgroundInfo.fogColorRed,
 				BackgroundInfo.fogColorGreen,
@@ -290,10 +307,10 @@ public class EdenSkyRenderer implements SkyRenderer {
 			
 			poseStack.pushPose();
 			poseStack.mulPose(Vector3f.YP.rotation((float) (-time * 0.0001)));
-			eden_renderBuffer(
+			renderBuffer(
 				poseStack,
 				projectionMatrix,
-				eden_horizon[1],
+				horizon[1],
 				DefaultVertexFormat.POSITION_TEX,
 				BackgroundInfo.fogColorRed,
 				BackgroundInfo.fogColorGreen,
@@ -313,13 +330,13 @@ public class EdenSkyRenderer implements SkyRenderer {
 			
 			RenderSystem.setShaderColor(0, 0, 0, BackgroundInfo.blindness);
 			RenderSystem.setShader(GameRenderer::getPositionShader);
-			eden_bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION);
-			eden_bufferBuilder.vertex(projectionMatrix, -10.0F, -10.0F, 0.0F).endVertex();
-			eden_bufferBuilder.vertex(projectionMatrix, 10.0F, -10.0F, 0.0F).endVertex();
-			eden_bufferBuilder.vertex(projectionMatrix, 10.0F, 10.0F, 0.0F).endVertex();
-			eden_bufferBuilder.vertex(projectionMatrix, -10.0F, 10.0F, 0.0F).endVertex();
-			eden_bufferBuilder.end();
-			BufferUploader.end(eden_bufferBuilder);
+			bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION);
+			bufferBuilder.vertex(projectionMatrix, -10.0F, -10.0F, 0.0F).endVertex();
+			bufferBuilder.vertex(projectionMatrix, 10.0F, -10.0F, 0.0F).endVertex();
+			bufferBuilder.vertex(projectionMatrix, 10.0F, 10.0F, 0.0F).endVertex();
+			bufferBuilder.vertex(projectionMatrix, -10.0F, 10.0F, 0.0F).endVertex();
+			bufferBuilder.end();
+			BufferUploader.end(bufferBuilder);
 		}
 		
 		// Finalize //
@@ -333,20 +350,20 @@ public class EdenSkyRenderer implements SkyRenderer {
 		RenderSystem.enableCull();
 	}
 	
-	private VertexBuffer eden_buildBufferHorizon(BufferBuilder bufferBuilder, VertexBuffer buffer, double height) {
+	private VertexBuffer buildBufferHorizon(BufferBuilder bufferBuilder, VertexBuffer buffer, double height) {
 		if (buffer != null) {
 			buffer.close();
 		}
 		
 		buffer = new VertexBuffer();
-		eden_makeCylinder(bufferBuilder, 16, height, 100);
+		makeCylinder(bufferBuilder, 16, height, 100);
 		bufferBuilder.end();
 		buffer.upload(bufferBuilder);
 		
 		return buffer;
 	}
 	
-	private void eden_renderBuffer(PoseStack matrices, Matrix4f matrix4f, VertexBuffer buffer, VertexFormat format, float r, float g, float b, float a) {
+	private void renderBuffer(PoseStack matrices, Matrix4f matrix4f, VertexBuffer buffer, VertexFormat format, float r, float g, float b, float a) {
 		RenderSystem.setShaderColor(r, g, b, a);
 		if (format == DefaultVertexFormat.POSITION) {
 			buffer.drawWithShader(matrices.last().pose(), matrix4f, GameRenderer.getPositionShader());
@@ -356,7 +373,7 @@ public class EdenSkyRenderer implements SkyRenderer {
 		}
 	}
 	
-	private void eden_makeCylinder(BufferBuilder buffer, int segments, double height, double radius) {
+	private void makeCylinder(BufferBuilder buffer, int segments, double height, double radius) {
 		buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 		for (int i = 0; i < segments; i++) {
 			double a1 = (double) i * Math.PI * 2.0 / (double) segments;
@@ -376,20 +393,20 @@ public class EdenSkyRenderer implements SkyRenderer {
 		}
 	}
 	
-	private VertexBuffer eden_buildBufferStars(BufferBuilder bufferBuilder, VertexBuffer buffer, double minSize, double maxSize, int count, int verticalCount, long seed) {
+	private VertexBuffer buildBufferStars(BufferBuilder bufferBuilder, VertexBuffer buffer, double minSize, double maxSize, int count, int verticalCount, long seed) {
 		if (buffer != null) {
 			buffer.close();
 		}
 		
 		buffer = new VertexBuffer();
-		eden_makeStars(bufferBuilder, minSize, maxSize, count, verticalCount, seed);
+		makeStars(bufferBuilder, minSize, maxSize, count, verticalCount, seed);
 		bufferBuilder.end();
 		buffer.upload(bufferBuilder);
 		
 		return buffer;
 	}
 	
-	private void eden_makeStars(BufferBuilder buffer, double minSize, double maxSize, int count, int verticalCount, long seed) {
+	private void makeStars(BufferBuilder buffer, double minSize, double maxSize, int count, int verticalCount, long seed) {
 		Random random = new Random(seed);
 		buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 		
@@ -437,7 +454,7 @@ public class EdenSkyRenderer implements SkyRenderer {
 		}
 	}
 	
-	private void eden_renderMoon(PoseStack matrices, double orbitPosition, float orbitRadius, float orbitAngle, float size, float v0, float v1, Vector3f color) {
+	private void renderMoon(PoseStack matrices, double orbitPosition, float orbitRadius, float orbitAngle, float size, float v0, float v1, Vector3f color) {
 		float offset1 = (float) Math.sin(orbitPosition);
 		float offset2 = (float) Math.cos(orbitPosition);
 		
@@ -446,14 +463,14 @@ public class EdenSkyRenderer implements SkyRenderer {
 		
 		Matrix4f matrix = matrices.last().pose();
 		RenderSystem.setShaderColor(color.x(), color.y(), color.z(), 1F);
-		RenderSystem.setShaderTexture(0, EDEN_MOON_TEXTURE);
-		eden_bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-		eden_bufferBuilder.vertex(matrix, -size,  size, 0.0F).uv(0.0F, v0).endVertex();
-		eden_bufferBuilder.vertex(matrix,  size,  size, 0.0F).uv(1.0F, v0).endVertex();
-		eden_bufferBuilder.vertex(matrix,  size, -size, 0.0F).uv(1.0F, v1).endVertex();
-		eden_bufferBuilder.vertex(matrix, -size, -size, 0.0F).uv(0.0F, v1).endVertex();
-		eden_bufferBuilder.end();
-		BufferUploader.end(eden_bufferBuilder);
+		RenderSystem.setShaderTexture(0, MOON_TEXTURE);
+		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+		bufferBuilder.vertex(matrix, -size,  size, 0.0F).uv(0.0F, v0).endVertex();
+		bufferBuilder.vertex(matrix,  size,  size, 0.0F).uv(1.0F, v0).endVertex();
+		bufferBuilder.vertex(matrix,  size, -size, 0.0F).uv(1.0F, v1).endVertex();
+		bufferBuilder.vertex(matrix, -size, -size, 0.0F).uv(0.0F, v1).endVertex();
+		bufferBuilder.end();
+		BufferUploader.end(bufferBuilder);
 		
 		matrices.popPose();
 	}

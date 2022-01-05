@@ -130,7 +130,7 @@ public class EdenBiomes {
 		
 		builder.surface(SurfaceRuleBuilder
 			.start()
-			.surface(EdenBlocks.MYCOTIC_GRASS.defaultBlockState())
+			.surface(EdenBlocks.EDEN_MYCELIUM.defaultBlockState())
 			.subsurface(Blocks.DIRT.defaultBlockState(), 3)
 			.build()
 		);
@@ -173,7 +173,7 @@ public class EdenBiomes {
 		addDefaultSurface(builder);
 		setDefaultColors(builder);
 		return builder
-			.fogDensity(2.5F)
+			.fogDensity(2.0F)
 			.skyColor(113, 178, 255)
 			.fogColor(180, 180, 180)
 			.plantsColor(200, 200, 200)
@@ -204,7 +204,7 @@ public class EdenBiomes {
 		);
 		
 		return builder
-			.fogDensity(2.5F)
+			.fogDensity(1.75F)
 			.skyColor(113, 178, 255)
 			.fogColor(237, 235, 203)
 			.grassColor(246, 222, 173)

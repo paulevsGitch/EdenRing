@@ -26,11 +26,11 @@ public class EdenBiomeSource extends BiomeSource {
 	});
 	
 	private final Registry<Biome> biomeRegistry;
-	private static BiomePicker pickerLand;
-	private static BiomePicker pickerCave;
-	private static BiomeMap mapLand;
-	private static BiomeMap mapCave;
-	private static long lastSeed;
+	private BiomePicker pickerLand;
+	private BiomePicker pickerCave;
+	private BiomeMap mapLand;
+	private BiomeMap mapCave;
+	private long lastSeed;
 	
 	public EdenBiomeSource(Registry<Biome> biomeRegistry) {
 		super(biomeRegistry
@@ -74,23 +74,32 @@ public class EdenBiomeSource extends BiomeSource {
 	
 	@Override
 	public Biome getNoiseBiome(int x, int y, int z, Sampler sampler) {
+		cleanCache(x, z);
 		return getLandBiome(x, z).getActualBiome();
 	}
 	
 	public BCLBiome getCaveBiome(int x, int z) {
+		checkSeed();
 		return mapCave.getBiome(x << 2, 0, z << 2);
 	}
 	
 	public BCLBiome getLandBiome(int x, int z) {
+		checkSeed();
+		return mapLand.getBiome(x << 2, 0, z << 2);
+	}
+	
+	private void checkSeed() {
 		if (lastSeed != TerrainGenerator.seed) {
+			lastSeed = TerrainGenerator.seed;
 			mapLand = new HexBiomeMap(lastSeed, GeneratorOptions.biomeSizeLand, pickerLand);
 			mapCave = new HexBiomeMap(lastSeed, GeneratorOptions.biomeSizeCave, pickerCave);
-			lastSeed = TerrainGenerator.seed;
 		}
+	}
+	
+	private void cleanCache(int x, int z) {
 		if ((x & 63) == 0 && (z & 63) == 0) {
 			mapLand.clearCache();
 			mapCave.clearCache();
 		}
-		return mapLand.getBiome(x << 2, 0, z << 2);
 	}
 }

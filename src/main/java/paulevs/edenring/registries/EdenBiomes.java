@@ -1,13 +1,11 @@
 package paulevs.edenring.registries;
 
 import com.google.common.collect.Lists;
-import net.minecraft.data.worldgen.Carvers;
 import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
 import net.minecraft.data.worldgen.placement.OrePlacements;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.GenerationStep.Carving;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
 import paulevs.edenring.EdenRing;
 import ru.bclib.api.biomes.BCLBiomeBuilder;
@@ -64,9 +62,9 @@ public class EdenBiomes {
 			.feature(EdenFeatures.ORE_COAL)
 			.feature(EdenFeatures.ORE_IRON)
 			.feature(EdenFeatures.ORE_COPPER)
-			.feature(EdenFeatures.GRAVILITE_CRYSTAL)
+			.feature(EdenFeatures.GRAVILITE_CRYSTAL);
 			//.feature(EdenFeatures.ROUND_CAVE)
-			.carver(Carving.AIR, Carvers.CAVE);
+			//.carver(Carving.AIR, Carvers.CAVE);
 	}
 	
 	private static void addDefaultSurface(BCLBiomeBuilder builder) {

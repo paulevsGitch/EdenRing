@@ -7,6 +7,7 @@
 	"biome.edenring.pulse_forest": "Pulse Forest",
 	"biome.edenring.brainstorm": "Brainstorm",
 	"biome.edenring.lakeside_desert": "Lakeside Desert",
+	"biome.edenring.wind_valley": "Wind Valley",
 	
 	"block.edenring.auritis_outer_leaves": "Auritis Outer Leaves",
 	"block.edenring.auritis_bark": "Auritis Bark",
@@ -109,5 +110,7 @@
 	"block.edenring.iron_grass": "Iron Grass",
 	"entity.edenring.lightning_ray": "Lightning Ray",
 	"block.edenring.aquatus_sapling": "Aquatus Sapling",
-	"block.edenring.gravity_compressor": "Gravity Compressor"
+	"block.edenring.gravity_compressor": "Gravity Compressor",
+	"block.edenring.lonlix": "Lonlix",
+	"item.edenring.guide_book": "Encyclopedia Of Eden"
 }

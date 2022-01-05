@@ -93,7 +93,7 @@ public class EdenBlocks {
 	public static final Block LONLIX = register("lonlix", new OverlayPlantBlock(true));
 	
 	public static final Block VIOLUM = register("violum", new OverlayDoublePlantBlock());
-	public static final Block ALAESPES = register("alaespes", new AlaespesBlock());
+	//public static final Block ALAESPES = register("alaespes", new AlaespesBlock());
 	
 	public static final Block EDEN_VINE = register("eden_vine", new OverlayVineBlock());
 	

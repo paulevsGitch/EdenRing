@@ -19,11 +19,10 @@ public class NoiseInterpolatorMixin {
 	
 	@Inject(method = "fillSlice", at = @At("HEAD"), cancellable = true)
 	private void eden_fillSlice(double[][] data, int x, CallbackInfo info) {
-		if (!TargetChecker.class.cast(this$0).isTarget()) {
+		NoiseChunkAccessor accessor = NoiseChunkAccessor.class.cast(this$0);
+		if (!TargetChecker.class.cast(accessor.eden_getSampler()).isTarget()) {
 			return;
 		}
-		
-		NoiseChunkAccessor accessor = NoiseChunkAccessor.class.cast(this$0);
 		NoiseSettings noiseSettings = accessor.eden_getNoiseSettings();
 		
 		final int sizeY = noiseSettings.getCellHeight();

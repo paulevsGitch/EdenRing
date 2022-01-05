@@ -13,7 +13,6 @@
 		"NoiseSamplerMixin",
 		"ServerLevelMixin",
 		"ItemEntityMixin",
-		"NoiseChunkMixin",
 		"BushBlockMixin",
 		"EntityMixin"
 	],

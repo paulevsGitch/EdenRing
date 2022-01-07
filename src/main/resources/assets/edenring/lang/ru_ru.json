@@ -7,6 +7,7 @@
 	"biome.edenring.pulse_forest": "Пульсирующий лес",
 	"biome.edenring.brainstorm": "Мозговой шторм",
 	"biome.edenring.lakeside_desert": "Озёрная пустыня",
+	"biome.edenring.wind_valley": "Долина ветров",
 	
 	"block.edenring.auritis_outer_leaves": "Внешние листья ауритиса",
 	"block.edenring.auritis_bark": "Кора ауритиса",
@@ -109,5 +110,7 @@
 	"block.edenring.iron_grass": "Железная трава",
 	"entity.edenring.lightning_ray": "Молния",
 	"block.edenring.aquatus_sapling": "Саженец акватуса",
-	"block.edenring.gravity_compressor": "Гравитационный компрессор"
+	"block.edenring.gravity_compressor": "Гравитационный компрессор",
+	"block.edenring.lonlix": "Лонликс",
+	"item.edenring.guide_book": "Энциклопедия Эдена"
 }

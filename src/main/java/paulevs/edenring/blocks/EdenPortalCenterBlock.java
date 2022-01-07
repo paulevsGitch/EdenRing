@@ -14,6 +14,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import paulevs.edenring.blocks.entities.EdenPortalBlockEntity;
 import ru.bclib.blocks.BaseBlockWithEntity;
 import ru.bclib.client.models.BasePatterns;
@@ -26,6 +29,12 @@ import java.util.Optional;
 public class EdenPortalCenterBlock extends BaseBlockWithEntity implements BlockModelProvider {
 	public EdenPortalCenterBlock() {
 		super(FabricBlockSettings.copyOf(Blocks.BARRIER).luminance(15).noCollision().noOcclusion().noDrops());
+	}
+	
+	@Override
+	@SuppressWarnings("deprecation")
+	public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
+		return Shapes.empty();
 	}
 	
 	@Override

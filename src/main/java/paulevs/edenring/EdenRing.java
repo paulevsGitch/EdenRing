@@ -1,9 +1,9 @@
 package paulevs.edenring;
 
-import com.google.common.collect.Lists;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.core.Registry;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
@@ -20,11 +20,11 @@ import paulevs.edenring.registries.EdenRecipes;
 import paulevs.edenring.registries.EdenSounds;
 import paulevs.edenring.world.EdenPortal;
 import paulevs.edenring.world.generator.EdenBiomeSource;
-import paulevs.edenring.world.generator.EdenChunkGenerator;
 import paulevs.edenring.world.generator.GeneratorOptions;
+import ru.bclib.api.datafixer.DataFixerAPI;
+import ru.bclib.api.datafixer.ForcedLevelPatch;
+import ru.bclib.api.datafixer.MigrationProfile;
 import ru.bclib.registry.BaseRegistry;
-
-import java.util.List;
 
 public class EdenRing implements ModInitializer {
 	public static final String MOD_ID = "edenring";
@@ -50,9 +50,39 @@ public class EdenRing implements ModInitializer {
 		EdenFeatures.init();
 		EdenBiomes.init();
 		EdenRecipes.init();
-		Registry.register(Registry.CHUNK_GENERATOR, makeID("chunk_generator"), EdenChunkGenerator.CODEC);
+		
 		Registry.register(Registry.BIOME_SOURCE, makeID("biome_source"), EdenBiomeSource.CODEC);
 		EdenPortal.init();
+		
+		DataFixerAPI.registerPatch(() -> new ForcedLevelPatch(MOD_ID, "0.2.0") {
+			@Override
+			protected Boolean runLevelDatPatch(CompoundTag root, MigrationProfile profile) {
+				CompoundTag worldGenSettings = root.getCompound("Data").getCompound("WorldGenSettings");
+				CompoundTag dimensions = worldGenSettings.getCompound("dimensions");
+				String dimensionKey = EDEN_RING_KEY.location().toString();
+				
+				if (!dimensions.contains(dimensionKey)) {
+					long seed = worldGenSettings.getLong("seed");
+					CompoundTag dimRoot = new CompoundTag();
+					dimRoot.putString("type", dimensionKey);
+					
+					CompoundTag generator = new CompoundTag();
+					dimRoot.put("generator", generator);
+					
+					generator.putString("settings", "minecraft:floating_islands");
+					generator.putString("type", "minecraft:noise");
+					generator.putLong("seed", seed);
+					
+					CompoundTag biomeSource = new CompoundTag();
+					generator.put("biome_source", biomeSource);
+					biomeSource.putString("type", "edenring:biome_source");
+					
+					return true;
+				}
+				
+				return false;
+			}
+		});
 	}
 	
 	public static ResourceLocation makeID(String path) {

@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.levelgen.Heightmap.Types;
 import net.minecraft.world.level.material.Material;
+import ru.bclib.api.biomes.BiomeAPI;
 import ru.bclib.noise.OpenSimplexNoise;
 import ru.bclib.util.BlocksHelper;
 import ru.bclib.util.MHelper;
@@ -36,7 +37,7 @@ public class RoundCaveFeature extends EndCaveFeature {
 					float sqr = Mth.sqrt(x2 + y2 + z2);
 					if (sqr < radius - noise.eval(x * 0.1, y * 0.1, z * 0.1) * 5) {
 						BlocksHelper.setWithoutUpdate(world, mpos, CAVE_AIR);
-						setBiome(world, mpos, biome);
+						BiomeAPI.setBiome(world, mpos, biome.getActualBiome());
 					}
 				}
 			}

@@ -5,13 +5,10 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.chunk.ChunkAccess;
-import net.minecraft.world.level.chunk.ChunkStatus;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import paulevs.edenring.registries.EdenBlocks;
 import paulevs.edenring.world.generator.EdenBiomeSource;
-import ru.bclib.interfaces.BiomeSetter;
 import ru.bclib.world.biomes.BCLBiome;
 import ru.bclib.world.features.DefaultFeature;
 
@@ -61,16 +58,6 @@ public abstract class EndCaveFeature extends DefaultFeature {
 		//biome.getActualBiome().get
 		
 		return true;
-	}
-	
-	protected void setBiome(WorldGenLevel world, BlockPos pos, BCLBiome biome) {
-		ChunkAccess chunk = world.getChunk(pos.getX() >> 4, pos.getZ() >> 4, ChunkStatus.EMPTY, false);
-		if (chunk != null) {
-			BiomeSetter array = (BiomeSetter) chunk.getBiomes();
-			if (array != null) {
-				array.bclib_setBiome(biome.getActualBiome(), pos);
-			}
-		}
 	}
 	
 	protected boolean isTerrain(BlockState state) {

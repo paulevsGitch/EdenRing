@@ -1,7 +1,9 @@
 {
 	"type": "edenring:edenring",
 	"generator": {
-		"type": "edenring:chunk_generator",
+		"type": "minecraft:noise",
+		"settings": "minecraft:floating_islands",
+		"seed": 0,
 		"biome_source": {
 			"type": "edenring:biome_source"
 		}

@@ -16,7 +16,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import paulevs.edenring.EdenRing;
-import paulevs.edenring.blocks.AlaespesBlock;
 import paulevs.edenring.blocks.AquatusBlock;
 import paulevs.edenring.blocks.AquatusRootsBlock;
 import paulevs.edenring.blocks.AquatusSapling;

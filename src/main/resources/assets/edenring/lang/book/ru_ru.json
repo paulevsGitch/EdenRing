@@ -1,0 +1,92 @@
+{
+  "lineNumberPrefix": "§8",
+  "pages": [
+    {
+      "entries": [
+        {
+          "type": "illustration",
+          "image": "edenring:textures/gui/illustrations/planet_logo.png",
+		  "width": 128,
+		  "height": 128,
+		  "centered": true
+        }
+      ]
+    },
+	
+    {
+      "name": "table_of_contents",
+      "entries": [
+        { "type": "title", "title": "§8§lОглавление" },
+        {
+          "type": "illustration",
+          "image": "edenring:textures/gui/illustrations/separator.png",
+		  "width": 128,
+		  "height": 16
+        },
+        {
+          "type": "text",
+          "lines": [
+            "§8● §lМир Эдена",
+            "§8● §lГравитация",
+            "§8● §lБиомы",
+            "§8● §lФлора"
+          ]
+        }
+      ]
+    },
+	
+	{
+	  "entries": [
+	    { "type": "title", "title": "§8§lОписание" },
+        {
+          "type": "text",
+          "lines": [
+            "§8Название: Эден",
+            "§8Масса: 28.5 земных масс",
+            "§8Класс: Ледяной гигант",
+            "§8Атмосфера:",
+            "§8  62% N2",
+            "§8  18% H2O",
+            "§8  12% NH3",
+            "§8  05% H2",
+            "§8  03% Другие",
+			"§8Спутники:",
+			"§8  8 внутренних лун",
+			"§8  Система колец"
+          ]
+        },
+		{
+          "type": "illustration",
+          "image": "edenring:textures/gui/illustrations/separator.png",
+		  "width": 128,
+		  "height": 16
+        }
+      ]
+	},
+	{
+      "name": "world_structure",
+      "entries": [
+        {
+          "type": "text",
+          "lines": [
+            "§8Эден — большой синий",
+            "§8газовый гигант",
+            "§8вращающийся вокруг звезды G2.",
+			"§8Планета находится в",
+			"§8обитаемой зоне, но",
+			"§8не пригодна для жизни.",
+			"§8Однако его кольца",
+			"§8имеют некоторые",
+			"§8гравитационные аномалии",
+			"§8и атмосферу, похожую",
+			"§8на земную. Система колец",
+			"§8является домом для уникальной",
+			"§8жизни и содержит различные",
+			"§8ресурсы, биомы и",
+			"§8живые организмы."
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -14,7 +14,7 @@ public class EdenRingClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		EdenBlockEntitiesRenderers.init();
 		EdenEntitiesRenderers.init();
-		EdenParticles.init();
+		EdenParticles.register();
 		if (BCLib.isDevEnvironment()) {
 			TranslationHelper.printMissingEnNames(EdenRing.MOD_ID);
 			TranslationHelper.printMissingNames(EdenRing.MOD_ID, "ru_ru");

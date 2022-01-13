@@ -6,6 +6,7 @@ import paulevs.edenring.EdenRing;
 
 public class EdenSounds {
 	public static final SoundEvent BLOCK_ELECTRIC = register("block", "electric");
+	public static final SoundEvent MUSIC_COMMON = register("music", "common");
 	
 	private static SoundEvent register(String type, String id) {
 		id = EdenRing.MOD_ID + "." + type + "." + id;

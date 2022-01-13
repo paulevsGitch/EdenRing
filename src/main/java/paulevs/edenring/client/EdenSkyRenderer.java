@@ -1,6 +1,8 @@
 package paulevs.edenring.client;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.shaders.Program;
+import com.mojang.blaze3d.shaders.Uniform;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.BufferUploader;
@@ -21,7 +23,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL20;
+import org.lwjgl.opengl.GL30;
 import paulevs.edenring.EdenRing;
+import paulevs.edenring.mixin.client.ProgramAccessor;
 import paulevs.edenring.world.MoonInfo;
 import ru.bclib.util.BackgroundInfo;
 import ru.bclib.util.MHelper;
@@ -41,6 +46,9 @@ public class EdenSkyRenderer implements SkyRenderer {
 	private static final ResourceLocation SUN_FADE = EdenRing.makeID("textures/environment/sun_fade.png");
 	private static final ResourceLocation SUN = EdenRing.makeID("textures/environment/sun.png");
 	private static final MoonInfo[] MOONS = new MoonInfo[8];
+	
+	private static int dimensionUniform = 0;
+	private static int lastProgram = 0;
 	
 	private static BufferBuilder bufferBuilder;
 	private static VertexBuffer[] horizon;
@@ -78,6 +86,23 @@ public class EdenSkyRenderer implements SkyRenderer {
 	
 	@Override
 	public void render(WorldRenderContext context) {
+		int programID = GL30.glGetInteger(GL30.GL_CURRENT_PROGRAM);
+		if (GL30.glIsProgram(programID) && GL30.glGetProgrami(programID, GL30.GL_LINK_STATUS) == GL30.GL_TRUE) {
+			if (lastProgram != programID && dimensionUniform == 0) {
+				lastProgram = programID;
+				if (programID != 0) {
+					dimensionUniform = Uniform.glGetUniformLocation(programID, "moddedDimension");
+				}
+			}
+			else {
+				dimensionUniform = 0;
+			}
+			
+			if (dimensionUniform != 0) {
+				Uniform.uploadInteger(dimensionUniform, 1);
+			}
+		}
+		
 		ClientLevel level = context.world();
 		Matrix4f projectionMatrix = context.projectionMatrix();
 		

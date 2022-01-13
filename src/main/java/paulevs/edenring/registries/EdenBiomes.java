@@ -50,6 +50,7 @@ public class EdenBiomes {
 	
 	private static void addDefaultFeatures(BCLBiomeBuilder builder) {
 		builder
+			.music(EdenSounds.MUSIC_COMMON)
 			.feature(EdenFeatures.SLATE_LAYER)
 			.feature(EdenFeatures.CALCITE_LAYER)
 			.feature(EdenFeatures.TUFF_LAYER)
@@ -63,8 +64,6 @@ public class EdenBiomes {
 			.feature(EdenFeatures.ORE_IRON)
 			.feature(EdenFeatures.ORE_COPPER)
 			.feature(EdenFeatures.GRAVILITE_CRYSTAL);
-			//.feature(EdenFeatures.ROUND_CAVE)
-			//.carver(Carving.AIR, Carvers.CAVE);
 	}
 	
 	private static void addDefaultSurface(BCLBiomeBuilder builder) {

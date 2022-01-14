@@ -56,6 +56,8 @@ public class EdenSkyRenderer implements SkyRenderer {
 	private boolean renderInBuffer = false;
 	private static RenderTarget target;
 	private boolean shouldInit = true;
+	private static int windowHeight;
+	private static int windowWidth;
 	
 	private void init() {
 		shouldInit = false;
@@ -108,14 +110,14 @@ public class EdenSkyRenderer implements SkyRenderer {
 		
 		if (renderInBuffer) {
 			Window window = minecraft.getWindow();
-			int width = window.getWidth();
-			int height = window.getHeight();
+			windowWidth = window.getWidth();
+			windowHeight = window.getHeight();
 			
 			if (target == null) {
-				target = new TextureTarget(width, height, true, true);
+				target = new TextureTarget(windowWidth, windowHeight, true, true);
 			}
 			else {
-				target.resize(width, height, true);
+				target.resize(windowWidth, windowHeight, true);
 			}
 			
 			RenderSystem.backupProjectionMatrix();
@@ -374,9 +376,9 @@ public class EdenSkyRenderer implements SkyRenderer {
 			target.unbindWrite();
 			minecraft.getMainRenderTarget().bindWrite(true);
 			RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
-			target.blitToScreen(300, 300);
+			target.blitToScreen(windowWidth, windowHeight);
 			
-			RenderSystem.viewport(0, 0, minecraft.getWindow().getWidth(), minecraft.getWindow().getHeight());
+			RenderSystem.viewport(0, 0, windowWidth, windowHeight);
 			RenderSystem.restoreProjectionMatrix();
 			RenderSystem.applyModelViewMatrix();
 		}

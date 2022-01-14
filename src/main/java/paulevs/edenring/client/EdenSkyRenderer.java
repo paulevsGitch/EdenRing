@@ -1,8 +1,9 @@
 package paulevs.edenring.client;
 
+import com.mojang.blaze3d.pipeline.RenderTarget;
+import com.mojang.blaze3d.pipeline.TextureTarget;
 import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.shaders.Program;
-import com.mojang.blaze3d.shaders.Uniform;
+import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.BufferUploader;
@@ -23,10 +24,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL20;
-import org.lwjgl.opengl.GL30;
 import paulevs.edenring.EdenRing;
-import paulevs.edenring.mixin.client.ProgramAccessor;
 import paulevs.edenring.world.MoonInfo;
 import ru.bclib.util.BackgroundInfo;
 import ru.bclib.util.MHelper;
@@ -54,6 +52,9 @@ public class EdenSkyRenderer implements SkyRenderer {
 	private static VertexBuffer[] horizon;
 	private static VertexBuffer[] nebula;
 	private static VertexBuffer stars;
+	
+	private boolean renderInBuffer = false;
+	private static RenderTarget target;
 	private boolean shouldInit = true;
 	
 	private void init() {
@@ -86,21 +87,8 @@ public class EdenSkyRenderer implements SkyRenderer {
 	
 	@Override
 	public void render(WorldRenderContext context) {
-		int programID = GL30.glGetInteger(GL30.GL_CURRENT_PROGRAM);
-		if (GL30.glIsProgram(programID) && GL30.glGetProgrami(programID, GL30.GL_LINK_STATUS) == GL30.GL_TRUE) {
-			if (lastProgram != programID && dimensionUniform == 0) {
-				lastProgram = programID;
-				if (programID != 0) {
-					dimensionUniform = Uniform.glGetUniformLocation(programID, "moddedDimension");
-				}
-			}
-			else {
-				dimensionUniform = 0;
-			}
-			
-			if (dimensionUniform != 0) {
-				Uniform.uploadInteger(dimensionUniform, 1);
-			}
+		if (!EdenRingClient.CLIENT_CONFIG.renderSky()) {
+			return;
 		}
 		
 		ClientLevel level = context.world();
@@ -116,6 +104,23 @@ public class EdenSkyRenderer implements SkyRenderer {
 		
 		if (shouldInit) {
 			init();
+		}
+		
+		if (renderInBuffer) {
+			Window window = minecraft.getWindow();
+			int width = window.getWidth();
+			int height = window.getHeight();
+			
+			if (target == null) {
+				target = new TextureTarget(width, height, true, true);
+			}
+			else {
+				target.resize(width, height, true);
+			}
+			
+			RenderSystem.backupProjectionMatrix();
+			minecraft.getMainRenderTarget().unbindWrite();
+			target.bindWrite(true);
 		}
 		
 		double time = (double) level.getGameTime() + tickDelta;
@@ -365,6 +370,16 @@ public class EdenSkyRenderer implements SkyRenderer {
 		}
 		
 		// Finalize //
+		if (renderInBuffer) {
+			target.unbindWrite();
+			minecraft.getMainRenderTarget().bindWrite(true);
+			RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
+			target.blitToScreen(300, 300);
+			
+			RenderSystem.viewport(0, 0, minecraft.getWindow().getWidth(), minecraft.getWindow().getHeight());
+			RenderSystem.restoreProjectionMatrix();
+			RenderSystem.applyModelViewMatrix();
+		}
 		
 		RenderSystem.clear(GL11.GL_DEPTH_BUFFER_BIT, Minecraft.ON_OSX);
 		RenderSystem.enableTexture();

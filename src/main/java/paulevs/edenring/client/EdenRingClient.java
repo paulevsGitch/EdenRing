@@ -10,6 +10,8 @@ import ru.bclib.BCLib;
 import ru.bclib.util.TranslationHelper;
 
 public class EdenRingClient implements ClientModInitializer {
+	public static final EdenClientConfig CLIENT_CONFIG = new EdenClientConfig();
+	
 	@Override
 	public void onInitializeClient() {
 		EdenBlockEntitiesRenderers.init();
@@ -20,5 +22,6 @@ public class EdenRingClient implements ClientModInitializer {
 			TranslationHelper.printMissingNames(EdenRing.MOD_ID, "ru_ru");
 		}
 		DimensionRenderingRegistry.registerSkyRenderer(EdenRing.EDEN_RING_KEY, new EdenSkyRenderer());
+		CLIENT_CONFIG.saveChanges();
 	}
 }

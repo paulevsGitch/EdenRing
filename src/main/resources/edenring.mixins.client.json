@@ -4,8 +4,7 @@
 	"package": "paulevs.edenring.mixin.client",
 	"compatibilityLevel": "JAVA_17",
 	"client": [
-		"LevelRendererMixin",
-		"ProgramAccessor"
+		"LevelRendererMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

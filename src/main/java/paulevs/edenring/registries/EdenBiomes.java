@@ -50,7 +50,6 @@ public class EdenBiomes {
 	
 	private static void addDefaultFeatures(BCLBiomeBuilder builder) {
 		builder
-			.music(EdenSounds.MUSIC_COMMON)
 			.feature(EdenFeatures.SLATE_LAYER)
 			.feature(EdenFeatures.CALCITE_LAYER)
 			.feature(EdenFeatures.TUFF_LAYER)
@@ -75,6 +74,10 @@ public class EdenBiomes {
 		);
 	}
 	
+	private static void addDefaultSounds(BCLBiomeBuilder builder) {
+		builder.music(EdenSounds.MUSIC_COMMON);
+	}
+	
 	private static void setDefaultColors(BCLBiomeBuilder builder) {
 		builder.skyColor(113, 178, 255).fogColor(183, 212, 255).waterFogColor(329011).waterColor(4159204);
 	}
@@ -84,6 +87,7 @@ public class EdenBiomes {
 		addDefaultFeatures(builder);
 		addDefaultSurface(builder);
 		setDefaultColors(builder);
+		addDefaultSounds(builder);
 		return builder
 			.plantsColor(162, 190, 113)
 			.feature(Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_FOREST)
@@ -105,6 +109,7 @@ public class EdenBiomes {
 		addDefaultFeatures(builder);
 		addDefaultSurface(builder);
 		setDefaultColors(builder);
+		addDefaultSounds(builder);
 		return builder
 			.plantsColor(255, 174, 100)
 			.skyColor(113, 178, 255)
@@ -124,6 +129,7 @@ public class EdenBiomes {
 		BCLBiomeBuilder builder = BCLBiomeBuilder.start(EdenRing.makeID("mycotic_forest"));
 		addDefaultFeatures(builder);
 		setDefaultColors(builder);
+		addDefaultSounds(builder);
 		
 		builder.surface(SurfaceRuleBuilder
 			.start()
@@ -151,6 +157,8 @@ public class EdenBiomes {
 		addDefaultFeatures(builder);
 		addDefaultSurface(builder);
 		setDefaultColors(builder);
+		addDefaultSounds(builder);
+		
 		return builder
 			.skyColor(113, 178, 255)
 			.fogColor(115, 235, 242)
@@ -169,6 +177,8 @@ public class EdenBiomes {
 		addDefaultFeatures(builder);
 		addDefaultSurface(builder);
 		setDefaultColors(builder);
+		addDefaultSounds(builder);
+		
 		return builder
 			.fogDensity(2.0F)
 			.skyColor(113, 178, 255)
@@ -190,6 +200,7 @@ public class EdenBiomes {
 		BCLBiomeBuilder builder = BCLBiomeBuilder.start(EdenRing.makeID("lakeside_desert"));
 		addDefaultFeatures(builder);
 		setDefaultColors(builder);
+		addDefaultSounds(builder);
 		
 		BlockState sandstone = Blocks.SANDSTONE.defaultBlockState();
 		builder.surface(SurfaceRuleBuilder
@@ -220,6 +231,8 @@ public class EdenBiomes {
 		addDefaultFeatures(builder);
 		addDefaultSurface(builder);
 		setDefaultColors(builder);
+		addDefaultSounds(builder);
+		
 		return builder
 			.skyColor(113, 178, 255)
 			.fogColor(183, 212, 255)

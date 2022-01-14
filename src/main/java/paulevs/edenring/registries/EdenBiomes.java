@@ -68,7 +68,7 @@ public class EdenBiomes {
 	private static void addDefaultSurface(BCLBiomeBuilder builder) {
 		builder.surface(SurfaceRuleBuilder
 			.start()
-			.surface(Blocks.GRASS_BLOCK.defaultBlockState())
+			.surface(EdenBlocks.EDEN_GRASS_BLOCK.defaultBlockState())
 			.subsurface(Blocks.DIRT.defaultBlockState(), 3)
 			.build()
 		);

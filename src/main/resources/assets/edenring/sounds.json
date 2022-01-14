@@ -25,22 +25,22 @@
 		"sounds": [
 			{
 				"name": "edenring:music/y3z0n-eternality",
-				"volume": 0.2,
+				"volume": 0.5,
 				"stream": true
 			},
 			{
 				"name": "edenring:music/y3z0n-infinity",
-				"volume": 0.2,
+				"volume": 0.5,
 				"stream": true
 			},
 			{
 				"name": "edenring:music/y3z0n-journeys",
-				"volume": 0.2,
+				"volume": 0.5,
 				"stream": true
 			},
 			{
 				"name": "edenring:music/y3z0n-ring_of_eden",
-				"volume": 0.2,
+				"volume": 0.5,
 				"stream": true
 			}
 		]

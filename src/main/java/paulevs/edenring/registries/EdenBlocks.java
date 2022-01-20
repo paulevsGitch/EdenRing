@@ -4,8 +4,6 @@ package paulevs.edenring.registries;
 import net.fabricmc.fabric.mixin.object.builder.AbstractBlockAccessor;
 import net.fabricmc.fabric.mixin.object.builder.AbstractBlockSettingsAccessor;
 import net.minecraft.core.BlockPos;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
@@ -45,6 +43,7 @@ import paulevs.edenring.blocks.TexturedTerrainBlock;
 import ru.bclib.api.BonemealAPI;
 import ru.bclib.api.ComposterAPI;
 import ru.bclib.api.TagAPI;
+import ru.bclib.api.TagAPI.TagLocation;
 import ru.bclib.blocks.BaseLeavesBlock;
 import ru.bclib.blocks.BaseVineBlock;
 import ru.bclib.blocks.FeatureSaplingBlock;
@@ -108,31 +107,32 @@ public class EdenBlocks {
 	public static final Block PORTAL_CENTER = registerBO("portal_center", new EdenPortalCenterBlock());
 	
 	public static void init() {
+		final TagLocation leavesTag = new TagLocation("leaves");
 		BlockRegistry.getModBlocks(EdenRing.MOD_ID).forEach(block -> {
 			Properties properties = ((AbstractBlockAccessor) block).getSettings();
 			Material material = ((AbstractBlockSettingsAccessor) properties).getMaterial();
 			
 			if (block instanceof BaseLeavesBlock) {
-				TagAPI.addTag(BlockTags.MINEABLE_WITH_HOE, block);
-				TagAPI.addTag(BlockTags.LEAVES, block);
-				TagAPI.addTag(ItemTags.LEAVES, block);
+				TagAPI.addBlockTag(TagAPI.NAMED_MINEABLE_HOE, block);
+				TagAPI.addBlockTag(leavesTag, block);
+				TagAPI.addItemTag(leavesTag, block);
 				ComposterAPI.allowCompost(0.3F, block);
 			}
 			else if (block instanceof GrassBlock) {
-				TagAPI.addTag(BlockTags.MINEABLE_WITH_SHOVEL, block);
+				TagAPI.addBlockTag(TagAPI.NAMED_MINEABLE_SHOVEL, block);
 			}
 			else if (material == Material.PLANT || material == Material.REPLACEABLE_PLANT) {
-				TagAPI.addTag(BlockTags.MINEABLE_WITH_HOE, block);
+				TagAPI.addBlockTag(TagAPI.NAMED_MINEABLE_HOE, block);
 				if (block.asItem() != Items.AIR) {
 					ComposterAPI.allowCompost(0.1F, block);
 				}
 			}
 			else if (material == Material.STONE || material == Material.METAL || material == Material.HEAVY_METAL || material == Material.AMETHYST) {
-				TagAPI.addTag(BlockTags.MINEABLE_WITH_PICKAXE, block);
+				TagAPI.addBlockTag(TagAPI.NAMED_MINEABLE_PICKAXE, block);
 			}
 			
 			if (block instanceof BaseVineBlock) {
-				TagAPI.addTag(BlockTags.CLIMBABLE, block);
+				TagAPI.addBlockTag(TagAPI.NAMED_CLIMBABLE, block);
 			}
 		});
 		

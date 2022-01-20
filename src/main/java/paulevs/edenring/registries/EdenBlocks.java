@@ -1,10 +1,13 @@
 package paulevs.edenring.registries;
 
 
+import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.mixin.object.builder.AbstractBlockAccessor;
 import net.fabricmc.fabric.mixin.object.builder.AbstractBlockSettingsAccessor;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -40,6 +43,8 @@ import paulevs.edenring.blocks.OverlayVineBlock;
 import paulevs.edenring.blocks.PulseTreeBlock;
 import paulevs.edenring.blocks.SimplePlantBlock;
 import paulevs.edenring.blocks.TexturedTerrainBlock;
+import paulevs.edenring.mixin.common.HoeItemAccessor;
+import paulevs.edenring.mixin.common.ShovelItemAccessor;
 import ru.bclib.api.BonemealAPI;
 import ru.bclib.api.ComposterAPI;
 import ru.bclib.api.TagAPI;
@@ -51,6 +56,10 @@ import ru.bclib.complexmaterials.ComplexMaterial;
 import ru.bclib.complexmaterials.WoodenComplexMaterial;
 import ru.bclib.config.PathConfig;
 import ru.bclib.registry.BlockRegistry;
+
+import java.util.Map;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 public class EdenBlocks {
 	public static final BlockRegistry REGISTRY = new BlockRegistry(EdenRing.EDEN_TAB, new PathConfig(EdenRing.MOD_ID, "blocks"));
@@ -120,6 +129,14 @@ public class EdenBlocks {
 			}
 			else if (block instanceof GrassBlock) {
 				TagAPI.addBlockTag(TagAPI.NAMED_MINEABLE_SHOVEL, block);
+				
+				Map<Block, BlockState> map = ShovelItemAccessor.eden_getFlattenables();
+				map.put(block, Blocks.DIRT_PATH.defaultBlockState());
+				//ShovelItemAccessor.eden_setFlattenables(map);
+				
+				Map<Block, Pair<Predicate<UseOnContext>, Consumer<UseOnContext>>> map2 = HoeItemAccessor.eden_getTillables();
+				map2.put(block, Pair.of(HoeItem::onlyIfAirAbove, HoeItem.changeIntoState(Blocks.FARMLAND.defaultBlockState())));
+				//HoeItemAccessor.eden_setTillables(map2);
 			}
 			else if (material == Material.PLANT || material == Material.REPLACEABLE_PLANT) {
 				TagAPI.addBlockTag(TagAPI.NAMED_MINEABLE_HOE, block);

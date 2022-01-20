@@ -8,11 +8,13 @@
 		"FlintAndSteelItemMixin",
 		"NoiseInterpolatorMixin",
 		"LightningBoltMixin",
+		"ShovelItemAccessor",
 		"NoiseChunkAccessor",
 		"LivingEntityMixin",
 		"NoiseSamplerMixin",
 		"ServerLevelMixin",
 		"ItemEntityMixin",
+		"HoeItemAccessor",
 		"BushBlockMixin",
 		"EntityMixin"
 	],

@@ -14,9 +14,4 @@ public interface ShovelItemAccessor {
 	static Map<Block, BlockState> eden_getFlattenables() {
 		throw new AssertionError("@Accessor dummy body called");
 	}
-	
-	@Accessor("FLATTENABLES")
-	static void eden_setFlattenables(Map<Block, BlockState> map) {
-		throw new AssertionError("@Accessor dummy body called");
-	}
 }

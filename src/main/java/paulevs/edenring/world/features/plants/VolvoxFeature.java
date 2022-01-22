@@ -2,7 +2,9 @@ package paulevs.edenring.world.features.plants;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
+import net.minecraft.util.Mth;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
@@ -33,27 +35,37 @@ public class VolvoxFeature extends DefaultFeature {
 	}
 	
 	private void generateMedium(WorldGenLevel level, BlockPos pos, Random random) {
-		int radius = MHelper.randRange(5, 8, random);
-		makeSphere(level, pos, radius, EdenBlocks.VOLVOX_BLOCK.defaultBlockState());
+		float radius = MHelper.randRange(5F, 8F, random);
+		BlockState volvox = EdenBlocks.VOLVOX_BLOCK.defaultBlockState();
+		BlockState water = Blocks.WATER.defaultBlockState();
+		makeSphere(level, pos, radius, random.nextFloat(), volvox, water);
 	}
 	
-	private void makeSphere(WorldGenLevel level, BlockPos center, int radius, BlockState state) {
-		int r21 = radius * radius;
+	private void makeSphere(WorldGenLevel level, BlockPos center, float radius, float fill, BlockState state, BlockState water) {
+		double r21 = (double) radius * (double) radius;
 		MutableBlockPos pos = new MutableBlockPos();
-		int r22 = (radius - 1) * (radius - 1);
-		for (int x = -radius; x <= radius; x++) {
-			int x2 = x * x;
+		double r22 = (double) (radius - 1) * (double) (radius - 1);
+		int min = Mth.floor(-radius);
+		int max = Mth.floor(radius + 1);
+		int waterY = (int) Mth.lerp(fill, min, max);
+		for (int x = min; x <= max; x++) {
+			int sqrX = x * x;
 			pos.setX(center.getX() + x);
-			for (int y = -radius; y <= radius; y++) {
-				int y2 = y * y;
+			for (int y = min; y <= max; y++) {
+				int sqrY = y * y;
 				pos.setY(center.getY() + y);
-				for (int z = -radius; z <= radius; z++) {
-					int z2 = z * z;
-					int d = x2 + y2 + z2;
-					if (d < r21 && d >= r22) {
+				for (int z = min; z <= max; z++) {
+					int sqrZ = z * z;
+					int d = sqrX + sqrY + sqrZ;
+					if (d <= r21) {
 						pos.setZ(center.getZ() + z);
-						if (level.getBlockState(pos).getMaterial().isReplaceable()) {
-							BlocksHelper.setWithoutUpdate(level, pos, state);
+						if (d >= r22) {
+							if (level.getBlockState(pos).getMaterial().isReplaceable()) {
+								BlocksHelper.setWithoutUpdate(level, pos, state);
+							}
+						}
+						else if (y < waterY) {
+							BlocksHelper.setWithoutUpdate(level, pos, water);
 						}
 					}
 				}

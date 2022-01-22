@@ -114,7 +114,7 @@ public class EdenFeatures {
 	public static final BCLFeature PULSE_TREE = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("pulse_tree"), new PulseTreeFeature(), 50);
 	public static final BCLFeature BRAIN_TREE = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("brain_tree"), new BrainTreeFeature(), 8);
 	public static final BCLFeature AQUATUS = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("aquatus"), new AquatusFeature(), 8);
-	public static final BCLFeature VOLVOX = BCLCommonFeatures.makeChancedFeature(EdenRing.makeID("volvox"), Decoration.VEGETAL_DECORATION, new VolvoxFeature(), 16);
+	public static final BCLFeature VOLVOX = BCLCommonFeatures.makeChancedFeature(EdenRing.makeID("volvox"), Decoration.VEGETAL_DECORATION, new VolvoxFeature(), 8);
 	
 	public static final BCLFeature EDEN_VINE = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("eden_vine"), new VineFeature(), 2);
 	public static final BCLFeature ROOTS = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("roots"), new RootsFeature(), 4);

@@ -32,10 +32,12 @@ public class NoiseInterpolatorMixin {
 		
 		x *= sizeXZ;
 		
+		TerrainGenerator.lock();
 		for (int cellXZ = 0; cellXZ < cellsXZ; ++cellXZ) {
 			int z = (firstCellZ + cellXZ) * sizeXZ;
 			TerrainGenerator.fillTerrainDensity(data[cellXZ], x, z, sizeXZ, sizeY);
 		}
+		TerrainGenerator.unlock();
 		
 		info.cancel();
 	}

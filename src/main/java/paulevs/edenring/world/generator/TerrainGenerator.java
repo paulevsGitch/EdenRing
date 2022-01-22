@@ -45,9 +45,15 @@ public class TerrainGenerator {
 		TERRAIN_BOOL_CACHE_MAP.clear();
 	}
 	
-	public static void fillTerrainDensity(double[] buffer, int posX, int posZ, double scaleXZ, double scaleY) {
+	public static void lock() {
 		LOCKER.lock();
-		
+	}
+	
+	public static void unlock() {
+		LOCKER.unlock();
+	}
+	
+	public static void fillTerrainDensity(double[] buffer, int posX, int posZ, double scaleXZ, double scaleY) {
 		largeIslands.clearCache();
 		mediumIslands.clearCache();
 		smallIslands.clearCache();
@@ -77,8 +83,6 @@ public class TerrainGenerator {
 			}
 			buffer[y] = dist;
 		}
-		
-		LOCKER.unlock();
 	}
 	
 	private static float getAverageDepth(int x, int z) {

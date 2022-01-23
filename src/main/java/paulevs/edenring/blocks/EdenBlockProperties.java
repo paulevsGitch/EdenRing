@@ -2,12 +2,14 @@ package paulevs.edenring.blocks;
 
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import ru.bclib.blocks.BlockProperties;
 
 public class EdenBlockProperties extends BlockProperties {
 	public static final EnumProperty<BalloonMushroomStemState> BALLOON_MUSHROOM_STEM = EnumProperty.create("shape", BalloonMushroomStemState.class);
 	public static final EnumProperty<EdenPortalState> EDEN_PORTAL = EnumProperty.create("shape", EdenPortalState.class);
 	public static final EnumProperty<PulseTreeState> PULSE_TREE = EnumProperty.create("shape", PulseTreeState.class);
+	public static final IntegerProperty COLOR4 = IntegerProperty.create("color", 0, 3);
 	
 	public enum BalloonMushroomStemState implements StringRepresentable {
 		UP("up"),

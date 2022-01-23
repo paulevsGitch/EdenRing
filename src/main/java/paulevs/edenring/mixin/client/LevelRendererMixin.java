@@ -41,20 +41,9 @@ public class LevelRendererMixin {
 		eden_bufferBuilder = Tesselator.getInstance().getBuilder();
 	}
 	
-	@Inject(method = "renderClouds", at = @At("HEAD"), cancellable = true)
-	public void eden_cancelCloudsRender(PoseStack poseStack, Matrix4f matrix4f, float f, double d, double e, double g, CallbackInfo info) {
-		if (eden_isInIden()) {
-			info.cancel();
-		}
-	}
-	
 	@Inject(method = "renderLevel", at = @At("TAIL"))
 	public void eden_renderLevel(PoseStack poseStack, float f, long l, boolean bl, Camera camera, GameRenderer gameRenderer, LightTexture lightTexture, Matrix4f matrix4f, CallbackInfo info) {
 		renderMushroomFrame(poseStack, camera);
-	}
-	
-	private boolean eden_isInIden() {
-		return minecraft.level.dimension() == EdenRing.EDEN_RING_KEY;
 	}
 	
 	private void renderMushroomFrame(PoseStack poseStack, Camera camera) {

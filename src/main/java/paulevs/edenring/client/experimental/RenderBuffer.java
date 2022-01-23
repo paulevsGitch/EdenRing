@@ -1,4 +1,4 @@
-package paulevs.edenring.client;
+package paulevs.edenring.client.experimental;
 
 import org.lwjgl.opengl.GL30;
 

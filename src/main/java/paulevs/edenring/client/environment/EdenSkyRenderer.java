@@ -1,4 +1,4 @@
-package paulevs.edenring.client;
+package paulevs.edenring.client.environment;
 
 import com.mojang.blaze3d.pipeline.RenderTarget;
 import com.mojang.blaze3d.pipeline.TextureTarget;
@@ -25,6 +25,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import org.lwjgl.opengl.GL11;
 import paulevs.edenring.EdenRing;
+import paulevs.edenring.client.EdenRingClient;
 import paulevs.edenring.world.MoonInfo;
 import ru.bclib.util.BackgroundInfo;
 import ru.bclib.util.MHelper;
@@ -44,9 +45,6 @@ public class EdenSkyRenderer implements SkyRenderer {
 	private static final ResourceLocation SUN_FADE = EdenRing.makeID("textures/environment/sun_fade.png");
 	private static final ResourceLocation SUN = EdenRing.makeID("textures/environment/sun.png");
 	private static final MoonInfo[] MOONS = new MoonInfo[8];
-	
-	private static int dimensionUniform = 0;
-	private static int lastProgram = 0;
 	
 	private static BufferBuilder bufferBuilder;
 	private static VertexBuffer[] horizon;

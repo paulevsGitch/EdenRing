@@ -41,6 +41,7 @@ import paulevs.edenring.blocks.OverlayPlantBlock;
 import paulevs.edenring.blocks.OverlayVineBlock;
 import paulevs.edenring.blocks.PulseTreeBlock;
 import paulevs.edenring.blocks.SimplePlantBlock;
+import paulevs.edenring.blocks.SymbioticMoldBlock;
 import paulevs.edenring.blocks.TexturedTerrainBlock;
 import paulevs.edenring.blocks.VolvoxBlock;
 import paulevs.edenring.mixin.common.ShovelItemAccessor;
@@ -102,6 +103,9 @@ public class EdenBlocks {
 	//public static final Block ALAESPES = register("alaespes", new AlaespesBlock());
 	
 	public static final Block EDEN_VINE = register("eden_vine", new OverlayVineBlock());
+	
+	public static final Block SYMBIOTIC_MOLD = register("symbiotic_mold", new SymbioticMoldBlock(0));
+	public static final Block SYMBIOTIC_MOLD_EMISSIVE = register("symbiotic_mold_emissive", new SymbioticMoldBlock(13));
 	
 	public static final Block GRAVILITE_BLOCK = register("gravilite_block", new GraviliteBlock());
 	public static final Block GRAVILITE_SHARDS = register("gravilite_shards", new GraviliteShardsBlock());

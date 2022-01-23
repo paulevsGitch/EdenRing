@@ -23,7 +23,7 @@ public class VoidBiomes {
 		BiomesCommonMethods.setDefaultColors(builder);
 		BiomesCommonMethods.addDefaultSounds(builder);
 		return builder
-			.skyColor(0x84d341)
+			.fogColor(0x84d341)
 			.waterColor(0x1e7d56)
 			.particles(EdenParticles.YOUNG_VOLVOX, 0.0001F)
 			.feature(EdenFeatures.VOLVOX)

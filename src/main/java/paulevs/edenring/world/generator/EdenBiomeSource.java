@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.RegistryLookupCodec;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.biome.Climate.Sampler;
@@ -26,7 +27,8 @@ public class EdenBiomeSource extends BiomeSource {
 		})).apply(instance, instance.stable(EdenBiomeSource::new));
 	});
 	
-	private final Map<Long, Boolean> landCache = new ConcurrentHashMap<>();
+	private final Map<ChunkPos, LandCache> landCache = new ConcurrentHashMap<>();
+	//private final Map<ChunkPos, Boolean> landCache = new ConcurrentHashMap<>();
 	private final double[] terrainData = new double[16];
 	private final Registry<Biome> biomeRegistry;
 	private BiomePicker pickerLand;
@@ -127,22 +129,44 @@ public class EdenBiomeSource extends BiomeSource {
 	}
 	
 	private boolean isLand(int x, int z) {
-		long pos = (long) x << 32 | (long) z;
+		boolean result = false;
+		TerrainGenerator.lock();
+		TerrainGenerator.fillTerrainDensity(terrainData, x << 2 | 2, z << 2 | 2, 4, 16);
+		for (byte py = 0; py < 16; py++) {
+			if (terrainData[py] > -0.2F) {
+				result = true;
+				break;
+			}
+		}
+		TerrainGenerator.unlock();
+		return result;
+		
+		/*final ChunkPos pos = new ChunkPos(LandCache.toChunk(x), LandCache.toChunk(z));
 		if (landCache.size() > 4094) {
+			System.out.println("Clear");
 			landCache.clear();
 		}
 		return landCache.computeIfAbsent(pos, n -> {
-			boolean value = false;
+			LandCache cache = new LandCache();
+			int sx = LandCache.fromChunk(pos.x);
+			int sz = LandCache.fromChunk(pos.z);
 			TerrainGenerator.lock();
-			TerrainGenerator.fillTerrainDensity(terrainData, x << 2 | 2, z << 2 | 2, 4, 16);
-			for (byte i = 0; i < 16; i++) {
-				if (terrainData[i] > -0.2F) {
-					value = true;
-					break;
+			for (byte i = 0; i < LandCache.getSide(); i++) {
+				int px = (sx | i) << 2 | 2;
+				for (byte j = 0; j < LandCache.getSide(); j++) {
+					int pz = (sz | j) << 2 | 2;
+					TerrainGenerator.fillTerrainDensity(terrainData, px, pz, 4, 16);
+					for (byte py = 0; py < 16; py++) {
+						if (terrainData[py] > -0.2F) {
+							cache.setData(i, j, true);
+							break;
+						}
+					}
 				}
 			}
 			TerrainGenerator.unlock();
-			return value;
-		});
+			System.out.println("Cache for " + pos);
+			return cache;
+		}).getData(LandCache.wrap(x), LandCache.wrap(z));*/
 	}
 }

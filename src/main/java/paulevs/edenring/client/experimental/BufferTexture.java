@@ -1,4 +1,4 @@
-package paulevs.edenring.client;
+package paulevs.edenring.client.experimental;
 
 import com.mojang.blaze3d.platform.NativeImage;
 import com.mojang.blaze3d.platform.TextureUtil;

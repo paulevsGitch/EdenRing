@@ -3,6 +3,8 @@ package paulevs.edenring.client;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
 import paulevs.edenring.EdenRing;
+import paulevs.edenring.client.environment.EdenCloudRenderer;
+import paulevs.edenring.client.environment.EdenSkyRenderer;
 import paulevs.edenring.registries.EdenBlockEntitiesRenderers;
 import paulevs.edenring.registries.EdenEntitiesRenderers;
 import paulevs.edenring.registries.EdenParticles;
@@ -22,6 +24,7 @@ public class EdenRingClient implements ClientModInitializer {
 			TranslationHelper.printMissingNames(EdenRing.MOD_ID, "ru_ru");
 		}
 		DimensionRenderingRegistry.registerSkyRenderer(EdenRing.EDEN_RING_KEY, new EdenSkyRenderer());
+		DimensionRenderingRegistry.registerCloudRenderer(EdenRing.EDEN_RING_KEY, new EdenCloudRenderer());
 		CLIENT_CONFIG.saveChanges();
 	}
 }

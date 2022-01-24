@@ -44,6 +44,7 @@ import paulevs.edenring.blocks.SimplePlantBlock;
 import paulevs.edenring.blocks.SymbioticMoldBlock;
 import paulevs.edenring.blocks.TexturedTerrainBlock;
 import paulevs.edenring.blocks.VolvoxBlock;
+import paulevs.edenring.blocks.VolvoxBlockDense;
 import paulevs.edenring.mixin.common.ShovelItemAccessor;
 import ru.bclib.api.BonemealAPI;
 import ru.bclib.api.ComposterAPI;
@@ -85,6 +86,7 @@ public class EdenBlocks {
 	public static final Block BRAIN_TREE_BLOCK_GOLD = register("brain_tree_block_gold", new BrainTreeBlock(MaterialColor.GOLD));
 	
 	public static final Block VOLVOX_BLOCK = register("volvox_block", new VolvoxBlock());
+	public static final Block VOLVOX_BLOCK_DENSE = register("volvox_block_dense", new VolvoxBlockDense());
 	
 	public static final Block AQUATUS_SAPLING = register("aquatus_sapling", new AquatusSapling());
 	public static final Block AQUATUS_BLOCK = register("aquatus_block", new AquatusBlock());

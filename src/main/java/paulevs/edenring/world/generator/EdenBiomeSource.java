@@ -128,11 +128,11 @@ public class EdenBiomeSource extends BiomeSource {
 	
 	private boolean isLand(int x, int z) {
 		boolean result = false;
-		double[] terrainData = new double[16];
+		double[] data = new double[32];
 		TerrainGenerator generator = MultiThreadGenerator.getBiomeGenerator();
-		generator.fillTerrainDensity(terrainData, x << 2 | 2, z << 2 | 2, 4, 16, true);
-		for (byte py = 0; py < 16; py++) {
-			if (terrainData[py] > -0.2F) {
+		generator.fillTerrainDensity(data, x << 2 | 2, z << 2 | 2, 4, 8, true);
+		for (byte py = 0; py < data.length; py++) {
+			if (data[py] > -0.3F) {
 				result = true;
 				break;
 			}

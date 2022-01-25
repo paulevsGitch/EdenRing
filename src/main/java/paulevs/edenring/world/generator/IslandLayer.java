@@ -76,19 +76,16 @@ public class IslandLayer {
 	}
 	
 	private SDF getIsland(BlockPos pos) {
-		SDF island = islands.get(pos);
-		if (island == null) {
+		noise.setOffset(pos.getX(), pos.getZ());
+		return islands.computeIfAbsent(pos, i -> {
 			if (pos.getX() == 0 && pos.getZ() == 0) {
-				island = new SDFScale().setScale(1.3F).setSource(this.island);
+				return new SDFScale().setScale(1.3F).setSource(this.island);
 			}
 			else {
 				random.setSeed(getSeed(pos.getX(), pos.getZ()));
-				island = new SDFScale().setScale(random.nextFloat() + 0.5F).setSource(this.island);
+				return new SDFScale().setScale(random.nextFloat() + 0.5F).setSource(this.island);
 			}
-			islands.put(pos, island);
-		}
-		noise.setOffset(pos.getX(), pos.getZ());
-		return island;
+		});
 	}
 	
 	private float getRelativeDistance(SDF sdf, BlockPos center, double px, double py, double pz) {

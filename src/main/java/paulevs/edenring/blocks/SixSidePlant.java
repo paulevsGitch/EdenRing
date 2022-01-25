@@ -11,7 +11,9 @@ import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -22,6 +24,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -40,8 +43,9 @@ import ru.bclib.util.ColorUtil;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
-public class SixSidePlant extends BaseBlockNotFull implements CustomColorProvider, RenderLayerProvider {
+public class SixSidePlant extends BaseBlockNotFull implements CustomColorProvider, RenderLayerProvider, BonemealableBlock {
 	public static final BooleanProperty[] DIRECTIONS = EdenBlockProperties.DIRECTIONS;
 	private static final VoxelShape UP_AABB = box(0, 15, 0, 16, 16, 16);
 	private static final VoxelShape DOWN_AABB = box(0, 0, 0, 16, 1, 16);
@@ -77,15 +81,16 @@ public class SixSidePlant extends BaseBlockNotFull implements CustomColorProvide
 		BlockPos pos = ctx.getClickedPos();
 		Level level = ctx.getLevel();
 		
-		int index = face.getOpposite().get3DDataValue();
+		Direction opposite = face.getOpposite();
+		int index = opposite.get3DDataValue();
 		BlockState state = level.getBlockState(pos);
 		if (state.is(this)) {
-			if (!state.getValue(DIRECTIONS[index]) && isWall(level, pos.relative(face.getOpposite()), face)) {
+			if (!state.getValue(DIRECTIONS[index]) && isWall(level, pos.relative(opposite), face)) {
 				return state.setValue(DIRECTIONS[index], true);
 			}
 			return null;
 		}
-		if (isWall(level, pos.relative(face), face)) {
+		if (isWall(level, pos.relative(opposite), face)) {
 			return defaultBlockState().setValue(DIRECTIONS[index], true);
 		}
 		return null;
@@ -184,7 +189,7 @@ public class SixSidePlant extends BaseBlockNotFull implements CustomColorProvide
 	@Override
 	@Environment(EnvType.CLIENT)
 	public ItemColor getItemProvider() {
-		return (itemStack, i) -> i == 1 ? GrassColor.get(0.5D, 1.0D) : ColorUtil.color(255, 255, 255);
+		return (itemStack, i) -> i == 0 ? GrassColor.get(0.5D, 1.0D) : ColorUtil.color(255, 255, 255);
 	}
 	
 	@Override
@@ -203,5 +208,21 @@ public class SixSidePlant extends BaseBlockNotFull implements CustomColorProvide
 			}
 		}
 		return isEmpty ? null : state;
+	}
+	
+	@Override
+	public boolean isValidBonemealTarget(BlockGetter blockGetter, BlockPos blockPos, BlockState blockState, boolean bl) {
+		return true;
+	}
+	
+	@Override
+	public boolean isBonemealSuccess(Level level, Random random, BlockPos blockPos, BlockState blockState) {
+		return true;
+	}
+	
+	@Override
+	public void performBonemeal(ServerLevel level, Random random, BlockPos pos, BlockState state) {
+		ItemEntity item = new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, new ItemStack(this));
+		level.addFreshEntity(item);
 	}
 }

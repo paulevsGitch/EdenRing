@@ -65,6 +65,19 @@ public class Parignum extends SixSidePlant implements BlockModelProvider {
 		return model.build();
 	}
 	
+	@Override
+	@Environment(EnvType.CLIENT)
+	public BlockModel getItemModel(ResourceLocation itemID) {
+		String modId = itemID.getNamespace();
+		String name = itemID.getPath();
+		Map<String, String> textures = Maps.newHashMap();
+		textures.put("%texture%", modId + ":block/" + name);
+		textures.put("%overlay%", modId + ":block/" + name + "_flowers_1");
+		Optional<String> pattern = PatternsHelper.createJson(EdenRing.makeID("patterns/item/tinted_overlay.json"), textures);
+		return ModelsHelper.fromPattern(pattern);
+	}
+	
+	@Environment(EnvType.CLIENT)
 	private BlockModel makeModel(ResourceLocation stateId, String overlay) {
 		Map<String, String> textures = Maps.newHashMap();
 		ResourceLocation patternID;

@@ -18,6 +18,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.GrassColor;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -33,6 +34,7 @@ import ru.bclib.blocks.BaseBlockNotFull;
 import ru.bclib.client.render.BCLRenderLayer;
 import ru.bclib.interfaces.CustomColorProvider;
 import ru.bclib.interfaces.RenderLayerProvider;
+import ru.bclib.util.BlocksHelper;
 import ru.bclib.util.ColorUtil;
 
 import java.util.List;
@@ -58,7 +60,7 @@ public class SixSidePlant extends BaseBlockNotFull implements CustomColorProvide
 		registerDefaultState(state);
 	}
 	
-	public boolean isWall(Level level, BlockPos pos, Direction face) {
+	public boolean isWall(LevelAccessor level, BlockPos pos, Direction face) {
 		return level.getBlockState(pos).isFaceSturdy(level, pos, face.getOpposite());
 	}
 	
@@ -132,6 +134,25 @@ public class SixSidePlant extends BaseBlockNotFull implements CustomColorProvide
 		return blockState2.is(this);
 	}
 	
+	@Override
+	@SuppressWarnings("deprecation")
+	public BlockState updateShape(BlockState state, Direction facing, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
+		byte count = 0;
+		for (Direction dir: BlocksHelper.DIRECTIONS) {
+			int index = dir.get3DDataValue();
+			if (state.getValue(DIRECTIONS[index])) {
+				if (!isWall(world, pos.relative(dir), dir)) {
+					state = state.setValue(DIRECTIONS[index], false);
+					count++;
+				}
+			}
+			else {
+				count++;
+			}
+		}
+		return count == 6 ? Blocks.AIR.defaultBlockState() : state;
+	}
+	
 	private byte getCount(BlockState state) {
 		byte result = 0;
 		for (BooleanProperty property: DIRECTIONS) {
@@ -165,5 +186,18 @@ public class SixSidePlant extends BaseBlockNotFull implements CustomColorProvide
 	@Override
 	public BCLRenderLayer getRenderLayer() {
 		return BCLRenderLayer.CUTOUT;
+	}
+	
+	public BlockState getAttachedState(LevelAccessor level, BlockPos pos) {
+		BlockState state = defaultBlockState();
+		boolean isEmpty = true;
+		for (Direction dir: BlocksHelper.DIRECTIONS) {
+			if (isWall(level, pos.relative(dir), dir)) {
+				int index = dir.get3DDataValue();
+				state = state.setValue(DIRECTIONS[index], true);
+				isEmpty = false;
+			}
+		}
+		return isEmpty ? null : state;
 	}
 }

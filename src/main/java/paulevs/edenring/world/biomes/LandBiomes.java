@@ -33,6 +33,7 @@ public class LandBiomes {
 			.feature(EdenFeatures.VIOLUM_RARE)
 			.feature(EdenFeatures.EDEN_VINE)
 			.feature(EdenFeatures.ROOTS)
+			.feature(EdenFeatures.PARIGNUM)
 			.build();
 	}
 	
@@ -54,6 +55,7 @@ public class LandBiomes {
 			.feature(EdenFeatures.GOLDEN_GRASS)
 			.feature(EdenFeatures.EDEN_VINE)
 			.feature(EdenFeatures.ORE_GOLD)
+			.feature(EdenFeatures.PARIGNUM)
 			.build();
 	}
 	
@@ -174,6 +176,7 @@ public class LandBiomes {
 			.feature(Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_FOREST)
 			.feature(EdenFeatures.VIOLUM_RARE)
 			.feature(EdenFeatures.LONLIX)
+			.feature(EdenFeatures.PARIGNUM)
 			.build();
 	}
 }

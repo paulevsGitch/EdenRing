@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import paulevs.edenring.blocks.SixSidePlant;
 import paulevs.edenring.registries.EdenBlocks;
 import ru.bclib.blocks.BlockProperties;
 import ru.bclib.blocks.BlockProperties.TripleShape;
@@ -31,7 +32,7 @@ public class VolvoxFeature extends DefaultFeature {
 		Random random = featurePlaceContext.random();
 		
 		byte type = (byte) random.nextInt(8);
-		if (type < 4) {
+		if (type < 2) {
 			generateSmall(level, center, random);
 		}
 		else if (type < 6) {
@@ -118,6 +119,17 @@ public class VolvoxFeature extends DefaultFeature {
 		BlockState vine1 = EdenBlocks.EDEN_VINE.defaultBlockState().setValue(BlockProperties.TRIPLE_SHAPE, TripleShape.MIDDLE);
 		BlockState vine2 = EdenBlocks.EDEN_VINE.defaultBlockState().setValue(BlockProperties.TRIPLE_SHAPE, TripleShape.BOTTOM);
 		blocks.forEach(p -> {
+			if (random.nextInt(8) == 0) {
+				for (Direction offset: BlocksHelper.DIRECTIONS) {
+					BlockPos side = pos.set(p).move(offset);
+					if (level.getBlockState(side).isAir()) {
+						BlockState state = SixSidePlant.class.cast(EdenBlocks.PARIGNUM).getAttachedState(level, side);
+						if (state != null) {
+							BlocksHelper.setWithoutUpdate(level, side, state);
+						}
+					}
+				}
+			}
 			pos.set(p).move(Direction.DOWN);
 			BlockState state = level.getBlockState(pos);
 			if (state.getFluidState().isEmpty() && state.getMaterial().isReplaceable()) {
@@ -132,7 +144,7 @@ public class VolvoxFeature extends DefaultFeature {
 					BlocksHelper.setWithoutUpdate(level, pos, mold1);
 				}
 				else if (plant < 6) {
-					if (pos.getY() < center.getY()) {
+					if (pos.getY() < center.getY() && random.nextInt(3) > 0) {
 						return;
 					}
 					byte length = (byte) MHelper.randRange(3, 6, random);

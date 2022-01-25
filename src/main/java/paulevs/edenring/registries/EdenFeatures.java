@@ -4,10 +4,12 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
 import paulevs.edenring.EdenRing;
+import paulevs.edenring.blocks.SixSidePlant;
 import paulevs.edenring.world.features.basic.DepthScatterFeature;
 import paulevs.edenring.world.features.basic.DoubleScatterFeature;
 import paulevs.edenring.world.features.basic.FloorScatterFeature;
 import paulevs.edenring.world.features.basic.ScatterFeature;
+import paulevs.edenring.world.features.basic.SixSideScatter;
 import paulevs.edenring.world.features.caves.RoundCaveFeature;
 import paulevs.edenring.world.features.plants.AquatusFeature;
 import paulevs.edenring.world.features.plants.RootsFeature;
@@ -118,6 +120,8 @@ public class EdenFeatures {
 	
 	public static final BCLFeature EDEN_VINE = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("eden_vine"), new VineFeature(), 2);
 	public static final BCLFeature ROOTS = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("roots"), new RootsFeature(), 4);
+	
+	public static final BCLFeature PARIGNUM = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("parignum"), new SixSideScatter((SixSidePlant) EdenBlocks.PARIGNUM), 4);
 	
 	public static final BCLFeature GRAVILITE_CRYSTAL = BCLCommonFeatures.makeChancedFeature(EdenRing.makeID("gravilite_crystal"), Decoration.RAW_GENERATION, new GraviliteCrystalFeature(), 100);
 	public static final BCLFeature SMALL_ISLAND = BCLCommonFeatures.makeChancedFeature(EdenRing.makeID("small_island"), Decoration.RAW_GENERATION, new SmallIslandFeature(), 50);

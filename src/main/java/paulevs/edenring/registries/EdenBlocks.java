@@ -39,6 +39,7 @@ import paulevs.edenring.blocks.MossyStoneBlock;
 import paulevs.edenring.blocks.OverlayDoublePlantBlock;
 import paulevs.edenring.blocks.OverlayPlantBlock;
 import paulevs.edenring.blocks.OverlayVineBlock;
+import paulevs.edenring.blocks.Parignum;
 import paulevs.edenring.blocks.PulseTreeBlock;
 import paulevs.edenring.blocks.SimplePlantBlock;
 import paulevs.edenring.blocks.SymbioticMoldBlock;
@@ -93,6 +94,7 @@ public class EdenBlocks {
 	public static final Block AQUATUS_ROOTS = registerBO("aquatus_roots", new AquatusRootsBlock());
 	
 	public static final Block EDEN_MOSS = register("eden_moss", new EdenMossBlock());
+	public static final Block PARIGNUM = register("parignum", new Parignum());
 	
 	public static final Block MYCOTIC_GRASS = register("mycotic_grass", new SimplePlantBlock(true));
 	public static final Block GOLDEN_GRASS = register("golden_grass", new OverlayPlantBlock(true));

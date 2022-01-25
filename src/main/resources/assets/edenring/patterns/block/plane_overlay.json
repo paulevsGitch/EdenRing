@@ -1,0 +1,30 @@
+{
+	"__comment": "Designed by Paulevs with Cubik Studio - https://cubik.studio",
+	"textures": {
+		"particle": "#texture",
+		"texture": "%texture%",
+		"overlay": "%overlay%"
+	},
+	"elements": [ 	 
+		{
+			"__comment": "PlaneY1",
+			"from": [ 0, 1, 0 ],
+			"to": [ 16, 1.001, 16 ],
+			"shade": false,
+			"faces": {
+				"down": { "uv": [ 0, 0, 16, 16 ], "texture": "#texture", "tintindex": 0 },
+				"up": { "uv": [ 0, 0, 16, 16 ], "texture": "#texture", "tintindex": 0 }
+			}
+		},
+		{
+			"__comment": "PlaneY1",
+			"from": [ 0, 1, 0 ],
+			"to": [ 16, 1.001, 16 ],
+			"shade": false,
+			"faces": {
+				"down": { "uv": [ 0, 0, 16, 16 ], "texture": "#overlay" },
+				"up": { "uv": [ 0, 0, 16, 16 ], "texture": "#overlay" }
+			}
+		}
+	]
+}

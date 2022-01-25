@@ -25,6 +25,7 @@ public class VoidBiomes {
 		return builder
 			.fogColor(0x84d341)
 			.waterColor(0x1e7d56)
+			.plantsColor(0x1e7d56)
 			.particles(EdenParticles.YOUNG_VOLVOX, 0.0001F)
 			.feature(EdenFeatures.VOLVOX)
 			.build();

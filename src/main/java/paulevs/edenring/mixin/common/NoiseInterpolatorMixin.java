@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import paulevs.edenring.interfaces.TargetChecker;
+import paulevs.edenring.world.generator.MultiThreadGenerator;
 import paulevs.edenring.world.generator.TerrainGenerator;
 
 @Mixin(NoiseChunk.NoiseInterpolator.class)
@@ -32,12 +33,11 @@ public class NoiseInterpolatorMixin {
 		
 		x *= sizeXZ;
 		
-		TerrainGenerator.lock();
+		TerrainGenerator generator = MultiThreadGenerator.getTerrainGenerator();
 		for (int cellXZ = 0; cellXZ < cellsXZ; ++cellXZ) {
 			int z = (firstCellZ + cellXZ) * sizeXZ;
-			TerrainGenerator.fillTerrainDensity(data[cellXZ], x, z, sizeXZ, sizeY);
+			generator.fillTerrainDensity(data[cellXZ], x, z, sizeXZ, sizeY, false);
 		}
-		TerrainGenerator.unlock();
 		
 		info.cancel();
 	}

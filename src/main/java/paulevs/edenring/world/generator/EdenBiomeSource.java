@@ -21,15 +21,13 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 public class EdenBiomeSource extends BiomeSource {
-	public static final Codec<EdenBiomeSource> CODEC = RecordCodecBuilder.create((instance) -> {
-		return instance.group(RegistryLookupCodec.create(Registry.BIOME_REGISTRY).forGetter((theEndBiomeSource) -> {
-			return theEndBiomeSource.biomeRegistry;
-		})).apply(instance, instance.stable(EdenBiomeSource::new));
-	});
+	public static final Codec<EdenBiomeSource> CODEC = RecordCodecBuilder.create((instance) ->
+		instance.group(RegistryLookupCodec.create(Registry.BIOME_REGISTRY).forGetter((theEndBiomeSource) ->
+			theEndBiomeSource.biomeRegistry
+		)).apply(instance, instance.stable(EdenBiomeSource::new))
+	);
 	
 	private final Map<ChunkPos, LandCache> landCache = new ConcurrentHashMap<>();
-	//private final Map<ChunkPos, Boolean> landCache = new ConcurrentHashMap<>();
-	private final double[] terrainData = new double[16];
 	private final Registry<Biome> biomeRegistry;
 	private BiomePicker pickerLand;
 	private BiomePicker pickerVoid;
@@ -62,7 +60,7 @@ public class EdenBiomeSource extends BiomeSource {
 			pickerCave.rebuild();
 		}
 		
-		lastSeed = TerrainGenerator.seed;
+		lastSeed = MultiThreadGenerator.getSeed();
 		
 		pickerLand.getBiomes().forEach(biome -> biome.updateActualBiomes(biomeRegistry));
 		pickerVoid.getBiomes().forEach(biome -> biome.updateActualBiomes(biomeRegistry));
@@ -111,8 +109,8 @@ public class EdenBiomeSource extends BiomeSource {
 	}
 	
 	private void checkSeed() {
-		if (lastSeed != TerrainGenerator.seed) {
-			lastSeed = TerrainGenerator.seed;
+		if (lastSeed != MultiThreadGenerator.getSeed()) {
+			lastSeed = MultiThreadGenerator.getSeed();
 			mapLand = new HexBiomeMap(lastSeed, GeneratorOptions.biomeSizeLand, pickerLand);
 			mapVoid = new HexBiomeMap(lastSeed, GeneratorOptions.biomeSizeVoid, pickerVoid);
 			mapCave = new HexBiomeMap(lastSeed, GeneratorOptions.biomeSizeCave, pickerCave);
@@ -130,43 +128,15 @@ public class EdenBiomeSource extends BiomeSource {
 	
 	private boolean isLand(int x, int z) {
 		boolean result = false;
-		TerrainGenerator.lock();
-		TerrainGenerator.fillTerrainDensity(terrainData, x << 2 | 2, z << 2 | 2, 4, 16);
+		double[] terrainData = new double[16];
+		TerrainGenerator generator = MultiThreadGenerator.getBiomeGenerator();
+		generator.fillTerrainDensity(terrainData, x << 2 | 2, z << 2 | 2, 4, 16, true);
 		for (byte py = 0; py < 16; py++) {
 			if (terrainData[py] > -0.2F) {
 				result = true;
 				break;
 			}
 		}
-		TerrainGenerator.unlock();
 		return result;
-		
-		/*final ChunkPos pos = new ChunkPos(LandCache.toChunk(x), LandCache.toChunk(z));
-		if (landCache.size() > 4094) {
-			System.out.println("Clear");
-			landCache.clear();
-		}
-		return landCache.computeIfAbsent(pos, n -> {
-			LandCache cache = new LandCache();
-			int sx = LandCache.fromChunk(pos.x);
-			int sz = LandCache.fromChunk(pos.z);
-			TerrainGenerator.lock();
-			for (byte i = 0; i < LandCache.getSide(); i++) {
-				int px = (sx | i) << 2 | 2;
-				for (byte j = 0; j < LandCache.getSide(); j++) {
-					int pz = (sz | j) << 2 | 2;
-					TerrainGenerator.fillTerrainDensity(terrainData, px, pz, 4, 16);
-					for (byte py = 0; py < 16; py++) {
-						if (terrainData[py] > -0.2F) {
-							cache.setData(i, j, true);
-							break;
-						}
-					}
-				}
-			}
-			TerrainGenerator.unlock();
-			System.out.println("Cache for " + pos);
-			return cache;
-		}).getData(LandCache.wrap(x), LandCache.wrap(z));*/
 	}
 }

@@ -4,7 +4,6 @@ import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import ru.bclib.blocks.BlockProperties;
 
 public class EdenBlockProperties extends BlockProperties {

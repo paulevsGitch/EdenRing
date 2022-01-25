@@ -1,7 +1,6 @@
 package paulevs.edenring.world.generator;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.biome.Climate.Sampler;
@@ -12,48 +11,32 @@ import ru.bclib.world.biomes.BCLBiome;
 
 import java.awt.Point;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
-import java.util.concurrent.locks.ReentrantLock;
 
 public class TerrainGenerator {
-	private static final Map<Point, TerrainBoolCache> TERRAIN_BOOL_CACHE_MAP = Maps.newHashMap();
-	private static final ReentrantLock LOCKER = new ReentrantLock();
-	private static final Point POS = new Point();
 	private static final float[] COEF;
 	private static final Point[] OFFS;
 	
-	private static IslandLayer largeIslands;
-	private static IslandLayer mediumIslands;
-	private static IslandLayer smallIslands;
-	private static OpenSimplexNoise noise1;
-	private static OpenSimplexNoise noise2;
-	private static BiomeSource biomeSource;
-	private static Sampler sampler;
-	protected static long seed;
+	private final IslandLayer largeIslands;
+	private final IslandLayer mediumIslands;
+	private final IslandLayer smallIslands;
+	private final OpenSimplexNoise noise1;
+	private final OpenSimplexNoise noise2;
+	private final BiomeSource biomeSource;
+	private final Sampler sampler;
 	
-	public static void init(long seed, Sampler sampler, BiomeSource biomeSource) {
+	public TerrainGenerator(long seed, Sampler sampler, BiomeSource biomeSource) {
 		Random random = new Random(seed);
 		largeIslands = new IslandLayer(random.nextInt(), GeneratorOptions.bigOptions);
 		mediumIslands = new IslandLayer(random.nextInt(), GeneratorOptions.mediumOptions);
 		smallIslands = new IslandLayer(random.nextInt(), GeneratorOptions.smallOptions);
 		noise1 = new OpenSimplexNoise(random.nextInt());
 		noise2 = new OpenSimplexNoise(random.nextInt());
-		TerrainGenerator.biomeSource = biomeSource;
-		TerrainGenerator.sampler = sampler;
-		TerrainGenerator.seed = seed;
-		TERRAIN_BOOL_CACHE_MAP.clear();
+		this.biomeSource = biomeSource;
+		this.sampler = sampler;
 	}
 	
-	public static void lock() {
-		LOCKER.lock();
-	}
-	
-	public static void unlock() {
-		LOCKER.unlock();
-	}
-	
-	public static void fillTerrainDensity(double[] buffer, int posX, int posZ, double scaleXZ, double scaleY) {
+	public void fillTerrainDensity(double[] buffer, int posX, int posZ, double scaleXZ, double scaleY, boolean fast) {
 		largeIslands.clearCache();
 		mediumIslands.clearCache();
 		smallIslands.clearCache();
@@ -69,14 +52,14 @@ public class TerrainGenerator {
 		mediumIslands.updatePositions(px, pz);
 		smallIslands.updatePositions(px, pz);
 		
-		float height = getAverageDepth(x << 1, z << 1) * 0.5F;
+		float height = fast ? 0.2F : getAverageDepth(x << 1, z << 1) * 0.5F;
 		
 		for (int y = 0; y < buffer.length; y++) {
 			double py = y * scaleY;
 			float dist = largeIslands.getDensity(px, py, pz, height);
 			dist = dist > 1 ? dist : MHelper.max(dist, mediumIslands.getDensity(px, py, pz, height));
 			dist = dist > 1 ? dist : MHelper.max(dist, smallIslands.getDensity(px, py, pz, height));
-			if (dist > -0.5F) {
+			if (!fast && dist > -0.5F) {
 				dist += noise1.eval(px * 0.01, py * 0.01, pz * 0.01) * 0.02 + 0.02;
 				dist += noise2.eval(px * 0.05, py * 0.05, pz * 0.05) * 0.01 + 0.01;
 				dist += noise1.eval(px * 0.1, py * 0.1, pz * 0.1) * 0.005 + 0.005;
@@ -85,7 +68,7 @@ public class TerrainGenerator {
 		}
 	}
 	
-	private static float getAverageDepth(int x, int z) {
+	private float getAverageDepth(int x, int z) {
 		if (getBiome(x, z).getTerrainHeight() < 0.1F) {
 			return 0F;
 		}
@@ -98,7 +81,7 @@ public class TerrainGenerator {
 		return depth;
 	}
 	
-	private static BCLBiome getBiome(int x, int z) {
+	private BCLBiome getBiome(int x, int z) {
 		if (biomeSource instanceof EdenBiomeSource) {
 			return EdenBiomeSource.class.cast(biomeSource).getLandBiome(x, z);
 		}
@@ -124,9 +107,5 @@ public class TerrainGenerator {
 		for (int i = 0; i < COEF.length; i++) {
 			COEF[i] = coef.get(i) / sum;
 		}
-	}
-	
-	public static Sampler getSampler() {
-		return sampler;
 	}
 }

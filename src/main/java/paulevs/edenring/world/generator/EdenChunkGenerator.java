@@ -110,7 +110,7 @@ public class EdenChunkGenerator extends ChunkGenerator {
 	
 	@Override
 	public Sampler climateSampler() {
-		return TerrainGenerator.getSampler();
+		return MultiThreadGenerator.getSampler();
 	}
 	
 	@Override
@@ -122,7 +122,7 @@ public class EdenChunkGenerator extends ChunkGenerator {
 	public void buildSurface(WorldGenRegion worldGenRegion, StructureFeatureManager structureFeatureManager, ChunkAccess chunkAccess) {
 		WorldGenerationContext worldGenerationContext = new WorldGenerationContext(this, worldGenRegion);
 		NoiseChunk noiseChunk = chunkAccess.getOrCreateNoiseChunk(
-			NoiseSampler.class.cast(TerrainGenerator.getSampler()),
+			NoiseSampler.class.cast(MultiThreadGenerator.getSampler()),
 			() -> null,
 			null,
 			FLUID_PICKER,

@@ -17,17 +17,17 @@ import java.util.Map;
 import java.util.Random;
 
 public class IslandLayer {
-	private static final Random RANDOM = new Random();
+	private final Random random = new Random();
 	private final SDFRadialNoiseMap noise;
 	private final SDF island;
 	
-	private final List<BlockPos> positions = new ArrayList<BlockPos>(9);
+	private final List<BlockPos> positions = new ArrayList<>(9);
 	private final Map<BlockPos, SDF> islands = Maps.newHashMap();
 	private final OpenSimplexNoise density;
-	private final int seed;
 	private int lastX = Integer.MIN_VALUE;
 	private int lastZ = Integer.MIN_VALUE;
 	private final LayerOptions options;
+	private final int seed;
 	
 	public IslandLayer(int seed, LayerOptions options) {
 		this.density = new OpenSimplexNoise(seed);
@@ -63,10 +63,10 @@ public class IslandLayer {
 				int px = pox + ix;
 				for (int poz = -1; poz < 2; poz++) {
 					int pz = poz + iz;
-					RANDOM.setSeed(getSeed(px, pz));
-					double posX = (px + RANDOM.nextFloat()) * options.distance;
-					double posY = MHelper.randRange(options.minY, options.maxY, RANDOM);
-					double posZ = (pz + RANDOM.nextFloat()) * options.distance;
+					random.setSeed(getSeed(px, pz));
+					double posX = (px + random.nextFloat()) * options.distance;
+					double posY = MHelper.randRange(options.minY, options.maxY, random);
+					double posZ = (pz + random.nextFloat()) * options.distance;
 					if (density.eval(posX * 0.01, posZ * 0.01) > options.coverage) {
 						positions.add(new BlockPos(posX, posY, posZ));
 					}
@@ -82,8 +82,8 @@ public class IslandLayer {
 				island = new SDFScale().setScale(1.3F).setSource(this.island);
 			}
 			else {
-				RANDOM.setSeed(getSeed(pos.getX(), pos.getZ()));
-				island = new SDFScale().setScale(RANDOM.nextFloat() + 0.5F).setSource(this.island);
+				random.setSeed(getSeed(pos.getX(), pos.getZ()));
+				island = new SDFScale().setScale(random.nextFloat() + 0.5F).setSource(this.island);
 			}
 			islands.put(pos, island);
 		}
@@ -108,10 +108,6 @@ public class IslandLayer {
 		return distance;
 	}
 	
-	public float getDensity(double x, double y, double z) {
-		return -calculateSDF(x, y, z);
-	}
-	
 	public float getDensity(double x, double y, double z, float height) {
 		noise.setIntensity(height);
 		noise.setRadius(0.5F / (1 + height));
@@ -129,39 +125,4 @@ public class IslandLayer {
 		SDF sdf = new SDFCappedCone().setHeight(hh).setRadius1(radiusBottom).setRadius2(radiusTop);
 		return new SDFTranslate().setTranslate(0, minY + hh, 0).setSource(sdf);
 	}
-	
-	/*private static NativeImage loadMap(String path) {
-		InputStream stream = IslandLayer.class.getResourceAsStream(path);
-		if (stream != null) {
-			try {
-				NativeImage map = NativeImage.read(stream);
-				stream.close();
-				return map;
-			}
-			catch (IOException e) {
-				BetterEnd.LOGGER.warning(e.getMessage());
-			}
-		}
-		return null;
-	}*/
-	
-	/*static {
-		NativeImage map = loadMap("/assets/" + BetterEnd.MOD_ID + "/textures/heightmaps/mountain_1.png");
-		
-		SDF cone1 = makeCone(0, 0.4F, 0.2F, -0.3F);
-		SDF cone2 = makeCone(0.4F, 0.5F, 0.1F, -0.1F);
-		SDF cone3 = makeCone(0.5F, 0.45F, 0.03F, 0.0F);
-		SDF cone4 = makeCone(0.45F, 0, 0.02F, 0.03F);
-		
-		SDF coneBottom = new SDFSmoothUnion().setRadius(0.02F).setSourceA(cone1).setSourceB(cone2);
-		SDF coneTop = new SDFSmoothUnion().setRadius(0.02F).setSourceA(cone3).setSourceB(cone4);
-		
-		SDF map1 = new SDFHeightmap().setMap(map).setIntensity(0.3F).setSource(coneTop);
-		NOISE = (SDFRadialNoiseMap) new SDFRadialNoiseMap().setSource(coneTop);
-		
-		ISLAND = new SDF[] {
-			new SDFSmoothUnion().setRadius(0.01F).setSourceA(coneTop).setSourceB(coneBottom),
-			new SDFSmoothUnion().setRadius(0.01F).setSourceA(map1).setSourceB(coneBottom)
-		};
-	}*/
 }

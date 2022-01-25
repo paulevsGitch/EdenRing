@@ -11,6 +11,7 @@ import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -61,7 +62,8 @@ public class SixSidePlant extends BaseBlockNotFull implements CustomColorProvide
 	}
 	
 	public boolean isWall(LevelAccessor level, BlockPos pos, Direction face) {
-		return level.getBlockState(pos).isFaceSturdy(level, pos, face.getOpposite());
+		BlockState state = level.getBlockState(pos);
+		return state.isFaceSturdy(level, pos, face.getOpposite()) || state.is(BlockTags.LEAVES);
 	}
 	
 	@Override
@@ -77,14 +79,16 @@ public class SixSidePlant extends BaseBlockNotFull implements CustomColorProvide
 		
 		int index = face.getOpposite().get3DDataValue();
 		BlockState state = level.getBlockState(pos);
-		System.out.println(state);
 		if (state.is(this)) {
 			if (!state.getValue(DIRECTIONS[index]) && isWall(level, pos.relative(face.getOpposite()), face)) {
 				return state.setValue(DIRECTIONS[index], true);
 			}
 			return null;
 		}
-		return defaultBlockState().setValue(DIRECTIONS[index], true);
+		if (isWall(level, pos.relative(face), face)) {
+			return defaultBlockState().setValue(DIRECTIONS[index], true);
+		}
+		return null;
 	}
 	
 	@Override

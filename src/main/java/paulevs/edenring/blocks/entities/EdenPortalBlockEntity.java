@@ -23,11 +23,12 @@ import net.minecraft.world.phys.AABB;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.interfaces.EdenPortable;
 import paulevs.edenring.registries.EdenBlockEntities;
-import paulevs.edenring.registries.EdenBlocks;
 import paulevs.edenring.registries.EdenFeatures;
 import paulevs.edenring.world.EdenPortal;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class EdenPortalBlockEntity extends BlockEntity {
@@ -89,22 +90,24 @@ public class EdenPortalBlockEntity extends BlockEntity {
 			return;
 		}
 		
-		MutableBlockPos exit = getExit(destination, blockPos);
-		if (exit.getY() == -255) {
-			getLand(destination, exit);
-			if (exit.getY() == 130 && destination.getBlockState(exit.below(2)).isAir()) {
+		MutableBlockPos preExit = getExit(destination, blockPos);
+		if (preExit == null) {
+			preExit = blockPos.mutable();
+			getLand(destination, preExit);
+			if (preExit.getY() == 130 && destination.getBlockState(preExit.below(2)).isAir()) {
 				EdenFeatures.SMALL_ISLAND.getFeature().place(new FeaturePlaceContext(
 					Optional.empty(),
 					destination,
 					destination.getChunkSource().getGenerator(),
 					destination.random,
-					exit.below(2),
+					preExit.below(2),
 					null
 				));
 			}
-			EdenPortal.buildPortal(destination, exit);
+			EdenPortal.buildPortal(destination, preExit);
 		}
 		
+		final MutableBlockPos exit = preExit;
 		entities.forEach(e -> {
 			if (e.isAlive()) {
 				EdenPortable portable = (EdenPortable) e;
@@ -139,20 +142,23 @@ public class EdenPortalBlockEntity extends BlockEntity {
 	}
 	
 	private static MutableBlockPos getExit(Level level, BlockPos start) {
-		MutableBlockPos pos = start.mutable();
-		ChunkAccess chunk = level.getChunk(start.getX() >> 4, start.getZ() >> 4, ChunkStatus.FULL, true);
-		pos.setY(level.getHeight(Types.WORLD_SURFACE, start.getX(), start.getZ()));
-		pos.setX(pos.getX() & 15);
-		pos.setZ(pos.getZ() & 15);
-		int maxY = chunk.getHeight(Types.WORLD_SURFACE, pos.getX(), pos.getZ()) + 3;
-		for (int y = maxY; y > 0; y--) {
-			pos.setY(y);
-			if (chunk.getBlockState(pos).is(EdenBlocks.PORTAL_CENTER)) {
-				return pos.move(chunk.getPos().getMinBlockX(), 0, chunk.getPos().getMinBlockZ());
+		int x1 = (start.getX() >> 4) - 1;
+		int z1 = (start.getZ() >> 4) - 1;
+		int x2 = x1 + 3;
+		int z2 = z1 + 3;
+		List<BlockEntity> entityList = new ArrayList<>();
+		for (int x = x1; x < x2; x++) {
+			for (int z = z1; z < z2; z++) {
+				Map<BlockPos, BlockEntity> entities = level.getChunk(x, z).getBlockEntities();
+				entityList.addAll(entities.values().stream().filter(entity -> entity instanceof EdenPortalBlockEntity).toList());
 			}
 		}
-		pos.move(chunk.getPos().getMinBlockX(), 0, chunk.getPos().getMinBlockZ()).setY(-255);
-		return pos;
+		final int size = entityList.size();
+		if (size == 0) {
+			return null;
+		}
+		BlockEntity target = size == 1 ? entityList.get(0) : entityList.get(level.random.nextInt(size));
+		return target.getBlockPos().mutable();
 	}
 	
 	private static void getLand(Level level, MutableBlockPos pos) {

@@ -8,14 +8,15 @@ import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import ru.bclib.blocks.BaseBlock;
-import ru.bclib.blocks.BlockProperties;
 import ru.bclib.client.models.BasePatterns;
 import ru.bclib.client.models.ModelsHelper;
 import ru.bclib.client.models.PatternsHelper;
@@ -24,22 +25,22 @@ import java.util.Map;
 import java.util.Optional;
 
 public class GravityCompressorBlock extends BaseBlock {
-	public static final BooleanProperty ACTIVE = BlockProperties.ACTIVE;
+	public static final IntegerProperty POWER = BlockStateProperties.POWER;
 	
 	public GravityCompressorBlock() {
-		super(FabricBlockSettings.copyOf(Blocks.PISTON).luminance(state -> state.getValue(ACTIVE) ? 10 : 0));
-		registerDefaultState(getStateDefinition().any().setValue(ACTIVE, false));
+		super(FabricBlockSettings.copyOf(Blocks.PISTON).luminance(state -> state.getValue(POWER)));
+		registerDefaultState(getStateDefinition().any().setValue(POWER, 0));
 	}
 	
 	@Override
 	protected void createBlockStateDefinition(Builder<Block, BlockState> stateManager) {
-		stateManager.add(ACTIVE);
+		stateManager.add(POWER);
 	}
 	
 	@Override
 	@Environment(EnvType.CLIENT)
 	public UnbakedModel getModelVariant(ResourceLocation stateId, BlockState blockState, Map<ResourceLocation, UnbakedModel> modelCache) {
-		boolean active = blockState.getValue(ACTIVE);
+		boolean active = blockState.getValue(POWER) > 0;
 		String modId = stateId.getNamespace();
 		String side = active ? stateId.getPath() + "_side_on" : stateId.getPath() + "_side_off";
 		Map<String, String> textures = Maps.newHashMap();
@@ -66,15 +67,21 @@ public class GravityCompressorBlock extends BaseBlock {
 	@Override
 	@SuppressWarnings("deprecation")
 	public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos pos2, boolean bl) {
-		if (level.hasNeighborSignal(pos)) {
-			if (!level.getBlockState(pos).getValue(ACTIVE)) {
-				level.setBlockAndUpdate(pos, defaultBlockState().setValue(ACTIVE, true));
-			}
+		BlockState newState = updateSignal(state, level, pos);
+		if (!newState.equals(state)) {
+			level.setBlockAndUpdate(pos, newState);
 		}
-		else {
-			if (level.getBlockState(pos).getValue(ACTIVE)) {
-				level.setBlockAndUpdate(pos, defaultBlockState());
-			}
-		}
+	}
+	
+	@Override
+	public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+		BlockPos pos = ctx.getClickedPos();
+		Level level = ctx.getLevel();
+		return updateSignal(defaultBlockState(), level, pos);
+	}
+	
+	private BlockState updateSignal(BlockState state, Level level, BlockPos pos) {
+		int signal = level.getBestNeighborSignal(pos);
+		return state.setValue(POWER, signal);
 	}
 }

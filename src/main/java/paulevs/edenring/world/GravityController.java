@@ -4,8 +4,8 @@ import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import paulevs.edenring.registries.EdenBlocks;
-import ru.bclib.blocks.BlockProperties;
 
 public class GravityController {
 	public static double getGravityMultiplier(double y) {
@@ -31,12 +31,12 @@ public class GravityController {
 	
 	public static double getCompressorMultiplier(Entity entity) {
 		MutableBlockPos pos = entity.blockPosition().mutable();
-		boolean isActive = false;
+		int power = 0;
 		int dist = 64;
 		for (int i = 0; i < 64; i++) {
 			BlockState state = entity.level.getBlockState(pos);
 			if (state.is(EdenBlocks.GRAVITY_COMPRESSOR)) {
-				isActive = state.getValue(BlockProperties.ACTIVE);
+				power = state.getValue(BlockStateProperties.POWER);
 				dist = i;
 				break;
 			}
@@ -46,6 +46,7 @@ public class GravityController {
 			return 1.0;
 		}
 		float delta = Mth.clamp((dist + (float) (entity.getY() - (int) entity.getY())) / 64F, 0, 1);
-		return isActive ? Mth.lerp(delta, -1.0, 1.0) : Mth.lerp(delta, 0.1, 1.0);
+		delta = (1 - delta) * (power / 15F);
+		return power > 0 ? Mth.lerp(delta, 1.0, -1.0) : Mth.lerp(delta, 1.0, 0.1);
 	}
 }

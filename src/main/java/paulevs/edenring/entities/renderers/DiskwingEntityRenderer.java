@@ -39,6 +39,12 @@ public class DiskwingEntityRenderer extends MobRenderer<DiskwingEntity, Diskwing
 		return entity.getVariant().getTexture();
 	}
 	
+	@Override
+	protected void scale(DiskwingEntity entity, PoseStack matrixStack, float f) {
+		float scale = entity.getScale();
+		matrixStack.scale(scale, scale, scale);
+	}
+	
 	static {
 		final int length = DiskwingType.VALUES.length;
 		for (byte i = 0; i < length; i++) {

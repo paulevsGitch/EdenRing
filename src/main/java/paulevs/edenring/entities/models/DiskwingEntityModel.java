@@ -105,18 +105,19 @@ public class DiskwingEntityModel extends EntityModel<DiskwingEntity> {
 	
 	@Override
 	public void setupAnim(DiskwingEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-		float angle = Mth.sin(animationProgress * 0.05F) * 0.2F;
+		float angle = Mth.sin(animationProgress * 0.1F) * 0.2F;
+		float angle2 = Mth.sin(animationProgress * 0.2F) * 0.1F;
+		float y = (float) entity.getDeltaMovement().y;
+		y = Mth.clamp(y, -1F, 1F);
+		model.xRot = -angle * 0.1F - y;
 		tailPivot1.xRot = angle;
 		tailPivot2.xRot = angle;
-		wingRight.zRot = angle * 0.2F;
+		wingRight.zRot = angle2;
 		wingLeft.zRot = -wingRight.zRot;
 	}
 	
 	@Override
 	public void renderToBuffer(PoseStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
-		matrices.pushPose();
-		//matrices.scale(scaleXZ, scaleY, scaleXZ);
 		model.render(matrices, vertices, light, overlay);
-		matrices.popPose();
 	}
 }

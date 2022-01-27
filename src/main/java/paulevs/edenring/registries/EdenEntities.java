@@ -8,7 +8,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntityType.EntityFactory;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -21,7 +20,7 @@ public class EdenEntities {
 	private static final PathConfig ENTITY_CONFIG = new PathConfig(EdenRing.MOD_ID, "entities");
 	
 	// Living //
-	public static final EntityType<DiskwingEntity> DISKWING = register("diskwing", MobCategory.AMBIENT, 1.25F, 0.25F, DiskwingEntity::new, DiskwingEntity.createMobAttributes(), 0x492c41, 0x6c5164);
+	public static final EntityType<DiskwingEntity> DISKWING = register("diskwing", MobCategory.AMBIENT, 0.9F, 0.25F, DiskwingEntity::new, DiskwingEntity.createMobAttributes(), 0x492c41, 0x6c5164);
 	
 	// Technical //
 	public static final EntityType<LightningRayEntity> LIGHTNING_RAY = register("lightning_ray", MobCategory.MISC, 1.0F, 1.0F, LightningRayEntity::new);

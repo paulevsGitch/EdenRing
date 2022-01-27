@@ -11,9 +11,11 @@ import net.minecraft.world.entity.EntityType.EntityFactory;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.level.levelgen.Heightmap.Types;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.entities.DiskwingEntity;
 import paulevs.edenring.entities.LightningRayEntity;
+import ru.bclib.api.spawning.SpawnRuleBuilder;
 import ru.bclib.config.PathConfig;
 
 public class EdenEntities {
@@ -25,7 +27,9 @@ public class EdenEntities {
 	// Technical //
 	public static final EntityType<LightningRayEntity> LIGHTNING_RAY = register("lightning_ray", MobCategory.MISC, 1.0F, 1.0F, LightningRayEntity::new);
 	
-	public static void init() {}
+	public static void init() {
+		SpawnRuleBuilder.start(DISKWING).maxNearby(8).buildNoRestrictions(Types.MOTION_BLOCKING);
+	}
 	
 	protected static <T extends Entity> EntityType<T> register(String name, MobCategory group, float width, float height, EntityFactory<T> entity) {
 		ResourceLocation id = EdenRing.makeID(name);

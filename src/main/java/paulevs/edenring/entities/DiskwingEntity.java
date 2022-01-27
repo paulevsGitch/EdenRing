@@ -365,4 +365,9 @@ public class DiskwingEntity extends DespawnableAnimal {
 			DiskwingEntity.this.moveTargetPoint = Vec3.atLowerCornerOf(DiskwingEntity.this.anchorPoint).add(this.distance * Mth.cos(this.angle), -4.0f + this.height, this.distance * Mth.sin(this.angle));
 		}
 	}
+	
+	@Override
+	public boolean shouldRenderAtSqrDistance(double d) {
+		return super.shouldRenderAtSqrDistance(d * 0.1);
+	}
 }

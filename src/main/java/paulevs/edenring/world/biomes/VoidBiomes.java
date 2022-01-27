@@ -1,6 +1,7 @@
 package paulevs.edenring.world.biomes;
 
 import paulevs.edenring.EdenRing;
+import paulevs.edenring.registries.EdenEntities;
 import paulevs.edenring.registries.EdenFeatures;
 import paulevs.edenring.registries.EdenParticles;
 import ru.bclib.api.biomes.BCLBiomeBuilder;
@@ -13,6 +14,7 @@ public class VoidBiomes {
 		BiomesCommonMethods.addDefaultSurface(builder);
 		BiomesCommonMethods.setDefaultColors(builder);
 		BiomesCommonMethods.addDefaultSounds(builder);
+		builder.spawn(EdenEntities.DISKWING, 20, 3, 6);
 		return builder.build();
 	}
 	
@@ -22,6 +24,7 @@ public class VoidBiomes {
 		BiomesCommonMethods.addDefaultSurface(builder);
 		BiomesCommonMethods.setDefaultColors(builder);
 		BiomesCommonMethods.addDefaultSounds(builder);
+		builder.spawn(EdenEntities.DISKWING, 20, 3, 6);
 		return builder
 			.fogColor(0x84d341)
 			.waterColor(0x1e7d56)

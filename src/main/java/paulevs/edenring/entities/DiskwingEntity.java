@@ -25,6 +25,7 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import paulevs.edenring.EdenRing;
@@ -114,7 +115,10 @@ public class DiskwingEntity extends DespawnableAnimal {
 	@Nullable
 	@Override
 	public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
-		return EdenEntities.DISKWING.create(serverLevel);
+		DiskwingEntity entity = EdenEntities.DISKWING.create(serverLevel);
+		entity.setVariant(DiskwingEntity.class.cast(ageableMob).getVariant());
+		entity.setScale((byte) ageableMob.getRandom().nextInt(255));
+		return entity;
 	}
 	
 	@Override
@@ -137,9 +141,21 @@ public class DiskwingEntity extends DespawnableAnimal {
 		return true;
 	}
 	
+	@Override
+	protected void checkFallDamage(double d, boolean bl, BlockState blockState, BlockPos blockPos) {}
+	
+	@Override
+	public boolean onClimbable() {
+		return false;
+	}
+	
 	public DiskwingType getVariant() {
 		byte type = this.entityData.get(VARIANT);
 		return DiskwingType.VALUES[type];
+	}
+	
+	public void setVariant(DiskwingType variant) {
+		this.entityData.set(VARIANT, (byte) variant.ordinal());
 	}
 	
 	@Override
@@ -147,6 +163,10 @@ public class DiskwingEntity extends DespawnableAnimal {
 		short size = (short) (this.entityData.get(SIZE) & 255);
 		float scale = this.isBaby() ? 0.5F : 1.0F;
 		return scale * Mth.lerp(size / 255F, 0.75F, 1.0F);
+	}
+	
+	public void setScale(byte scale) {
+		this.entityData.set(SIZE, scale);
 	}
 	
 	@Override
@@ -232,8 +252,7 @@ public class DiskwingEntity extends DespawnableAnimal {
 		}
 	}
 	
-	class DiskwingLookControl
-		extends LookControl {
+	class DiskwingLookControl extends LookControl {
 		public DiskwingLookControl(Mob mob) {
 			super(mob);
 		}

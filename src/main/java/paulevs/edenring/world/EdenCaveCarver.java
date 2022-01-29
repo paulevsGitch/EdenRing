@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.Mth;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
@@ -15,8 +16,12 @@ import net.minecraft.world.level.levelgen.Aquifer;
 import net.minecraft.world.level.levelgen.carver.CarvingContext;
 import net.minecraft.world.level.levelgen.carver.CaveCarverConfiguration;
 import net.minecraft.world.level.levelgen.carver.WorldCarver;
+import paulevs.edenring.noise.InterpolationCell;
 import paulevs.edenring.noise.VoronoiNoise;
 import paulevs.edenring.registries.EdenBlocks;
+import paulevs.edenring.world.generator.MultiThreadGenerator;
+import paulevs.edenring.world.generator.TerrainGenerator;
+import ru.bclib.sdf.operator.SDFSmoothUnion;
 import ru.bclib.util.MHelper;
 
 import java.util.Random;
@@ -63,6 +68,9 @@ public class EdenCaveCarver extends WorldCarver<CaveCarverConfiguration> {
 		MutableBlockPos pos = new MutableBlockPos();
 		MutableBlockPos posWorld = new MutableBlockPos();
 		
+		TerrainGenerator generator = MultiThreadGenerator.getTerrainGenerator();
+		InterpolationCell cell = new InterpolationCell(generator, 3, (maxY - minY) / 8, 8, 8, new BlockPos(minX, minY, minZ));
+		
 		for (int x = 0; x < 16; x++) {
 			posWorld.setX(minX | x);
 			pos.setX(x);
@@ -89,6 +97,9 @@ public class EdenCaveCarver extends WorldCarver<CaveCarverConfiguration> {
 							average += accumulation[i];
 						}
 						noise = (noise + (average / accumulation.length)) * 0.5F;
+						float cellValue = cell.get(pos, true);
+						
+						noise = -smoothUnion(-noise, cellValue, 1.1F);
 						
 						if (noise > 0.9F) {
 							chunkAccess.setBlockState(pos, CAVE_AIR, false);
@@ -121,5 +132,10 @@ public class EdenCaveCarver extends WorldCarver<CaveCarverConfiguration> {
 			}
 		}
 		return false;
+	}
+	
+	private float smoothUnion(float a, float b, float radius) {
+		float h = Mth.clamp(0.5F + 0.5F * (b - a) / radius, 0F, 1F);
+		return Mth.lerp(h, b, a) - radius * h * (1F - h);
 	}
 }

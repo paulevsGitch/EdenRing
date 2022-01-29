@@ -10,7 +10,7 @@ import ru.bclib.world.biomes.BCLBiome;
 public class VoidBiomes {
 	public static BCLBiome makeAirOcean() {
 		BCLBiomeBuilder builder = BCLBiomeBuilder.start(EdenRing.makeID("air_ocean"));
-		BiomesCommonMethods.addDefaultFeatures(builder);
+		BiomesCommonMethods.addDefaultVoidFeatures(builder);
 		BiomesCommonMethods.addDefaultSurface(builder);
 		BiomesCommonMethods.setDefaultColors(builder);
 		BiomesCommonMethods.addDefaultSounds(builder);
@@ -20,7 +20,7 @@ public class VoidBiomes {
 	
 	public static BCLBiome makeSkyColony() {
 		BCLBiomeBuilder builder = BCLBiomeBuilder.start(EdenRing.makeID("sky_colony"));
-		BiomesCommonMethods.addDefaultFeatures(builder);
+		BiomesCommonMethods.addDefaultVoidFeatures(builder);
 		BiomesCommonMethods.addDefaultSurface(builder);
 		BiomesCommonMethods.setDefaultColors(builder);
 		BiomesCommonMethods.addDefaultSounds(builder);

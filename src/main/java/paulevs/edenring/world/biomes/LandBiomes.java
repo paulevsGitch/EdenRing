@@ -16,8 +16,7 @@ import ru.bclib.world.biomes.BCLBiome;
 public class LandBiomes {
 	public static BCLBiome makeStoneGardenBiome() {
 		BCLBiomeBuilder builder = BCLBiomeBuilder.start(EdenRing.makeID("stone_garden"));
-		BiomesCommonMethods.addCaves(builder);
-		BiomesCommonMethods.addDefaultFeatures(builder);
+		BiomesCommonMethods.addDefaultLandFeatures(builder);
 		BiomesCommonMethods.addDefaultSurface(builder);
 		BiomesCommonMethods.setDefaultColors(builder);
 		BiomesCommonMethods.addDefaultSounds(builder);
@@ -40,8 +39,7 @@ public class LandBiomes {
 	
 	public static BCLBiome makeGoldenForestBiome() {
 		BCLBiomeBuilder builder = BCLBiomeBuilder.start(EdenRing.makeID("golden_forest"));
-		BiomesCommonMethods.addCaves(builder);
-		BiomesCommonMethods.addDefaultFeatures(builder);
+		BiomesCommonMethods.addDefaultLandFeatures(builder);
 		BiomesCommonMethods.addDefaultSurface(builder);
 		BiomesCommonMethods.setDefaultColors(builder);
 		BiomesCommonMethods.addDefaultSounds(builder);
@@ -63,8 +61,7 @@ public class LandBiomes {
 	
 	public static BCLBiome makeMycoticForestBiome() {
 		BCLBiomeBuilder builder = BCLBiomeBuilder.start(EdenRing.makeID("mycotic_forest"));
-		BiomesCommonMethods.addCaves(builder);
-		BiomesCommonMethods.addDefaultFeatures(builder);
+		BiomesCommonMethods.addDefaultLandFeatures(builder);
 		BiomesCommonMethods.setDefaultColors(builder);
 		BiomesCommonMethods.addDefaultSounds(builder);
 		
@@ -91,8 +88,7 @@ public class LandBiomes {
 	
 	public static BCLBiome makePulseForestBiome() {
 		BCLBiomeBuilder builder = BCLBiomeBuilder.start(EdenRing.makeID("pulse_forest"));
-		BiomesCommonMethods.addCaves(builder);
-		BiomesCommonMethods.addDefaultFeatures(builder);
+		BiomesCommonMethods.addDefaultLandFeatures(builder);
 		BiomesCommonMethods.addDefaultSurface(builder);
 		BiomesCommonMethods.setDefaultColors(builder);
 		BiomesCommonMethods.addDefaultSounds(builder);
@@ -112,8 +108,7 @@ public class LandBiomes {
 	
 	public static BCLBiome makeBrainstormBiome() {
 		BCLBiomeBuilder builder = BCLBiomeBuilder.start(EdenRing.makeID("brainstorm"));
-		BiomesCommonMethods.addCaves(builder);
-		BiomesCommonMethods.addDefaultFeatures(builder);
+		BiomesCommonMethods.addDefaultLandFeatures(builder);
 		BiomesCommonMethods.addDefaultSurface(builder);
 		BiomesCommonMethods.setDefaultColors(builder);
 		BiomesCommonMethods.addDefaultSounds(builder);
@@ -137,8 +132,7 @@ public class LandBiomes {
 	
 	public static BCLBiome makeLakesideDesertBiome() {
 		BCLBiomeBuilder builder = BCLBiomeBuilder.start(EdenRing.makeID("lakeside_desert"));
-		BiomesCommonMethods.addCaves(builder);
-		BiomesCommonMethods.addDefaultFeatures(builder);
+		BiomesCommonMethods.addDefaultLandFeatures(builder);
 		BiomesCommonMethods.setDefaultColors(builder);
 		BiomesCommonMethods.addDefaultSounds(builder);
 		
@@ -168,8 +162,7 @@ public class LandBiomes {
 	
 	public static BCLBiome makeWindValleyBiome() {
 		BCLBiomeBuilder builder = BCLBiomeBuilder.start(EdenRing.makeID("wind_valley"));
-		BiomesCommonMethods.addCaves(builder);
-		BiomesCommonMethods.addDefaultFeatures(builder);
+		BiomesCommonMethods.addDefaultLandFeatures(builder);
 		BiomesCommonMethods.addDefaultSurface(builder);
 		BiomesCommonMethods.setDefaultColors(builder);
 		BiomesCommonMethods.addDefaultSounds(builder);

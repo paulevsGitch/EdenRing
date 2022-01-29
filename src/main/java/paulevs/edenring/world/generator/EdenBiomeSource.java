@@ -10,7 +10,6 @@ import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.biome.Climate.Sampler;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.registries.EdenBiomes;
-import paulevs.edenring.world.features.caves.EndCaveFeature;
 import ru.bclib.interfaces.BiomeMap;
 import ru.bclib.world.biomes.BCLBiome;
 import ru.bclib.world.generator.BiomePicker;
@@ -70,7 +69,6 @@ public class EdenBiomeSource extends BiomeSource {
 		mapVoid = new HexBiomeMap(lastSeed, GeneratorOptions.biomeSizeVoid, pickerVoid);
 		mapCave = new HexBiomeMap(lastSeed, GeneratorOptions.biomeSizeCave, pickerCave);
 		
-		EndCaveFeature.BIOME_SOURCE = this;
 		landCache.clear();
 	}
 	

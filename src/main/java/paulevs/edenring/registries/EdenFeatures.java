@@ -10,7 +10,6 @@ import paulevs.edenring.world.features.basic.DoubleScatterFeature;
 import paulevs.edenring.world.features.basic.FloorScatterFeature;
 import paulevs.edenring.world.features.basic.ScatterFeature;
 import paulevs.edenring.world.features.basic.SixSideScatter;
-import paulevs.edenring.world.features.caves.RoundCaveFeature;
 import paulevs.edenring.world.features.plants.AquatusFeature;
 import paulevs.edenring.world.features.plants.RootsFeature;
 import paulevs.edenring.world.features.plants.VineFeature;
@@ -125,8 +124,6 @@ public class EdenFeatures {
 	
 	public static final BCLFeature GRAVILITE_CRYSTAL = BCLCommonFeatures.makeChancedFeature(EdenRing.makeID("gravilite_crystal"), Decoration.RAW_GENERATION, new GraviliteCrystalFeature(), 100);
 	public static final BCLFeature SMALL_ISLAND = BCLCommonFeatures.makeChancedFeature(EdenRing.makeID("small_island"), Decoration.RAW_GENERATION, new SmallIslandFeature(), 50);
-	
-	public static final BCLFeature ROUND_CAVE = BCLCommonFeatures.makeChancedFeature(EdenRing.makeID("round_cave"), Decoration.RAW_GENERATION, new RoundCaveFeature(), 2);
 	
 	public static void init() {}
 }

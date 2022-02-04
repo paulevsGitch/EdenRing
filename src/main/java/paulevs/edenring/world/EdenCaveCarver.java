@@ -21,7 +21,6 @@ import paulevs.edenring.noise.VoronoiNoise;
 import paulevs.edenring.registries.EdenBlocks;
 import paulevs.edenring.world.generator.MultiThreadGenerator;
 import paulevs.edenring.world.generator.TerrainGenerator;
-import ru.bclib.sdf.operator.SDFSmoothUnion;
 import ru.bclib.util.MHelper;
 
 import java.util.Random;

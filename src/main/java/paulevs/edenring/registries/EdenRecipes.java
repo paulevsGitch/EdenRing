@@ -3,7 +3,7 @@ package paulevs.edenring.registries;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import paulevs.edenring.EdenRing;
-import ru.bclib.api.TagAPI;
+import ru.bclib.api.tag.CommonItemTags;
 import ru.bclib.complexmaterials.WoodenComplexMaterial;
 import ru.bclib.config.PathConfig;
 import ru.bclib.recipes.FurnaceRecipe;
@@ -15,9 +15,9 @@ public class EdenRecipes {
 	public static void init() {
 		GridRecipe.make(EdenRing.makeID("gravilite_block"), EdenBlocks.GRAVILITE_BLOCK).checkConfig(CONFIG).setShape("##", "##").addMaterial('#', EdenBlocks.GRAVILITE_SHARDS).build();
 		GridRecipe.make(EdenRing.makeID("gravilite_shards"), EdenBlocks.GRAVILITE_SHARDS).checkConfig(CONFIG).setList("#").addMaterial('#', EdenBlocks.GRAVILITE_BLOCK).setOutputCount(4).build();
-		GridRecipe.make(EdenRing.makeID("gravilite_lamp"), EdenBlocks.GRAVILITE_LAMP).checkConfig(CONFIG).setShape(" I ", "I#I", " I ").addMaterial('#', EdenBlocks.GRAVILITE_BLOCK).addMaterial('I', TagAPI.ITEM_IRON_INGOTS).build();
-		GridRecipe.make(EdenRing.makeID("gravilite_lantern_tall"), EdenBlocks.GRAVILITE_LANTERN_TALL).checkConfig(CONFIG).setShape("I", "#", "I").addMaterial('#', EdenBlocks.GRAVILITE_SHARDS).addMaterial('I', TagAPI.ITEM_IRON_INGOTS).build();
-		GridRecipe.make(EdenRing.makeID("gravilite_lantern"), EdenBlocks.GRAVILITE_LANTERN).checkConfig(CONFIG).setShape(" I ", "I#I", " I ").setOutputCount(2).addMaterial('#', EdenBlocks.GRAVILITE_SHARDS).addMaterial('I', TagAPI.ITEM_IRON_INGOTS).build();
+		GridRecipe.make(EdenRing.makeID("gravilite_lamp"), EdenBlocks.GRAVILITE_LAMP).checkConfig(CONFIG).setShape(" I ", "I#I", " I ").addMaterial('#', EdenBlocks.GRAVILITE_BLOCK).addMaterial('I', CommonItemTags.IRON_INGOTS).build();
+		GridRecipe.make(EdenRing.makeID("gravilite_lantern_tall"), EdenBlocks.GRAVILITE_LANTERN_TALL).checkConfig(CONFIG).setShape("I", "#", "I").addMaterial('#', EdenBlocks.GRAVILITE_SHARDS).addMaterial('I', CommonItemTags.IRON_INGOTS).build();
+		GridRecipe.make(EdenRing.makeID("gravilite_lantern"), EdenBlocks.GRAVILITE_LANTERN).checkConfig(CONFIG).setShape(" I ", "I#I", " I ").setOutputCount(2).addMaterial('#', EdenBlocks.GRAVILITE_SHARDS).addMaterial('I', CommonItemTags.IRON_INGOTS).build();
 		
 		GridRecipe
 			.make(EdenRing.makeID("baloon_mushroom_block"), EdenBlocks.BALLOON_MUSHROOM_MATERIAL.getBlock(WoodenComplexMaterial.BLOCK_LOG))
@@ -42,7 +42,7 @@ public class EdenRecipes {
 			.setShape("IPI", "###", "RCR")
 			.addMaterial('#', EdenBlocks.GRAVILITE_BLOCK)
 			.addMaterial('P', Blocks.PISTON)
-			.addMaterial('I', TagAPI.ITEM_IRON_INGOTS)
+			.addMaterial('I', CommonItemTags.IRON_INGOTS)
 			.addMaterial('C', Items.COPPER_INGOT)
 			.addMaterial('R', Items.REDSTONE)
 			.build();

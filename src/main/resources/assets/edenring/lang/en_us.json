@@ -112,5 +112,15 @@
 	"block.edenring.aquatus_sapling": "Aquatus Sapling",
 	"block.edenring.gravity_compressor": "Gravity Compressor",
 	"block.edenring.lonlix": "Lonlix",
-	"item.edenring.guide_book": "Encyclopedia Of Eden"
+	"item.edenring.guide_book": "Encyclopedia Of Eden",
+
+	"biome.edenring.air_ocean": "Air Ocean",
+	"biome.edenring.sky_colony": "Sky Colony",
+	"block.edenring.parignum": "Parignum",
+	"block.edenring.symbiotic_mold": "Symbiotic Mold",
+	"block.edenring.symbiotic_mold_emissive": "Emissive Symbiotic Mold",
+	"block.edenring.volvox_block": "Volvox Block",
+	"block.edenring.volvox_block_dense": "Dense Volvox Block",
+	"entity.edenring.diskwing": "Diskwing",
+	"item.edenring.spawn_egg_diskwing": "Diskwing Spawn Egg"
 }

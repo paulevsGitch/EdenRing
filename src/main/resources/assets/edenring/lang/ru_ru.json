@@ -112,5 +112,15 @@
 	"block.edenring.aquatus_sapling": "Саженец акватуса",
 	"block.edenring.gravity_compressor": "Гравитационный компрессор",
 	"block.edenring.lonlix": "Лонликс",
-	"item.edenring.guide_book": "Энциклопедия Эдена"
+	"item.edenring.guide_book": "Энциклопедия Эдена",
+	
+	"biome.edenring.air_ocean": "Воздушный океан",
+	"biome.edenring.sky_colony": "Небесная колония",
+	"block.edenring.parignum": "Паригнум",
+	"block.edenring.symbiotic_mold": "Симбиотический слизневик",
+	"block.edenring.symbiotic_mold_emissive": "Светящийся симбиотический слизневик",
+	"block.edenring.volvox_block": "Блок вольвокса",
+	"block.edenring.volvox_block_dense": "Плотный блок вольвокса",
+	"entity.edenring.diskwing": "Дискокрыл",
+	"item.edenring.spawn_egg_diskwing": "Яйцо призыва дискокрыла"
 }

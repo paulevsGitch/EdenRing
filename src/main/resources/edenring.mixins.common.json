@@ -10,6 +10,7 @@
 		"LightningBoltMixin",
 		"ShovelItemAccessor",
 		"NoiseChunkAccessor",
+		"EatBlockGoalMixin",
 		"LivingEntityMixin",
 		"NoiseSamplerMixin",
 		"ServerLevelMixin",

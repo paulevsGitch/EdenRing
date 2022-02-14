@@ -71,15 +71,15 @@ public class EdenSkyRenderer implements SkyRenderer {
 			nebula = new VertexBuffer[3];
 		}
 		
-		horizon[0] = buildBufferHorizon(bufferBuilder, horizon[0], 20);
-		horizon[1] = buildBufferHorizon(bufferBuilder, horizon[1], 40);
-		horizon[2] = buildBufferHorizon(bufferBuilder, horizon[2], 100);
+		horizon[0] = buildBufferCylinder(bufferBuilder, horizon[0], 20);
+		horizon[1] = buildBufferCylinder(bufferBuilder, horizon[1], 40);
+		horizon[2] = buildBufferCylinder(bufferBuilder, horizon[2], 100);
 		
-		nebula[0] = buildBufferHorizon(bufferBuilder, nebula[0], 30);
-		nebula[1] = buildBufferStars(bufferBuilder, nebula[1], 20, 60, 10, 1, 235);
-		nebula[2] = buildBufferStars(bufferBuilder, nebula[2], 20, 60, 10, 1, 352);
+		nebula[0] = buildBufferCylinder(bufferBuilder, nebula[0], 30);
+		nebula[1] = buildBufferSquares(bufferBuilder, nebula[1], 20, 60, 10, 1, 235);
+		nebula[2] = buildBufferSquares(bufferBuilder, nebula[2], 20, 60, 10, 1, 352);
 		
-		stars = buildBufferStars(bufferBuilder, stars, 0.1, 0.7, 5000, 4, 41315);
+		stars = buildBufferSquares(bufferBuilder, stars, 0.125, 0.875, 5000, 4, 41315);
 		
 		Random random = new Random(0);
 		for (int i = 0; i < MOONS.length; i++) {
@@ -182,7 +182,7 @@ public class EdenSkyRenderer implements SkyRenderer {
 		poseStack.mulPose(Vector3f.YP.rotation((float) Math.PI * 0.5F - dayTime * (float) Math.PI * 2.0F));
 		
 		RenderSystem.setShaderTexture(0, STARS);
-		renderBuffer(poseStack, projectionMatrix, stars, DefaultVertexFormat.POSITION_TEX, 1.0F, 1.0F, 1.0F, skyBlend * 0.5F + 0.5F);
+		renderBuffer(poseStack, projectionMatrix, stars, DefaultVertexFormat.POSITION_TEX, 1.0F, 1.0F, 1.0F, skyBlend * 0.25F + 0.75F);
 		
 		float nebulaBlend = skyBlend * 0.75F + 0.25F;
 		float nebulaBlend2 = nebulaBlend * 0.15F;
@@ -276,7 +276,7 @@ public class EdenSkyRenderer implements SkyRenderer {
 		
 		for (int i = 0; i < MOONS.length; i++) {
 			MoonInfo moon = MOONS[i];
-			double position = (moon.orbitState + dayTime) * moon.speed;
+			double position = moon.orbitState + dayTime * moon.speed;
 			renderMoon(poseStack, position, moon.orbitRadius, moon.orbitAngle, moon.size, v0, v1, moon.color);
 		}
 		
@@ -306,7 +306,7 @@ public class EdenSkyRenderer implements SkyRenderer {
 			RenderSystem.disableDepthTest();
 			RenderSystem.setShaderTexture(0, HORIZON_BW);
 			
-			if (BackgroundInfo.fogDensity > 1) {
+			if (BackgroundInfo.fogDensity > 1.5F) {
 				float density = Mth.clamp(BackgroundInfo.fogDensity - 1.5F, 0, 1);
 				poseStack.pushPose();
 				poseStack.mulPose(Vector3f.YP.rotation((float) (-time * 0.00003)));
@@ -393,7 +393,7 @@ public class EdenSkyRenderer implements SkyRenderer {
 		RenderSystem.enableCull();
 	}
 	
-	private VertexBuffer buildBufferHorizon(BufferBuilder bufferBuilder, VertexBuffer buffer, double height) {
+	private VertexBuffer buildBufferCylinder(BufferBuilder bufferBuilder, VertexBuffer buffer, double height) {
 		if (buffer != null) {
 			buffer.close();
 		}
@@ -436,7 +436,7 @@ public class EdenSkyRenderer implements SkyRenderer {
 		}
 	}
 	
-	private VertexBuffer buildBufferStars(BufferBuilder bufferBuilder, VertexBuffer buffer, double minSize, double maxSize, int count, int verticalCount, long seed) {
+	private VertexBuffer buildBufferSquares(BufferBuilder bufferBuilder, VertexBuffer buffer, double minSize, double maxSize, int count, int verticalCount, long seed) {
 		if (buffer != null) {
 			buffer.close();
 		}

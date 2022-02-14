@@ -9,6 +9,7 @@ import paulevs.edenring.EdenRing;
 import paulevs.edenring.registries.EdenBlocks;
 import paulevs.edenring.registries.EdenFeatures;
 import paulevs.edenring.registries.EdenParticles;
+import paulevs.edenring.registries.EdenSounds;
 import ru.bclib.api.biomes.BCLBiomeBuilder;
 import ru.bclib.api.surface.SurfaceRuleBuilder;
 import ru.bclib.world.biomes.BCLBiome;
@@ -47,6 +48,7 @@ public class LandBiomes {
 			.plantsColor(255, 174, 100)
 			.skyColor(113, 178, 255)
 			.fogColor(183, 212, 255)
+			.loop(EdenSounds.AMBIENCE_GOLDEN_FOREST)
 			.feature(Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_FOREST)
 			.feature(Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_TALL_GRASS)
 			.feature(Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_LARGE_FERN)
@@ -77,6 +79,7 @@ public class LandBiomes {
 			.foliageColor(152, 90, 131)
 			.skyColor(113, 178, 255)
 			.fogColor(178, 112, 143)
+			.loop(EdenSounds.AMBIENCE_MYCOTIC_FOREST)
 			.feature(Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_FOREST)
 			.feature(EdenFeatures.MYCOTIC_GRASS)
 			.feature(EdenFeatures.BALLOON_MUSHROOM_TREE)
@@ -97,6 +100,7 @@ public class LandBiomes {
 			.skyColor(113, 178, 255)
 			.fogColor(115, 235, 242)
 			.plantsColor(121, 238, 248)
+			.loop(EdenSounds.AMBIENCE_PULSE_FOREST)
 			.feature(Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_FOREST)
 			.feature(Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_TALL_GRASS)
 			.feature(Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_LARGE_FERN)
@@ -118,6 +122,7 @@ public class LandBiomes {
 			.skyColor(113, 178, 255)
 			.fogColor(180, 180, 180)
 			.plantsColor(200, 200, 200)
+			.loop(EdenSounds.AMBIENCE_BRAINSTORM)
 			.feature(Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_FOREST)
 			.feature(Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_TALL_GRASS)
 			.feature(EdenFeatures.IRON_GRASS)
@@ -151,6 +156,7 @@ public class LandBiomes {
 			.fogColor(237, 235, 203)
 			.grassColor(246, 222, 173)
 			.foliageColor(247, 165, 115)
+			.loop(EdenSounds.AMBIENCE_LAKESIDE_DESSERT)
 			.feature(Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_FOREST)
 			.feature(Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_DEAD_BUSH_2)
 			.feature(Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_DEAD_BUSH)
@@ -172,6 +178,7 @@ public class LandBiomes {
 			.fogColor(183, 212, 255)
 			.grassColor(225, 84, 72)
 			.foliageColor(230, 63, 50)
+			.loop(EdenSounds.AMBIENCE_WIND_VALLEY)
 			.particles(EdenParticles.WIND_PARTICLE, 0.001F)
 			.feature(Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_FOREST)
 			.feature(EdenFeatures.VIOLUM_RARE)

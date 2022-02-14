@@ -44,5 +44,66 @@
 				"stream": true
 			}
 		]
+	},
+	
+	"edenring.ambience.golden_forest": {
+		"category": "ambience",
+		"sounds": [
+			{
+				"name": "edenring:ambience/y3z0n-golden_forest",
+				"volume": 1.0,
+				"stream": true
+			}
+		]
+	},
+	"edenring.ambience.mycotic_forest": {
+		"category": "ambience",
+		"sounds": [
+			{
+				"name": "edenring:ambience/y3z0n-mycotic_forest",
+				"volume": 1.0,
+				"stream": true
+			}
+		]
+	},
+	"edenring.ambience.lakeside_dessert": {
+		"category": "ambience",
+		"sounds": [
+			{
+				"name": "edenring:ambience/y3z0n-lakeside_dessert",
+				"volume": 1.0,
+				"stream": true
+			}
+		]
+	},
+	"edenring.ambience.brainstorm": {
+		"category": "ambience",
+		"sounds": [
+			{
+				"name": "edenring:ambience/y3z0n-brainstorm",
+				"volume": 1.0,
+				"stream": true
+			}
+		]
+	},
+	"edenring.ambience.pulse_forest": {
+		"category": "ambience",
+		"sounds": [
+			{
+				"name": "edenring:ambience/y3z0n-pulse_forest",
+				"volume": 1.0,
+				"stream": true
+			}
+		]
+	},
+	"edenring.ambience.wind_valley": {
+		"category": "ambience",
+		"sounds": [
+			{
+				"name": "edenring:ambience/y3z0n-wind_valley",
+				"volume": 1.0,
+				"stream": true
+			}
+		]
 	}
 }

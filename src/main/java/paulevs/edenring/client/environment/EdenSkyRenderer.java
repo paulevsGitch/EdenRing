@@ -21,7 +21,9 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.CubicSampler;
 import net.minecraft.util.Mth;
+import net.minecraft.world.level.biome.BiomeManager;
 import net.minecraft.world.phys.Vec3;
 import org.lwjgl.opengl.GL11;
 import paulevs.edenring.EdenRing;
@@ -139,7 +141,7 @@ public class EdenSkyRenderer implements SkyRenderer {
 		
 		// Get Sky Color //
 		
-		Vec3 skyColor = level.getSkyColor(minecraft.gameRenderer.getMainCamera().getPosition(), tickDelta);
+		Vec3 skyColor = getSkyColor(minecraft.gameRenderer.getMainCamera().getPosition(), tickDelta, level);
 		float skyR = Mth.lerp(skyBlend, (float) skyColor.x * 0.5F, 0);
 		float skyG = Mth.lerp(skyBlend, (float) skyColor.y * 0.5F, 0);
 		float skyB = Mth.lerp(skyBlend, (float) skyColor.z * 0.5F, 0);
@@ -156,6 +158,7 @@ public class EdenSkyRenderer implements SkyRenderer {
 		
 		// Render Background //
 		
+		RenderSystem.clearColor(skyR, skyG, skyB, 1.0F);
 		RenderSystem.setShaderColor(skyR, skyG, skyB, 1.0F);
 		RenderSystem.setShader(GameRenderer::getPositionShader);
 		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION);
@@ -513,5 +516,17 @@ public class EdenSkyRenderer implements SkyRenderer {
 		BufferUploader.end(bufferBuilder);
 		
 		matrices.popPose();
+	}
+	
+	private Vec3 getSkyColor(Vec3 pos, float tickDelta, ClientLevel level) {
+		Vec3 samplePos = pos.subtract(2.0, 2.0, 2.0).scale(0.25);
+		BiomeManager biomeManager = level.getBiomeManager();
+		Vec3 color = CubicSampler.gaussianSampleVec3(
+			samplePos,
+			(i, j, k) -> Vec3.fromRGB24(biomeManager.getNoiseBiomeAtQuart(i, j, k).getSkyColor())
+		);
+		float light = Mth.cos(level.getTimeOfDay(tickDelta) * MHelper.PI2) * 2.0F + 0.5F;
+		light = Mth.clamp(light, 0.0f, 1.0f);
+		return color.multiply(light, light, light);
 	}
 }

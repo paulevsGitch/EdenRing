@@ -1,11 +1,10 @@
 package paulevs.edenring.world.biomes;
 
+import net.minecraft.data.worldgen.placement.CavePlacements;
 import net.minecraft.data.worldgen.placement.OrePlacements;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.levelgen.GenerationStep.Carving;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
 import paulevs.edenring.registries.EdenBlocks;
-import paulevs.edenring.registries.EdenCarvers;
 import paulevs.edenring.registries.EdenFeatures;
 import paulevs.edenring.registries.EdenSounds;
 import ru.bclib.api.biomes.BCLBiomeBuilder;
@@ -14,10 +13,11 @@ import ru.bclib.api.surface.SurfaceRuleBuilder;
 public class BiomesCommonMethods {
 	public static void addDefaultLandFeatures(BCLBiomeBuilder builder) {
 		builder
-			.carver(Carving.AIR, EdenCarvers.CAVE_CONFIGURED)
+			//.carver(Carving.AIR, EdenCarvers.CAVE_CONFIGURED)
 			.feature(EdenFeatures.SLATE_LAYER)
 			.feature(EdenFeatures.CALCITE_LAYER)
 			.feature(EdenFeatures.TUFF_LAYER)
+			.feature(Decoration.UNDERGROUND_DECORATION, CavePlacements.AMETHYST_GEODE)
 			.feature(Decoration.UNDERGROUND_DECORATION, OrePlacements.ORE_GRANITE_UPPER)
 			.feature(Decoration.UNDERGROUND_DECORATION, OrePlacements.ORE_ANDESITE_UPPER)
 			.feature(Decoration.UNDERGROUND_DECORATION, OrePlacements.ORE_DIORITE_UPPER)

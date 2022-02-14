@@ -16,6 +16,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.interfaces.TargetChecker;
+import paulevs.edenring.world.generator.CaveGenerator;
 import paulevs.edenring.world.generator.MultiThreadGenerator;
 
 import java.util.List;
@@ -28,6 +29,7 @@ public class ServerLevelMixin {
 		ServerLevel level = ServerLevel.class.cast(this);
 		if (level.dimension().equals(EdenRing.EDEN_RING_KEY)) {
 			MultiThreadGenerator.init(seed, chunkGenerator.climateSampler(), chunkGenerator.getBiomeSource());
+			CaveGenerator.init(seed);
 			TargetChecker.class.cast(chunkGenerator.climateSampler()).setTarget(true);
 		}
 	}

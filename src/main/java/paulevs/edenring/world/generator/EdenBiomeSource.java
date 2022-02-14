@@ -1,5 +1,6 @@
 package paulevs.edenring.world.generator;
 
+import com.google.common.collect.Maps;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Registry;
@@ -16,7 +17,6 @@ import ru.bclib.world.generator.BiomePicker;
 import ru.bclib.world.generator.map.hex.HexBiomeMap;
 
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 public class EdenBiomeSource extends BiomeSource {
@@ -26,7 +26,7 @@ public class EdenBiomeSource extends BiomeSource {
 		)).apply(instance, instance.stable(EdenBiomeSource::new))
 	);
 	
-	private final Map<ChunkPos, LandCache> landCache = new ConcurrentHashMap<>();
+	private final Map<ChunkPos, Biome> biomeCache = Maps.newConcurrentMap();
 	private final Registry<Biome> biomeRegistry;
 	private BiomePicker pickerLand;
 	private BiomePicker pickerVoid;
@@ -68,8 +68,6 @@ public class EdenBiomeSource extends BiomeSource {
 		mapLand = new HexBiomeMap(lastSeed, GeneratorOptions.biomeSizeLand, pickerLand);
 		mapVoid = new HexBiomeMap(lastSeed, GeneratorOptions.biomeSizeVoid, pickerVoid);
 		mapCave = new HexBiomeMap(lastSeed, GeneratorOptions.biomeSizeCave, pickerCave);
-		
-		landCache.clear();
 	}
 	
 	@Override
@@ -85,10 +83,12 @@ public class EdenBiomeSource extends BiomeSource {
 	@Override
 	public Biome getNoiseBiome(int x, int y, int z, Sampler sampler) {
 		cleanCache(x, z);
-		if (isLand(x, z)) {
-			return getLandBiome(x, z).getActualBiome();
-		}
-		return getVoidBiome(x, z).getActualBiome();
+		return biomeCache.computeIfAbsent(new ChunkPos(x, z), i -> {
+			if (isLand(x, z)) {
+				return getLandBiome(x, z).getActualBiome();
+			}
+			return getVoidBiome(x, z).getActualBiome();
+		});
 	}
 	
 	public BCLBiome getCaveBiome(int x, int z) {
@@ -112,7 +112,7 @@ public class EdenBiomeSource extends BiomeSource {
 			mapLand = new HexBiomeMap(lastSeed, GeneratorOptions.biomeSizeLand, pickerLand);
 			mapVoid = new HexBiomeMap(lastSeed, GeneratorOptions.biomeSizeVoid, pickerVoid);
 			mapCave = new HexBiomeMap(lastSeed, GeneratorOptions.biomeSizeCave, pickerCave);
-			landCache.clear();
+			biomeCache.clear();
 		}
 	}
 	
@@ -121,14 +121,15 @@ public class EdenBiomeSource extends BiomeSource {
 			mapLand.clearCache();
 			mapVoid.clearCache();
 			mapCave.clearCache();
+			biomeCache.clear();
 		}
 	}
 	
 	private boolean isLand(int x, int z) {
 		boolean result = false;
-		double[] data = new double[32];
+		float[] data = new float[32];
 		TerrainGenerator generator = MultiThreadGenerator.getBiomeGenerator();
-		generator.fillTerrainDensity(data, x << 2 | 2, z << 2 | 2, 4, 8, true);
+		generator.fillTerrainDensity(data, x << 2 | 2, z << 2 | 2, 4, 8);
 		for (byte py = 0; py < data.length; py++) {
 			if (data[py] > -0.3F) {
 				result = true;

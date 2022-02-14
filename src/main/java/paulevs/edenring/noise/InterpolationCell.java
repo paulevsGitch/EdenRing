@@ -43,7 +43,7 @@ public class InterpolationCell {
 				pos.setZ(origin.getZ() + z * dxz);
 				for (int y = 0; y < height; y++) {
 					pos.setY(origin.getY() + y * dy);
-					generator.fillTerrainDensity(this.data[x][z], pos.getX(), pos.getZ(), dxz, dy, false);
+					generator.fillTerrainDensity(this.data[x][z], pos.getX(), pos.getZ(), dxz, dy);
 				}
 			}
 		}

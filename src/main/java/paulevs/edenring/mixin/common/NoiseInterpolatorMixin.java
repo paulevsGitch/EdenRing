@@ -36,7 +36,7 @@ public class NoiseInterpolatorMixin {
 		TerrainGenerator generator = MultiThreadGenerator.getTerrainGenerator();
 		for (int cellXZ = 0; cellXZ < cellsXZ; ++cellXZ) {
 			int z = (firstCellZ + cellXZ) * sizeXZ;
-			generator.fillTerrainDensity(data[cellXZ], x, z, sizeXZ, sizeY, false);
+			generator.fillTerrainDensity(data[cellXZ], x, z, sizeXZ, sizeY);
 		}
 		
 		info.cancel();

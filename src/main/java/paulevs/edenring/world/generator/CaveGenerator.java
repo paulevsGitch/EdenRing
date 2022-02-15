@@ -43,6 +43,8 @@ public class CaveGenerator {
 	}
 	
 	public static void carve(ChunkAccess chunkAccess) {
+		if (true) return;
+		
 		int minX = chunkAccess.getPos().getMinBlockX();
 		int minZ = chunkAccess.getPos().getMinBlockZ();
 		int minY = chunkAccess.getMinBuildHeight();
@@ -83,6 +85,7 @@ public class CaveGenerator {
 							average += accumulation[i];
 						}
 						noise = (noise + (average / accumulation.length)) * 0.5F;
+						
 						float cellValue = cell.get(pos, true);
 						float bigCave = getBigCaveNoise(posWorld, cellValue);
 						noise = -smoothUnion(-noise, -bigCave, 1.2F);

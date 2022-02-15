@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import paulevs.edenring.interfaces.TargetChecker;
+import paulevs.edenring.interfaces.EdenTargetChecker;
 import paulevs.edenring.world.generator.MultiThreadGenerator;
 import paulevs.edenring.world.generator.TerrainGenerator;
 
@@ -21,7 +21,7 @@ public class NoiseInterpolatorMixin {
 	@Inject(method = "fillSlice", at = @At("HEAD"), cancellable = true)
 	private void eden_fillSlice(double[][] data, int x, CallbackInfo info) {
 		NoiseChunkAccessor accessor = NoiseChunkAccessor.class.cast(this$0);
-		if (!TargetChecker.class.cast(accessor.eden_getSampler()).isTarget()) {
+		if (!EdenTargetChecker.class.cast(accessor.eden_getSampler()).eden_isTarget()) {
 			return;
 		}
 		NoiseSettings noiseSettings = accessor.eden_getNoiseSettings();
@@ -33,10 +33,11 @@ public class NoiseInterpolatorMixin {
 		
 		x *= sizeXZ;
 		
+		float[] floatBuffer = new float[data[0].length];
 		TerrainGenerator generator = MultiThreadGenerator.getTerrainGenerator();
 		for (int cellXZ = 0; cellXZ < cellsXZ; ++cellXZ) {
 			int z = (firstCellZ + cellXZ) * sizeXZ;
-			generator.fillTerrainDensity(data[cellXZ], x, z, sizeXZ, sizeY);
+			generator.fillTerrainDensity(data[cellXZ], x, z, sizeXZ, sizeY, floatBuffer);
 		}
 		
 		info.cancel();

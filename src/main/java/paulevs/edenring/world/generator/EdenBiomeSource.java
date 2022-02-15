@@ -26,7 +26,6 @@ public class EdenBiomeSource extends BiomeSource {
 		)).apply(instance, instance.stable(EdenBiomeSource::new))
 	);
 	
-	private final Map<ChunkPos, Biome> biomeCache = Maps.newConcurrentMap();
 	private final Registry<Biome> biomeRegistry;
 	private BiomePicker pickerLand;
 	private BiomePicker pickerVoid;
@@ -83,12 +82,10 @@ public class EdenBiomeSource extends BiomeSource {
 	@Override
 	public Biome getNoiseBiome(int x, int y, int z, Sampler sampler) {
 		cleanCache(x, z);
-		return biomeCache.computeIfAbsent(new ChunkPos(x, z), i -> {
-			if (isLand(x, z)) {
-				return getLandBiome(x, z).getActualBiome();
-			}
-			return getVoidBiome(x, z).getActualBiome();
-		});
+		if (isLand(x, z)) {
+			return getLandBiome(x, z).getActualBiome();
+		}
+		return getVoidBiome(x, z).getActualBiome();
 	}
 	
 	public BCLBiome getCaveBiome(int x, int z) {
@@ -112,7 +109,6 @@ public class EdenBiomeSource extends BiomeSource {
 			mapLand = new HexBiomeMap(lastSeed, GeneratorOptions.biomeSizeLand, pickerLand);
 			mapVoid = new HexBiomeMap(lastSeed, GeneratorOptions.biomeSizeVoid, pickerVoid);
 			mapCave = new HexBiomeMap(lastSeed, GeneratorOptions.biomeSizeCave, pickerCave);
-			biomeCache.clear();
 		}
 	}
 	
@@ -121,7 +117,6 @@ public class EdenBiomeSource extends BiomeSource {
 			mapLand.clearCache();
 			mapVoid.clearCache();
 			mapCave.clearCache();
-			biomeCache.clear();
 		}
 	}
 	

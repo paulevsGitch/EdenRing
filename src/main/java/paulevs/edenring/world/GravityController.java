@@ -6,10 +6,12 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import paulevs.edenring.registries.EdenBlocks;
+import ru.bclib.util.MHelper;
 
 public class GravityController {
 	public static double getGravityMultiplier(double y) {
-		return Mth.lerp(Math.abs(y - 128.0) * 0.007, 1.0, 0.2);
+		double gravity = Mth.lerp(Math.abs(y - 128.0) * 0.007, 1.0, 0.2);
+		return y > 256 ? Math.max(gravity, 0.2) : gravity;
 	}
 	
 	public static double getGraviliteMultiplier(Entity entity) {

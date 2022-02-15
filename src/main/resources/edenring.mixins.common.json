@@ -6,6 +6,7 @@
 	"mixins": [
 		"NoiseBasedChunkGeneratorMixin",
 		"AmethystClusterBlockMixin",
+		"ChunkGeneratorAccessor",
 		"FlintAndSteelItemMixin",
 		"NoiseInterpolatorMixin",
 		"LightningBoltMixin",

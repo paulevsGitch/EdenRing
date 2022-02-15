@@ -36,8 +36,7 @@ public class TerrainGenerator {
 		this.sampler = sampler;
 	}
 	
-	public void fillTerrainDensity(double[] buffer, int posX, int posZ, double scaleXZ, double scaleY) {
-		float[] floatBuffer = new float[buffer.length];
+	public void fillTerrainDensity(double[] buffer, int posX, int posZ, double scaleXZ, double scaleY, float[] floatBuffer) {
 		fillTerrainDensity(floatBuffer, posX, posZ, scaleXZ, scaleY);
 		for (short i = 0; i < buffer.length; i++) {
 			buffer[i] = floatBuffer[i];
@@ -63,33 +62,8 @@ public class TerrainGenerator {
 			float dist = largeIslands.getDensity(px, py, pz);
 			dist = dist > 1 ? dist : MHelper.max(dist, mediumIslands.getDensity(px, py, pz));
 			dist = dist > 1 ? dist : MHelper.max(dist, smallIslands.getDensity(px, py, pz));
-			/*if (!fast && dist > -0.5F) {
-				dist += noise1.eval(px * 0.01, py * 0.01, pz * 0.01) * 0.02 + 0.02;
-				dist += noise2.eval(px * 0.05, py * 0.05, pz * 0.05) * 0.01 + 0.01;
-				dist += noise1.eval(px * 0.1, py * 0.1, pz * 0.1) * 0.005 + 0.005;
-			}*/
 			buffer[y] = dist;
 		}
-	}
-	
-	private float getAverageDepth(int x, int z) {
-		if (getBiome(x, z).getTerrainHeight() < 0.1F) {
-			return 0F;
-		}
-		float depth = 0F;
-		for (int i = 0; i < OFFS.length; i++) {
-			int px = x + OFFS[i].x;
-			int pz = z + OFFS[i].y;
-			depth += getBiome(px, pz).getTerrainHeight() * COEF[i];
-		}
-		return depth;
-	}
-	
-	private BCLBiome getBiome(int x, int z) {
-		if (biomeSource instanceof EdenBiomeSource) {
-			return EdenBiomeSource.class.cast(biomeSource).getLandBiome(x, z);
-		}
-		return BiomeAPI.getBiome(biomeSource.getNoiseBiome(x, 0, z, sampler));
 	}
 	
 	static {

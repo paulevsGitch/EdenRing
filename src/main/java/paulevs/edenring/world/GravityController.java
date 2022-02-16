@@ -6,7 +6,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import paulevs.edenring.registries.EdenBlocks;
-import ru.bclib.util.MHelper;
 
 public class GravityController {
 	public static double getGravityMultiplier(double y) {

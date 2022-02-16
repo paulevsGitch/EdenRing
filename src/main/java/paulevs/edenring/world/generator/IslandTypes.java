@@ -3,7 +3,8 @@ package paulevs.edenring.world.generator;
 import com.google.common.collect.ImmutableList.Builder;
 import ru.bclib.noise.OpenSimplexNoise;
 import ru.bclib.sdf.SDF;
-import ru.bclib.sdf.operator.SDFInvert;
+import ru.bclib.sdf.operator.SDFCoordModify;
+import ru.bclib.sdf.operator.SDFDisplacement;
 import ru.bclib.sdf.operator.SDFScale;
 import ru.bclib.sdf.operator.SDFScale3D;
 import ru.bclib.sdf.operator.SDFSmoothUnion;
@@ -84,37 +85,28 @@ public class IslandTypes {
 				scale = 30 * scale / options.scale;
 			}
 			
-			float distance = scale * 0.6F;
-			byte count = (byte) MHelper.randRange(3, 5, random);
-			float offset = random.nextFloat() * MHelper.PI2;
-			
 			SDF island = new SDFScale().setScale(scale).setSource(defaultIsland);
 			
-			for (byte i = 0; i < count; i++) {
-				float angle = (float) i / count * MHelper.PI2 + offset;
-				float px = (float) Math.sin(angle) * distance;
-				float pz = (float) Math.cos(angle) * distance;
-				SDF part = new SDFScale().setScale(scale * MHelper.randRange(0.3F, 0.6F, random)).setSource(defaultIsland);
-				part = new SDFTranslate().setTranslate(px, MHelper.randRange(-0.25F, 0.25F, random) * distance, pz).setSource(part);
-				island = new SDFUnion().setSourceA(island).setSourceB(part);
+			if (options.scale > 35) {
+				float distance = scale * 0.6F;
+				float offset = random.nextFloat() * MHelper.PI2;
+				byte count = (byte) MHelper.randRange(3, 5, random);
+				for (byte i = 0; i < count; i++) {
+					float angle = (float) i / count * MHelper.PI2 + offset;
+					float px = (float) Math.sin(angle) * distance;
+					float pz = (float) Math.cos(angle) * distance;
+					SDF part = new SDFScale().setScale(scale * MHelper.randRange(0.3F, 0.6F, random)).setSource(defaultIsland);
+					part = new SDFTranslate().setTranslate(px, MHelper.randRange(-0.25F, 0.25F, random) * distance, pz).setSource(part);
+					island = new SDFUnion().setSourceA(island).setSourceB(part);
+				}
 			}
 			
 			final OpenSimplexNoise noise1 = new OpenSimplexNoise(random.nextInt());
-			final OpenSimplexNoise noise2 = new OpenSimplexNoise(random.nextInt());
-			final float scale1 = options.scale * 0.125F;
-			final float scale2 = options.scale * 0.25F;
-			island = new SDFCoordModify().setFunction(pos -> {
-				float x1 = pos.x() * scale1;
-				float z1 = pos.z() * scale1;
-				float x2 = pos.x() * scale2;
-				float z2 = pos.z() * scale2;
-				
-				float dx = (float) noise1.eval(x1, z1) * 10 + (float) noise2.eval(x2, z2) * 5;
-				float dy = (float) noise1.eval(z1, x1) * 10 + (float) noise2.eval(z2, x2) * 5;
-				float dz = (float) noise2.eval(x1, z1) * 10 + (float) noise1.eval(x2, z2) * 5;
-				
-				pos.set(pos.x() + dx / options.scale, pos.y() + dy / options.scale, pos.z() + dz / options.scale);
-			}).setSource(island);
+			float scale1 = 0.5F * options.scale;
+			float scale2 = 20F / options.scale;
+			island = new SDFDisplacement()
+				.setFunction(pos -> (float) noise1.eval(pos.x() * scale1, pos.y() * scale1, pos.z() * scale1) * scale2)
+				.setSource(island);
 			
 			return island;
 		};
@@ -132,8 +124,6 @@ public class IslandTypes {
 		SDF coneTop = new SDFSmoothUnion().setRadius(0.02F).setSourceA(cone3).setSourceB(cone4);
 		final SDF merged = new SDFSmoothUnion().setRadius(0.02F).setSourceA(coneTop).setSourceB(coneBottom);
 		final SDF mountain = new SDFSmoothUnion().setRadius(0.02F).setSourceA(cone5).setSourceB(cone6);
-		
-		//final SDF defaultIsland = new SDFSmoothUnion().setRadius(0.02F).setSourceA(merged).setSourceB(mountain);
 		
 		return (options, random) -> {
 			final OpenSimplexNoise noise1 = new OpenSimplexNoise(random.nextInt());
@@ -178,7 +168,6 @@ public class IslandTypes {
 				pos.set(pos.x() + dx / options.scale, pos.y() + dy / options.scale, pos.z() + dz / options.scale);
 			}).setSource(islandTop);
 			
-			//return island;
 			return new SDFSmoothUnion().setRadius(0.02F).setSourceA(islandBottom).setSourceB(islandTop);
 		};
 	}

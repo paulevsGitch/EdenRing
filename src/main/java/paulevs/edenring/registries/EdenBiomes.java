@@ -43,9 +43,9 @@ public class EdenBiomes {
 	public static void init() {
 		CONFIG.saveChanges();
 		// TODO remove fix when it will be implemented in BCLib
-		BIOMES_LAND.forEach(biome -> addStepFeaturesToBiome(biome));
-		BIOMES_VOID.forEach(biome -> addStepFeaturesToBiome(biome));
-		BIOMES_CAVE.forEach(biome -> addStepFeaturesToBiome(biome));
+		//BIOMES_LAND.forEach(biome -> addStepFeaturesToBiome(biome));
+		//BIOMES_VOID.forEach(biome -> addStepFeaturesToBiome(biome));
+		//BIOMES_CAVE.forEach(biome -> addStepFeaturesToBiome(biome));
 	}
 	
 	private static BCLBiome registerLand(BCLBiome biome) {

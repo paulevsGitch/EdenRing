@@ -1,11 +1,9 @@
 package paulevs.edenring.world.generator;
 
-import com.google.common.collect.Maps;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.RegistryLookupCodec;
-import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.biome.Climate.Sampler;
@@ -33,7 +31,6 @@ public class EdenBiomeSource extends BiomeSource {
 	private BiomeMap mapLand;
 	private BiomeMap mapVoid;
 	private BiomeMap mapCave;
-	private long lastSeed;
 	
 	public EdenBiomeSource(Registry<Biome> biomeRegistry) {
 		super(biomeRegistry
@@ -58,15 +55,13 @@ public class EdenBiomeSource extends BiomeSource {
 			pickerCave.rebuild();
 		}
 		
-		lastSeed = MultiThreadGenerator.getSeed();
-		
 		pickerLand.getBiomes().forEach(biome -> biome.updateActualBiomes(biomeRegistry));
 		pickerVoid.getBiomes().forEach(biome -> biome.updateActualBiomes(biomeRegistry));
 		pickerCave.getBiomes().forEach(biome -> biome.updateActualBiomes(biomeRegistry));
 		
-		mapLand = new HexBiomeMap(lastSeed, GeneratorOptions.biomeSizeLand, pickerLand);
-		mapVoid = new HexBiomeMap(lastSeed, GeneratorOptions.biomeSizeVoid, pickerVoid);
-		mapCave = new HexBiomeMap(lastSeed, GeneratorOptions.biomeSizeCave, pickerCave);
+		mapLand = new HexBiomeMap(0, GeneratorOptions.biomeSizeLand, pickerLand);
+		mapVoid = new HexBiomeMap(0, GeneratorOptions.biomeSizeVoid, pickerVoid);
+		mapCave = new HexBiomeMap(0, GeneratorOptions.biomeSizeCave, pickerCave);
 	}
 	
 	@Override
@@ -83,33 +78,19 @@ public class EdenBiomeSource extends BiomeSource {
 	public Biome getNoiseBiome(int x, int y, int z, Sampler sampler) {
 		cleanCache(x, z);
 		if (isLand(x, z)) {
-			return getLandBiome(x, z).getActualBiome();
+			return mapLand.getBiome(x << 2, 0, z << 2).getActualBiome();
 		}
-		return getVoidBiome(x, z).getActualBiome();
+		return mapVoid.getBiome(x << 2, 0, z << 2).getActualBiome();
 	}
 	
 	public BCLBiome getCaveBiome(int x, int z) {
-		checkSeed();
 		return mapCave.getBiome(x << 2, 0, z << 2);
 	}
 	
-	public BCLBiome getLandBiome(int x, int z) {
-		checkSeed();
-		return mapLand.getBiome(x << 2, 0, z << 2);
-	}
-	
-	public BCLBiome getVoidBiome(int x, int z) {
-		checkSeed();
-		return mapVoid.getBiome(x << 2, 0, z << 2);
-	}
-	
-	private void checkSeed() {
-		if (lastSeed != MultiThreadGenerator.getSeed()) {
-			lastSeed = MultiThreadGenerator.getSeed();
-			mapLand = new HexBiomeMap(lastSeed, GeneratorOptions.biomeSizeLand, pickerLand);
-			mapVoid = new HexBiomeMap(lastSeed, GeneratorOptions.biomeSizeVoid, pickerVoid);
-			mapCave = new HexBiomeMap(lastSeed, GeneratorOptions.biomeSizeCave, pickerCave);
-		}
+	public void setSeed(long seed) {
+		mapLand = new HexBiomeMap(seed, GeneratorOptions.biomeSizeLand, pickerLand);
+		mapVoid = new HexBiomeMap(seed, GeneratorOptions.biomeSizeVoid, pickerVoid);
+		mapCave = new HexBiomeMap(seed, GeneratorOptions.biomeSizeCave, pickerCave);
 	}
 	
 	private void cleanCache(int x, int z) {

@@ -2,12 +2,7 @@ package paulevs.edenring.world.generator;
 
 import com.google.common.collect.Lists;
 import net.minecraft.util.Mth;
-import net.minecraft.world.level.biome.BiomeSource;
-import net.minecraft.world.level.biome.Climate.Sampler;
-import ru.bclib.api.biomes.BiomeAPI;
-import ru.bclib.noise.OpenSimplexNoise;
 import ru.bclib.util.MHelper;
-import ru.bclib.world.biomes.BCLBiome;
 
 import java.awt.Point;
 import java.util.List;
@@ -20,20 +15,12 @@ public class TerrainGenerator {
 	private final IslandLayer largeIslands;
 	private final IslandLayer mediumIslands;
 	private final IslandLayer smallIslands;
-	private final OpenSimplexNoise noise1;
-	private final OpenSimplexNoise noise2;
-	private final BiomeSource biomeSource;
-	private final Sampler sampler;
 	
-	public TerrainGenerator(long seed, Sampler sampler, BiomeSource biomeSource) {
+	public TerrainGenerator(long seed) {
 		Random random = new Random(seed);
 		largeIslands = new IslandLayer(random.nextInt(), GeneratorOptions.bigOptions);
 		mediumIslands = new IslandLayer(random.nextInt(), GeneratorOptions.mediumOptions);
 		smallIslands = new IslandLayer(random.nextInt(), GeneratorOptions.smallOptions);
-		noise1 = new OpenSimplexNoise(random.nextInt());
-		noise2 = new OpenSimplexNoise(random.nextInt());
-		this.biomeSource = biomeSource;
-		this.sampler = sampler;
 	}
 	
 	public void fillTerrainDensity(double[] buffer, int posX, int posZ, double scaleXZ, double scaleY, float[] floatBuffer) {

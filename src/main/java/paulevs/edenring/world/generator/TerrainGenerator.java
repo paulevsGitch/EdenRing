@@ -47,8 +47,12 @@ public class TerrainGenerator {
 		for (int y = 0; y < buffer.length; y++) {
 			double py = y * scaleY;
 			float dist = largeIslands.getDensity(px, py, pz);
-			dist = dist > 1 ? dist : MHelper.max(dist, mediumIslands.getDensity(px, py, pz));
-			dist = dist > 1 ? dist : MHelper.max(dist, smallIslands.getDensity(px, py, pz));
+			if (dist < 0.3F) {
+				dist = MHelper.max(dist, mediumIslands.getDensity(px, py, pz));
+			}
+			if (dist < 0.3F) {
+				dist = MHelper.max(dist, smallIslands.getDensity(px, py, pz));
+			}
 			buffer[y] = dist;
 		}
 	}

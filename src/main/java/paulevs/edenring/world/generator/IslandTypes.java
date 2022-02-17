@@ -1,6 +1,7 @@
 package paulevs.edenring.world.generator;
 
 import com.google.common.collect.ImmutableList.Builder;
+import net.minecraft.util.Mth;
 import ru.bclib.noise.OpenSimplexNoise;
 import ru.bclib.sdf.SDF;
 import ru.bclib.sdf.operator.SDFCoordModify;
@@ -49,8 +50,11 @@ public class IslandTypes {
 			final float scale1 = options.scale * 0.0125F;
 			final float scale2 = options.scale * 0.025F;
 			final float scale3 = options.scale * 0.05F;
+			final float scale4 = Mth.clamp((options.scale - 50) / 50F, 0.3F, 1.0F) / options.scale;
 			
-			SDF island = new SDFScale().setScale(random.nextFloat() + 0.5F).setSource(defaultIsland);
+			final float islandScale = random.nextFloat() + 0.5F;
+			
+			SDF island = new SDFScale().setScale(islandScale).setSource(defaultIsland);
 			island = new SDFCoordModify().setFunction(pos -> {
 				float x1 = pos.x() * scale1;
 				float z1 = pos.z() * scale1;
@@ -62,8 +66,9 @@ public class IslandTypes {
 				float dx = (float) noise1.eval(x1, z1) * 20 + (float) noise2.eval(x2, z2) * 10;
 				float dy = (float) noise1.eval(x3, z3) *  6 + (float) noise2.eval(x3, z3) *  3;
 				float dz = (float) noise2.eval(x1, z1) * 20 + (float) noise1.eval(x2, z2) * 10;
+				//float scaleY = 1.0F - MHelper.length(pos.x(), pos.z()) / islandScale;
 				
-				pos.set(pos.x() + dx / options.scale, pos.y() + dy / options.scale, pos.z() + dz / options.scale);
+				pos.set(pos.x() + dx * scale4, pos.y() + dy * scale4/* * scaleY*/, pos.z() + dz * scale4);
 			}).setSource(island);
 			
 			return island;
@@ -102,8 +107,10 @@ public class IslandTypes {
 			}
 			
 			final OpenSimplexNoise noise1 = new OpenSimplexNoise(random.nextInt());
-			float scale1 = 0.5F * options.scale;
-			float scale2 = 20F / options.scale;
+			final float scale1 = 0.5F * options.scale;
+			final float noiseScale = Mth.clamp((options.scale - 30) / 30F, 0.1F, 1.0F);
+			final float scale2 = 20F / options.scale * noiseScale;
+			
 			island = new SDFDisplacement()
 				.setFunction(pos -> (float) noise1.eval(pos.x() * scale1, pos.y() * scale1, pos.z() * scale1) * scale2)
 				.setSource(island);
@@ -146,8 +153,9 @@ public class IslandTypes {
 				float dx = (float) noise1.eval(x1, z1) * 20 + (float) noise2.eval(x2, z2) * 10;
 				float dy = (float) noise1.eval(x3, z3) *  6 + (float) noise2.eval(x3, z3) *  3;
 				float dz = (float) noise2.eval(x1, z1) * 20 + (float) noise1.eval(x2, z2) * 10;
+				//float scaleY = 1.0F - MHelper.length(pos.x(), pos.z()) / islandScale;
 				
-				pos.set(pos.x() + dx / options.scale, pos.y() + dy / options.scale, pos.z() + dz / options.scale);
+				pos.set(pos.x() + dx / options.scale, pos.y() + dy/* * scaleY*/ / options.scale, pos.z() + dz / options.scale);
 			}).setSource(islandBottom);
 			
 			SDF islandTop = new SDFScale().setScale(islandScale).setSource(mountain);

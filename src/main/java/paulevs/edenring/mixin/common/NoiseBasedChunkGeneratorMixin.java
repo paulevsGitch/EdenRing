@@ -17,12 +17,6 @@ public class NoiseBasedChunkGeneratorMixin implements EdenTargetChecker {
 	
 	@Inject(method = "buildSurface", at = @At(value = "INVOKE", target = "Ljava/util/function/Supplier;get()Ljava/lang/Object;"))
 	private void eden_carveBeforeSurface(WorldGenRegion worldGenRegion, StructureFeatureManager structureFeatureManager, ChunkAccess chunkAccess, CallbackInfo ci) {
-		/*Registry<DimensionType> registry = worldGenRegion.registryAccess().registryOrThrow(Registry.DIMENSION_TYPE_REGISTRY);
-		DimensionType dimension = registry.get(EdenRing.EDEN_RING_TYPE_KEY);
-		if (worldGenRegion.dimensionType() == dimension) {
-			CaveGenerator.carve(chunkAccess);
-		}*/
-		
 		if (eden_isTarget()) {
 			CaveGenerator.carve(chunkAccess);
 		}

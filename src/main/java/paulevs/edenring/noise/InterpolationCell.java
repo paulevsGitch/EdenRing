@@ -17,7 +17,7 @@ public class InterpolationCell {
 		this.data = new float[width][width][height];
 		this.origin = origin;
 		this.dxz = dxz;
-		this.dy = dxz;
+		this.dy = dy;
 		MutableBlockPos pos = new MutableBlockPos();
 		for (int x = 0; x < width; x++) {
 			pos.setX(origin.getX() + x * dxz);
@@ -35,16 +35,12 @@ public class InterpolationCell {
 		this.data = new float[width][width][height];
 		this.origin = origin;
 		this.dxz = dxz;
-		this.dy = dxz;
-		MutableBlockPos pos = new MutableBlockPos();
+		this.dy = dy;
 		for (int x = 0; x < width; x++) {
-			pos.setX(origin.getX() + x * dxz);
+			int px = origin.getX() + x * dxz;
 			for (int z = 0; z < width; z++) {
-				pos.setZ(origin.getZ() + z * dxz);
-				for (int y = 0; y < height; y++) {
-					pos.setY(origin.getY() + y * dy);
-					generator.fillTerrainDensity(this.data[x][z], pos.getX(), pos.getZ(), dxz, dy);
-				}
+				int pz = origin.getZ() + z * dxz;
+				generator.fillTerrainDensity(this.data[x][z], px, pz, dxz, dy);
 			}
 		}
 	}

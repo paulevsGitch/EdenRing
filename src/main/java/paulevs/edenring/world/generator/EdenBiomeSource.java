@@ -2,6 +2,8 @@ package paulevs.edenring.world.generator;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.BlockPos.MutableBlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.RegistryLookupCodec;
 import net.minecraft.world.level.biome.Biome;
@@ -10,6 +12,7 @@ import net.minecraft.world.level.biome.Climate.Sampler;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.registries.EdenBiomes;
 import ru.bclib.interfaces.BiomeMap;
+import ru.bclib.util.BlocksHelper;
 import ru.bclib.world.biomes.BCLBiome;
 import ru.bclib.world.generator.BiomePicker;
 import ru.bclib.world.generator.map.hex.HexBiomeMap;
@@ -77,10 +80,15 @@ public class EdenBiomeSource extends BiomeSource {
 	@Override
 	public Biome getNoiseBiome(int x, int y, int z, Sampler sampler) {
 		cleanCache(x, z);
-		if (isLand(x, z)) {
-			return mapLand.getBiome(x << 2, 0, z << 2).getActualBiome();
+		int px = x << 2;
+		int pz = z << 2;
+		if (isLand(px, pz)) {
+			if (isCave(px, y << 2, pz)) {
+				return mapCave.getBiome(px, 0, pz).getActualBiome();
+			}
+			return mapLand.getBiome(px, 0, pz).getActualBiome();
 		}
-		return mapVoid.getBiome(x << 2, 0, z << 2).getActualBiome();
+		return mapVoid.getBiome(px, 0, pz).getActualBiome();
 	}
 	
 	public BCLBiome getCaveBiome(int x, int z) {
@@ -105,7 +113,7 @@ public class EdenBiomeSource extends BiomeSource {
 		boolean result = false;
 		float[] data = new float[16];
 		TerrainGenerator generator = MultiThreadGenerator.getBiomeGenerator();
-		generator.fillTerrainDensity(data, x << 2 | 2, z << 2 | 2, 4, 16);
+		generator.fillTerrainDensity(data, x | 2, z | 2, 4, 16);
 		for (byte py = 0; py < data.length; py++) {
 			if (data[py] > -0.3F) {
 				result = true;
@@ -113,5 +121,17 @@ public class EdenBiomeSource extends BiomeSource {
 			}
 		}
 		return result;
+	}
+	
+	private boolean isCave(int x, int y, int z) {
+		TerrainGenerator generator = MultiThreadGenerator.getBiomeGenerator();
+		MutableBlockPos pos = new MutableBlockPos();
+		for (Direction dir: BlocksHelper.DIRECTIONS) {
+			pos.set(x, y, z).move(dir, 15);
+			if (generator.sample(pos.getX(), pos.getY(), pos.getZ()) < 0) {
+				return false;
+			}
+		}
+		return true;
 	}
 }

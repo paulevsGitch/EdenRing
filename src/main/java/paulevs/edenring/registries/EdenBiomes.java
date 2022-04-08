@@ -1,9 +1,11 @@
 package paulevs.edenring.registries;
 
 import com.google.common.collect.Lists;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import paulevs.edenring.EdenRing;
+import paulevs.edenring.world.biomes.CaveBiomes;
 import paulevs.edenring.world.biomes.LandBiomes;
 import paulevs.edenring.world.biomes.VoidBiomes;
 import ru.bclib.api.biomes.BiomeAPI;
@@ -38,14 +40,10 @@ public class EdenBiomes {
 	public static final BCLBiome SKY_COLONY = registerVoid(VoidBiomes.makeSkyColony());
 	
 	// CAVES //
-	//public static final BCLBiome ERODED_CAVE = registerCave(makeStoneGardenBiome());
+	public static final BCLBiome ERODED_CAVE = registerCave(CaveBiomes.makeErodedCaveBiome());
 	
 	public static void init() {
 		CONFIG.saveChanges();
-		// TODO remove fix when it will be implemented in BCLib
-		//BIOMES_LAND.forEach(biome -> addStepFeaturesToBiome(biome));
-		//BIOMES_VOID.forEach(biome -> addStepFeaturesToBiome(biome));
-		//BIOMES_CAVE.forEach(biome -> addStepFeaturesToBiome(biome));
 	}
 	
 	private static BCLBiome registerLand(BCLBiome biome) {
@@ -61,36 +59,5 @@ public class EdenBiomes {
 	private static BCLBiome registerCave(BCLBiome biome) {
 		BIOMES_CAVE.add(biome);
 		return BiomeAPI.registerBiome(biome);
-	}
-	
-	// TODO remove fix when it will be implemented in BCLib
-	private static void addStepFeaturesToBiome(BCLBiome biome) {
-		Map<Decoration, List<Supplier<PlacedFeature>>> featureMap = biome.getFeatures();
-		BiomeGenerationSettingsAccessor accessor = (BiomeGenerationSettingsAccessor) biome.getBiome().getGenerationSettings();
-		List<List<Supplier<PlacedFeature>>> allFeatures = CollectionsUtil.getMutable(accessor.bclib_getFeatures());
-		Set<PlacedFeature> set = CollectionsUtil.getMutable(accessor.bclib_getFeatureSet());
-		
-		for (Decoration step: featureMap.keySet()) {
-			List<Supplier<PlacedFeature>> features = getFeaturesList(allFeatures, step);
-			List<Supplier<PlacedFeature>> featureList = featureMap.get(step);
-			
-			for (Supplier<PlacedFeature> feature : featureList) {
-				features.add(feature);
-				set.add(feature.get());
-			}
-		}
-		accessor.bclib_setFeatures(allFeatures);
-		accessor.bclib_setFeatureSet(set);
-	}
-	
-	// TODO remove fix when it will be implemented in BCLib
-	private static List<Supplier<PlacedFeature>> getFeaturesList(List<List<Supplier<PlacedFeature>>> features, Decoration step) {
-		int index = step.ordinal();
-		while (features.size() <= index) {
-			features.add(Lists.newArrayList());
-		}
-		List<Supplier<PlacedFeature>> mutable = CollectionsUtil.getMutable(features.get(index));
-		features.set(index, mutable);
-		return mutable;
 	}
 }

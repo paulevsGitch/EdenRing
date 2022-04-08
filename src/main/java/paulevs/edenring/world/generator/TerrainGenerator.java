@@ -30,6 +30,21 @@ public class TerrainGenerator {
 		}
 	}
 	
+	public float sample(int posX, int posY, int posZ) {
+		largeIslands.updatePositions(posX, posZ);
+		mediumIslands.updatePositions(posX, posZ);
+		smallIslands.updatePositions(posX, posZ);
+		
+		float dist = largeIslands.getDensity(posX, posY, posZ);
+		if (dist < 0.3F) {
+			dist = MHelper.max(dist, mediumIslands.getDensity(posX, posY, posZ));
+		}
+		if (dist < 0.3F) {
+			dist = MHelper.max(dist, smallIslands.getDensity(posX, posY, posZ));
+		}
+		return dist;
+	}
+	
 	public void fillTerrainDensity(float[] buffer, int posX, int posZ, double scaleXZ, double scaleY) {
 		largeIslands.clearCache();
 		mediumIslands.clearCache();

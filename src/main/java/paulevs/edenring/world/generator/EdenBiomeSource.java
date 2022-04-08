@@ -18,7 +18,6 @@ import ru.bclib.world.biomes.BCLBiome;
 import ru.bclib.world.generator.BiomePicker;
 import ru.bclib.world.generator.map.hex.HexBiomeMap;
 
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class EdenBiomeSource extends BiomeSource {

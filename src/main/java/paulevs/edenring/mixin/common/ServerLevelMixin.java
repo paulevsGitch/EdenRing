@@ -37,13 +37,7 @@ public class ServerLevelMixin {
 		
 		if (level.dimension().equals(EdenRing.EDEN_RING_KEY)) {
 			MultiThreadGenerator.init(seed, chunkGenerator.climateSampler());
-			
-			//EdenTargetChecker.class.cast(chunkGenerator.climateSampler()).eden_setTarget(true);
 			EdenTargetChecker.class.cast(chunkGenerator).eden_setTarget(true);
-			
-			// TODO resolve stronghold thing
-			//StructureSettings empty = new StructureSettings(Optional.empty(), Maps.newHashMap());
-			//ChunkGeneratorAccessor.class.cast(chunkGenerator).eden_setSettings(empty);
 		}
 	}
 }

@@ -46,9 +46,9 @@ import paulevs.edenring.blocks.SymbioticMoldBlock;
 import paulevs.edenring.blocks.TexturedTerrainBlock;
 import paulevs.edenring.blocks.VolvoxBlock;
 import paulevs.edenring.blocks.VolvoxBlockDense;
-import paulevs.edenring.mixin.common.ShovelItemAccessor;
 import ru.bclib.api.BonemealAPI;
 import ru.bclib.api.ComposterAPI;
+import ru.bclib.api.ShovelAPI;
 import ru.bclib.api.tag.NamedBlockTags;
 import ru.bclib.api.tag.NamedItemTags;
 import ru.bclib.api.tag.NamedMineableTags;
@@ -60,8 +60,6 @@ import ru.bclib.complexmaterials.ComplexMaterial;
 import ru.bclib.complexmaterials.WoodenComplexMaterial;
 import ru.bclib.config.PathConfig;
 import ru.bclib.registry.BlockRegistry;
-
-import java.util.Map;
 
 public class EdenBlocks {
 	public static final BlockRegistry REGISTRY = new BlockRegistry(EdenRing.EDEN_TAB, new PathConfig(EdenRing.MOD_ID, "blocks"));
@@ -137,10 +135,7 @@ public class EdenBlocks {
 			}
 			else if (block instanceof GrassBlock) {
 				TagAPI.addBlockTag(NamedMineableTags.SHOVEL, block);
-				
-				Map<Block, BlockState> map = ShovelItemAccessor.eden_getFlattenables();
-				map.put(block, Blocks.DIRT_PATH.defaultBlockState());
-				
+				ShovelAPI.addShovelBehaviour(block, Blocks.DIRT_PATH.defaultBlockState());
 				TillableBlockRegistry.register(block, HoeItem::onlyIfAirAbove, Blocks.FARMLAND.defaultBlockState());
 			}
 			else if (material == Material.PLANT || material == Material.REPLACEABLE_PLANT) {

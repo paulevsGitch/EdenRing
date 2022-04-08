@@ -4,14 +4,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.levelgen.Heightmap.Types;
 import paulevs.edenring.noise.InterpolationCell;
 import paulevs.edenring.noise.VoronoiNoise;
-import ru.bclib.api.biomes.BiomeAPI;
 import ru.bclib.noise.OpenSimplexNoise;
 import ru.bclib.util.BlocksHelper;
 import ru.bclib.util.MHelper;
@@ -32,7 +30,7 @@ public class CaveGenerator {
 		CaveGenerator.biomeSource = biomeSource;
 	}
 	
-	public static void carve(ChunkAccess chunkAccess) {
+	public static void carve(ChunkAccess chunkAccess, InterpolationCell cellTerrain) {
 		int minX = chunkAccess.getPos().getMinBlockX();
 		int minZ = chunkAccess.getPos().getMinBlockZ();
 		int minY = chunkAccess.getMinBuildHeight();
@@ -46,7 +44,7 @@ public class CaveGenerator {
 		final BlockPos origin = new BlockPos(minX, minY, minZ);
 		TerrainGenerator generator = MultiThreadGenerator.getTerrainGenerator();
 		InterpolationCell cellSparse = new InterpolationCell(generator, 4, (maxY - minY) / 16 + 1, 16, 16, new BlockPos(minX - 16, minY, minZ - 16));
-		InterpolationCell cellTerrain = new InterpolationCell(generator, 3, maxCell, 8, 8, origin);
+		//InterpolationCell cellTerrain = new InterpolationCell(generator, 3, maxCell, 8, 8, origin);
 		InterpolationCell cellVoronoi = new InterpolationCell(p -> getTunelNoise(p, buffer27, random), 5, (maxY - minY) / 4 + 1, 4, 4, origin);
 		InterpolationCell cellBigCave = new InterpolationCell(p -> getBigCaveNoise(cellSparse, p), 3, maxCell, 8, 8, origin);
 		InterpolationCell cellPillars = new InterpolationCell(p -> getPillars(p, seed, buffer9, random), 5, (maxY - minY) / 4 + 1, 4, 4, origin);

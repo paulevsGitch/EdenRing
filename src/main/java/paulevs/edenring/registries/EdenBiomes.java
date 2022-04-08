@@ -1,9 +1,6 @@
 package paulevs.edenring.registries;
 
 import com.google.common.collect.Lists;
-import net.minecraft.world.level.biome.Biomes;
-import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.world.biomes.CaveBiomes;
 import paulevs.edenring.world.biomes.LandBiomes;
@@ -11,14 +8,9 @@ import paulevs.edenring.world.biomes.VoidBiomes;
 import ru.bclib.api.biomes.BiomeAPI;
 import ru.bclib.config.EntryConfig;
 import ru.bclib.config.IdConfig;
-import ru.bclib.mixin.common.BiomeGenerationSettingsAccessor;
-import ru.bclib.util.CollectionsUtil;
 import ru.bclib.world.biomes.BCLBiome;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.function.Supplier;
 
 public class EdenBiomes {
 	private static final IdConfig CONFIG = new EntryConfig(EdenRing.MOD_ID, "biomes");

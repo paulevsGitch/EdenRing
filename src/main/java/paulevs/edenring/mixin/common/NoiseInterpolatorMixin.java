@@ -14,7 +14,8 @@ import paulevs.edenring.world.generator.TerrainGenerator;
 
 @Mixin(NoiseChunk.NoiseInterpolator.class)
 public class NoiseInterpolatorMixin {
-	@Final
+	// TODO do something with interpolator
+	/*@Final
 	@Shadow(aliases = "this$0")
 	private NoiseChunk this$0;
 	
@@ -41,5 +42,5 @@ public class NoiseInterpolatorMixin {
 		}
 		
 		info.cancel();
-	}
+	}*/
 }

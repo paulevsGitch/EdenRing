@@ -1,6 +1,7 @@
 package paulevs.edenring.mixin.client;
 
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.profiling.ProfilerFiller;
@@ -18,8 +19,8 @@ import java.util.function.Supplier;
 
 @Mixin(ClientLevel.class)
 public abstract class ClientLevelMixin extends Level {
-	protected ClientLevelMixin(WritableLevelData writableLevelData, ResourceKey<Level> resourceKey, DimensionType dimensionType, Supplier<ProfilerFiller> supplier, boolean bl, boolean bl2, long l) {
-		super(writableLevelData, resourceKey, dimensionType, supplier, bl, bl2, l);
+	protected ClientLevelMixin(WritableLevelData writableLevelData, ResourceKey<Level> resourceKey, Holder<DimensionType> holder, Supplier<ProfilerFiller> supplier, boolean bl, boolean bl2, long l) {
+		super(writableLevelData, resourceKey, holder, supplier, bl, bl2, l);
 	}
 	
 	@Inject(method = "getSkyDarken", at = @At("HEAD"), cancellable = true)

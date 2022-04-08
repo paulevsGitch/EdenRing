@@ -4,8 +4,9 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
-import net.minecraft.resources.RegistryLookupCodec;
+import net.minecraft.resources.RegistryOps;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.biome.Climate.Sampler;
@@ -21,10 +22,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class EdenBiomeSource extends BiomeSource {
-	public static final Codec<EdenBiomeSource> CODEC = RecordCodecBuilder.create((instance) ->
-		instance.group(RegistryLookupCodec.create(Registry.BIOME_REGISTRY).forGetter((theEndBiomeSource) ->
-			theEndBiomeSource.biomeRegistry
-		)).apply(instance, instance.stable(EdenBiomeSource::new))
+	public static final Codec<EdenBiomeSource> CODEC = RecordCodecBuilder.create(
+		(instance) -> instance.group(
+			RegistryOps.retrieveRegistry(Registry.BIOME_REGISTRY).forGetter((theEndBiomeSource) -> null)
+		).apply(instance, instance.stable(EdenBiomeSource::new))
 	);
 	
 	private final Registry<Biome> biomeRegistry;
@@ -40,7 +41,7 @@ public class EdenBiomeSource extends BiomeSource {
 			.entrySet()
 			.stream()
 			.filter(entry -> entry.getKey().location().getNamespace().equals(EdenRing.MOD_ID))
-			.map(Map.Entry::getValue)
+			.map(entry -> biomeRegistry.getOrCreateHolder(entry.getKey()))
 			.collect(Collectors.toList()));
 		this.biomeRegistry = biomeRegistry;
 		
@@ -78,7 +79,7 @@ public class EdenBiomeSource extends BiomeSource {
 	}
 	
 	@Override
-	public Biome getNoiseBiome(int x, int y, int z, Sampler sampler) {
+	public Holder<Biome> getNoiseBiome(int x, int y, int z, Sampler sampler) {
 		cleanCache(x, z);
 		int px = x << 2;
 		int pz = z << 2;

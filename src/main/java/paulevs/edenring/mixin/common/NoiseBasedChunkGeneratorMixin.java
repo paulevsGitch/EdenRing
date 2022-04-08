@@ -15,7 +15,10 @@ import paulevs.edenring.world.generator.CaveGenerator;
 public class NoiseBasedChunkGeneratorMixin implements EdenTargetChecker {
 	private boolean eden_isTarget;
 	
-	@Inject(method = "buildSurface", at = @At(value = "INVOKE", target = "Ljava/util/function/Supplier;get()Ljava/lang/Object;"))
+	@Inject(
+		method = "buildSurface(Lnet/minecraft/server/level/WorldGenRegion;Lnet/minecraft/world/level/StructureFeatureManager;Lnet/minecraft/world/level/chunk/ChunkAccess;)V",
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/core/Holder;value()Ljava/lang/Object;")
+	)
 	private void eden_carveBeforeSurface(WorldGenRegion worldGenRegion, StructureFeatureManager structureFeatureManager, ChunkAccess chunkAccess, CallbackInfo ci) {
 		if (eden_isTarget()) {
 			CaveGenerator.carve(chunkAccess);

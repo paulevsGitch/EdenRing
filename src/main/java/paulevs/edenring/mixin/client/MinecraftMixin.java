@@ -24,7 +24,7 @@ public class MinecraftMixin {
 	@Inject(method = "getSituationalMusic", at = @At("HEAD"), cancellable = true)
 	private void eden_getSituationalMusic(CallbackInfoReturnable<Music> info) {
 		if (player != null && level != null && level.dimension().equals(EdenRing.EDEN_RING_KEY)) {
-			Biome biome = level.getBiomeManager().getNoiseBiomeAtPosition(player.blockPosition());
+			Biome biome = level.getBiomeManager().getNoiseBiomeAtPosition(player.blockPosition()).value();
 			info.setReturnValue(biome.getBackgroundMusic().orElse(Musics.GAME));
 		}
 	}

@@ -523,7 +523,7 @@ public class EdenSkyRenderer implements SkyRenderer {
 		BiomeManager biomeManager = level.getBiomeManager();
 		Vec3 color = CubicSampler.gaussianSampleVec3(
 			samplePos,
-			(i, j, k) -> Vec3.fromRGB24(biomeManager.getNoiseBiomeAtQuart(i, j, k).getSkyColor())
+			(i, j, k) -> Vec3.fromRGB24(biomeManager.getNoiseBiomeAtQuart(i, j, k).value().getSkyColor())
 		);
 		float light = Mth.cos(level.getTimeOfDay(tickDelta) * MHelper.PI2) * 2.0F + 0.5F;
 		light = Mth.clamp(light, 0.0f, 1.0f);

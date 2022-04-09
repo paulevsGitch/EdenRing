@@ -3,8 +3,10 @@ package paulevs.edenring.world.features.basic;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import ru.bclib.util.MHelper;
@@ -18,6 +20,7 @@ public abstract class CeilScatterFeature extends DefaultFeature {
 		WorldGenLevel level = featurePlaceContext.level();
 		BlockPos center = featurePlaceContext.origin();
 		Random random = featurePlaceContext.random();
+		Biome biome = level.getBiome(center).value();
 		
 		MutableBlockPos pos = center.mutable();
 		int maxY = getYOnSurfaceWG(level, center.getX(), center.getZ());
@@ -30,6 +33,8 @@ public abstract class CeilScatterFeature extends DefaultFeature {
 					for (int n = 0; n < count; n++) {
 						int px = center.getX() + Mth.floor(Mth.clamp(random.nextGaussian() * 2 + 0.5F, -8, 8));
 						int pz = center.getZ() + Mth.floor(Mth.clamp(random.nextGaussian() * 2 + 0.5F, -8, 8));
+						
+						if (level.getBiome(pos.set(px, y, pz)).value() != biome) continue;
 						
 						for (int i = 5; i > -5; i--) {
 							pos.set(px, y + i, pz);

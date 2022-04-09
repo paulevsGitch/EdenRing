@@ -32,6 +32,7 @@ public class EdenBiomes {
 	public static final BCLBiome SKY_COLONY = registerVoid(VoidBiomes.makeSkyColony());
 	
 	// CAVES //
+	public static final BCLBiome EMPTY_CAVE = registerCave(CaveBiomes.makeEmptyCaveBiome());
 	public static final BCLBiome ERODED_CAVE = registerCave(CaveBiomes.makeErodedCaveBiome());
 	
 	public static void init() {

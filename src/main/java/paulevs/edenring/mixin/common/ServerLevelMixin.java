@@ -30,9 +30,8 @@ public class ServerLevelMixin {
 		
 		BiomeSource source = chunkGenerator.getBiomeSource();
 		if (source instanceof EdenBiomeSource) {
-			EdenBiomeSource edenSource = EdenBiomeSource.class.cast(source);
-			CaveGenerator.init(seed, edenSource);
-			edenSource.setSeed(seed);
+			EdenBiomeSource.class.cast(source).setSeed(seed);
+			CaveGenerator.init(seed);
 		}
 		
 		if (level.dimension().equals(EdenRing.EDEN_RING_KEY)) {

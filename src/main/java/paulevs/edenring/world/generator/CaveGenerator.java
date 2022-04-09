@@ -20,14 +20,12 @@ public class CaveGenerator {
 	private static final BlockState CAVE_AIR = Blocks.CAVE_AIR.defaultBlockState();
 	private static final VoronoiNoise VORONOI_NOISE = new VoronoiNoise();
 	private static OpenSimplexNoise simplexNoise;
-	private static EdenBiomeSource biomeSource;
 	private static int seed;
 	
-	public static void init(long seed, EdenBiomeSource biomeSource) {
+	public static void init(long seed) {
 		Random random = new Random(seed);
 		simplexNoise = new OpenSimplexNoise(random.nextInt());
 		CaveGenerator.seed = random.nextInt();
-		CaveGenerator.biomeSource = biomeSource;
 	}
 	
 	public static void carve(ChunkAccess chunkAccess, InterpolationCell cellTerrain) {
@@ -44,31 +42,22 @@ public class CaveGenerator {
 		final BlockPos origin = new BlockPos(minX, minY, minZ);
 		TerrainGenerator generator = MultiThreadGenerator.getTerrainGenerator();
 		InterpolationCell cellSparse = new InterpolationCell(generator, 4, (maxY - minY) / 16 + 1, 16, 16, new BlockPos(minX - 16, minY, minZ - 16));
-		//InterpolationCell cellTerrain = new InterpolationCell(generator, 3, maxCell, 8, 8, origin);
 		InterpolationCell cellVoronoi = new InterpolationCell(p -> getTunelNoise(p, buffer27, random), 5, (maxY - minY) / 4 + 1, 4, 4, origin);
 		InterpolationCell cellBigCave = new InterpolationCell(p -> getBigCaveNoise(cellSparse, p), 3, maxCell, 8, 8, origin);
 		InterpolationCell cellPillars = new InterpolationCell(p -> getPillars(p, seed, buffer9, random), 5, (maxY - minY) / 4 + 1, 4, 4, origin);
 		
 		MutableBlockPos pos = new MutableBlockPos();
-		MutableBlockPos offset = new MutableBlockPos();
 		int maxCheck = maxY - 16;
 		
 		for (byte x = 0; x < 16; x++) {
-			//int wx = x | minX;
 			pos.setX(x);
 			for (byte z = 0; z < 16; z++) {
-				//int wz = z | minZ;
 				pos.setZ(z);
 				
 				byte index = 0;
 				float[] accumulation = new float[8];
 				
 				int max = chunkAccess.getHeight(Types.WORLD_SURFACE_WG, x, z) - 10;
-				
-				/*Biome biome = null;
-				if (biomeSource != null) {
-					biome = biomeSource.getCaveBiome(x >> 2, z >> 2).getActualBiome();
-				}*/
 				
 				for (short y = (short) max; y > minY; y--) {
 					if (y < maxCheck) {
@@ -117,37 +106,6 @@ public class CaveGenerator {
 							chunkAccess.setBlockState(pos, CAVE_AIR, false);
 							int py = pos.getY();
 							pos.setY(py + 1);
-							
-							/*if (biome != null && chunkAccess.getHeight(Types.WORLD_SURFACE_WG, x, z) - 15 > pos.getY()) {
-								BiomeAPI.setBiome(chunkAccess, pos, biome);
-								for (int i = -1; i < 2; i++) {
-									offset.setX(pos.getX() + (i << 2));
-									for (int j = -1; j < 2; j++) {
-										offset.setY(pos.getY() + (j << 2));
-										for (int k = -1; k < 2; k++) {
-											offset.setZ(pos.getZ() + (k << 2));
-											BiomeAPI.setBiome(chunkAccess, offset, biome);
-										}
-									}
-								}
-							}*/
-							
-							/*if (!chunkAccess.getBlockState(pos).isAir()) {
-								pos.setY(py + 3);
-								if (chunkAccess.getBlockState(pos).isAir()) {
-									for (byte i = 1; i < 3; i++) {
-										pos.setY(py + i);
-										chunkAccess.setBlockState(pos, CAVE_AIR, false);
-									}
-								}
-								else {
-									pos.setY(py + 4);
-									if (chunkAccess.getBlockState(pos).isAir()) {
-										pos.setY(py + 3);
-										chunkAccess.setBlockState(pos, CAVE_AIR, false);
-									}
-								}
-							}*/
 						}
 					}
 				}

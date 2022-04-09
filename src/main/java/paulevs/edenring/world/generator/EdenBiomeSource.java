@@ -2,8 +2,6 @@ package paulevs.edenring.world.generator;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.BlockPos.MutableBlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.RegistryOps;
@@ -13,8 +11,6 @@ import net.minecraft.world.level.biome.Climate.Sampler;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.registries.EdenBiomes;
 import ru.bclib.interfaces.BiomeMap;
-import ru.bclib.util.BlocksHelper;
-import ru.bclib.world.biomes.BCLBiome;
 import ru.bclib.world.generator.BiomePicker;
 import ru.bclib.world.generator.map.hex.HexBiomeMap;
 
@@ -80,19 +76,22 @@ public class EdenBiomeSource extends BiomeSource {
 	@Override
 	public Holder<Biome> getNoiseBiome(int x, int y, int z, Sampler sampler) {
 		cleanCache(x, z);
-		int px = x << 2;
-		int pz = z << 2;
-		if (isLand(px, pz)) {
-			if (isCave(px, y << 2, pz)) {
+		
+		int px = (x << 2) | 2;
+		int pz = (z << 2) | 2;
+		
+		float[] data = new float[32];
+		TerrainGenerator generator = MultiThreadGenerator.getTerrainGenerator();
+		generator.fillTerrainDensity(data, px, pz, 4.0, 8.0);
+		
+		if (isLand(data)) {
+			int py = (y << 2) | 2;
+			if (isCave(py, data)) {
 				return mapCave.getBiome(px, 0, pz).getActualBiome();
 			}
 			return mapLand.getBiome(px, 0, pz).getActualBiome();
 		}
 		return mapVoid.getBiome(px, 0, pz).getActualBiome();
-	}
-	
-	public BCLBiome getCaveBiome(int x, int z) {
-		return mapCave.getBiome(x << 2, 0, z << 2);
 	}
 	
 	public void setSeed(long seed) {
@@ -109,28 +108,20 @@ public class EdenBiomeSource extends BiomeSource {
 		}
 	}
 	
-	private boolean isLand(int x, int z) {
-		boolean result = false;
-		float[] data = new float[16];
-		TerrainGenerator generator = MultiThreadGenerator.getBiomeGenerator();
-		generator.fillTerrainDensity(data, x | 2, z | 2, 4, 16);
+	private boolean isLand(float[] data) {
 		for (byte py = 0; py < data.length; py++) {
 			if (data[py] > -0.3F) {
-				result = true;
-				break;
+				return true;
 			}
 		}
-		return result;
+		return false;
 	}
 	
-	private boolean isCave(int x, int y, int z) {
-		TerrainGenerator generator = MultiThreadGenerator.getBiomeGenerator();
-		MutableBlockPos pos = new MutableBlockPos();
-		for (Direction dir: BlocksHelper.DIRECTIONS) {
-			pos.set(x, y, z).move(dir, 15);
-			if (generator.sample(pos.getX(), pos.getY(), pos.getZ()) < 0) {
-				return false;
-			}
+	private boolean isCave(int y, float[] data) {
+		int index = y >> 3;
+		if (index <= 0 || index >= data.length - 2) return false;
+		for (byte i = 0; i < 3; i++) {
+			if (data[index + i] < -0.01F) return false;
 		}
 		return true;
 	}

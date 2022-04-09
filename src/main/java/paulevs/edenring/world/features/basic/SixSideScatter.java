@@ -35,17 +35,20 @@ public class SixSideScatter extends DefaultFeature {
 		int pz = minZ | random.nextInt(16);
 		
 		MutableBlockPos pos = new MutableBlockPos();
-		int count = MHelper.randRange(10, 20, random);
-		for (int i = 0; i < count; i++) {
-			pos.set(
-				px + MHelper.randRange(-4, 4, random),
-				py + MHelper.randRange(-4, 4, random),
-				pz + MHelper.randRange(-4, 4, random)
-			);
-			if (level.getBlockState(pos).isAir()) {
-				BlockState state = block.getAttachedState(level, pos);
-				if (state != null) {
-					BlocksHelper.setWithoutUpdate(level, pos, state);
+		for (int x = -4; x < 5; x++) {
+			pos.setX(px + x);
+			for (int z = -4; z < 5; z++) {
+				pos.setZ(pz + z);
+				for (int y = -4; y < 5; y++) {
+					pos.setY(py + y);
+					if (random.nextInt(3) == 0 && Math.abs(x) + Math.abs(y) + Math.abs(z) < 7) {
+						if (level.getBlockState(pos).isAir()) {
+							BlockState state = block.getAttachedState(level, pos);
+							if (state != null) {
+								BlocksHelper.setWithoutUpdate(level, pos, state);
+							}
+						}
+					}
 				}
 			}
 		}

@@ -19,7 +19,7 @@ public class GeneratorOptions {
 		smallOptions = new LayerOptions("terrain.layers.smallIslands", config, 60, 50, 128, 60);
 		biomeSizeLand = config.getInt("biomes", "landBiomeSize", 256);
 		biomeSizeVoid = config.getInt("biomes", "voidBiomeSize", 256);
-		biomeSizeCave = config.getInt("biomes", "caveBiomeSize", 64);
+		biomeSizeCave = config.getInt("biomes", "caveBiomeSize", 128);
 		
 		config.saveChanges();
 	}

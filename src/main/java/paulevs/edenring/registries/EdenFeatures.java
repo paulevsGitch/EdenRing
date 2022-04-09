@@ -120,7 +120,7 @@ public class EdenFeatures {
 	public static final BCLFeature EDEN_VINE = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("eden_vine"), new VineFeature(), 2);
 	public static final BCLFeature ROOTS = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("roots"), new RootsFeature(), 4);
 	
-	public static final BCLFeature PARIGNUM = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("parignum"), new SixSideScatter((SixSidePlant) EdenBlocks.PARIGNUM), 4);
+	public static final BCLFeature PARIGNUM = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("parignum"), new SixSideScatter((SixSidePlant) EdenBlocks.PARIGNUM), 8);
 	
 	public static final BCLFeature GRAVILITE_CRYSTAL = BCLCommonFeatures.makeChancedFeature(EdenRing.makeID("gravilite_crystal"), Decoration.RAW_GENERATION, new GraviliteCrystalFeature(), 100);
 	public static final BCLFeature SMALL_ISLAND = BCLCommonFeatures.makeChancedFeature(EdenRing.makeID("small_island"), Decoration.RAW_GENERATION, new SmallIslandFeature(), 50);

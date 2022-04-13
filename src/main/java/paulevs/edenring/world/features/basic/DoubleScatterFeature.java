@@ -6,10 +6,25 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import ru.bclib.blocks.BaseDoublePlantBlock;
 import ru.bclib.util.BlocksHelper;
+import ru.bclib.util.MHelper;
+
+import java.util.Random;
 
 public class DoubleScatterFeature extends ScatterFeature {
-	public DoubleScatterFeature(Block block) {
+	private int count;
+	
+	public DoubleScatterFeature(Block block, int count) {
 		super(block);
+		this.count = count;
+	}
+	
+	public DoubleScatterFeature(Block block) {
+		this(block, 20);
+	}
+	
+	@Override
+	protected int getCount(Random random) {
+		return MHelper.randRange(count >> 1, count, random);
 	}
 	
 	@Override

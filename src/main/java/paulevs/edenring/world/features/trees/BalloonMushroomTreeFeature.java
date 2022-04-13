@@ -31,19 +31,35 @@ public class BalloonMushroomTreeFeature extends DefaultFeature {
 		}
 		
 		MutableBlockPos pos = center.mutable();
-		int h = MHelper.randRange(3, 9, random);
+		int h = MHelper.randRange(5, 9, random);
 		for (int i = 1; i <= h; i++) {
 			pos.setY(center.getY() + i);
 			if (!level.getBlockState(pos).isAir()) {
 				h = i - 1;
 			}
 		}
-		if (h < 3) {
-			return false;
+		if (h < 5) {
+			h = random.nextInt(4);
+			pos.setY(center.getY());
+			BlockState tall = EdenBlocks.TALL_BALLOON_MUSHROOM.defaultBlockState();
+			for (byte i = 0; i <= h; i++) {
+				BlockState state = tall.setValue(EdenBlockProperties.TEXTURE_4, (int) i);
+				if (i == h) state = state.setValue(EdenBlockProperties.TEXTURE_4, 3);
+				if (level.getBlockState(pos.above()).isAir()) {
+					BlocksHelper.setWithoutUpdate(level, pos, state);
+					pos.setY(pos.getY() + 1);
+				}
+				else {
+					state = state.setValue(EdenBlockProperties.TEXTURE_4, 3);
+					BlocksHelper.setWithoutUpdate(level, pos, state);
+					return true;
+				}
+			}
+			return true;
 		}
 		
 		BlockState stem = EdenBlocks.BALLOON_MUSHROOM_STEM.defaultBlockState();
-		if (h > 5 && random.nextInt(8) == 0) {
+		if (h > 5 && random.nextInt(6) == 0) {
 			for (int i = 0; i < h; i++) {
 				pos.setY(center.getY() + i);
 				BlocksHelper.setWithoutUpdate(level, pos, stem);

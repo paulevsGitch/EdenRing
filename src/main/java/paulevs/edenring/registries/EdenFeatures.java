@@ -12,6 +12,7 @@ import paulevs.edenring.world.features.basic.ScatterFeature;
 import paulevs.edenring.world.features.basic.SixSideScatter;
 import paulevs.edenring.world.features.plants.AquatusFeature;
 import paulevs.edenring.world.features.plants.RootsFeature;
+import paulevs.edenring.world.features.plants.TallMushroomFeature;
 import paulevs.edenring.world.features.plants.VineFeature;
 import paulevs.edenring.world.features.plants.VolvoxFeature;
 import paulevs.edenring.world.features.terrain.GraviliteCrystalFeature;
@@ -109,8 +110,9 @@ public class EdenFeatures {
 	
 	public static final BCLFeature VIOLUM_DENSE = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("violum_dense"), new DoubleScatterFeature(EdenBlocks.VIOLUM), 8);
 	public static final BCLFeature VIOLUM_RARE = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("violum_rare"), new DoubleScatterFeature(EdenBlocks.VIOLUM), 1);
+	public static final BCLFeature TALL_MYCOTIC_GRASS = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("tall_mycotic_grass"), new DoubleScatterFeature(EdenBlocks.TALL_MYCOTIC_GRASS, 8), 6);
 	
-	public static final BCLFeature BALLOON_MUSHROOM_TREE = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("balloon_mushroom_tree"), new BalloonMushroomTreeFeature(), 12);
+	public static final BCLFeature BALLOON_MUSHROOM_TREE = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("balloon_mushroom_tree"), new BalloonMushroomTreeFeature(), 16);
 	public static final BCLFeature AURITIS_TREE = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("auritis_tree"), new AuritisTreeFeature(), 10);
 	public static final BCLFeature PULSE_TREE = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("pulse_tree"), new PulseTreeFeature(), 50);
 	public static final BCLFeature BRAIN_TREE = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("brain_tree"), new BrainTreeFeature(), 8);
@@ -121,6 +123,7 @@ public class EdenFeatures {
 	public static final BCLFeature ROOTS = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("roots"), new RootsFeature(), 4);
 	
 	public static final BCLFeature PARIGNUM = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("parignum"), new SixSideScatter((SixSidePlant) EdenBlocks.PARIGNUM), 8);
+	public static final BCLFeature TALL_BALLOON_MUSHROOM = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("tall_balloon_mushroom"), new TallMushroomFeature(), 6);
 	
 	public static final BCLFeature GRAVILITE_CRYSTAL = BCLCommonFeatures.makeChancedFeature(EdenRing.makeID("gravilite_crystal"), Decoration.RAW_GENERATION, new GraviliteCrystalFeature(), 100);
 	public static final BCLFeature SMALL_ISLAND = BCLCommonFeatures.makeChancedFeature(EdenRing.makeID("small_island"), Decoration.RAW_GENERATION, new SmallIslandFeature(), 50);

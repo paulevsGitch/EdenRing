@@ -25,6 +25,7 @@ import paulevs.edenring.blocks.BalloonMushroomSmallBlock;
 import paulevs.edenring.blocks.BalloonMushroomStemBlock;
 import paulevs.edenring.blocks.BrainTreeBlock;
 import paulevs.edenring.blocks.BrainTreeLogBlock;
+import paulevs.edenring.blocks.EdenDoublePlantBlock;
 import paulevs.edenring.blocks.EdenGrassBlock;
 import paulevs.edenring.blocks.EdenMossBlock;
 import paulevs.edenring.blocks.EdenPortalBlock;
@@ -36,13 +37,14 @@ import paulevs.edenring.blocks.GraviliteShardsBlock;
 import paulevs.edenring.blocks.GraviliteTallLanternBlock;
 import paulevs.edenring.blocks.GravityCompressorBlock;
 import paulevs.edenring.blocks.MossyStoneBlock;
+import paulevs.edenring.blocks.MycoticGrass;
 import paulevs.edenring.blocks.OverlayDoublePlantBlock;
 import paulevs.edenring.blocks.OverlayPlantBlock;
 import paulevs.edenring.blocks.OverlayVineBlock;
 import paulevs.edenring.blocks.Parignum;
 import paulevs.edenring.blocks.PulseTreeBlock;
-import paulevs.edenring.blocks.SimplePlantBlock;
 import paulevs.edenring.blocks.SymbioticMoldBlock;
+import paulevs.edenring.blocks.TallBalloonMushroom;
 import paulevs.edenring.blocks.TexturedTerrainBlock;
 import paulevs.edenring.blocks.VolvoxBlock;
 import paulevs.edenring.blocks.VolvoxBlockDense;
@@ -96,7 +98,7 @@ public class EdenBlocks {
 	public static final Block EDEN_MOSS = register("eden_moss", new EdenMossBlock());
 	public static final Block PARIGNUM = register("parignum", new Parignum());
 	
-	public static final Block MYCOTIC_GRASS = register("mycotic_grass", new SimplePlantBlock(true));
+	public static final Block MYCOTIC_GRASS = register("mycotic_grass", new MycoticGrass());
 	public static final Block GOLDEN_GRASS = register("golden_grass", new OverlayPlantBlock(true));
 	public static final Block IRON_GRASS = register("iron_grass", new OverlayPlantBlock(true));
 	public static final Block COPPER_GRASS = register("copper_grass", new OverlayPlantBlock(true));
@@ -104,6 +106,8 @@ public class EdenBlocks {
 	public static final Block LONLIX = register("lonlix", new OverlayPlantBlock(true));
 	
 	public static final Block VIOLUM = register("violum", new OverlayDoublePlantBlock());
+	public static final Block TALL_BALLOON_MUSHROOM = register("tall_balloon_mushroom", new TallBalloonMushroom());
+	public static final Block TALL_MYCOTIC_GRASS = register("tall_mycotic_grass", new EdenDoublePlantBlock());
 	//public static final Block ALAESPES = register("alaespes", new AlaespesBlock());
 	
 	public static final Block EDEN_VINE = register("eden_vine", new OverlayVineBlock());
@@ -152,6 +156,8 @@ public class EdenBlocks {
 				TagAPI.addBlockTag(NamedBlockTags.CLIMBABLE, block);
 			}
 		});
+		
+		BonemealAPI.addLandGrass(MYCOTIC_GRASS, EDEN_MYCELIUM);
 		
 		BonemealAPI.addLandGrass(EdenBiomes.GOLDEN_FOREST.getID(), GOLDEN_GRASS, EDEN_GRASS_BLOCK);
 		BonemealAPI.addLandGrass(EdenBiomes.GOLDEN_FOREST.getID(), Blocks.GRASS, EDEN_GRASS_BLOCK);

@@ -31,7 +31,7 @@ public class ScatterFeature extends DefaultFeature {
 		
 		BlockState state = block.defaultBlockState();
 		MutableBlockPos pos = new MutableBlockPos();
-		int count = MHelper.randRange(10, 20, random);
+		int count = getCount(random);
 		for (int i = 0; i < count; i++) {
 			int px = center.getX() + Mth.floor(Mth.clamp(random.nextGaussian() * 2 + 0.5F, -8, 8));
 			int pz = center.getZ() + Mth.floor(Mth.clamp(random.nextGaussian() * 2 + 0.5F, -8, 8));
@@ -50,6 +50,10 @@ public class ScatterFeature extends DefaultFeature {
 		}
 		
 		return true;
+	}
+	
+	protected int getCount(Random random) {
+		return MHelper.randRange(10, 20, random);
 	}
 	
 	protected void placeBlock(WorldGenLevel level, BlockPos pos, BlockState state) {

@@ -64,6 +64,7 @@ public class EdenRing implements ModInitializer {
 				if (!dimensions.contains(dimensionKey)) {
 					long seed = worldGenSettings.getLong("seed");
 					CompoundTag dimRoot = new CompoundTag();
+					dimensions.put(dimensionKey, dimRoot);
 					dimRoot.putString("type", dimensionKey);
 					
 					CompoundTag generator = new CompoundTag();
@@ -78,6 +79,15 @@ public class EdenRing implements ModInitializer {
 					biomeSource.putString("type", "edenring:biome_source");
 					
 					return true;
+				}
+				else {
+					CompoundTag dimRoot = dimensions.getCompound(dimensionKey);
+					CompoundTag generator = dimRoot.getCompound("generator");
+					String settings = generator.getString("settings");
+					if (!settings.equals("minecraft:floating_islands")) {
+						generator.putString("settings", "minecraft:floating_islands");
+						return true;
+					}
 				}
 				
 				return false;

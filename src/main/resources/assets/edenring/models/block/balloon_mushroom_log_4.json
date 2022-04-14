@@ -1,0 +1,7 @@
+{
+	"parent": "minecraft:block/cube_column",
+	"textures": {
+		"end": "edenring:block/balloon_mushroom_log_top",
+		"side": "edenring:block/balloon_mushroom_log_side_4"
+	}
+}

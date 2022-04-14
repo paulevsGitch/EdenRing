@@ -104,12 +104,27 @@ public class PulseTreeBlock extends BaseBlockNotFull implements RenderLayerProvi
 	@SuppressWarnings("deprecation")
 	public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
 		PulseTreeState stem = state.getValue(PULSE_TREE);
-		if (stem == PulseTreeState.UP || stem == PulseTreeState.NORTH_SOUTH || stem == PulseTreeState.EAST_WEST) {
+		
+		if (stem == PulseTreeState.NORTH_SOUTH || stem == PulseTreeState.EAST_WEST) {
 			return true;
 		}
 		
 		BlockState below = world.getBlockState(pos.below());
-		return below.is(this) || below.isFaceSturdy(world, pos.below(), Direction.UP);
+		boolean hasGround = below.is(this) || below.isFaceSturdy(world, pos.below(), Direction.UP);
+		if (!hasGround && stem == PulseTreeState.UP) {
+			for (int i = 1; i < 8; i++) {
+				state = world.getBlockState(pos.above(i));
+				if (state.is(this)) {
+					stem = state.getValue(PULSE_TREE);
+					if (stem == PulseTreeState.HEAD_BIG || stem != PulseTreeState.HEAD_MEDIUM || stem != PulseTreeState.HEAD_SMALL) {
+						return false;
+					}
+				}
+			}
+			return true;
+		}
+		
+		return true;
 	}
 	
 	@Override

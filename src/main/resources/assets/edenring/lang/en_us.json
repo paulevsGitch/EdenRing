@@ -127,5 +127,6 @@
 	"biome.edenring.empty_cave": "Empty Cave",
 	"biome.edenring.eroded_cave": "Eroded Cave",
 	"block.edenring.tall_balloon_mushroom": "Tall Balloon Mushroom",
-	"block.edenring.tall_mycotic_grass": "Tall Mycotic Grass"
+	"block.edenring.tall_mycotic_grass": "Tall Mycotic Grass",
+	"block.edenring.balloon_mushroom_branch": "Balloon Mushroom Branch"
 }

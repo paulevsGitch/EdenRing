@@ -35,6 +35,9 @@ public class EdenBiomes {
 	public static final BCLBiome EMPTY_CAVE = registerCave(CaveBiomes.makeEmptyCaveBiome());
 	public static final BCLBiome ERODED_CAVE = registerCave(CaveBiomes.makeErodedCaveBiome());
 	
+	// SUBBIOMES //
+	public static final BCLBiome OLD_MYCOTIC_FOREST = registerSubLand(MYCOTIC_FOREST, LandBiomes.makeOldMycoticForestBiome());
+	
 	public static void init() {
 		CONFIG.saveChanges();
 	}
@@ -52,5 +55,9 @@ public class EdenBiomes {
 	private static BCLBiome registerCave(BCLBiome biome) {
 		BIOMES_CAVE.add(biome);
 		return BiomeAPI.registerBiome(biome);
+	}
+	
+	private static BCLBiome registerSubLand(BCLBiome parent, BCLBiome biome) {
+		return BiomeAPI.registerSubBiome(parent, biome);
 	}
 }

@@ -23,6 +23,7 @@ import paulevs.edenring.world.features.terrain.StonePillar;
 import paulevs.edenring.world.features.trees.AuritisTreeFeature;
 import paulevs.edenring.world.features.trees.BalloonMushroomTreeFeature;
 import paulevs.edenring.world.features.trees.BrainTreeFeature;
+import paulevs.edenring.world.features.trees.OldBalloonMushroomTreeFeature;
 import paulevs.edenring.world.features.trees.PulseTreeFeature;
 import ru.bclib.api.features.BCLCommonFeatures;
 import ru.bclib.world.features.BCLFeature;
@@ -113,6 +114,7 @@ public class EdenFeatures {
 	public static final BCLFeature TALL_MYCOTIC_GRASS = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("tall_mycotic_grass"), new DoubleScatterFeature(EdenBlocks.TALL_MYCOTIC_GRASS, 8), 6);
 	
 	public static final BCLFeature BALLOON_MUSHROOM_TREE = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("balloon_mushroom_tree"), new BalloonMushroomTreeFeature(), 16);
+	public static final BCLFeature OLD_BALLOON_MUSHROOM_TREE = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("old_balloon_mushroom_tree"), new OldBalloonMushroomTreeFeature(), 3);
 	public static final BCLFeature AURITIS_TREE = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("auritis_tree"), new AuritisTreeFeature(), 10);
 	public static final BCLFeature PULSE_TREE = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("pulse_tree"), new PulseTreeFeature(), 50);
 	public static final BCLFeature BRAIN_TREE = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("brain_tree"), new BrainTreeFeature(), 8);

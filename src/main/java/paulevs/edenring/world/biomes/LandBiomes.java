@@ -81,13 +81,45 @@ public class LandBiomes {
 			.fogColor(178, 112, 143)
 			.loop(EdenSounds.AMBIENCE_MYCOTIC_FOREST)
 			.feature(Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_FOREST)
-			.feature(EdenFeatures.TALL_MYCOTIC_GRASS)
-			.feature(EdenFeatures.MYCOTIC_GRASS)
 			.feature(EdenFeatures.BALLOON_MUSHROOM_TREE)
 			.feature(EdenFeatures.TALL_BALLOON_MUSHROOM)
 			.feature(EdenFeatures.BALLOON_MUSHROOM_SMALL)
 			.feature(EdenFeatures.GRASS_FLOOR)
+			.feature(EdenFeatures.TALL_MYCOTIC_GRASS)
+			.feature(EdenFeatures.MYCOTIC_GRASS)
 			.feature(EdenFeatures.EDEN_VINE)
+			.build();
+	}
+	
+	public static BCLBiome makeOldMycoticForestBiome() {
+		BCLBiomeBuilder builder = BCLBiomeBuilder.start(EdenRing.makeID("old_mycotic_forest"));
+		BiomesCommonMethods.addDefaultLandFeatures(builder);
+		BiomesCommonMethods.setDefaultColors(builder);
+		BiomesCommonMethods.addDefaultSounds(builder);
+		
+		builder.surface(SurfaceRuleBuilder
+			.start()
+			.surface(EdenBlocks.EDEN_MYCELIUM.defaultBlockState())
+			.subsurface(Blocks.DIRT.defaultBlockState(), 3)
+			.build()
+		);
+		
+		return builder
+			.grassColor(220, 130, 189)
+			.foliageColor(152, 90, 131)
+			.skyColor(113, 178, 255)
+			.fogColor(178, 112, 143)
+			.loop(EdenSounds.AMBIENCE_MYCOTIC_FOREST)
+			.feature(Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_FOREST)
+			.feature(EdenFeatures.OLD_BALLOON_MUSHROOM_TREE)
+			.feature(EdenFeatures.BALLOON_MUSHROOM_TREE)
+			.feature(EdenFeatures.TALL_BALLOON_MUSHROOM)
+			.feature(EdenFeatures.BALLOON_MUSHROOM_SMALL)
+			.feature(EdenFeatures.GRASS_FLOOR)
+			.feature(EdenFeatures.TALL_MYCOTIC_GRASS)
+			.feature(EdenFeatures.MYCOTIC_GRASS)
+			.feature(EdenFeatures.EDEN_VINE)
+			.genChance(0.5F)
 			.build();
 	}
 	

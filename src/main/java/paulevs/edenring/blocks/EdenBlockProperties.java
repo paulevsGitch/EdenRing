@@ -12,14 +12,20 @@ public class EdenBlockProperties extends BlockProperties {
 	public static final EnumProperty<EdenPortalState> EDEN_PORTAL = EnumProperty.create("shape", EdenPortalState.class);
 	public static final EnumProperty<PulseTreeState> PULSE_TREE = EnumProperty.create("shape", PulseTreeState.class);
 	public static final IntegerProperty TEXTURE_4 = IntegerProperty.create("texture", 0, 3);
-	//public static final IntegerProperty COLOR4 = IntegerProperty.create("color", 0, 3);
+	public static final BooleanProperty NATURAL = BooleanProperty.create("natural");
 	public static final BooleanProperty[] DIRECTIONS = new BooleanProperty[] {
 		BlockStateProperties.DOWN,
 		BlockStateProperties.UP,
 		BlockStateProperties.NORTH,
 		BlockStateProperties.SOUTH,
 		BlockStateProperties.WEST,
+		BlockStateProperties.EAST
+	};
+	public static final BooleanProperty[] DIRECTIONS_HORIZONTAL = new BooleanProperty[] {
+		BlockStateProperties.NORTH,
 		BlockStateProperties.EAST,
+		BlockStateProperties.SOUTH,
+		BlockStateProperties.WEST
 	};
 	
 	public enum BalloonMushroomStemState implements StringRepresentable {

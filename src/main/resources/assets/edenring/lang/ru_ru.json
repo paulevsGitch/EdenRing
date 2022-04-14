@@ -128,5 +128,6 @@
 	"biome.edenring.eroded_cave": "Эродированная пещера",
 	"block.edenring.tall_balloon_mushroom": "Высокий воздушный гриб",
 	"block.edenring.tall_mycotic_grass": "Высокая микотическая трава",
-	"block.edenring.balloon_mushroom_branch": "Ветка воздушного гриба"
+	"block.edenring.balloon_mushroom_branch": "Ветка воздушного гриба",
+	"biome.edenring.old_mycotic_forest": "Старый микотический лес"
 }

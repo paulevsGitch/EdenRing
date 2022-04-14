@@ -2,6 +2,7 @@ package paulevs.edenring.world.features.trees;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -16,6 +17,8 @@ import ru.bclib.util.BlocksHelper;
 import ru.bclib.util.MHelper;
 import ru.bclib.world.features.DefaultFeature;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class BalloonMushroomTreeFeature extends DefaultFeature {
@@ -58,6 +61,7 @@ public class BalloonMushroomTreeFeature extends DefaultFeature {
 			return true;
 		}
 		
+		BlockState block = EdenBlocks.BALLOON_MUSHROOM_BLOCK.defaultBlockState();
 		BlockState stem = EdenBlocks.BALLOON_MUSHROOM_STEM.defaultBlockState();
 		if (h > 5 && random.nextInt(6) == 0) {
 			for (int i = 0; i < h; i++) {
@@ -65,7 +69,8 @@ public class BalloonMushroomTreeFeature extends DefaultFeature {
 				BlocksHelper.setWithoutUpdate(level, pos, stem);
 			}
 			
-			BlockState head = EdenBlocks.BALLOON_MUSHROOM_BLOCK.defaultBlockState();
+			List<BlockPos> updateBlocks = new ArrayList(27);
+			BlockState head = block.setValue(EdenBlockProperties.NATURAL, true);
 			BlockState fur = stem.setValue(EdenBlockProperties.BALLOON_MUSHROOM_STEM, BalloonMushroomStemState.FUR);
 			for (int x = -1; x < 2; x++) {
 				pos.setX(center.getX() + x);
@@ -78,11 +83,17 @@ public class BalloonMushroomTreeFeature extends DefaultFeature {
 					for (int y = 0; y < 3; y++) {
 						pos.setY(center.getY() + h + y);
 						if (level.getBlockState(pos).isAir()) {
-							BlocksHelper.setWithoutUpdate(level, pos, head);
+							BlocksHelper.setWithoutUpdate(level, pos, y == 0 ? head : block);
+							updateBlocks.add(pos.immutable());
 						}
 					}
 				}
 			}
+			updateBlocks.forEach(p -> {
+				BlockState s = level.getBlockState(p);
+				s = s.getBlock().updateShape(s, Direction.UP, AIR, level, p, p);
+				BlocksHelper.setWithoutUpdate(level, p, s);
+			});
 		}
 		else {
 			BlockState thin = stem.setValue(EdenBlockProperties.BALLOON_MUSHROOM_STEM, BalloonMushroomStemState.THIN);
@@ -93,7 +104,7 @@ public class BalloonMushroomTreeFeature extends DefaultFeature {
 				BlocksHelper.setWithoutUpdate(level, pos, i == hMax ? thin_up : thin);
 			}
 			pos.setY(center.getY() + h);
-			BlocksHelper.setWithoutUpdate(level, pos, EdenBlocks.BALLOON_MUSHROOM_BLOCK);
+			BlocksHelper.setWithoutUpdate(level, pos, block.setValue(EdenBlockProperties.NATURAL, true));
 		}
 		
 		return true;

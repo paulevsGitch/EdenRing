@@ -21,6 +21,8 @@ import ru.bclib.util.BlocksHelper;
 import ru.bclib.util.MHelper;
 import ru.bclib.world.features.DefaultFeature;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class OldBalloonMushroomTreeFeature extends DefaultFeature {
@@ -36,13 +38,28 @@ public class OldBalloonMushroomTreeFeature extends DefaultFeature {
 		}
 		
 		BlockState log = EdenBlocks.BALLOON_MUSHROOM_MATERIAL.getBlock(WoodenComplexMaterial.BLOCK_LOG).defaultBlockState();
+		
+		MutableBlockPos p = center.mutable().setY(center.getY() + 4);
+		if (!level.getBlockState(center).is(EdenBlocks.BALLOON_MUSHROOM_SMALL)) {
+			for (int x = -14; x <= 14; x++) {
+				p.setX(center.getX() + x);
+				for (int z = -14; z <= 14; z++) {
+					if (Math.abs(x) + Math.abs(z) < 20) {
+						p.setZ(center.getZ() + z);
+						if (level.getBlockState(p).is(log.getBlock())) {
+							return false;
+						}
+					}
+				}
+			}
+		}
+		
 		BlockState bark = EdenBlocks.BALLOON_MUSHROOM_MATERIAL.getBlock(WoodenComplexMaterial.BLOCK_BARK).defaultBlockState();
 		BlockState block = EdenBlocks.BALLOON_MUSHROOM_BLOCK.defaultBlockState();
 		BlockState stem = EdenBlocks.BALLOON_MUSHROOM_STEM.defaultBlockState();
 		
-		MutableBlockPos p = center.mutable();
 		byte height = (byte) MHelper.randRange(8, 12, random);
-		makeTrunk(level, center, p, log, height);
+		makeTrunk(level, center, p.set(center), log, height);
 		makeRoots(level, center, p, log, bark, stem, random);
 		makeBranches(level, center, p, stem, height, random);
 		makeCap(level, p.set(center).setY(p.getY() + height), block, height);
@@ -61,22 +78,31 @@ public class OldBalloonMushroomTreeFeature extends DefaultFeature {
 	}
 	
 	private void makeCap(WorldGenLevel level, MutableBlockPos p, BlockState block, byte height) {
+		BlockState bottom = block.setValue(EdenBlockProperties.NATURAL, true);
+		List<BlockPos> updateBlocks = new ArrayList(128);
 		BlockPos center = p.immutable();
 		byte radius = (byte) (height >> 1);
 		byte startY = (byte) (-radius * 0.5F);
 		byte r2 = (byte) (radius * radius);
 		for (byte y = startY; y <= radius; y++) {
+			BlockState state = y == startY ? bottom : block;
 			byte y2 = (byte) (y * y);
 			for (byte x = (byte) -radius; x <= radius; x++) {
 				float x2 = (x - 0.5F) * (x - 0.5F);
 				for (byte z = (byte) -radius; z <= radius; z++) {
 					float z2 = (z - 0.5F) * (z - 0.5F);
 					if (x2 + y2 + z2 <= r2) {
-						setBlock(level, p.set(center).move(x, y - startY, z), block);
+						setBlock(level, p.set(center).move(x, y - startY, z), state);
+						updateBlocks.add(p.immutable());
 					}
 				}
 			}
 		}
+		updateBlocks.forEach(pos -> {
+			BlockState s = level.getBlockState(pos);
+			s = s.getBlock().updateShape(s, Direction.UP, AIR, level, pos, pos);
+			BlocksHelper.setWithoutUpdate(level, pos, s);
+		});
 	}
 	
 	private void makeRoots(WorldGenLevel level, BlockPos center, MutableBlockPos p, BlockState log, BlockState bark, BlockState stem, Random random) {

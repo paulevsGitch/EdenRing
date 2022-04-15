@@ -44,6 +44,7 @@ import paulevs.edenring.blocks.OverlayPlantBlock;
 import paulevs.edenring.blocks.OverlayVineBlock;
 import paulevs.edenring.blocks.Parignum;
 import paulevs.edenring.blocks.PulseTreeBlock;
+import paulevs.edenring.blocks.ShadedVineBlock;
 import paulevs.edenring.blocks.SymbioticMoldBlock;
 import paulevs.edenring.blocks.TallBalloonMushroom;
 import paulevs.edenring.blocks.TexturedTerrainBlock;
@@ -80,6 +81,7 @@ public class EdenBlocks {
 	public static final Block BALLOON_MUSHROOM_STEM = register("balloon_mushroom_stem", new BalloonMushroomStemBlock());
 	public static final Block BALLOON_MUSHROOM_BRANCH = register("balloon_mushroom_branch", new BranchBlock(BALLOON_MUSHROOM_STEM));
 	public static final ComplexMaterial BALLOON_MUSHROOM_MATERIAL = new WoodenComplexMaterial(EdenRing.MOD_ID, "balloon_mushroom", "eden", MaterialColor.COLOR_PURPLE, MaterialColor.COLOR_PURPLE).init(REGISTRY, EdenItems.REGISTRY, EdenRecipes.CONFIG);
+	public static final Block BALLOON_MUSHROOM_HYMENOPHORE = register("balloon_mushroom_hymenophore", new ShadedVineBlock());
 	
 	public static final Block PULSE_TREE_SAPLING = register("pulse_tree_sapling", new FeatureSaplingBlock((state) -> EdenFeatures.PULSE_TREE.getFeature()));
 	public static final Block PULSE_TREE = register("pulse_tree", new PulseTreeBlock());

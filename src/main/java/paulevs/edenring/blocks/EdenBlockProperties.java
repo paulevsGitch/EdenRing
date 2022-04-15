@@ -11,6 +11,7 @@ public class EdenBlockProperties extends BlockProperties {
 	public static final EnumProperty<BalloonMushroomStemState> BALLOON_MUSHROOM_STEM = EnumProperty.create("shape", BalloonMushroomStemState.class);
 	public static final EnumProperty<EdenPortalState> EDEN_PORTAL = EnumProperty.create("shape", EdenPortalState.class);
 	public static final EnumProperty<PulseTreeState> PULSE_TREE = EnumProperty.create("shape", PulseTreeState.class);
+	public static final EnumProperty<QuadShape> QUAD_SHAPE = EnumProperty.create("shape", QuadShape.class);
 	public static final IntegerProperty TEXTURE_4 = IntegerProperty.create("texture", 0, 3);
 	public static final BooleanProperty NATURAL = BooleanProperty.create("natural");
 	public static final BooleanProperty[] DIRECTIONS = new BooleanProperty[] {
@@ -105,6 +106,29 @@ public class EdenBlockProperties extends BlockProperties {
 		@Override
 		public String toString() {
 			return this.name;
+		}
+	}
+	
+	public enum QuadShape implements StringRepresentable {
+		SMALL("small"),
+		TOP("top"),
+		MIDDLE("middle"),
+		BOTTOM("bottom");
+		
+		private final String name;
+		
+		QuadShape(String name) {
+			this.name = name;
+		}
+		
+		@Override
+		public String getSerializedName() {
+			return name;
+		}
+		
+		@Override
+		public String toString() {
+			return name;
 		}
 	}
 }

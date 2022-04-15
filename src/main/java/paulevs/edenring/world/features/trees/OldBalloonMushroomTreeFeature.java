@@ -15,6 +15,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
 import net.minecraft.world.level.material.Material;
 import paulevs.edenring.blocks.EdenBlockProperties;
 import paulevs.edenring.blocks.EdenBlockProperties.BalloonMushroomStemState;
+import paulevs.edenring.blocks.EdenBlockProperties.QuadShape;
 import paulevs.edenring.registries.EdenBlocks;
 import ru.bclib.complexmaterials.WoodenComplexMaterial;
 import ru.bclib.util.BlocksHelper;
@@ -62,7 +63,7 @@ public class OldBalloonMushroomTreeFeature extends DefaultFeature {
 		makeTrunk(level, center, p.set(center), log, height);
 		makeRoots(level, center, p, log, bark, stem, random);
 		makeBranches(level, center, p, stem, height, random);
-		makeCap(level, p.set(center).setY(p.getY() + height), block, height);
+		makeCap(level, p.set(center).setY(p.getY() + height), block, height, random);
 		
 		return true;
 	}
@@ -77,13 +78,20 @@ public class OldBalloonMushroomTreeFeature extends DefaultFeature {
 		}
 	}
 	
-	private void makeCap(WorldGenLevel level, MutableBlockPos p, BlockState block, byte height) {
+	private void makeCap(WorldGenLevel level, MutableBlockPos p, BlockState block, byte height, Random random) {
 		BlockState bottom = block.setValue(EdenBlockProperties.NATURAL, true);
+		BlockState hymenophore = EdenBlocks.BALLOON_MUSHROOM_HYMENOPHORE.defaultBlockState();
+		BlockState hymenophoreBottom = hymenophore.setValue(EdenBlockProperties.QUAD_SHAPE, QuadShape.BOTTOM);
+		BlockState hymenophoreMiddle = hymenophore.setValue(EdenBlockProperties.QUAD_SHAPE, QuadShape.MIDDLE);
+		BlockState hymenophoreSmall = hymenophore.setValue(EdenBlockProperties.QUAD_SHAPE, QuadShape.SMALL);
+		BlockState hymenophoreTop = hymenophore.setValue(EdenBlockProperties.QUAD_SHAPE, QuadShape.TOP);
+		
 		List<BlockPos> updateBlocks = new ArrayList(128);
 		BlockPos center = p.immutable();
 		byte radius = (byte) (height >> 1);
 		byte startY = (byte) (-radius * 0.5F);
 		byte r2 = (byte) (radius * radius);
+		
 		for (byte y = startY; y <= radius; y++) {
 			BlockState state = y == startY ? bottom : block;
 			byte y2 = (byte) (y * y);
@@ -94,15 +102,39 @@ public class OldBalloonMushroomTreeFeature extends DefaultFeature {
 					if (x2 + y2 + z2 <= r2) {
 						setBlock(level, p.set(center).move(x, y - startY, z), state);
 						updateBlocks.add(p.immutable());
+						if (y == startY && random.nextInt(4) > 0) {
+							byte length = (byte) MHelper.randRange(1, 3, random);
+							makeVine(level, p.mutable().setY(p.getY() - 1), length, hymenophoreSmall, hymenophoreBottom, hymenophoreMiddle, hymenophoreTop);
+						}
 					}
 				}
 			}
 		}
+		
 		updateBlocks.forEach(pos -> {
 			BlockState s = level.getBlockState(pos);
 			s = s.getBlock().updateShape(s, Direction.UP, AIR, level, pos, pos);
 			BlocksHelper.setWithoutUpdate(level, pos, s);
 		});
+	}
+	
+	private void makeVine(WorldGenLevel level, MutableBlockPos pos, byte length, BlockState small, BlockState bottom, BlockState middle, BlockState top) {
+		if (!level.getBlockState(pos).isAir()) return;
+		if (length == 1) {
+			BlocksHelper.setWithoutUpdate(level, pos, small);
+			return;
+		}
+		byte maxLength = (byte) (length - 1);
+		for (byte i = 0; i < length; i++) {
+			BlockState state = i == maxLength ? bottom : i == 0 ? top : middle;
+			BlocksHelper.setWithoutUpdate(level, pos, state);
+			pos.setY(pos.getY() - 1);
+			if (!level.getBlockState(pos).isAir()) {
+				state = i == 0 ? small : bottom;
+				BlocksHelper.setWithoutUpdate(level, pos.setY(pos.getY() + 1), state);
+				return;
+			}
+		}
 	}
 	
 	private void makeRoots(WorldGenLevel level, BlockPos center, MutableBlockPos p, BlockState log, BlockState bark, BlockState stem, Random random) {
@@ -115,25 +147,25 @@ public class OldBalloonMushroomTreeFeature extends DefaultFeature {
 		for (byte i = 0; i < 2; i++) {
 			if (random.nextBoolean()) {
 				byte h = (byte) random.nextInt(3);
-				byte h2 = (byte) -(h + MHelper.randRange(1, 2, random));
+				byte h2 = (byte) -(h + MHelper.randRange(2, 3, random));
 				makeLine(level, p.set(center).move(i, h, -1), bark, log, h2);
 				mask[i + 1][0] = (byte) (h + 1);
 			}
 			if (random.nextBoolean()) {
 				byte h = (byte) random.nextInt(3);
-				byte h2 = (byte) -(h + MHelper.randRange(1, 2, random));
+				byte h2 = (byte) -(h + MHelper.randRange(2, 3, random));
 				makeLine(level, p.set(center).move(i, h, 2), bark, log, h2);
 				mask[i + 1][3] = (byte) (h + 1);
 			}
 			if (random.nextBoolean()) {
 				byte h = (byte) random.nextInt(3);
-				byte h2 = (byte) -(h + MHelper.randRange(1, 2, random));
+				byte h2 = (byte) -(h + MHelper.randRange(2, 3, random));
 				makeLine(level, p.set(center).move(-1, h, i), bark, log, h2);
 				mask[0][i + 1] = (byte) (h + 1);
 			}
 			if (random.nextBoolean()) {
 				byte h = (byte) random.nextInt(3);
-				byte h2 = (byte) -(h + MHelper.randRange(1, 2, random));
+				byte h2 = (byte) -(h + MHelper.randRange(2, 3, random));
 				makeLine(level, p.set(center).move(2, h, i), bark, log, h2);
 				mask[3][i + 1] = (byte) (h + 1);
 			}
@@ -141,22 +173,26 @@ public class OldBalloonMushroomTreeFeature extends DefaultFeature {
 		
 		if (random.nextBoolean()) {
 			byte h = (byte) MHelper.randRange(1, 2, random);
-			makeLine(level, p.set(center).move(-1, h - 1, -1), bark, log, (byte) -h);
+			byte h2 = (byte) (-h - 2);
+			makeLine(level, p.set(center).move(-1, h - 1, -1), bark, log, h2);
 			mask[0][0] = h;
 		}
 		if (random.nextBoolean()) {
 			byte h = (byte) MHelper.randRange(1, 2, random);
-			makeLine(level, p.set(center).move(2, h - 1, -1), bark, log, (byte) -h);
+			byte h2 = (byte) (-h - 2);
+			makeLine(level, p.set(center).move(2, h - 1, -1), bark, log, h2);
 			mask[3][0] = h;
 		}
 		if (random.nextBoolean()) {
 			byte h = (byte) MHelper.randRange(1, 2, random);
-			makeLine(level, p.set(center).move(2, h - 1, 2), bark, log, (byte) -h);
+			byte h2 = (byte) (-h - 2);
+			makeLine(level, p.set(center).move(2, h - 1, 2), bark, log, h2);
 			mask[3][3] = h;
 		}
 		if (random.nextBoolean()) {
 			byte h = (byte) MHelper.randRange(1, 2, random);
-			makeLine(level, p.set(center).move(-1, h - 1, 2), bark, log, (byte) -h);
+			byte h2 = (byte) (-h - 2);
+			makeLine(level, p.set(center).move(-1, h - 1, 2), bark, log, h2);
 			mask[0][3] = h;
 		}
 		

@@ -129,5 +129,6 @@
 	"block.edenring.tall_balloon_mushroom": "Высокий воздушный гриб",
 	"block.edenring.tall_mycotic_grass": "Высокая микотическая трава",
 	"block.edenring.balloon_mushroom_branch": "Ветка воздушного гриба",
-	"biome.edenring.old_mycotic_forest": "Старый микотический лес"
+	"biome.edenring.old_mycotic_forest": "Старый микотический лес",
+	"block.edenring.balloon_mushroom_hymenophore": "Гименофор воздушного гриба"
 }

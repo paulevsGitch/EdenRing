@@ -12,6 +12,7 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import paulevs.edenring.blocks.EdenBlockProperties;
 import paulevs.edenring.blocks.EdenBlockProperties.BalloonMushroomStemState;
+import paulevs.edenring.blocks.EdenBlockProperties.QuadShape;
 import paulevs.edenring.registries.EdenBlocks;
 import ru.bclib.util.BlocksHelper;
 import ru.bclib.util.MHelper;
@@ -71,14 +72,31 @@ public class BalloonMushroomTreeFeature extends DefaultFeature {
 			
 			List<BlockPos> updateBlocks = new ArrayList(27);
 			BlockState head = block.setValue(EdenBlockProperties.NATURAL, true);
-			BlockState fur = stem.setValue(EdenBlockProperties.BALLOON_MUSHROOM_STEM, BalloonMushroomStemState.FUR);
+			
+			BlockState hymenophore = EdenBlocks.BALLOON_MUSHROOM_HYMENOPHORE.defaultBlockState();
+			BlockState hymenophoreBottom = hymenophore.setValue(EdenBlockProperties.QUAD_SHAPE, QuadShape.BOTTOM);
+			BlockState hymenophoreSmall = hymenophore.setValue(EdenBlockProperties.QUAD_SHAPE, QuadShape.SMALL);
+			BlockState hymenophoreTop = hymenophore.setValue(EdenBlockProperties.QUAD_SHAPE, QuadShape.TOP);
+			
 			for (int x = -1; x < 2; x++) {
 				pos.setX(center.getX() + x);
 				for (int z = -1; z < 2; z++) {
 					pos.setZ(center.getZ() + z);
 					pos.setY(center.getY() + h - 1);
 					if (level.getBlockState(pos).isAir()) {
-						BlocksHelper.setWithoutUpdate(level, pos, fur);
+						if (x == 0 || z == 0) {
+							BlockPos bpos = pos.below();
+							if (level.getBlockState(bpos).isAir()) {
+								BlocksHelper.setWithoutUpdate(level, pos, hymenophoreTop);
+								BlocksHelper.setWithoutUpdate(level, bpos, hymenophoreBottom);
+							}
+							else {
+								BlocksHelper.setWithoutUpdate(level, pos, hymenophoreSmall);
+							}
+						}
+						else {
+							BlocksHelper.setWithoutUpdate(level, pos, hymenophoreSmall);
+						}
 					}
 					for (int y = 0; y < 3; y++) {
 						pos.setY(center.getY() + h + y);

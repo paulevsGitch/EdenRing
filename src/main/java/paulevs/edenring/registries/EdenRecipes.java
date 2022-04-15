@@ -1,6 +1,7 @@
 package paulevs.edenring.registries;
 
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import paulevs.edenring.EdenRing;
 import ru.bclib.api.tag.CommonItemTags;
@@ -19,11 +20,34 @@ public class EdenRecipes {
 		GridRecipe.make(EdenRing.makeID("gravilite_lantern_tall"), EdenBlocks.GRAVILITE_LANTERN_TALL).checkConfig(CONFIG).setShape("I", "#", "I").addMaterial('#', EdenBlocks.GRAVILITE_SHARDS).addMaterial('I', CommonItemTags.IRON_INGOTS).build();
 		GridRecipe.make(EdenRing.makeID("gravilite_lantern"), EdenBlocks.GRAVILITE_LANTERN).checkConfig(CONFIG).setShape(" I ", "I#I", " I ").setOutputCount(2).addMaterial('#', EdenBlocks.GRAVILITE_SHARDS).addMaterial('I', CommonItemTags.IRON_INGOTS).build();
 		
+		Block log = EdenBlocks.BALLOON_MUSHROOM_MATERIAL.getBlock(WoodenComplexMaterial.BLOCK_LOG);
 		GridRecipe
-			.make(EdenRing.makeID("baloon_mushroom_block"), EdenBlocks.BALLOON_MUSHROOM_MATERIAL.getBlock(WoodenComplexMaterial.BLOCK_LOG))
+			.make(EdenRing.makeID("baloon_mushroom_block"), log)
 			.checkConfig(CONFIG)
 			.setShape("##", "##")
+			.addMaterial('#', EdenBlocks.BALLOON_MUSHROOM_STEM, EdenBlocks.BALLOON_MUSHROOM_BRANCH)
+			.build();
+		
+		GridRecipe
+			.make(EdenRing.makeID("balloon_mushroom_branch"), EdenBlocks.BALLOON_MUSHROOM_BRANCH)
+			.checkConfig(CONFIG)
+			.setList("#")
 			.addMaterial('#', EdenBlocks.BALLOON_MUSHROOM_STEM)
+			.build();
+		
+		GridRecipe
+			.make(EdenRing.makeID("balloon_mushroom_stem"), EdenBlocks.BALLOON_MUSHROOM_STEM)
+			.checkConfig(CONFIG)
+			.setList("#")
+			.addMaterial('#', EdenBlocks.BALLOON_MUSHROOM_BRANCH)
+			.build();
+		
+		GridRecipe
+			.make(EdenRing.makeID("balloon_mushroom_stem_block"), EdenBlocks.BALLOON_MUSHROOM_STEM)
+			.setOutputCount(8)
+			.checkConfig(CONFIG)
+			.setShape("#", "#")
+			.addMaterial('#', log)
 			.build();
 		
 		GridRecipe

@@ -14,7 +14,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -34,11 +33,11 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import ru.bclib.api.tag.CommonItemTags;
 import ru.bclib.blocks.BaseBlockNotFull;
 import ru.bclib.client.render.BCLRenderLayer;
 import ru.bclib.interfaces.CustomColorProvider;
 import ru.bclib.interfaces.RenderLayerProvider;
+import ru.bclib.items.tool.BaseShearsItem;
 import ru.bclib.util.BlocksHelper;
 import ru.bclib.util.ColorUtil;
 
@@ -174,7 +173,7 @@ public class SixSidePlant extends BaseBlockNotFull implements CustomColorProvide
 	}
 	
 	private boolean isShears(ItemStack tool) {
-		return tool.is(Items.SHEARS) || tool.is(CommonItemTags.SHEARS);
+		return BaseShearsItem.isShear(tool);
 	}
 	
 	private boolean hasSilkTouch(ItemStack tool) {

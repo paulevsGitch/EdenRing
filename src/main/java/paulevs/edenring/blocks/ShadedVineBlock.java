@@ -87,7 +87,7 @@ public class ShadedVineBlock extends BaseBlockNotFull implements RenderLayerProv
 		Map<String, String> textures = Maps.newHashMap();
 		textures.put("%modid%", modId);
 		textures.put("%texture%", name + "_bottom");
-		Optional<String> pattern = PatternsHelper.createJson(BasePatterns.BLOCK_CROSS, textures);
+		Optional<String> pattern = PatternsHelper.createJson(BasePatterns.ITEM_BLOCK, textures);
 		return ModelsHelper.fromPattern(pattern);
 	}
 	

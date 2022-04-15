@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -80,11 +81,18 @@ public class OldBalloonMushroomTreeFeature extends DefaultFeature {
 	
 	private void makeCap(WorldGenLevel level, MutableBlockPos p, BlockState block, byte height, Random random) {
 		BlockState bottom = block.setValue(EdenBlockProperties.NATURAL, true);
-		BlockState hymenophore = EdenBlocks.BALLOON_MUSHROOM_HYMENOPHORE.defaultBlockState();
-		BlockState hymenophoreBottom = hymenophore.setValue(EdenBlockProperties.QUAD_SHAPE, QuadShape.BOTTOM);
-		BlockState hymenophoreMiddle = hymenophore.setValue(EdenBlockProperties.QUAD_SHAPE, QuadShape.MIDDLE);
-		BlockState hymenophoreSmall = hymenophore.setValue(EdenBlockProperties.QUAD_SHAPE, QuadShape.SMALL);
-		BlockState hymenophoreTop = hymenophore.setValue(EdenBlockProperties.QUAD_SHAPE, QuadShape.TOP);
+		
+		BlockState state = EdenBlocks.BALLOON_MUSHROOM_HYMENOPHORE.defaultBlockState();
+		BlockState hymenophoreBottom = state.setValue(EdenBlockProperties.QUAD_SHAPE, QuadShape.BOTTOM);
+		BlockState hymenophoreMiddle = state.setValue(EdenBlockProperties.QUAD_SHAPE, QuadShape.MIDDLE);
+		BlockState hymenophoreSmall = state.setValue(EdenBlockProperties.QUAD_SHAPE, QuadShape.SMALL);
+		BlockState hymenophoreTop = state.setValue(EdenBlockProperties.QUAD_SHAPE, QuadShape.TOP);
+		
+		state = EdenBlocks.BALLOON_MUSHROOM_STEM.defaultBlockState();
+		BlockState stemMiddle = state.setValue(EdenBlockProperties.BALLOON_MUSHROOM_STEM, BalloonMushroomStemState.THIN);
+		BlockState stemTop = state.setValue(EdenBlockProperties.BALLOON_MUSHROOM_STEM, BalloonMushroomStemState.THIN_TOP);
+		DyeColor dye = random.nextBoolean() ? DyeColor.WHITE : DyeColor.PINK;
+		BlockState lantern = EdenBlocks.MYCOTIC_LANTERN_COLORED.get(dye).defaultBlockState();
 		
 		List<BlockPos> updateBlocks = new ArrayList(128);
 		BlockPos center = p.immutable();
@@ -93,7 +101,7 @@ public class OldBalloonMushroomTreeFeature extends DefaultFeature {
 		byte r2 = (byte) (radius * radius);
 		
 		for (byte y = startY; y <= radius; y++) {
-			BlockState state = y == startY ? bottom : block;
+			state = y == startY ? bottom : block;
 			byte y2 = (byte) (y * y);
 			for (byte x = (byte) -radius; x <= radius; x++) {
 				float x2 = (x - 0.5F) * (x - 0.5F);
@@ -102,9 +110,15 @@ public class OldBalloonMushroomTreeFeature extends DefaultFeature {
 					if (x2 + y2 + z2 <= r2) {
 						setBlock(level, p.set(center).move(x, y - startY, z), state);
 						updateBlocks.add(p.immutable());
-						if (y == startY && random.nextInt(4) > 0) {
-							byte length = (byte) MHelper.randRange(1, 3, random);
-							makeVine(level, p.mutable().setY(p.getY() - 1), length, hymenophoreSmall, hymenophoreBottom, hymenophoreMiddle, hymenophoreTop);
+						if (y == startY) {
+							if (random.nextInt(16) == 0 && x2 + z2 > 3) {
+								byte length = (byte) MHelper.randRange(4, 7, random);
+								makeLantern(level, p.mutable().setY(p.getY() - 1), length, lantern, stemMiddle, stemTop);
+							}
+							else if (random.nextInt(4) > 0) {
+								byte length = (byte) MHelper.randRange(1, 3, random);
+								makeVine(level, p.mutable().setY(p.getY() - 1), length, hymenophoreSmall, hymenophoreBottom, hymenophoreMiddle, hymenophoreTop);
+							}
 						}
 					}
 				}
@@ -132,6 +146,20 @@ public class OldBalloonMushroomTreeFeature extends DefaultFeature {
 			if (!level.getBlockState(pos).isAir()) {
 				state = i == 0 ? small : bottom;
 				BlocksHelper.setWithoutUpdate(level, pos.setY(pos.getY() + 1), state);
+				return;
+			}
+		}
+	}
+	
+	private void makeLantern(WorldGenLevel level, MutableBlockPos pos, byte length, BlockState lantern, BlockState middle, BlockState top) {
+		if (!level.getBlockState(pos).isAir()) return;
+		byte maxLength = (byte) (length - 1);
+		for (byte i = 0; i < length; i++) {
+			BlockState state = i == maxLength ? lantern : i == 0 ? top : middle;
+			BlocksHelper.setWithoutUpdate(level, pos, state);
+			pos.setY(pos.getY() - 1);
+			if (!level.getBlockState(pos).isAir()) {
+				BlocksHelper.setWithoutUpdate(level, pos.setY(pos.getY() + 1), lantern);
 				return;
 			}
 		}

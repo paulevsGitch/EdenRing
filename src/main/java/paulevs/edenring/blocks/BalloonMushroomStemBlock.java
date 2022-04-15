@@ -102,12 +102,12 @@ public class BalloonMushroomStemBlock extends BaseBlockNotFull implements Render
 			return world.getBlockState(sidePos).isFaceSturdy(world, sidePos, Direction.DOWN);
 		}
 		if (stem == BalloonMushroomStemState.THIN || stem == BalloonMushroomStemState.THIN_TOP) {
-			BlockPos sidePos = pos.below();
-			BlockState sideState = world.getBlockState(sidePos);
-			if (sideState.is(this) || sideState.isFaceSturdy(world, sidePos, Direction.UP)) {
-				sidePos = pos.above();
-				sideState = world.getBlockState(sidePos);
-				if (sideState.is(this) || sideState.isFaceSturdy(world, sidePos, Direction.DOWN)) {
+			BlockPos below = pos.below();
+			BlockState belowState = world.getBlockState(below);
+			if (belowState.is(this) || belowState.getBlock() instanceof MycoticLanternBlock || belowState.isFaceSturdy(world, below, Direction.UP)) {
+				below = pos.above();
+				belowState = world.getBlockState(below);
+				if (belowState.is(this) || belowState.isFaceSturdy(world, below, Direction.DOWN)) {
 					return true;
 				}
 			}
@@ -120,7 +120,7 @@ public class BalloonMushroomStemBlock extends BaseBlockNotFull implements Render
 	@SuppressWarnings("deprecation")
 	public BlockState updateShape(BlockState state, Direction facing, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
 		if (!canSurvive(state, world, pos)) {
-			if (world.getBlockState(pos.above()).is(EdenBlocks.BALLOON_MUSHROOM_BLOCK)) {
+			if (world.getBlockState(pos.above()).is(EdenBlocks.BALLOON_MUSHROOM_BLOCK) && !world.getBlockState(pos.above(2)).is(EdenBlocks.BALLOON_MUSHROOM_BLOCK)) {
 				world.removeBlock(pos.above(), true);
 			}
 			return Blocks.AIR.defaultBlockState();

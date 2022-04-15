@@ -3,34 +3,9 @@
 	"parent": "block/block",
 	"textures": {
 		"particle": "edenring:block/balloon_mushroom_stem_small_top",
-		"texture": "edenring:block/balloon_mushroom_stem_small_top",
-		"fur": "edenring:block/balloon_mushroom_fur"
+		"texture": "edenring:block/balloon_mushroom_stem_small_top"
 	},
 	"elements": [ 	 
-		{
-			"__comment": "Box1",
-			"from": [ 2, 13, 2 ],
-			"to": [ 14, 16, 14 ],
-			"shade": false,
-			"faces": {
-				"north": { "uv": [ 2, 0, 14, 3 ], "texture": "#fur" },
-				"south": { "uv": [ 2, 0, 14, 3 ], "texture": "#fur" },
-				"west": { "uv": [ 2, 0, 14, 3 ], "texture": "#fur" },
-				"east": { "uv": [ 2, 0, 14, 3 ], "texture": "#fur" }
-			}
-		},
-		{
-			"__comment": "Box1",
-			"from": [ 14, 16, 14 ],
-			"to": [ 2, 13, 2 ],
-			"shade": false,
-			"faces": {
-				"north": { "uv": [ 2, 3, 14, 0 ], "texture": "#fur" },
-				"south": { "uv": [ 2, 3, 14, 0 ], "texture": "#fur" },
-				"west": { "uv": [ 2, 3, 14, 0 ], "texture": "#fur" },
-				"east": { "uv": [ 2, 3, 14, 0 ], "texture": "#fur" }
-			}
-		},
 		{
 			"__comment": "PlaneX2",
 			"from": [ 0, 0, 0 ],

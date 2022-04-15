@@ -231,12 +231,9 @@ public class EdenSkyRenderer implements SkyRenderer {
 		
 		// Setup Perspective //
 		
-		RenderSystem.clear(GL11.GL_DEPTH_BUFFER_BIT, Minecraft.ON_OSX);
-		RenderSystem.depthMask(true);
 		RenderSystem.defaultBlendFunc();
-		RenderSystem.enableDepthTest();
 		
-		// Render Rings //
+		// Render Rings Back //
 		
 		poseStack.pushPose();
 		poseStack.translate(0, 0, -100);
@@ -254,21 +251,9 @@ public class EdenSkyRenderer implements SkyRenderer {
 		bufferBuilder.end();
 		BufferUploader.end(bufferBuilder);
 		
-		if (py > 0) {
-			RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, (float) py);
-			RenderSystem.setShaderTexture(0, RINGS_TEXTURE);
-			bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-			bufferBuilder.vertex(matrix, -130.0F, 0.01F, -130.0F).uv(0.0F, 0.0F).endVertex();
-			bufferBuilder.vertex(matrix,  130.0F, 0.01F, -130.0F).uv(1.0F, 0.0F).endVertex();
-			bufferBuilder.vertex(matrix,  130.0F, 0.01F,  130.0F).uv(1.0F, 1.0F).endVertex();
-			bufferBuilder.vertex(matrix, -130.0F, 0.01F,  130.0F).uv(0.0F, 1.0F).endVertex();
-			bufferBuilder.end();
-			BufferUploader.end(bufferBuilder);
-		}
-		
 		poseStack.popPose();
 		
-		// Render Moons //
+		// Render Moons Back //
 		
 		int frame = (int) (dayTime * 12 + 0.5F);
 		float v0 = frame / 12F;
@@ -277,7 +262,7 @@ public class EdenSkyRenderer implements SkyRenderer {
 		for (int i = 0; i < MOONS.length; i++) {
 			MoonInfo moon = MOONS[i];
 			double position = moon.orbitState + dayTime * moon.speed;
-			renderMoon(poseStack, position, moon.orbitRadius, moon.orbitAngle, moon.size, v0, v1, moon.color);
+			renderMoon(false, poseStack, position, moon.orbitRadius, moon.orbitAngle, moon.size, v0, v1, moon.color);
 		}
 		
 		// Render Planet //
@@ -298,12 +283,37 @@ public class EdenSkyRenderer implements SkyRenderer {
 		
 		poseStack.popPose();
 		
+		// Render Moons Front //
+		
+		for (int i = 0; i < MOONS.length; i++) {
+			MoonInfo moon = MOONS[i];
+			double position = moon.orbitState + dayTime * moon.speed;
+			renderMoon(true, poseStack, position, moon.orbitRadius, moon.orbitAngle, moon.size, v0, v1, moon.color);
+		}
+		
+		// Render Rings Front //
+		
+		if (py > 0) {
+			poseStack.pushPose();
+			poseStack.translate(0, 0, -100);
+			poseStack.mulPose(Vector3f.XP.rotation(angle));
+			RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+			RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, py > 0.5F ? 0.5F : (float) py);
+			RenderSystem.setShaderTexture(0, RINGS_TEXTURE);
+			matrix = poseStack.last().pose();
+			bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+			bufferBuilder.vertex(matrix, -130.0F, 0.001F,   0.0F).uv(0.0F, 0.5F).endVertex();
+			bufferBuilder.vertex(matrix,  130.0F, 0.001F,   0.0F).uv(1.0F, 0.5F).endVertex();
+			bufferBuilder.vertex(matrix,  130.0F, 0.001F, 130.0F).uv(1.0F, 1.0F).endVertex();
+			bufferBuilder.vertex(matrix, -130.0F, 0.001F, 130.0F).uv(0.0F, 1.0F).endVertex();
+			bufferBuilder.end();
+			BufferUploader.end(bufferBuilder);
+			poseStack.popPose();
+		}
+		
 		// Render Fog //
 		
 		if (py < 1) {
-			RenderSystem.clear(GL11.GL_DEPTH_BUFFER_BIT, Minecraft.ON_OSX);
-			RenderSystem.depthMask(false);
-			RenderSystem.disableDepthTest();
 			RenderSystem.setShaderTexture(0, HORIZON_BW);
 			
 			if (BackgroundInfo.fogDensity > 1.5F) {
@@ -356,8 +366,6 @@ public class EdenSkyRenderer implements SkyRenderer {
 		// Render Blindness //
 		
 		if (BackgroundInfo.blindness > 0) {
-			RenderSystem.clear(GL11.GL_DEPTH_BUFFER_BIT, Minecraft.ON_OSX);
-			RenderSystem.disableDepthTest();
 			RenderSystem.defaultBlendFunc();
 			RenderSystem.disableTexture();
 			
@@ -384,7 +392,6 @@ public class EdenSkyRenderer implements SkyRenderer {
 			RenderSystem.applyModelViewMatrix();
 		}
 		
-		RenderSystem.clear(GL11.GL_DEPTH_BUFFER_BIT, Minecraft.ON_OSX);
 		RenderSystem.enableTexture();
 		RenderSystem.depthMask(true);
 		RenderSystem.defaultBlendFunc();
@@ -497,9 +504,11 @@ public class EdenSkyRenderer implements SkyRenderer {
 		}
 	}
 	
-	private void renderMoon(PoseStack matrices, double orbitPosition, float orbitRadius, float orbitAngle, float size, float v0, float v1, Vector3f color) {
-		float offset1 = (float) Math.sin(orbitPosition);
+	private void renderMoon(boolean front, PoseStack matrices, double orbitPosition, float orbitRadius, float orbitAngle, float size, float v0, float v1, Vector3f color) {
 		float offset2 = (float) Math.cos(orbitPosition);
+		if (front && offset2 < 0) return;
+		if (!front && offset2 >= 0) return;
+		float offset1 = (float) Math.sin(orbitPosition);
 		
 		matrices.pushPose();
 		matrices.translate(offset1 * (70 + orbitRadius), offset1 * orbitAngle, offset2 * orbitRadius - 100);

@@ -154,7 +154,7 @@ public class BranchBlock extends BaseBlockNotFull {
 	public BlockModel getItemModel(ResourceLocation itemID) {
 		Map<String, String> textures = Maps.newHashMap();
 		textures.put("%texture%", itemID.getNamespace() + ":block/" + itemID.getPath());
-		Optional<String> pattern = PatternsHelper.createJson(EdenPatterns.BLOCK_BRANCH_SIDE, textures);
+		Optional<String> pattern = PatternsHelper.createJson(EdenPatterns.BLOCK_BRANCH_CENTER, textures);
 		return ModelsHelper.fromPattern(pattern);
 	}
 }

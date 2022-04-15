@@ -87,12 +87,10 @@ public class EdenBlocks {
 	public static final Block BALLOON_MUSHROOM_BRANCH = register("balloon_mushroom_branch", new BranchBlock(BALLOON_MUSHROOM_STEM));
 	public static final ComplexMaterial BALLOON_MUSHROOM_MATERIAL = new WoodenComplexMaterial(EdenRing.MOD_ID, "balloon_mushroom", "eden", MaterialColor.COLOR_PURPLE, MaterialColor.COLOR_PURPLE).init(REGISTRY, EdenItems.REGISTRY, EdenRecipes.CONFIG);
 	public static final Block BALLOON_MUSHROOM_HYMENOPHORE = register("balloon_mushroom_hymenophore", new ShadedVineBlock());
-	public static final Block MYCOTIC_LANTERN = register("mycotic_lantern", new MycoticLanternBlock());
 	public static final Map<DyeColor, Block> MYCOTIC_LANTERN_COLORED = Maps.newEnumMap(DyeColor.class);
 	
 	static {
-		MYCOTIC_LANTERN_COLORED.put(DyeColor.WHITE, MYCOTIC_LANTERN);
-		for (byte i = 1; i < 16; i++) {
+		for (byte i = 0; i < 16; i++) {
 			DyeColor color = DyeColor.byId(i);
 			Block lantern = register("mycotic_lantern_" + color.getName(), new MycoticLanternBlock());
 			MYCOTIC_LANTERN_COLORED.put(color, lantern);

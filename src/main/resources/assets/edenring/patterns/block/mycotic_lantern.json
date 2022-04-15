@@ -1,0 +1,48 @@
+{
+	"parent": "block/block",
+	"textures": {
+		"particle": "#side",
+		"side": "%side%",
+		"top": "%top%"
+	},
+	"elements": [ 	 
+		{
+			"__comment": "Box1",
+			"from": [ 2, 2, 2 ],
+			"to": [ 14, 14, 14 ],
+			"shade": false,
+			"faces": {
+				"down": { "uv": [ 2, 2, 14, 14 ], "texture": "#top" },
+				"up": { "uv": [ 2, 2, 14, 14 ], "texture": "#top" },
+				"north": { "uv": [ 2, 2, 14, 14 ], "texture": "#side" },
+				"south": { "uv": [ 2, 2, 14, 14 ], "texture": "#side" },
+				"west": { "uv": [ 2, 2, 14, 14 ], "texture": "#side" },
+				"east": { "uv": [ 2, 2, 14, 14 ], "texture": "#side" }
+			}
+		},
+		{
+			"__comment": "Box1",
+			"from": [ 5, 0, 5 ],
+			"to": [ 11, 2, 11 ],
+			"faces": {
+				"down": { "uv": [ 5, 5, 11, 11 ], "texture": "#top", "cullface": "down" },
+				"north": { "uv": [ 5, 14, 11, 16 ], "texture": "#side" },
+				"south": { "uv": [ 5, 14, 11, 16 ], "texture": "#side" },
+				"west": { "uv": [ 5, 14, 11, 16 ], "texture": "#side" },
+				"east": { "uv": [ 5, 14, 11, 16 ], "texture": "#side" }
+			}
+		},
+		{
+			"__comment": "Box1",
+			"from": [ 5, 14, 5 ],
+			"to": [ 11, 16, 11 ],
+			"faces": {
+				"up": { "uv": [ 5, 5, 11, 11 ], "texture": "#top", "cullface": "up" },
+				"north": { "uv": [ 5, 0, 11, 2 ], "texture": "#side" },
+				"south": { "uv": [ 5, 0, 11, 2 ], "texture": "#side" },
+				"west": { "uv": [ 5, 0, 11, 2 ], "texture": "#side" },
+				"east": { "uv": [ 5, 0, 11, 2 ], "texture": "#side" }
+			}
+		}
+	]
+}

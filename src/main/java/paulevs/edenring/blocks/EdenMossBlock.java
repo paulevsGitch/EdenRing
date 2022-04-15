@@ -61,7 +61,7 @@ public class EdenMossBlock extends SimplePlantBlock implements CustomColorProvid
 		Map<String, String> textures = Maps.newHashMap();
 		textures.put("%side%", modId + ":block/" + name + "_side");
 		textures.put("%top%", modId + ":block/" + name + "_top");
-		Optional<String> pattern = PatternsHelper.createJson(EdenPatterns.BLOCK_MOSS, textures);
+		Optional<String> pattern = PatternsHelper.createJson(EdenPatterns.ITEM_MOSS, textures);
 		return ModelsHelper.fromPattern(pattern);
 	}
 	

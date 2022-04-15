@@ -17,4 +17,5 @@ public class EdenPatterns {
 	public static final ResourceLocation BLOCK_MOSS = EdenRing.makeID("patterns/block/moss.json");
 	
 	public static final ResourceLocation ITEM_TINTED_OVERLAY = EdenRing.makeID("patterns/item/tinted_overlay.json");
+	public static final ResourceLocation ITEM_MOSS = EdenRing.makeID("patterns/item/moss.json");
 }

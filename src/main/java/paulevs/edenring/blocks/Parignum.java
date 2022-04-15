@@ -15,7 +15,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import paulevs.edenring.EdenRing;
 import ru.bclib.client.models.ModelsHelper;
 import ru.bclib.client.models.ModelsHelper.MultiPartBuilder;
 import ru.bclib.client.models.PatternsHelper;
@@ -73,7 +72,7 @@ public class Parignum extends SixSidePlant implements BlockModelProvider {
 		Map<String, String> textures = Maps.newHashMap();
 		textures.put("%texture%", modId + ":block/" + name);
 		textures.put("%overlay%", modId + ":block/" + name + "_flowers_1");
-		Optional<String> pattern = PatternsHelper.createJson(EdenRing.makeID("patterns/item/tinted_overlay.json"), textures);
+		Optional<String> pattern = PatternsHelper.createJson(EdenPatterns.ITEM_TINTED_OVERLAY, textures);
 		return ModelsHelper.fromPattern(pattern);
 	}
 	
@@ -83,12 +82,12 @@ public class Parignum extends SixSidePlant implements BlockModelProvider {
 		ResourceLocation patternID;
 		if (overlay == null) {
 			textures.put("%texture%", stateId.getNamespace() + ":block/" + stateId.getPath());
-			patternID = EdenRing.makeID("patterns/block/plane_tint.json");
+			patternID = EdenPatterns.BLOCK_PLANE_TINT;
 		}
 		else {
 			textures.put("%texture%", stateId.getNamespace() + ":block/" + stateId.getPath());
 			textures.put("%overlay%", stateId.getNamespace() + ":block/" + stateId.getPath() + overlay);
-			patternID = EdenRing.makeID("patterns/block/plane_overlay.json");
+			patternID = EdenPatterns.BLOCK_PLANE_OVERLAY;
 		}
 		Optional<String> pattern = PatternsHelper.createJson(patternID, textures);
 		return ModelsHelper.fromPattern(pattern);

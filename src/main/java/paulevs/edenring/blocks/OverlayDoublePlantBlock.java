@@ -15,7 +15,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.GrassBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import paulevs.edenring.EdenRing;
 import ru.bclib.blocks.BaseDoublePlantBlock;
 import ru.bclib.client.models.ModelsHelper;
 import ru.bclib.client.models.PatternsHelper;
@@ -34,7 +33,7 @@ public class OverlayDoublePlantBlock extends BaseDoublePlantBlock implements Cus
 		Map<String, String> textures = Maps.newHashMap();
 		textures.put("%texture%", modId + ":block/" + name + "_color");
 		textures.put("%overlay%", modId + ":block/" + name + "_overlay");
-		Optional<String> pattern = PatternsHelper.createJson(EdenRing.makeID("patterns/block/tinted_cross_overlay.json"), textures);
+		Optional<String> pattern = PatternsHelper.createJson(EdenPatterns.BLOCK_TINTED_CROSS_OVERLAY, textures);
 		return ModelsHelper.fromPattern(pattern);
 	}
 	
@@ -46,7 +45,7 @@ public class OverlayDoublePlantBlock extends BaseDoublePlantBlock implements Cus
 		Map<String, String> textures = Maps.newHashMap();
 		textures.put("%texture%", modId + ":block/" + name + "_top_color");
 		textures.put("%overlay%", modId + ":block/" + name + "_top_overlay");
-		Optional<String> pattern = PatternsHelper.createJson(EdenRing.makeID("patterns/item/tinted_overlay.json"), textures);
+		Optional<String> pattern = PatternsHelper.createJson(EdenPatterns.ITEM_TINTED_OVERLAY, textures);
 		return ModelsHelper.fromPattern(pattern);
 	}
 	

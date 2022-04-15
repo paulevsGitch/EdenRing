@@ -21,6 +21,7 @@ import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import paulevs.edenring.blocks.EdenBlockProperties;
+import paulevs.edenring.blocks.EdenPatterns;
 import ru.bclib.blocks.BaseBlock;
 import ru.bclib.client.models.BasePatterns;
 import ru.bclib.client.models.ModelsHelper;
@@ -100,7 +101,7 @@ public class BaseCTBlock extends BaseBlock implements RenderLayerProvider {
 			
 			for (byte i = 0; i < 4; i++) {
 				textures.put("%texture%", modID + ":block/" + name + "_edge_" + i);
-				pattern = PatternsHelper.createJson(EdenRing.makeID("patterns/block/up_quad.json"), textures);
+				pattern = PatternsHelper.createJson(EdenPatterns.BLOCK_UP_QUAD, textures);
 				model = ModelsHelper.fromPattern(pattern);
 				modelCache.put(keyQuad[i], model);
 			}

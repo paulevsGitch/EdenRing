@@ -1,10 +1,12 @@
 package paulevs.edenring.registries;
 
 
+import com.google.common.collect.Maps;
 import net.fabricmc.fabric.api.registry.TillableBlockRegistry;
 import net.fabricmc.fabric.mixin.object.builder.AbstractBlockAccessor;
 import net.fabricmc.fabric.mixin.object.builder.AbstractBlockSettingsAccessor;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
@@ -39,6 +41,7 @@ import paulevs.edenring.blocks.GraviliteTallLanternBlock;
 import paulevs.edenring.blocks.GravityCompressorBlock;
 import paulevs.edenring.blocks.MossyStoneBlock;
 import paulevs.edenring.blocks.MycoticGrass;
+import paulevs.edenring.blocks.MycoticLanternBlock;
 import paulevs.edenring.blocks.OverlayDoublePlantBlock;
 import paulevs.edenring.blocks.OverlayPlantBlock;
 import paulevs.edenring.blocks.OverlayVineBlock;
@@ -65,6 +68,8 @@ import ru.bclib.complexmaterials.WoodenComplexMaterial;
 import ru.bclib.config.PathConfig;
 import ru.bclib.registry.BlockRegistry;
 
+import java.util.Map;
+
 public class EdenBlocks {
 	public static final BlockRegistry REGISTRY = new BlockRegistry(EdenRing.EDEN_TAB, new PathConfig(EdenRing.MOD_ID, "blocks"));
 	
@@ -82,6 +87,17 @@ public class EdenBlocks {
 	public static final Block BALLOON_MUSHROOM_BRANCH = register("balloon_mushroom_branch", new BranchBlock(BALLOON_MUSHROOM_STEM));
 	public static final ComplexMaterial BALLOON_MUSHROOM_MATERIAL = new WoodenComplexMaterial(EdenRing.MOD_ID, "balloon_mushroom", "eden", MaterialColor.COLOR_PURPLE, MaterialColor.COLOR_PURPLE).init(REGISTRY, EdenItems.REGISTRY, EdenRecipes.CONFIG);
 	public static final Block BALLOON_MUSHROOM_HYMENOPHORE = register("balloon_mushroom_hymenophore", new ShadedVineBlock());
+	public static final Block MYCOTIC_LANTERN = register("mycotic_lantern", new MycoticLanternBlock());
+	public static final Map<DyeColor, Block> MYCOTIC_LANTERN_COLORED = Maps.newEnumMap(DyeColor.class);
+	
+	static {
+		MYCOTIC_LANTERN_COLORED.put(DyeColor.WHITE, MYCOTIC_LANTERN);
+		for (byte i = 1; i < 16; i++) {
+			DyeColor color = DyeColor.byId(i);
+			Block lantern = register("mycotic_lantern_" + color.getName(), new MycoticLanternBlock());
+			MYCOTIC_LANTERN_COLORED.put(color, lantern);
+		}
+	}
 	
 	public static final Block PULSE_TREE_SAPLING = register("pulse_tree_sapling", new FeatureSaplingBlock((state) -> EdenFeatures.PULSE_TREE.getFeature()));
 	public static final Block PULSE_TREE = register("pulse_tree", new PulseTreeBlock());

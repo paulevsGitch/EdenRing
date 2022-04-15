@@ -10,7 +10,6 @@ import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.GrassColor;
 import net.minecraft.world.level.block.state.BlockState;
-import paulevs.edenring.EdenRing;
 import ru.bclib.client.models.ModelsHelper;
 import ru.bclib.client.models.PatternsHelper;
 import ru.bclib.interfaces.CustomColorProvider;
@@ -32,7 +31,7 @@ public class OverlayPlantBlock extends SimplePlantBlock implements CustomColorPr
 		Map<String, String> textures = Maps.newHashMap();
 		textures.put("%texture%", modId + ":block/" + name + "_color");
 		textures.put("%overlay%", modId + ":block/" + name + "_overlay");
-		Optional<String> pattern = PatternsHelper.createJson(EdenRing.makeID("patterns/block/tinted_cross_overlay.json"), textures);
+		Optional<String> pattern = PatternsHelper.createJson(EdenPatterns.BLOCK_TINTED_CROSS_OVERLAY, textures);
 		return ModelsHelper.fromPattern(pattern);
 	}
 	
@@ -44,7 +43,7 @@ public class OverlayPlantBlock extends SimplePlantBlock implements CustomColorPr
 		Map<String, String> textures = Maps.newHashMap();
 		textures.put("%texture%", modId + ":block/" + name + "_color");
 		textures.put("%overlay%", modId + ":block/" + name + "_overlay");
-		Optional<String> pattern = PatternsHelper.createJson(EdenRing.makeID("patterns/item/tinted_overlay.json"), textures);
+		Optional<String> pattern = PatternsHelper.createJson(EdenPatterns.ITEM_TINTED_OVERLAY, textures);
 		return ModelsHelper.fromPattern(pattern);
 	}
 	

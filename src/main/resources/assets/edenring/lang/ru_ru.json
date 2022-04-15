@@ -130,5 +130,22 @@
 	"block.edenring.tall_mycotic_grass": "Высокая микотическая трава",
 	"block.edenring.balloon_mushroom_branch": "Ветка воздушного гриба",
 	"biome.edenring.old_mycotic_forest": "Старый микотический лес",
-	"block.edenring.balloon_mushroom_hymenophore": "Гименофор воздушного гриба"
+	"block.edenring.balloon_mushroom_hymenophore": "Гименофор воздушного гриба",
+	
+	"block.edenring.mycotic_lantern": "Микотический фонарь",
+	"block.edenring.mycotic_lantern_black": "Чёрный микотический фонарь",
+	"block.edenring.mycotic_lantern_blue": "Синий микотический фонарь",
+	"block.edenring.mycotic_lantern_brown": "Коричневый микотический фонарь",
+	"block.edenring.mycotic_lantern_cyan": "Бирюзовый микотический фонарь",
+	"block.edenring.mycotic_lantern_gray": "Серый микотический фонарь",
+	"block.edenring.mycotic_lantern_green": "Зелёный микотический фонарь",
+	"block.edenring.mycotic_lantern_light_blue": "Голубой микотический фонарь",
+	"block.edenring.mycotic_lantern_light_gray": "Светло-серый микотический фонарь",
+	"block.edenring.mycotic_lantern_lime": "Лаймовый микотический фонарь",
+	"block.edenring.mycotic_lantern_magenta": "Пурпурный микотический фонарь",
+	"block.edenring.mycotic_lantern_orange": "Оранжевый микотический фонарь",
+	"block.edenring.mycotic_lantern_pink": "Розовый микотический фонарь",
+	"block.edenring.mycotic_lantern_purple": "Фиолетовый микотический фонарь",
+	"block.edenring.mycotic_lantern_red": "Красный микотический фонарь",
+	"block.edenring.mycotic_lantern_yellow": "Жёлтый микотический фонарь"
 }

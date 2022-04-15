@@ -24,7 +24,6 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import paulevs.edenring.EdenRing;
 import paulevs.edenring.blocks.EdenBlockProperties.BalloonMushroomStemState;
 import ru.bclib.blocks.BaseBlockNotFull;
 import ru.bclib.client.models.ModelsHelper;
@@ -128,11 +127,11 @@ public class BranchBlock extends BaseBlockNotFull {
 		if (!modelCache.containsKey(keyCenter)) {
 			Map<String, String> textures = Maps.newHashMap();
 			textures.put("%texture%", modID + ":block/" + name);
-			Optional<String> pattern = PatternsHelper.createJson(EdenRing.makeID("patterns/block/branch_center.json"), textures);
+			Optional<String> pattern = PatternsHelper.createJson(EdenPatterns.BLOCK_BRANCH_CENTER, textures);
 			BlockModel model = ModelsHelper.fromPattern(pattern);
 			modelCache.put(keyCenter, model);
 			
-			pattern = PatternsHelper.createJson(EdenRing.makeID("patterns/block/branch_side.json"), textures);
+			pattern = PatternsHelper.createJson(EdenPatterns.BLOCK_BRANCH_SIDE, textures);
 			model = ModelsHelper.fromPattern(pattern);
 			modelCache.put(keyUp, model);
 		}
@@ -155,7 +154,7 @@ public class BranchBlock extends BaseBlockNotFull {
 	public BlockModel getItemModel(ResourceLocation itemID) {
 		Map<String, String> textures = Maps.newHashMap();
 		textures.put("%texture%", itemID.getNamespace() + ":block/" + itemID.getPath());
-		Optional<String> pattern = PatternsHelper.createJson(EdenRing.makeID("patterns/block/branch_center.json"), textures);
+		Optional<String> pattern = PatternsHelper.createJson(EdenPatterns.BLOCK_BRANCH_SIDE, textures);
 		return ModelsHelper.fromPattern(pattern);
 	}
 }

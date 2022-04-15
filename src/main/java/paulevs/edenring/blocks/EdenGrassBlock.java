@@ -16,7 +16,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.GrassBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootContext.Builder;
-import paulevs.edenring.EdenRing;
 import ru.bclib.client.models.ModelsHelper;
 import ru.bclib.client.models.PatternsHelper;
 import ru.bclib.client.render.BCLRenderLayer;
@@ -54,7 +53,7 @@ public class EdenGrassBlock extends GrassBlock implements BlockModelProvider, Cu
 		textures.put("%top%", "minecraft:block/grass_block_top");
 		textures.put("%side%", modId + ":block/grass_side");
 		textures.put("%overlay%", modId + ":block/grass_side_overlay");
-		Optional<String> pattern = PatternsHelper.createJson(EdenRing.makeID("patterns/block/grass_block.json"), textures);
+		Optional<String> pattern = PatternsHelper.createJson(EdenPatterns.BLOCK_GRASS_BLOCK, textures);
 		return ModelsHelper.fromPattern(pattern);
 	}
 	

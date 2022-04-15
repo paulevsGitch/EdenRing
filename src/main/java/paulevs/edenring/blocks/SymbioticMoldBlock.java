@@ -9,7 +9,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
-import paulevs.edenring.EdenRing;
 import ru.bclib.client.models.ModelsHelper;
 import ru.bclib.client.models.PatternsHelper;
 import ru.bclib.client.render.BCLRenderLayer;
@@ -30,7 +29,7 @@ public class SymbioticMoldBlock extends CeilPlantBlock {
 		String name = blockId.getPath();
 		Map<String, String> textures = Maps.newHashMap();
 		textures.put("%texture%", modId + ":block/" + name);
-		Optional<String> pattern = PatternsHelper.createJson(EdenRing.makeID("patterns/block/translucent_plant.json"), textures);
+		Optional<String> pattern = PatternsHelper.createJson(EdenPatterns.BLOCK_TRANSLUCENT_PLANT, textures);
 		return ModelsHelper.fromPattern(pattern);
 	}
 	

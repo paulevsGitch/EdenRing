@@ -19,7 +19,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import paulevs.edenring.EdenRing;
 import ru.bclib.client.models.ModelsHelper;
 import ru.bclib.client.models.PatternsHelper;
 import ru.bclib.interfaces.CustomColorProvider;
@@ -50,7 +49,7 @@ public class EdenMossBlock extends SimplePlantBlock implements CustomColorProvid
 		Map<String, String> textures = Maps.newHashMap();
 		textures.put("%side%", modId + ":block/" + name + "_side");
 		textures.put("%top%", modId + ":block/" + name + "_top");
-		Optional<String> pattern = PatternsHelper.createJson(EdenRing.makeID("patterns/block/moss.json"), textures);
+		Optional<String> pattern = PatternsHelper.createJson(EdenPatterns.BLOCK_MOSS, textures);
 		return ModelsHelper.fromPattern(pattern);
 	}
 	
@@ -62,7 +61,7 @@ public class EdenMossBlock extends SimplePlantBlock implements CustomColorProvid
 		Map<String, String> textures = Maps.newHashMap();
 		textures.put("%side%", modId + ":block/" + name + "_side");
 		textures.put("%top%", modId + ":block/" + name + "_top");
-		Optional<String> pattern = PatternsHelper.createJson(EdenRing.makeID("patterns/item/moss.json"), textures);
+		Optional<String> pattern = PatternsHelper.createJson(EdenPatterns.BLOCK_MOSS, textures);
 		return ModelsHelper.fromPattern(pattern);
 	}
 	

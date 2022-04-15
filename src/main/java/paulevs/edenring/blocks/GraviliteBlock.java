@@ -10,7 +10,6 @@ import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import paulevs.edenring.EdenRing;
 import ru.bclib.blocks.BaseRotatedPillarBlock;
 import ru.bclib.client.models.ModelsHelper;
 import ru.bclib.client.models.PatternsHelper;
@@ -34,7 +33,7 @@ public class GraviliteBlock extends BaseRotatedPillarBlock {
 			String name = stateId.getPath();
 			textures.put("%side%", modId + ":block/" + name + "_side");
 			textures.put("%end%", modId + ":block/" + name + "_top");
-			Optional<String> pattern = PatternsHelper.createJson(EdenRing.makeID("patterns/block/pillar_no_shade.json"), textures);
+			Optional<String> pattern = PatternsHelper.createJson(EdenPatterns.BLOCK_PILLAR_NO_SHADE, textures);
 			modelCache.put(pillarUp, ModelsHelper.fromPattern(pattern));
 		}
 		
@@ -49,7 +48,7 @@ public class GraviliteBlock extends BaseRotatedPillarBlock {
 		String name = itemID.getPath();
 		textures.put("%side%", modId + ":block/" + name + "_side");
 		textures.put("%end%", modId + ":block/" + name + "_top");
-		Optional<String> pattern = PatternsHelper.createJson(EdenRing.makeID("patterns/block/pillar_no_shade.json"), textures);
+		Optional<String> pattern = PatternsHelper.createJson(EdenPatterns.BLOCK_PILLAR_NO_SHADE, textures);
 		return ModelsHelper.fromPattern(pattern);
 	}
 }

@@ -1,5 +1,7 @@
 package paulevs.edenring.registries;
 
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -74,6 +76,23 @@ public class EdenRecipes {
 		FurnaceRecipe.make(EdenRing.MOD_ID, "iron_nugget", EdenBlocks.IRON_GRASS, Items.IRON_NUGGET).checkConfig(CONFIG).buildWithBlasting();
 		FurnaceRecipe.make(EdenRing.MOD_ID, "gold_nugget", EdenBlocks.GOLD_GRASS, Items.GOLD_NUGGET).checkConfig(CONFIG).buildWithBlasting();
 		FurnaceRecipe.make(EdenRing.MOD_ID, "slime_ball", EdenBlocks.VOLVOX_BLOCK, Items.SLIME_BALL).checkConfig(CONFIG).build();
+		
+		Block[] lanterns = EdenBlocks.MYCOTIC_LANTERN_COLORED.values().toArray(new Block[16]);
+		EdenBlocks.MYCOTIC_LANTERN_COLORED.forEach(((color, block) -> {
+			GridRecipe
+				.make(EdenRing.makeID("mycotic_lantern_" + color.getName()), block)
+				.setGroup("eden_mycotic_lantern")
+				.checkConfig(CONFIG)
+				.setOutputCount(8)
+				.setShape("###", "#D#", "###")
+				.addMaterial('#', lanterns)
+				.addMaterial('D', DyeItem.byColor(color))
+				.build();
+		}));
+		
+		for (DyeColor color: DyeColor.values()) {
+			Block block = EdenBlocks.MYCOTIC_LANTERN_COLORED.get(color);
+		}
 		
 		CONFIG.saveChanges();
 	}

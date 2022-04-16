@@ -164,5 +164,10 @@
 	"block.edenring.balloon_mushroom_sporocarp_purple": "Purple Balloon Mushroom Sporocarp",
 	"block.edenring.balloon_mushroom_sporocarp_red": "Red Balloon Mushroom Sporocarp",
 	"block.edenring.balloon_mushroom_sporocarp_white": "White Balloon Mushroom Sporocarp",
-	"block.edenring.balloon_mushroom_sporocarp_yellow": "Yellow Balloon Mushroom Sporocarp"
+	"block.edenring.balloon_mushroom_sporocarp_yellow": "Yellow Balloon Mushroom Sporocarp",
+	
+	"block.edenring.limphium": "Limphium",
+	"block.edenring.limphium_sapling": "Limphium Sapling",
+	"item.edenring.limphium_leaf": "Limphium Leaf",
+	"item.edenring.limphium_leaf_dryed": "Dryed Limphium Leaf"
 }

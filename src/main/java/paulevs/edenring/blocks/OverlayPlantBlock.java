@@ -23,6 +23,10 @@ public class OverlayPlantBlock extends SimplePlantBlock implements CustomColorPr
 		super(replaceable);
 	}
 	
+	public OverlayPlantBlock(Properties settings) {
+		super(settings);
+	}
+	
 	@Override
 	@Environment(EnvType.CLIENT)
 	public BlockModel getBlockModel(ResourceLocation blockId, BlockState blockState) {

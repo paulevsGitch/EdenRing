@@ -19,6 +19,11 @@ public class SimplePlantBlock extends BasePlantBlock {
 		isGrass = replaceable;
 	}
 	
+	public SimplePlantBlock(Properties settings) {
+		super(settings);
+		isGrass = false;
+	}
+	
 	@Override
 	protected boolean isTerrain(BlockState blockState) {
 		Block block = blockState.getBlock();

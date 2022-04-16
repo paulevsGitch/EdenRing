@@ -164,5 +164,10 @@
 	"block.edenring.balloon_mushroom_sporocarp_purple": "Фиолетовое плодовое тело воздушного гриба",
 	"block.edenring.balloon_mushroom_sporocarp_red": "Красное плодовое тело воздушного гриба",
 	"block.edenring.balloon_mushroom_sporocarp_white": "Белое плодовое тело воздушного гриба",
-	"block.edenring.balloon_mushroom_sporocarp_yellow": "Жёлтое плодовое тело воздушного гриба"
+	"block.edenring.balloon_mushroom_sporocarp_yellow": "Жёлтое плодовое тело воздушного гриба",
+	
+	"block.edenring.limphium": "Лимфий",
+	"block.edenring.limphium_sapling": "Саженец лимфия",
+	"item.edenring.limphium_leaf": "Лист лимфия",
+	"item.edenring.limphium_leaf_dryed": "Высушенный лист лимфия"
 }

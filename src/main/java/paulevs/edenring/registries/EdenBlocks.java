@@ -42,6 +42,7 @@ import paulevs.edenring.blocks.GraviliteLanternBlock;
 import paulevs.edenring.blocks.GraviliteShardsBlock;
 import paulevs.edenring.blocks.GraviliteTallLanternBlock;
 import paulevs.edenring.blocks.GravityCompressorBlock;
+import paulevs.edenring.blocks.LimphiumSapling;
 import paulevs.edenring.blocks.MossyStoneBlock;
 import paulevs.edenring.blocks.MycoticGrass;
 import paulevs.edenring.blocks.MycoticLanternBlock;
@@ -125,7 +126,7 @@ public class EdenBlocks {
 	
 	public static final Block AQUATUS_SAPLING = register("aquatus_sapling", new AquatusSapling());
 	public static final Block AQUATUS_BLOCK = register("aquatus_block", new AquatusBlock());
-	public static final Block AQUATUS_ROOTS = registerBO("aquatus_roots", new AquatusRootsBlock());
+	public static final Block AQUATUS_ROOTS = registerBlockOnly("aquatus_roots", new AquatusRootsBlock());
 	
 	public static final Block EDEN_MOSS = register("eden_moss", new EdenMossBlock());
 	public static final Block PARIGNUM = register("parignum", new Parignum());
@@ -140,7 +141,8 @@ public class EdenBlocks {
 	public static final Block VIOLUM = register("violum", new OverlayDoublePlantBlock());
 	public static final Block TALL_BALLOON_MUSHROOM = register("tall_balloon_mushroom", new TallBalloonMushroom());
 	public static final Block TALL_MYCOTIC_GRASS = register("tall_mycotic_grass", new EdenDoublePlantBlock());
-	public static final Block LIMPHIUM = register("limphium", new LimphiumBlock());
+	public static final Block LIMPHIUM_SAPLING = register("limphium_sapling", new LimphiumSapling());
+	public static final Block LIMPHIUM = registerBlockOnly("limphium", new LimphiumBlock());
 	//public static final Block ALAESPES = register("alaespes", new AlaespesBlock());
 	
 	public static final Block EDEN_VINE = register("eden_vine", new OverlayVineBlock());
@@ -156,8 +158,8 @@ public class EdenBlocks {
 	
 	public static final Block GRAVITY_COMPRESSOR = register("gravity_compressor", new GravityCompressorBlock());
 	
-	public static final Block PORTAL_BLOCK = registerBO("portal_block", new EdenPortalBlock());
-	public static final Block PORTAL_CENTER = registerBO("portal_center", new EdenPortalCenterBlock());
+	public static final Block PORTAL_BLOCK = registerBlockOnly("portal_block", new EdenPortalBlock());
+	public static final Block PORTAL_CENTER = registerBlockOnly("portal_center", new EdenPortalCenterBlock());
 	
 	public static void init() {
 		BlockRegistry.getModBlocks(EdenRing.MOD_ID).forEach(block -> {
@@ -202,7 +204,7 @@ public class EdenBlocks {
 		return REGISTRY.register(EdenRing.makeID(name), block);
 	}
 	
-	private static Block registerBO(String name, Block block) {
+	private static Block registerBlockOnly(String name, Block block) {
 		return REGISTRY.registerBlockOnly(EdenRing.makeID(name), block);
 	}
 	

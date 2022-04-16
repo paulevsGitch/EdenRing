@@ -1,0 +1,10 @@
+{
+	"variants": {
+		"half=bottom": { "model": "edenring:block/limphium_stem" },
+		"half=top": [
+			{ "model": "edenring:block/limphium_top_1" },
+			{ "model": "edenring:block/limphium_top_2" },
+			{ "model": "edenring:block/limphium_top_3" }
+		]
+	}
+}

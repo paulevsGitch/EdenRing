@@ -11,6 +11,7 @@ import paulevs.edenring.world.features.basic.FloorScatterFeature;
 import paulevs.edenring.world.features.basic.ScatterFeature;
 import paulevs.edenring.world.features.basic.SixSideScatter;
 import paulevs.edenring.world.features.plants.AquatusFeature;
+import paulevs.edenring.world.features.plants.LimphiumFeature;
 import paulevs.edenring.world.features.plants.RootsFeature;
 import paulevs.edenring.world.features.plants.TallMushroomFeature;
 import paulevs.edenring.world.features.plants.VineFeature;
@@ -112,6 +113,7 @@ public class EdenFeatures {
 	public static final BCLFeature VIOLUM_DENSE = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("violum_dense"), new DoubleScatterFeature(EdenBlocks.VIOLUM), 8);
 	public static final BCLFeature VIOLUM_RARE = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("violum_rare"), new DoubleScatterFeature(EdenBlocks.VIOLUM), 1);
 	public static final BCLFeature TALL_MYCOTIC_GRASS = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("tall_mycotic_grass"), new DoubleScatterFeature(EdenBlocks.TALL_MYCOTIC_GRASS, 8), 6);
+	public static final BCLFeature LIMPHIUM = BCLCommonFeatures.makeChancedFeature(EdenRing.makeID("limphium"), Decoration.VEGETAL_DECORATION, new LimphiumFeature(), 8);
 	
 	public static final BCLFeature BALLOON_MUSHROOM_TREE = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("balloon_mushroom_tree"), new BalloonMushroomTreeFeature(), 16);
 	public static final BCLFeature OLD_BALLOON_MUSHROOM_TREE = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("old_balloon_mushroom_tree"), new OldBalloonMushroomTreeFeature(), 3);

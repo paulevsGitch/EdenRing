@@ -1,6 +1,5 @@
 package paulevs.edenring.registries;
 
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -73,9 +72,18 @@ public class EdenRecipes {
 			.addMaterial('R', Items.REDSTONE)
 			.build();
 		
+		GridRecipe
+			.make(EdenRing.makeID("limphium_paper"), Items.PAPER)
+			.checkConfig(CONFIG)
+			.setOutputCount(3)
+			.setShape("###")
+			.addMaterial('#', EdenItems.LIMPHIUM_LEAF_DRYED)
+			.build();
+		
 		FurnaceRecipe.make(EdenRing.MOD_ID, "iron_nugget", EdenBlocks.IRON_GRASS, Items.IRON_NUGGET).checkConfig(CONFIG).buildWithBlasting();
 		FurnaceRecipe.make(EdenRing.MOD_ID, "gold_nugget", EdenBlocks.GOLD_GRASS, Items.GOLD_NUGGET).checkConfig(CONFIG).buildWithBlasting();
 		FurnaceRecipe.make(EdenRing.MOD_ID, "slime_ball", EdenBlocks.VOLVOX_BLOCK, Items.SLIME_BALL).checkConfig(CONFIG).build();
+		FurnaceRecipe.make(EdenRing.MOD_ID, "limphium_leaf", EdenItems.LIMPHIUM_LEAF, EdenItems.LIMPHIUM_LEAF_DRYED).checkConfig(CONFIG).build();
 		
 		Block[] coloredBlocks = EdenBlocks.MYCOTIC_LANTERN_COLORED.values().toArray(new Block[16]);
 		EdenBlocks.MYCOTIC_LANTERN_COLORED.forEach(((color, block) -> {

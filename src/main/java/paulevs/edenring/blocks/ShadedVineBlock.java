@@ -51,7 +51,7 @@ public class ShadedVineBlock extends BaseBlockNotFull implements RenderLayerProv
 	private static final VoxelShape VOXEL_SHAPE = Block.box(2, 0, 2, 14, 16, 14);
 	
 	public ShadedVineBlock() {
-		this(FabricBlockSettings.of(Material.PLANT).sound(SoundType.GRASS).noCollission());
+		this(FabricBlockSettings.of(Material.PLANT).sound(SoundType.VINE).noCollission().noOcclusion());
 	}
 	
 	public ShadedVineBlock(Properties properties) {

@@ -77,7 +77,7 @@ public class EdenRecipes {
 		FurnaceRecipe.make(EdenRing.MOD_ID, "gold_nugget", EdenBlocks.GOLD_GRASS, Items.GOLD_NUGGET).checkConfig(CONFIG).buildWithBlasting();
 		FurnaceRecipe.make(EdenRing.MOD_ID, "slime_ball", EdenBlocks.VOLVOX_BLOCK, Items.SLIME_BALL).checkConfig(CONFIG).build();
 		
-		Block[] lanterns = EdenBlocks.MYCOTIC_LANTERN_COLORED.values().toArray(new Block[16]);
+		Block[] coloredBlocks = EdenBlocks.MYCOTIC_LANTERN_COLORED.values().toArray(new Block[16]);
 		EdenBlocks.MYCOTIC_LANTERN_COLORED.forEach(((color, block) -> {
 			GridRecipe
 				.make(EdenRing.makeID("mycotic_lantern_" + color.getName()), block)
@@ -85,14 +85,23 @@ public class EdenRecipes {
 				.checkConfig(CONFIG)
 				.setOutputCount(8)
 				.setShape("###", "#D#", "###")
-				.addMaterial('#', lanterns)
+				.addMaterial('#', coloredBlocks)
 				.addMaterial('D', DyeItem.byColor(color))
 				.build();
 		}));
 		
-		for (DyeColor color: DyeColor.values()) {
-			Block block = EdenBlocks.MYCOTIC_LANTERN_COLORED.get(color);
-		}
+		EdenBlocks.BALLOON_MUSHROOM_SPOROCARP_COLORED.values().toArray(coloredBlocks);
+		EdenBlocks.BALLOON_MUSHROOM_SPOROCARP_COLORED.forEach((color, block) -> {
+			GridRecipe
+				.make(EdenRing.makeID("balloon_mushroom_sporocarp_" + color.getName()), block)
+				.setGroup("eden_balloon_mushroom_sporocarp")
+				.checkConfig(CONFIG)
+				.setOutputCount(8)
+				.setShape("###", "#D#", "###")
+				.addMaterial('#', coloredBlocks)
+				.addMaterial('D', DyeItem.byColor(color))
+				.build();
+		});
 		
 		CONFIG.saveChanges();
 	}

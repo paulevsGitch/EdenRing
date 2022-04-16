@@ -3,6 +3,7 @@ package paulevs.edenring.blocks;
 import com.google.common.collect.Maps;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.renderer.BiomeColors;
@@ -10,7 +11,9 @@ import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.GrassColor;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
 import ru.bclib.blocks.BaseVineBlock;
 import ru.bclib.blocks.BlockProperties.TripleShape;
 import ru.bclib.client.models.ModelsHelper;
@@ -22,6 +25,10 @@ import java.util.Map;
 import java.util.Optional;
 
 public class OverlayVineBlock extends BaseVineBlock implements CustomColorProvider {
+	public OverlayVineBlock() {
+		super(FabricBlockSettings.of(Material.PLANT).sound(SoundType.VINE).noCollission().noOcclusion());
+	}
+	
 	@Override
 	@Environment(EnvType.CLIENT)
 	public UnbakedModel getModelVariant(ResourceLocation stateId, BlockState blockState, Map<ResourceLocation, UnbakedModel> modelCache) {

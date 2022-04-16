@@ -70,7 +70,8 @@ public class OldBalloonMushroomTreeFeature extends DefaultFeature {
 	}
 	
 	private void makeTrunk(WorldGenLevel level, BlockPos center, MutableBlockPos p, BlockState log, byte height) {
-		for (byte i = 0; i < height; i++) {
+		p.setY(p.getY() - 1);
+		for (byte i = 0; i <= height; i++) {
 			setBlock(level, p, log);
 			setBlock(level, p.setX(center.getX() + 1), log);
 			setBlock(level, p.setZ(center.getZ() + 1), log);
@@ -94,11 +95,14 @@ public class OldBalloonMushroomTreeFeature extends DefaultFeature {
 		DyeColor dye = random.nextBoolean() ? DyeColor.WHITE : DyeColor.PINK;
 		BlockState lantern = EdenBlocks.MYCOTIC_LANTERN_COLORED.get(dye).defaultBlockState();
 		
+		BlockState sporocap = EdenBlocks.BALLOON_MUSHROOM_SPOROCARP_COLORED.get(DyeColor.WHITE).defaultBlockState();
+		
 		List<BlockPos> updateBlocks = new ArrayList(128);
 		BlockPos center = p.immutable();
 		byte radius = (byte) (height >> 1);
 		byte startY = (byte) (-radius * 0.5F);
 		byte r2 = (byte) (radius * radius);
+		byte r3 = (byte) ((radius - 1) * (radius - 1));
 		
 		for (byte y = startY; y <= radius; y++) {
 			state = y == startY ? bottom : block;
@@ -107,11 +111,14 @@ public class OldBalloonMushroomTreeFeature extends DefaultFeature {
 				float x2 = (x - 0.5F) * (x - 0.5F);
 				for (byte z = (byte) -radius; z <= radius; z++) {
 					float z2 = (z - 0.5F) * (z - 0.5F);
-					if (x2 + y2 + z2 <= r2) {
-						setBlock(level, p.set(center).move(x, y - startY, z), state);
+					float xz = x2 + z2;
+					float xyz = xz + y2;
+					if (xyz <= r2) {
+						BlockState cap = y > startY && xyz < r3 ? sporocap : state;
+						setBlock(level, p.set(center).move(x, y - startY, z), cap);
 						updateBlocks.add(p.immutable());
 						if (y == startY) {
-							if (random.nextInt(16) == 0 && x2 + z2 > 3) {
+							if (random.nextInt(16) == 0 && xz > 3) {
 								byte length = (byte) MHelper.randRange(4, 7, random);
 								makeLantern(level, p.mutable().setY(p.getY() - 1), length, lantern, stemMiddle, stemTop);
 							}
@@ -234,8 +241,9 @@ public class OldBalloonMushroomTreeFeature extends DefaultFeature {
 					byte h = getConnection(x, z, dir, mask);
 					if (h > 0) {
 						if (h > 1) h = (byte) MHelper.randRange(1, h, random);
+						byte h2 = (byte) (-h - 3);
 						BlockState start = branch.setValue(EdenBlockProperties.DIRECTIONS[dir.get3DDataValue()], true);
-						makeLine(level, p.set(center).move(x, h - 1, z), start, stem, (byte) -h);
+						makeLine(level, p.set(center).move(x, h - 1, z), start, stem, h2);
 						break;
 					}
 				}

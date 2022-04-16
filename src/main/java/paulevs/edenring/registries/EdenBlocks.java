@@ -2,6 +2,7 @@ package paulevs.edenring.registries;
 
 
 import com.google.common.collect.Maps;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.registry.TillableBlockRegistry;
 import net.fabricmc.fabric.mixin.object.builder.AbstractBlockAccessor;
 import net.fabricmc.fabric.mixin.object.builder.AbstractBlockSettingsAccessor;
@@ -13,11 +14,13 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.GrassBlock;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import paulevs.edenring.EdenRing;
+import paulevs.edenring.LimphiumBlock;
 import paulevs.edenring.blocks.AquatusBlock;
 import paulevs.edenring.blocks.AquatusRootsBlock;
 import paulevs.edenring.blocks.AquatusSapling;
@@ -60,6 +63,7 @@ import ru.bclib.api.tag.NamedBlockTags;
 import ru.bclib.api.tag.NamedItemTags;
 import ru.bclib.api.tag.NamedMineableTags;
 import ru.bclib.api.tag.TagAPI;
+import ru.bclib.blocks.BaseBlock;
 import ru.bclib.blocks.BaseLeavesBlock;
 import ru.bclib.blocks.BaseVineBlock;
 import ru.bclib.blocks.FeatureSaplingBlock;
@@ -88,12 +92,22 @@ public class EdenBlocks {
 	public static final ComplexMaterial BALLOON_MUSHROOM_MATERIAL = new WoodenComplexMaterial(EdenRing.MOD_ID, "balloon_mushroom", "eden", MaterialColor.COLOR_PURPLE, MaterialColor.COLOR_PURPLE).init(REGISTRY, EdenItems.REGISTRY, EdenRecipes.CONFIG);
 	public static final Block BALLOON_MUSHROOM_HYMENOPHORE = register("balloon_mushroom_hymenophore", new ShadedVineBlock());
 	public static final Map<DyeColor, Block> MYCOTIC_LANTERN_COLORED = Maps.newEnumMap(DyeColor.class);
+	public static final Map<DyeColor, Block> BALLOON_MUSHROOM_SPOROCARP_COLORED = Maps.newEnumMap(DyeColor.class);
 	
 	static {
 		for (byte i = 0; i < 16; i++) {
 			DyeColor color = DyeColor.byId(i);
 			Block lantern = register("mycotic_lantern_" + color.getName(), new MycoticLanternBlock());
 			MYCOTIC_LANTERN_COLORED.put(color, lantern);
+		}
+		
+		for (byte i = 0; i < 16; i++) {
+			DyeColor color = DyeColor.byId(i);
+			Block lantern = register(
+				"balloon_mushroom_sporocarp_" + color.getName(),
+				new BaseBlock(FabricBlockSettings.copyOf(Blocks.MUSHROOM_STEM).sounds(SoundType.WOOL))
+			);
+			BALLOON_MUSHROOM_SPOROCARP_COLORED.put(color, lantern);
 		}
 	}
 	
@@ -126,6 +140,7 @@ public class EdenBlocks {
 	public static final Block VIOLUM = register("violum", new OverlayDoublePlantBlock());
 	public static final Block TALL_BALLOON_MUSHROOM = register("tall_balloon_mushroom", new TallBalloonMushroom());
 	public static final Block TALL_MYCOTIC_GRASS = register("tall_mycotic_grass", new EdenDoublePlantBlock());
+	public static final Block LIMPHIUM = register("limphium", new LimphiumBlock());
 	//public static final Block ALAESPES = register("alaespes", new AlaespesBlock());
 	
 	public static final Block EDEN_VINE = register("eden_vine", new OverlayVineBlock());

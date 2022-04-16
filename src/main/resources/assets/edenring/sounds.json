@@ -60,7 +60,7 @@
 		"category": "ambience",
 		"sounds": [
 			{
-				"name": "edenring:ambience/y3z0n-mycotic_forest",
+				"name": "edenring:ambience/paulevs-mycotic_forest",
 				"volume": 1.0,
 				"stream": true
 			}
@@ -91,7 +91,7 @@
 		"sounds": [
 			{
 				"name": "edenring:ambience/y3z0n-pulse_forest",
-				"volume": 1.0,
+				"volume": 0.4,
 				"stream": true
 			}
 		]

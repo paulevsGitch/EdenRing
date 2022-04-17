@@ -169,5 +169,8 @@
 	"block.edenring.limphium": "Лимфий",
 	"block.edenring.limphium_sapling": "Саженец лимфия",
 	"item.edenring.limphium_leaf": "Лист лимфия",
-	"item.edenring.limphium_leaf_dryed": "Высушенный лист лимфия"
+	"item.edenring.limphium_leaf_dryed": "Высушенный лист лимфия",
+	
+	"entity.edenring.limphium_painting": "Лимфиевая декорация",
+	"item.edenring.limphium_painting": "Лимфиевая декорация"
 }

@@ -33,7 +33,6 @@ public class LimphiumFeature extends ScatterFeature {
 	
 	@Override
 	protected void placeBlock(WorldGenLevel level, BlockPos pos, BlockState state) {
-		System.out.println(pos);
 		LimphiumSapling.grow(level, level.getRandom(), pos, state);
 	}
 }

@@ -14,6 +14,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.level.levelgen.Heightmap.Types;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.entities.DiskwingEntity;
+import paulevs.edenring.entities.EdenPainting;
 import paulevs.edenring.entities.LightningRayEntity;
 import ru.bclib.api.spawning.SpawnRuleBuilder;
 import ru.bclib.config.PathConfig;
@@ -26,14 +27,26 @@ public class EdenEntities {
 	
 	// Technical //
 	public static final EntityType<LightningRayEntity> LIGHTNING_RAY = register("lightning_ray", MobCategory.MISC, 1.0F, 1.0F, LightningRayEntity::new);
+	public static final EntityType<EdenPainting> LIMPHIUM_PAINTING = register("limphium_painting", FabricEntityTypeBuilder
+		.create(MobCategory.MISC, (EntityFactory<EdenPainting>) EdenPainting::new)
+		.dimensions(EntityDimensions.fixed(0.5F, 0.5F))
+		.trackedUpdateRate(Integer.MAX_VALUE)
+		.trackRangeBlocks(10)
+		.disableSummon()
+		.build()
+	);
 	
 	public static void init() {
 		SpawnRuleBuilder.start(DISKWING).maxNearby(8).buildNoRestrictions(Types.MOTION_BLOCKING);
 	}
 	
 	protected static <T extends Entity> EntityType<T> register(String name, MobCategory group, float width, float height, EntityFactory<T> entity) {
+		EntityType<T> type = FabricEntityTypeBuilder.create(group, entity).disableSummon().dimensions(EntityDimensions.fixed(width, height)).build();
+		return register(name, type);
+	}
+	
+	protected static <T extends Entity> EntityType<T> register(String name, EntityType<T> type) {
 		ResourceLocation id = EdenRing.makeID(name);
-		EntityType<T> type = FabricEntityTypeBuilder.create(group, entity).dimensions(EntityDimensions.fixed(width, height)).build();
 		if (ENTITY_CONFIG.getBooleanRoot(id.getPath(), true)) {
 			Registry.register(Registry.ENTITY_TYPE, id, type);
 		}

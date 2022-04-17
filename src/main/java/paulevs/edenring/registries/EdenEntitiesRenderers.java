@@ -9,6 +9,7 @@ import net.minecraft.world.entity.EntityType;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.entities.models.DiskwingEntityModel;
 import paulevs.edenring.entities.renderers.DiskwingEntityRenderer;
+import paulevs.edenring.entities.renderers.EdenPaintingRenderer;
 import paulevs.edenring.entities.renderers.LightningRayRenderer;
 
 import java.util.function.Function;
@@ -19,6 +20,7 @@ public class EdenEntitiesRenderers {
 	
 	public static void init() {
 		register(EdenEntities.LIGHTNING_RAY, LightningRayRenderer::new);
+		register(EdenEntities.LIMPHIUM_PAINTING, EdenPaintingRenderer::new);
 		register(EdenEntities.DISKWING, DiskwingEntityRenderer::new);
 		
 		EntityModelLayerRegistry.registerModelLayer(DISKWING_MODEL, DiskwingEntityModel::getTexturedModelData);

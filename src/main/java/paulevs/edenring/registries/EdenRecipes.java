@@ -80,6 +80,16 @@ public class EdenRecipes {
 			.addMaterial('#', EdenItems.LIMPHIUM_LEAF_DRYED)
 			.build();
 		
+		GridRecipe
+			.make(EdenRing.makeID("limphium_painting"), EdenItems.LIMPHIUM_PAINTING)
+			.checkConfig(CONFIG)
+			.setShape("SSS")
+			.setShape("SLS")
+			.setShape("SSS")
+			.addMaterial('L', EdenItems.LIMPHIUM_LEAF)
+			.addMaterial('S', Items.STICK)
+			.build();
+		
 		FurnaceRecipe.make(EdenRing.MOD_ID, "iron_nugget", EdenBlocks.IRON_GRASS, Items.IRON_NUGGET).checkConfig(CONFIG).buildWithBlasting();
 		FurnaceRecipe.make(EdenRing.MOD_ID, "gold_nugget", EdenBlocks.GOLD_GRASS, Items.GOLD_NUGGET).checkConfig(CONFIG).buildWithBlasting();
 		FurnaceRecipe.make(EdenRing.MOD_ID, "slime_ball", EdenBlocks.VOLVOX_BLOCK, Items.SLIME_BALL).checkConfig(CONFIG).build();

@@ -10,6 +10,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.dimension.DimensionType;
+import paulevs.edenring.paintings.EdenPaintings;
 import paulevs.edenring.registries.EdenBiomes;
 import paulevs.edenring.registries.EdenBlockEntities;
 import paulevs.edenring.registries.EdenBlocks;
@@ -45,6 +46,7 @@ public class EdenRing implements ModInitializer {
 		EdenSounds.init();
 		EdenBlocks.init();
 		EdenBlockEntities.init();
+		EdenPaintings.init();
 		EdenEntities.init();
 		EdenItems.init();
 		EdenFeatures.init();

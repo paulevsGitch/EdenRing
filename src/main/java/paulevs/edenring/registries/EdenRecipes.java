@@ -83,9 +83,7 @@ public class EdenRecipes {
 		GridRecipe
 			.make(EdenRing.makeID("limphium_painting"), EdenItems.LIMPHIUM_PAINTING)
 			.checkConfig(CONFIG)
-			.setShape("SSS")
-			.setShape("SLS")
-			.setShape("SSS")
+			.setShape("SSS", "SLS", "SSS")
 			.addMaterial('L', EdenItems.LIMPHIUM_LEAF)
 			.addMaterial('S', Items.STICK)
 			.build();

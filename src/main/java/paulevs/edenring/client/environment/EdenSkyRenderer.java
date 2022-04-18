@@ -14,6 +14,8 @@ import com.mojang.blaze3d.vertex.VertexBuffer;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry.SkyRenderer;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
 import net.minecraft.client.Minecraft;
@@ -34,6 +36,7 @@ import ru.bclib.util.MHelper;
 
 import java.util.Random;
 
+@Environment(value= EnvType.CLIENT)
 public class EdenSkyRenderer implements SkyRenderer {
 	private static final ResourceLocation PLANET_TEXTURE = EdenRing.makeID("textures/environment/planet.png");
 	private static final ResourceLocation MOON_TEXTURE = EdenRing.makeID("textures/environment/moon.png");

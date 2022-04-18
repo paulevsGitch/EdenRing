@@ -1,10 +1,12 @@
-package paulevs.edenring.entities.renderers;
+package paulevs.edenring.client.entities.renderers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.PoseStack.Pose;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix3f;
 import com.mojang.math.Matrix4f;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -15,6 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
 import paulevs.edenring.entities.LightningRayEntity;
 
+@Environment(value= EnvType.CLIENT)
 public class LightningRayRenderer extends EntityRenderer<LightningRayEntity> {
 	private static final ResourceLocation GUARDIAN_BEAM_LOCATION = new ResourceLocation("textures/entity/guardian_beam.png");
 	private static final RenderType BEAM_RENDER_TYPE = RenderType.entityTranslucent(GUARDIAN_BEAM_LOCATION, true);

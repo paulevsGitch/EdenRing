@@ -7,10 +7,10 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.world.entity.EntityType;
 import paulevs.edenring.EdenRing;
-import paulevs.edenring.entities.models.DiskwingEntityModel;
-import paulevs.edenring.entities.renderers.DiskwingEntityRenderer;
-import paulevs.edenring.entities.renderers.EdenPaintingRenderer;
-import paulevs.edenring.entities.renderers.LightningRayRenderer;
+import paulevs.edenring.client.entities.models.DiskwingEntityModel;
+import paulevs.edenring.client.entities.renderers.DiskwingEntityRenderer;
+import paulevs.edenring.client.entities.renderers.EdenPaintingRenderer;
+import paulevs.edenring.client.entities.renderers.LightningRayRenderer;
 
 import java.util.function.Function;
 

@@ -1,10 +1,12 @@
-package paulevs.edenring.entities.renderers;
+package paulevs.edenring.client.entities.renderers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix3f;
 import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -20,6 +22,7 @@ import paulevs.edenring.entities.EdenPainting;
 import paulevs.edenring.paintings.PaintingColorProvider;
 import paulevs.edenring.paintings.PaintingInfo;
 
+@Environment(value= EnvType.CLIENT)
 public class EdenPaintingRenderer extends EntityRenderer<EdenPainting> {
 	private static final MutableBlockPos POS = new MutableBlockPos();
 	private static final int WHITE = 0xFFFFFF;

@@ -14,8 +14,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
@@ -29,15 +27,12 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.levelgen.Heightmap.Types;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.AABB;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.entities.LightningRayEntity;
-import paulevs.edenring.registries.EdenBiomes;
 import paulevs.edenring.registries.EdenEntities;
 import paulevs.edenring.registries.EdenSounds;
-import ru.bclib.api.biomes.BiomeAPI;
 import ru.bclib.blocks.BaseBlock;
 import ru.bclib.blocks.BlockProperties;
 import ru.bclib.client.models.ModelsHelper;
@@ -75,16 +70,6 @@ public class BrainTreeBlock extends BaseBlock implements BlockModelProvider, Ren
 	@Override
 	@SuppressWarnings("deprecation")
 	public void randomTick(BlockState state, ServerLevel world, BlockPos pos, Random random) {
-		if (!world.isClientSide() && random.nextInt(1024) == 0 && BiomeAPI.getFromBiome(world.getBiome(pos)) == EdenBiomes.BRAINSTORM) {
-			int px = pos.getX() + MHelper.randRange(-16, 16, random);
-			int pz = pos.getZ() + MHelper.randRange(-16, 16, random);
-			int py = world.getHeight(Types.WORLD_SURFACE, px, pz);
-			LightningBolt bolt = EntityType.LIGHTNING_BOLT.create(world);
-			bolt.setVisualOnly(true);
-			bolt.teleportTo(px, py, pz);
-			world.addFreshEntity(bolt);
-		}
-		
 		if (state.getValue(ACTIVE)) {
 			hitLighting(world, random, pos);
 			world.setBlockAndUpdate(pos, state.setValue(ACTIVE, false));

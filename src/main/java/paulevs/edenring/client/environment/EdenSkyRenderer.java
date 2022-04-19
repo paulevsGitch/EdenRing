@@ -1,9 +1,6 @@
 package paulevs.edenring.client.environment;
 
-import com.mojang.blaze3d.pipeline.RenderTarget;
-import com.mojang.blaze3d.pipeline.TextureTarget;
 import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.BufferUploader;
@@ -56,8 +53,6 @@ public class EdenSkyRenderer implements SkyRenderer {
 	private static VertexBuffer[] nebula;
 	private static VertexBuffer stars;
 	
-	private boolean renderInBuffer = false;
-	private static RenderTarget target;
 	private boolean shouldInit = true;
 	private static int windowHeight;
 	private static int windowWidth;
@@ -109,23 +104,6 @@ public class EdenSkyRenderer implements SkyRenderer {
 		
 		if (shouldInit) {
 			init();
-		}
-		
-		if (renderInBuffer) {
-			Window window = minecraft.getWindow();
-			windowWidth = window.getWidth();
-			windowHeight = window.getHeight();
-			
-			if (target == null) {
-				target = new TextureTarget(windowWidth, windowHeight, true, true);
-			}
-			else {
-				target.resize(windowWidth, windowHeight, true);
-			}
-			
-			RenderSystem.backupProjectionMatrix();
-			minecraft.getMainRenderTarget().unbindWrite();
-			target.bindWrite(true);
 		}
 		
 		double time = (double) level.getGameTime() + tickDelta;
@@ -384,16 +362,6 @@ public class EdenSkyRenderer implements SkyRenderer {
 		}
 		
 		// Finalize //
-		if (renderInBuffer) {
-			target.unbindWrite();
-			minecraft.getMainRenderTarget().bindWrite(true);
-			RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
-			target.blitToScreen(windowWidth, windowHeight);
-			
-			RenderSystem.viewport(0, 0, windowWidth, windowHeight);
-			RenderSystem.restoreProjectionMatrix();
-			RenderSystem.applyModelViewMatrix();
-		}
 		
 		RenderSystem.enableTexture();
 		RenderSystem.depthMask(true);

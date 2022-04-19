@@ -8,7 +8,6 @@
 		"NoiseSettingsMixin",
 		"AmethystClusterBlockMixin",
 		"FlintAndSteelItemMixin",
-		"LightningBoltMixin",
 		"EatBlockGoalMixin",
 		"LivingEntityMixin",
 		"ServerLevelMixin",

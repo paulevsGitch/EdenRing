@@ -22,7 +22,7 @@ public class CloudChunk {
 		data = new ArrayList<>(count);
 		for (byte i = 0; i < count; i++) {
 			BlockPos p = new BlockPos(blockX | random.nextInt(16), 64 + random.nextInt(128), blockZ | random.nextInt(16));
-			data.add(new CloudAnimation(p, random.nextInt(4096), (byte) random.nextInt(4), MHelper.randRange(8F, 16F, random)));
+			data.add(new CloudAnimation(p, random.nextInt(4096), (byte) random.nextInt(4), MHelper.randRange(10F, 30F, random)));
 		}
 	}
 	

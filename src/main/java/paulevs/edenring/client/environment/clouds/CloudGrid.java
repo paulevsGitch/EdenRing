@@ -5,11 +5,17 @@ import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.BufferUploader;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.VertexBuffer;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.math.Matrix4f;
+import com.mojang.math.Vector3f;
+import com.mojang.math.Vector4f;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.phys.Vec3;
 import paulevs.edenring.client.environment.TransformHelper;
@@ -24,12 +30,15 @@ import java.util.Random;
 public class CloudGrid {
 	private final CloudChunk[][] chunks = new CloudChunk[128][128];
 	private final List<CloudAnimation> clouds = new ArrayList<>(256);
+	private final VertexBuffer[] cloudQuads = new VertexBuffer[4];
 	private final Random random = new Random();
+	private final Vector4f color = new Vector4f();
+	private final Vector3f pos = new Vector3f();
 	private int lastDistance = -1;
 	private int lastX;
 	private int lastZ;
 	
-	public void render(ClientLevel level, ChunkPos pos, int distance, BufferBuilder bufferBuilder, PoseStack poseStack, Camera camera, double time) {
+	public void render(ClientLevel level, ChunkPos pos, int distance, PoseStack poseStack, Camera camera, float tickDelta, Frustum frustum) {
 		if (distance > 127) distance = 127;
 		int half = distance >> 1;
 		
@@ -38,6 +47,24 @@ public class CloudGrid {
 			lastX = pos.x;
 			lastZ = pos.z;
 			lastDistance = distance;
+			
+			if (cloudQuads[0] == null) {
+				BufferBuilder bufferBuilder = Tesselator.getInstance().getBuilder();
+				for (byte i = 0; i < 4; i++) {
+					float v1 = i * 0.25F;
+					float v2 = v1 + 0.25F;
+					
+					bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+					bufferBuilder.vertex(-1.0F, -1.0F, 0.0F).uv(0.0F, v2).endVertex();
+					bufferBuilder.vertex( 1.0F, -1.0F, 0.0F).uv(1.0F, v2).endVertex();
+					bufferBuilder.vertex( 1.0F,  1.0F, 0.0F).uv(1.0F, v1).endVertex();
+					bufferBuilder.vertex(-1.0F,  1.0F, 0.0F).uv(0.0F, v1).endVertex();
+					bufferBuilder.end();
+					
+					cloudQuads[i] = new VertexBuffer();
+					cloudQuads[i].upload(bufferBuilder);
+				}
+			}
 			
 			for (byte i = 0; i < distance; i++) {
 				int px = pos.x - half + i;
@@ -48,13 +75,12 @@ public class CloudGrid {
 					CloudChunk chunk = chunks[dx][dz];
 					if (chunk == null || !chunk.isCorrectPos(px, pz)) {
 						random.setSeed(MHelper.getSeed(0, px, pz));
-						int count = random.nextInt(4) == 0 ? 1 : 0;
+						int count = random.nextInt(16) == 0 ? 1 : 0;
 						
 						BCLBiome biome = BiomeAPI.getRenderBiome(level.getChunk(px, pz).getNoiseBiome(0, 0, 0).value());
 						float fog = biome.getFogDensity();
-						if (fog > 1) {
-							//count = random.nextBoolean() ? 0 : (int) (random.nextFloat() * fog * 1.5F);
-							count =(int) (random.nextFloat() * fog * 3F);
+						if (fog > 1 && random.nextInt(3) > 0) {
+							count = (int) (random.nextFloat() * fog * 2);
 						}
 						
 						chunk = new CloudChunk(px, pz, random, count);
@@ -70,6 +96,8 @@ public class CloudGrid {
 				float d2 = camBlockPos.distManhattan(c2.getOrigin());
 				return Float.compare(d2, d1);
 			});
+			
+			System.out.println("Update! " + clouds.size());
 		}
 		
 		float max = half * 16F;
@@ -77,40 +105,68 @@ public class CloudGrid {
 		if (max < min) return;
 		float delta = max - min;
 		Vec3 camPos = camera.getPosition();
+		
+		float[] fogColor = RenderSystem.getShaderFogColor();
+		float fogStart = RenderSystem.getShaderFogStart();
+		float fogEnd = RenderSystem.getShaderFogEnd();
+		float fogDelta = fogEnd - fogStart;
+		
+		float dayTime = level.getTimeOfDay(tickDelta);
+		float light = (float) Math.cos(dayTime * Math.PI * 2) * 1.1F;
+		
+		double time = (double) level.getGameTime() + tickDelta;
+		
+		RenderSystem.setShaderColor(1, 1, 1, 1);
+		BufferBuilder bufferBuilder = Tesselator.getInstance().getBuilder();
+		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
 		clouds.forEach(cloud -> {
 			cloud.update(time);
-			if (cloud.getAlpha() < 0.01F) return;
+			if (cloud.getAlpha() < 0.01F || cloud.getScale() < 0.01F) return;
+			if (!frustum.isVisible(cloud.getBoundingBox())) return;
+			
 			BlockPos origin = cloud.getOrigin();
-			double x = origin.getX() - camPos.x;
-			double y = origin.getY() - camPos.y;
-			double z = origin.getZ() - camPos.z;
-			float dist = ((float) MHelper.length(x, y, z) - min) / delta;
+			float x = (float) (origin.getX() - camPos.x);
+			float y = (float) (origin.getY() - camPos.y);
+			float z = (float) (origin.getZ() - camPos.z);
+			
+			float length = MHelper.length(x, y, z);
+			float dist = (length - min) / delta;
 			if (dist > 0.95F) return;
-			dist = Math.abs(dist * 2F - 1F);
+			
+			dist = Math.abs(dist * 2.0F - 1.0F);
 			if (dist < 0.01F) return;
+			
 			dist *= dist;
 			dist = 1.0F - dist * dist;
-			RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, cloud.getAlpha() * dist);
+			
+			float fogMix = (length - fogStart) / fogDelta;
+			if (fogMix > 1.0F) fogMix = 1.0F;
+			float r = Mth.clamp(Mth.lerp(fogMix, light, fogColor[0]), 0.0F, 1.0F);
+			float g = Mth.clamp(Mth.lerp(fogMix, light, fogColor[1]), 0.0F, 1.0F);
+			float b = Mth.clamp(Mth.lerp(fogMix, light, fogColor[2]), 0.0F, 1.0F);
+			float a = Mth.clamp(cloud.getAlpha() * dist, 0.0F, 1.0F);
+			
 			float v = cloud.getIndex() * 0.25F;
-			renderSprite(x + cloud.getOffset(), y, z, cloud.getScale(), v, v + 0.25F, bufferBuilder, poseStack);
+			this.pos.set(x + cloud.getOffset(), y, z);
+			this.color.set(r, g, b, a);
+			renderSprite(cloud.getScale(), v, v + 0.25F, bufferBuilder, poseStack);
 		});
+		bufferBuilder.end();
+		BufferUploader.end(bufferBuilder);
 	}
 	
-	protected void renderSprite(double x, double y, double z, float size, float v1, float v2, BufferBuilder bufferBuilder, PoseStack poseStack) {
+	protected void renderSprite(float size, float v1, float v2, BufferBuilder bufferBuilder, PoseStack poseStack) {
 		poseStack.pushPose();
-		TransformHelper.translateAndRotateRelative(x, y, z, poseStack);
+		TransformHelper.translateAndRotateRelative(pos.x(), pos.y(), pos.z(), poseStack);
 		renderQuad(bufferBuilder, poseStack, size, v1, v2);
 		poseStack.popPose();
 	}
 	
 	protected void renderQuad(BufferBuilder bufferBuilder, PoseStack poseStack, float size, float v1, float v2) {
 		Matrix4f matrix = poseStack.last().pose();
-		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR_NORMAL);
-		bufferBuilder.vertex(matrix, -size, -size, 0.0F).uv(0.0F, v2).color(255, 255, 255, 255).normal(0, 1, 0).endVertex();
-		bufferBuilder.vertex(matrix,  size, -size, 0.0F).uv(1.0F, v2).color(255, 255, 255, 255).normal(0, 1, 0).endVertex();
-		bufferBuilder.vertex(matrix,  size,  size, 0.0F).uv(1.0F, v1).color(255, 255, 255, 255).normal(0, 1, 0).endVertex();
-		bufferBuilder.vertex(matrix, -size,  size, 0.0F).uv(0.0F, v1).color(255, 255, 255, 255).normal(0, 1, 0).endVertex();
-		bufferBuilder.end();
-		BufferUploader.end(bufferBuilder);
+		bufferBuilder.vertex(matrix, -size, -size, 0.0F).uv(0.0F, v2).color(color.x(), color.y(), color.z(), color.w()).endVertex();
+		bufferBuilder.vertex(matrix,  size, -size, 0.0F).uv(1.0F, v2).color(color.x(), color.y(), color.z(), color.w()).endVertex();
+		bufferBuilder.vertex(matrix,  size,  size, 0.0F).uv(1.0F, v1).color(color.x(), color.y(), color.z(), color.w()).endVertex();
+		bufferBuilder.vertex(matrix, -size,  size, 0.0F).uv(0.0F, v1).color(color.x(), color.y(), color.z(), color.w()).endVertex();
 	}
 }

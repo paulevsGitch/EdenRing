@@ -1,11 +1,13 @@
 package paulevs.edenring.client.environment.clouds;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.AABB;
 
 public class CloudAnimation {
 	private static final int SPEED = 2000;
 	private static final int SPEED2 = SPEED - 300;
 	
+	private AABB boundingBox;
 	private final BlockPos origin;
 	private final byte index;
 	private final float size;
@@ -19,6 +21,7 @@ public class CloudAnimation {
 		this.start = start;
 		this.index = index;
 		this.size = size;
+		this.boundingBox = new AABB(origin).inflate(size + 110, size, size);
 	}
 	
 	public void update(double time) {
@@ -53,5 +56,9 @@ public class CloudAnimation {
 	
 	public byte getIndex() {
 		return index;
+	}
+	
+	public AABB getBoundingBox() {
+		return boundingBox;
 	}
 }

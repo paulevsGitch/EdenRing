@@ -4,34 +4,37 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.AABB;
 
 public class CloudAnimation {
-	private static final int SPEED = 2000;
-	private static final int SPEED2 = SPEED - 300;
+	private static final float DISTANCE = 300.0F;
 	
 	private AABB boundingBox;
 	private final BlockPos origin;
 	private final byte index;
 	private final float size;
 	private final int start;
+	private final int speed;
+	private final int speed2;
 	private float offset;
 	private float scale;
 	private float alpha;
 	
-	public CloudAnimation(BlockPos origin, int start, byte index, float size) {
+	public CloudAnimation(BlockPos origin, int start, byte index, float size, int speed) {
 		this.origin = origin;
 		this.start = start;
 		this.index = index;
 		this.size = size;
-		this.boundingBox = new AABB(origin).inflate(size + 110, size, size);
+		this.boundingBox = new AABB(origin).inflate(size + DISTANCE + 1, size, size);
+		this.speed = speed;
+		this.speed2 = (int) (speed * 0.8F);
 	}
 	
 	public void update(double time) {
-		float state = (float) ((time + start) % SPEED) / SPEED2;
+		float state = (float) ((time + start) % speed) / speed2;
 		if (state > 1) {
 			scale = 0;
 			alpha = 0;
 			return;
 		}
-		offset = (0.5F - state) * 100.0F;
+		offset = (0.5F - state) * DISTANCE;
 		state = Math.abs(state * 2.0F - 1.0F);
 		float stateSQ = state * state;
 		scale = (1.0F - stateSQ) * size;

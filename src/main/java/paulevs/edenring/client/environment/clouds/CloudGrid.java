@@ -79,7 +79,7 @@ public class CloudGrid {
 						
 						BCLBiome biome = BiomeAPI.getRenderBiome(level.getChunk(px, pz).getNoiseBiome(0, 0, 0).value());
 						float fog = biome.getFogDensity();
-						if (fog > 1 && random.nextInt(3) > 0) {
+						if (fog > 1 && random.nextInt(5) > 0) {
 							count = (int) (random.nextFloat() * fog * 2);
 						}
 						
@@ -96,25 +96,22 @@ public class CloudGrid {
 				float d2 = camBlockPos.distManhattan(c2.getOrigin());
 				return Float.compare(d2, d1);
 			});
-			
-			System.out.println("Update! " + clouds.size());
 		}
 		
 		float max = half * 16F;
-		float min = 90F;
-		if (max < min) return;
+		float min = 128F;
+		if (max < min) max = min * 1.2F;
 		float delta = max - min;
 		Vec3 camPos = camera.getPosition();
 		
 		float[] fogColor = RenderSystem.getShaderFogColor();
 		float fogStart = RenderSystem.getShaderFogStart();
-		float fogEnd = RenderSystem.getShaderFogEnd();
+		float fogEnd = RenderSystem.getShaderFogEnd() * 1.5F;
 		float fogDelta = fogEnd - fogStart;
 		
 		float dayTime = level.getTimeOfDay(tickDelta);
-		float light = (float) Math.cos(dayTime * Math.PI * 2) * 1.1F;
-		
-		double time = (double) level.getGameTime() + tickDelta;
+		final float light = Mth.clamp((float) Math.cos(dayTime * Math.PI * 2) * 1.1F, 0.2F, 1.0F);
+		final double time = (double) level.getGameTime() + tickDelta;
 		
 		RenderSystem.setShaderColor(1, 1, 1, 1);
 		BufferBuilder bufferBuilder = Tesselator.getInstance().getBuilder();
@@ -130,21 +127,23 @@ public class CloudGrid {
 			float z = (float) (origin.getZ() - camPos.z);
 			
 			float length = MHelper.length(x, y, z);
-			float dist = (length - min) / delta;
-			if (dist > 0.95F) return;
+			if (length <= min) return;
 			
+			float dist = (length - min) / delta;
 			dist = Math.abs(dist * 2.0F - 1.0F);
-			if (dist < 0.01F) return;
 			
 			dist *= dist;
 			dist = 1.0F - dist * dist;
 			
+			float a = Mth.clamp(cloud.getAlpha() * dist * 0.75F, 0.0F, 1.0F);
+			if (a < 0.01F) return;
+			
 			float fogMix = (length - fogStart) / fogDelta;
 			if (fogMix > 1.0F) fogMix = 1.0F;
-			float r = Mth.clamp(Mth.lerp(fogMix, light, fogColor[0]), 0.0F, 1.0F);
-			float g = Mth.clamp(Mth.lerp(fogMix, light, fogColor[1]), 0.0F, 1.0F);
-			float b = Mth.clamp(Mth.lerp(fogMix, light, fogColor[2]), 0.0F, 1.0F);
-			float a = Mth.clamp(cloud.getAlpha() * dist, 0.0F, 1.0F);
+			
+			float r = Mth.clamp(Mth.lerp(fogMix, light, fogColor[0] * 1.2F), 0.2F, 1.0F);
+			float g = Mth.clamp(Mth.lerp(fogMix, light, fogColor[1] * 1.2F), 0.2F, 1.0F);
+			float b = Mth.clamp(Mth.lerp(fogMix, light, fogColor[2] * 1.2F), 0.2F, 1.0F);
 			
 			float v = cloud.getIndex() * 0.25F;
 			this.pos.set(x + cloud.getOffset(), y, z);

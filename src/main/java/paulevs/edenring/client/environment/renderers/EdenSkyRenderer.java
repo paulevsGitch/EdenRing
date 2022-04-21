@@ -1,4 +1,4 @@
-package paulevs.edenring.client.environment;
+package paulevs.edenring.client.environment.renderers;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;

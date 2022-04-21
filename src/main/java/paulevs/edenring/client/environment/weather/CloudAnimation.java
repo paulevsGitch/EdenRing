@@ -1,13 +1,17 @@
-package paulevs.edenring.client.environment.clouds;
+package paulevs.edenring.client.environment.weather;
 
+import com.mojang.math.Vector3f;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.AABB;
+import paulevs.edenring.client.environment.animation.SpriteAnimation;
+import ru.bclib.util.MHelper;
 
-public class CloudAnimation {
+import java.util.Random;
+
+public class CloudAnimation extends SpriteAnimation {
 	private static final float DISTANCE = 300.0F;
 	
 	private AABB boundingBox;
-	private final BlockPos origin;
 	private final byte index;
 	private final float size;
 	private final int start;
@@ -17,13 +21,13 @@ public class CloudAnimation {
 	private float scale;
 	private float alpha;
 	
-	public CloudAnimation(BlockPos origin, int start, byte index, float size, int speed) {
-		this.origin = origin;
-		this.start = start;
-		this.index = index;
-		this.size = size;
+	public CloudAnimation(BlockPos origin, Random random) {
+		super(origin);
+		this.start = random.nextInt(4096);
+		this.index = (byte) random.nextInt(4);
+		this.size = MHelper.randRange(10.0F, 20.0F, random);
 		this.boundingBox = new AABB(origin).inflate(size + DISTANCE + 1, size, size);
-		this.speed = speed;
+		this.speed = MHelper.randRange(3000, 5000, random);
 		this.speed2 = (int) (speed * 0.8F);
 	}
 	
@@ -41,27 +45,48 @@ public class CloudAnimation {
 		alpha = 1.0F - stateSQ * stateSQ;
 	}
 	
+	@Override
 	public float getScale() {
 		return scale;
 	}
 	
-	public float getOffset() {
-		return offset;
+	@Override
+	public void offset(Vector3f pos) {
+		pos.set(pos.x() + offset, pos.y(), pos.z());
 	}
 	
+	@Override
 	public float getAlpha() {
 		return alpha;
 	}
 	
-	public BlockPos getOrigin() {
-		return origin;
-	}
-	
-	public byte getIndex() {
+	@Override
+	public byte getFrame() {
 		return index;
 	}
 	
+	@Override
+	public boolean useFogColor() {
+		return true;
+	}
+	
+	@Override
+	public float getVSize() {
+		return 0.25F;
+	}
+	
+	@Override
 	public AABB getBoundingBox() {
 		return boundingBox;
+	}
+	
+	@Override
+	public float fogStartMultiplier() {
+		return 1.5F;
+	}
+	
+	@Override
+	public float fogEndMultiplier() {
+		return 2.0F;
 	}
 }

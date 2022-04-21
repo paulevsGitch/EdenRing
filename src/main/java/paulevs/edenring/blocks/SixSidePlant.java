@@ -85,12 +85,12 @@ public class SixSidePlant extends BaseBlockNotFull implements CustomColorProvide
 		int index = opposite.get3DDataValue();
 		BlockState state = level.getBlockState(pos);
 		if (state.is(this)) {
-			if (!state.getValue(DIRECTIONS[index]) && isWall(level, pos.relative(opposite), face)) {
+			if (!state.getValue(DIRECTIONS[index]) && isWall(level, pos.relative(opposite), opposite)) {
 				return state.setValue(DIRECTIONS[index], true);
 			}
 			return null;
 		}
-		if (isWall(level, pos.relative(opposite), face)) {
+		if (isWall(level, pos.relative(opposite), opposite)) {
 			return defaultBlockState().setValue(DIRECTIONS[index], true);
 		}
 		return null;

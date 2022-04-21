@@ -1,4 +1,4 @@
-package paulevs.edenring.client.environment;
+package paulevs.edenring.client.environment.renderers;
 
 import com.mojang.blaze3d.platform.GlStateManager.DestFactor;
 import com.mojang.blaze3d.platform.GlStateManager.SourceFactor;
@@ -14,14 +14,20 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ChunkPos;
 import paulevs.edenring.EdenRing;
-import paulevs.edenring.client.environment.clouds.CloudGrid;
+import paulevs.edenring.client.environment.TransformHelper;
+import paulevs.edenring.client.environment.animation.SpriteGrid;
+import paulevs.edenring.client.environment.weather.CloudAnimation;
 
 @Environment(value= EnvType.CLIENT)
 public class EdenCloudRenderer implements CloudRenderer {
 	private static final ResourceLocation CLOUDS = EdenRing.makeID("textures/environment/clouds.png");
-	
-	private TransformHelper helper = new TransformHelper();
-	private CloudGrid grid = new CloudGrid();
+	private SpriteGrid grid = new SpriteGrid(CloudAnimation::new, (biome, random) -> {
+		float fog = biome.getFogDensity();
+		if (fog > 1 && random.nextInt(5) > 0) {
+			return (int) (random.nextFloat() * fog * 2);
+		}
+		return random.nextInt(16) == 0 ? 1 : 0;
+	});
 	
 	@Override
 	public void render(WorldRenderContext context) {
@@ -39,14 +45,12 @@ public class EdenCloudRenderer implements CloudRenderer {
 		RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 		RenderSystem.setShaderTexture(0, CLOUDS);
-		//RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-		//RenderSystem.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE);
 		RenderSystem.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
 		
 		// Start
 		
 		poseStack.pushPose();
-		helper.applyPerspective(poseStack, camera);
+		TransformHelper.applyPerspective(poseStack, camera);
 		
 		ChunkPos pos = camera.getEntity().chunkPosition();
 		int distance = context.gameRenderer().getMinecraft().options.renderDistance;

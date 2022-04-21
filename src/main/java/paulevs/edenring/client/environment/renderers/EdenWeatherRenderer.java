@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ChunkPos;
 import paulevs.edenring.EdenRing;
+import paulevs.edenring.client.EdenRingClient;
 import paulevs.edenring.client.environment.TransformHelper;
 import paulevs.edenring.client.environment.animation.SpriteGrid;
 import paulevs.edenring.client.environment.weather.LightningAnimation;
@@ -41,6 +42,9 @@ public class EdenWeatherRenderer implements WeatherRenderer {
 		
 		poseStack.pushPose();
 		TransformHelper.applyPerspective(poseStack, camera);
+		if (EdenRingClient.hasIris()) {
+			TransformHelper.fixBobbing(poseStack, context.gameRenderer().getMinecraft().player, context.tickDelta());
+		}
 		
 		ChunkPos pos = camera.getEntity().chunkPosition();
 		int distance = context.gameRenderer().getMinecraft().options.renderDistance;

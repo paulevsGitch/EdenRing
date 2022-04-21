@@ -5,6 +5,7 @@ import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.Camera;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Player;
 
 public class TransformHelper {
 	private static final Vector3f p1 = new Vector3f();
@@ -12,6 +13,15 @@ public class TransformHelper {
 	
 	public static void applyPerspective(PoseStack poseStack, Camera camera) {
 		poseStack.mulPose(camera.rotation());
+	}
+	
+	public static void fixBobbing(PoseStack poseStack, Player player, float tickDelta) {
+		float g = player.walkDist - player.walkDistO;
+		float h = -(player.walkDist + g * tickDelta);
+		float i = Mth.lerp(tickDelta, player.oBob, player.bob);
+		poseStack.translate(Mth.sin(h * (float)Math.PI) * i * 0.5f, -Math.abs(Mth.cos(h * (float)Math.PI) * i), 0.0);
+		poseStack.mulPose(Vector3f.ZP.rotationDegrees(Mth.sin(h * (float)Math.PI) * i * 3.0f));
+		poseStack.mulPose(Vector3f.XP.rotationDegrees(Math.abs(Mth.cos(h * (float)Math.PI - 0.2f) * i) * 5.0f));
 	}
 	
 	public static void translateAndRotate(double posX, double posY, double posZ, PoseStack poseStack, Camera camera) {

@@ -2,6 +2,7 @@ package paulevs.edenring.client;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
+import net.fabricmc.loader.api.FabricLoader;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.client.environment.renderers.EdenCloudRenderer;
 import paulevs.edenring.client.environment.renderers.EdenSkyRenderer;
@@ -14,6 +15,7 @@ import ru.bclib.util.TranslationHelper;
 
 public class EdenRingClient implements ClientModInitializer {
 	public static final EdenClientConfig CLIENT_CONFIG = new EdenClientConfig();
+	private static boolean hasIris;
 	
 	@Override
 	public void onInitializeClient() {
@@ -28,5 +30,10 @@ public class EdenRingClient implements ClientModInitializer {
 		DimensionRenderingRegistry.registerCloudRenderer(EdenRing.EDEN_RING_KEY, new EdenCloudRenderer());
 		DimensionRenderingRegistry.registerWeatherRenderer(EdenRing.EDEN_RING_KEY, new EdenWeatherRenderer());
 		CLIENT_CONFIG.saveChanges();
+		hasIris = FabricLoader.getInstance().isModLoaded("iris");
+	}
+	
+	public static boolean hasIris() {
+		return hasIris;
 	}
 }

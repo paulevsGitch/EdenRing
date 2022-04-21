@@ -1,6 +1,7 @@
 package paulevs.edenring.client.environment.animation;
 
 import net.minecraft.core.BlockPos;
+import paulevs.edenring.interfaces.SpriteInitializer;
 
 import java.util.ArrayList;
 import java.util.List;

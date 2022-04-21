@@ -1,4 +1,4 @@
-package paulevs.edenring.client.environment.animation;
+package paulevs.edenring.interfaces;
 
 import ru.bclib.world.biomes.BCLBiome;
 

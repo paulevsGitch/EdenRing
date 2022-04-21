@@ -1,6 +1,7 @@
-package paulevs.edenring.client.environment.animation;
+package paulevs.edenring.interfaces;
 
 import net.minecraft.core.BlockPos;
+import paulevs.edenring.client.environment.animation.SpriteAnimation;
 
 import java.util.Random;
 

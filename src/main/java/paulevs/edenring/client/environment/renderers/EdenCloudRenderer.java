@@ -7,6 +7,7 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry.CloudRenderer;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
 import net.minecraft.client.Camera;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -50,9 +51,10 @@ public class EdenCloudRenderer implements CloudRenderer {
 		
 		poseStack.pushPose();
 		
+		Minecraft minecraft = context.gameRenderer().getMinecraft();
 		TransformHelper.applyPerspective(poseStack, camera);
-		if (EdenRingClient.hasIris()) {
-			TransformHelper.fixBobbing(poseStack, context.gameRenderer().getMinecraft().player, context.tickDelta());
+		if (minecraft.options.bobView && EdenRingClient.hasIris()) {
+			TransformHelper.fixBobbing(poseStack, minecraft.player, context.tickDelta());
 		}
 		
 		ChunkPos pos = camera.getEntity().chunkPosition();

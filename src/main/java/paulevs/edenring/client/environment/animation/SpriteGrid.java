@@ -21,6 +21,8 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import paulevs.edenring.client.environment.TransformHelper;
+import paulevs.edenring.interfaces.BiomeCountProvider;
+import paulevs.edenring.interfaces.SpriteInitializer;
 import ru.bclib.api.biomes.BiomeAPI;
 import ru.bclib.util.MHelper;
 import ru.bclib.world.biomes.BCLBiome;

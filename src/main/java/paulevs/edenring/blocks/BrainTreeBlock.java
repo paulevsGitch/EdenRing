@@ -21,11 +21,13 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ArmorMaterials;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.AABB;
@@ -50,6 +52,7 @@ import java.util.Random;
 
 public class BrainTreeBlock extends BaseBlock implements BlockModelProvider, RenderLayerProvider {
 	public static final BooleanProperty	ACTIVE = BlockProperties.ACTIVE;
+	public static final BooleanProperty	POWERED = BlockStateProperties.POWERED;
 	private static final ArmorMaterial[] PROTECTIVE = new ArmorMaterial[] {
 		ArmorMaterials.CHAIN,
 		ArmorMaterials.IRON,
@@ -59,31 +62,57 @@ public class BrainTreeBlock extends BaseBlock implements BlockModelProvider, Ren
 	
 	public BrainTreeBlock(MaterialColor color) {
 		super(FabricBlockSettings.copyOf(Blocks.COPPER_BLOCK).color(color).lightLevel(state -> state.getValue(ACTIVE) ? 15 : 0).randomTicks());
-		this.registerDefaultState(this.getStateDefinition().any().setValue(ACTIVE, false));
+		this.registerDefaultState(this.getStateDefinition().any().setValue(ACTIVE, false).setValue(POWERED, false));
 	}
 	
 	@Override
 	protected void createBlockStateDefinition(Builder<Block, BlockState> stateManager) {
-		stateManager.add(ACTIVE);
+		stateManager.add(ACTIVE, POWERED);
+	}
+	
+	@Override
+	public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+		BlockPos pos = ctx.getClickedPos();
+		Level level = ctx.getLevel();
+		BlockState state = defaultBlockState();
+		if (level.getBestNeighborSignal(pos) > 0) {
+			state = state.setValue(ACTIVE, true).setValue(POWERED, true);
+		}
+		return state;
 	}
 	
 	@Override
 	@SuppressWarnings("deprecation")
-	public void randomTick(BlockState state, ServerLevel world, BlockPos pos, Random random) {
+	public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos pos2, boolean bl) {
+		boolean hasSignal = level.getBestNeighborSignal(pos) > 0;
+		boolean powered = state.getValue(POWERED);
+		if (hasSignal && !powered) {
+			level.setBlockAndUpdate(pos, state.setValue(ACTIVE, true).setValue(POWERED, true));
+		}
+		else if (!hasSignal && powered) {
+			level.setBlockAndUpdate(pos, defaultBlockState());
+		}
+	}
+	
+	@Override
+	@SuppressWarnings("deprecation")
+	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, Random random) {
 		if (state.getValue(ACTIVE)) {
-			hitLighting(world, random, pos);
-			world.setBlockAndUpdate(pos, state.setValue(ACTIVE, false));
+			hitLighting(level, random, pos);
+			if (!state.getValue(POWERED)) {
+				level.setBlockAndUpdate(pos, state.setValue(ACTIVE, false));
+			}
 		}
 		else if (random.nextInt(4) == 0) {
-			world.setBlockAndUpdate(pos, state.setValue(ACTIVE, true));
+			level.setBlockAndUpdate(pos, state.setValue(ACTIVE, true));
 			Vec3i[] offsets = MHelper.getOffsets(random);
 			MutableBlockPos p = new MutableBlockPos();
 			for (Vec3i offset: offsets) {
 				p.set(pos).move(offset);
-				BlockState sideBlock = world.getBlockState(p);
-				if (sideBlock.getBlock() instanceof BrainTreeBlock && sideBlock.getValue(ACTIVE)) {
-					world.setBlockAndUpdate(p, sideBlock.setValue(ACTIVE, false));
-					hitLighting(world, random, p);
+				BlockState sideBlock = level.getBlockState(p);
+				if (sideBlock.getBlock() instanceof BrainTreeBlock && sideBlock.getValue(ACTIVE) && !sideBlock.getValue(POWERED)) {
+					level.setBlockAndUpdate(p, sideBlock.setValue(ACTIVE, false));
+					hitLighting(level, random, p);
 				}
 			}
 		}

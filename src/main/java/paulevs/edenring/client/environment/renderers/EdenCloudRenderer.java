@@ -1,7 +1,5 @@
 package paulevs.edenring.client.environment.renderers;
 
-import com.mojang.blaze3d.platform.GlStateManager.DestFactor;
-import com.mojang.blaze3d.platform.GlStateManager.SourceFactor;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
@@ -45,7 +43,7 @@ public class EdenCloudRenderer implements CloudRenderer {
 		RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 		RenderSystem.setShaderTexture(0, CLOUDS);
-		RenderSystem.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
+		RenderSystem.defaultBlendFunc();
 		
 		// Start
 		
@@ -60,10 +58,7 @@ public class EdenCloudRenderer implements CloudRenderer {
 		
 		// Finalise
 		
-		RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
 		RenderSystem.enableCull();
 		RenderSystem.disableBlend();
-		RenderSystem.depthMask(true);
-		RenderSystem.defaultBlendFunc();
 	}
 }

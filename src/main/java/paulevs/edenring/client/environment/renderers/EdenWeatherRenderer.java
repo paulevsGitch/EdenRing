@@ -1,7 +1,5 @@
 package paulevs.edenring.client.environment.renderers;
 
-import com.mojang.blaze3d.platform.GlStateManager.DestFactor;
-import com.mojang.blaze3d.platform.GlStateManager.SourceFactor;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry.WeatherRenderer;
@@ -37,7 +35,7 @@ public class EdenWeatherRenderer implements WeatherRenderer {
 		RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 		RenderSystem.setShaderTexture(0, LIGHTNING);
-		RenderSystem.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
+		context.lightmapTextureManager().turnOnLightLayer();
 		
 		// Start
 		
@@ -52,10 +50,8 @@ public class EdenWeatherRenderer implements WeatherRenderer {
 		
 		// Finalise
 		
-		RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
 		RenderSystem.enableCull();
 		RenderSystem.disableBlend();
-		RenderSystem.depthMask(true);
-		RenderSystem.defaultBlendFunc();
+		context.lightmapTextureManager().turnOffLightLayer();
 	}
 }

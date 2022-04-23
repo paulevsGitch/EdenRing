@@ -88,8 +88,34 @@ public class EdenRecipes {
 			.addMaterial('S', Items.STICK)
 			.build();
 		
-		FurnaceRecipe.make(EdenRing.MOD_ID, "iron_nugget", EdenBlocks.IRON_GRASS, Items.IRON_NUGGET).checkConfig(CONFIG).buildWithBlasting();
-		FurnaceRecipe.make(EdenRing.MOD_ID, "gold_nugget", EdenBlocks.GOLD_GRASS, Items.GOLD_NUGGET).checkConfig(CONFIG).buildWithBlasting();
+		log = EdenBlocks.BRAIN_TREE_MATERIAL.getBlock(WoodenComplexMaterial.BLOCK_LOG);
+		GridRecipe
+			.make(EdenRing.makeID("copper_framed_brain_tree_log"), EdenBlocks.COPPER_FRAMED_BRAIN_TREE_LOG)
+			.checkConfig(CONFIG)
+			.setOutputCount(9)
+			.setShape("MTM", "MTM", "MTM")
+			.addMaterial('M', EdenBlocks.BRAIN_TREE_BLOCK_COPPER)
+			.addMaterial('T', log)
+			.build();
+		
+		GridRecipe
+			.make(EdenRing.makeID("iron_framed_brain_tree_log"), EdenBlocks.IRON_FRAMED_BRAIN_TREE_LOG)
+			.checkConfig(CONFIG)
+			.setOutputCount(9)
+			.setShape("MTM", "MTM", "MTM")
+			.addMaterial('M', EdenBlocks.BRAIN_TREE_BLOCK_IRON)
+			.addMaterial('T', log)
+			.build();
+		
+		GridRecipe
+			.make(EdenRing.makeID("gold_framed_brain_tree_log"), EdenBlocks.GOLD_FRAMED_BRAIN_TREE_LOG)
+			.checkConfig(CONFIG)
+			.setOutputCount(9)
+			.setShape("MTM", "MTM", "MTM")
+			.addMaterial('M', EdenBlocks.BRAIN_TREE_BLOCK_GOLD)
+			.addMaterial('T', log)
+			.build();
+		
 		FurnaceRecipe.make(EdenRing.MOD_ID, "slime_ball", EdenBlocks.VOLVOX_BLOCK, Items.SLIME_BALL).checkConfig(CONFIG).build();
 		FurnaceRecipe.make(EdenRing.MOD_ID, "limphium_leaf", EdenItems.LIMPHIUM_LEAF, EdenItems.LIMPHIUM_LEAF_DRYED).checkConfig(CONFIG).build();
 		

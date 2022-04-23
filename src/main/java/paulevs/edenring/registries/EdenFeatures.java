@@ -105,8 +105,8 @@ public class EdenFeatures {
 	public static final BCLFeature MYCOTIC_GRASS = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("mycotic_grass"), new ScatterFeature(EdenBlocks.MYCOTIC_GRASS), 12);
 	public static final BCLFeature GOLDEN_GRASS = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("golden_grass"), new ScatterFeature(EdenBlocks.GOLDEN_GRASS), 8);
 	public static final BCLFeature BALLOON_MUSHROOM_SMALL = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("balloon_mushroom_small"), new ScatterFeature(EdenBlocks.BALLOON_MUSHROOM_SMALL), 6);
-	public static final BCLFeature IRON_GRASS = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("iron_grass"), new ScatterFeature(EdenBlocks.IRON_GRASS), 3);
 	public static final BCLFeature COPPER_GRASS = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("copper_grass"), new ScatterFeature(EdenBlocks.COPPER_GRASS), 3);
+	public static final BCLFeature IRON_GRASS = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("iron_grass"), new ScatterFeature(EdenBlocks.IRON_GRASS), 3);
 	public static final BCLFeature GOLD_GRASS = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("gold_grass"), new ScatterFeature(EdenBlocks.GOLD_GRASS), 3);
 	public static final BCLFeature LONLIX = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("lonlix"), new ScatterFeature(EdenBlocks.LONLIX), 3);
 	
@@ -114,6 +114,9 @@ public class EdenFeatures {
 	public static final BCLFeature VIOLUM_RARE = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("violum_rare"), new DoubleScatterFeature(EdenBlocks.VIOLUM), 1);
 	public static final BCLFeature TALL_MYCOTIC_GRASS = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("tall_mycotic_grass"), new DoubleScatterFeature(EdenBlocks.TALL_MYCOTIC_GRASS, 8), 6);
 	public static final BCLFeature LIMPHIUM = BCLCommonFeatures.makeChancedFeature(EdenRing.makeID("limphium"), Decoration.VEGETAL_DECORATION, new LimphiumFeature(), 8);
+	public static final BCLFeature TALL_COPPER_GRASS = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("tall_copper_grass"), new DoubleScatterFeature(EdenBlocks.TALL_COPPER_GRASS, 6), 4);
+	public static final BCLFeature TALL_IRON_GRASS = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("tall_iron_grass"), new DoubleScatterFeature(EdenBlocks.TALL_IRON_GRASS, 6), 4);
+	public static final BCLFeature TALL_GOLD_GRASS = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("tall_gold_grass"), new DoubleScatterFeature(EdenBlocks.TALL_GOLD_GRASS, 6), 4);
 	
 	public static final BCLFeature BALLOON_MUSHROOM_TREE = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("balloon_mushroom_tree"), new BalloonMushroomTreeFeature(), 16);
 	public static final BCLFeature OLD_BALLOON_MUSHROOM_TREE = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("old_balloon_mushroom_tree"), new OldBalloonMushroomTreeFeature(), 3);

@@ -172,5 +172,33 @@
 	"item.edenring.limphium_leaf_dryed": "Dryed Limphium Leaf",
 	
 	"entity.edenring.limphium_painting": "Limphium Decoration",
-	"item.edenring.limphium_painting": "Limphium Decoration"
+	"item.edenring.limphium_painting": "Limphium Decoration",
+	
+	"block.edenring.brain_tree_bark": "Brain Tree Bark",
+	"block.edenring.brain_tree_barrel": "Brain Tree Barrel",
+	"block.edenring.brain_tree_bookshelf": "Brain Tree Bookshelf",
+	"block.edenring.brain_tree_button": "Brain Tree Button",
+	"block.edenring.brain_tree_chest": "Brain Tree Chest",
+	"block.edenring.brain_tree_composter": "Brain Tree Composter",
+	"block.edenring.brain_tree_crafting_table": "Brain Tree Crafting Table",
+	"block.edenring.brain_tree_door": "Brain Tree Door",
+	"block.edenring.brain_tree_fence": "Brain Tree Fence",
+	"block.edenring.brain_tree_gate": "Brain Tree Gate",
+	"block.edenring.brain_tree_ladder": "Brain Tree Ladder",
+	"block.edenring.brain_tree_planks": "Brain Tree Planks",
+	"block.edenring.brain_tree_plate": "Brain Tree Pressure Plate",
+	"block.edenring.brain_tree_sign": "Brain Tree Sign",
+	"block.edenring.brain_tree_slab": "Brain Tree Slab",
+	"block.edenring.brain_tree_stairs": "Brain Tree Stairs",
+	"block.edenring.brain_tree_stripped_bark": "Brain Tree Stripped Bark",
+	"block.edenring.brain_tree_stripped_log": "Brain Tree Stripped Log",
+	"block.edenring.brain_tree_trapdoor": "Brain Tree Trapdoor",
+	
+	"block.edenring.copper_framed_brain_tree_log": "Copper Framed Brain Tree Log",
+	"block.edenring.gold_framed_brain_tree_log": "Gold Framed Brain Tree Log",
+	"block.edenring.iron_framed_brain_tree_log": "Iron Framed Brain Tree Log",
+	
+	"block.edenring.tall_copper_grass": "Tall Copper Grass",
+	"block.edenring.tall_gold_grass": "Tall Gold Grass",
+	"block.edenring.tall_iron_grass": "Tall Iron Grass"
 }

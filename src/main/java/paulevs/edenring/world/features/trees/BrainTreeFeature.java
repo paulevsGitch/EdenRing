@@ -10,6 +10,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
 import net.minecraft.world.level.material.Material;
 import paulevs.edenring.registries.EdenBlocks;
 import ru.bclib.blocks.BlockProperties;
+import ru.bclib.complexmaterials.WoodenComplexMaterial;
 import ru.bclib.util.BlocksHelper;
 import ru.bclib.util.MHelper;
 import ru.bclib.world.features.DefaultFeature;
@@ -38,7 +39,8 @@ public class BrainTreeFeature extends DefaultFeature {
 		
 		BlockState brain = TYPES[random.nextInt(3)];
 		BlockState brainActive = brain.setValue(BlockProperties.ACTIVE, true);
-		BlockState stem = EdenBlocks.BRAIN_TREE_LOG.defaultBlockState();
+		//BlockState stem = EdenBlocks.BRAIN_TREE_LOG.defaultBlockState();
+		BlockState stem = EdenBlocks.BRAIN_TREE_MATERIAL.getBlock(WoodenComplexMaterial.BLOCK_LOG).defaultBlockState();
 		
 		MutableBlockPos pos = center.mutable();
 		int h = MHelper.randRange(2, 4, random);

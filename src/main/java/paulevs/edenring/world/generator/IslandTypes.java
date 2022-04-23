@@ -1,6 +1,5 @@
 package paulevs.edenring.world.generator;
 
-import com.google.common.collect.ImmutableList.Builder;
 import net.minecraft.util.Mth;
 import ru.bclib.noise.OpenSimplexNoise;
 import ru.bclib.sdf.SDF;
@@ -14,18 +13,16 @@ import ru.bclib.sdf.operator.SDFUnion;
 import ru.bclib.sdf.primitive.SDFCappedCone;
 import ru.bclib.sdf.primitive.SDFSphere;
 import ru.bclib.util.MHelper;
+import ru.bclib.util.WeightedList;
 
-import java.util.List;
 import java.util.Random;
 import java.util.function.BiFunction;
 
 public class IslandTypes {
-	private static final List<BiFunction<LayerOptions, Random, SDF>> ISLAND_FUNCTIONS;
-	private static final int SIZE;
+	private static final WeightedList<BiFunction<LayerOptions, Random, SDF>> ISLAND_FUNCTIONS;
 	
 	public static SDF getIsland(LayerOptions options, Random random) {
-		int type = random.nextInt(SIZE);
-		return ISLAND_FUNCTIONS.get(type).apply(options, random);
+		return ISLAND_FUNCTIONS.get(random).apply(options, random);
 	}
 	
 	private static SDF makeCone(float radiusBottom, float radiusTop, float height, float minY) {
@@ -181,11 +178,9 @@ public class IslandTypes {
 	}
 	
 	static {
-		Builder builder = new Builder();
-		builder.add(makeSimpleIsland());
-		builder.add(makeTallSphereIsland());
-		builder.add(makeDoubleConeIsland());
-		ISLAND_FUNCTIONS = builder.build();
-		SIZE = ISLAND_FUNCTIONS.size();
+		ISLAND_FUNCTIONS = new WeightedList<>();
+		ISLAND_FUNCTIONS.add(makeSimpleIsland(), 2.0F);
+		ISLAND_FUNCTIONS.add(makeTallSphereIsland(), 1.0F);
+		ISLAND_FUNCTIONS.add(makeDoubleConeIsland(), 1.5F);
 	}
 }

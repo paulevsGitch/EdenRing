@@ -172,5 +172,33 @@
 	"item.edenring.limphium_leaf_dryed": "Высушенный лист лимфия",
 	
 	"entity.edenring.limphium_painting": "Лимфиевая декорация",
-	"item.edenring.limphium_painting": "Лимфиевая декорация"
+	"item.edenring.limphium_painting": "Лимфиевая декорация",
+	
+	"block.edenring.brain_tree_bark": "Кора мозгового дерева",
+	"block.edenring.brain_tree_barrel": "Бочка из мозгового дерева",
+	"block.edenring.brain_tree_bookshelf": "Книжные полки из мозгового дерева",
+	"block.edenring.brain_tree_button": "Кнопка из мозгового дерева",
+	"block.edenring.brain_tree_chest": "Сундук из мозгового дерева",
+	"block.edenring.brain_tree_composter": "Компостер из мозгового дерева",
+	"block.edenring.brain_tree_crafting_table": "Верстак из мозгового дерева",
+	"block.edenring.brain_tree_door": "Дверь из мозгового дерева",
+	"block.edenring.brain_tree_fence": "Забор из мозгового дерева",
+	"block.edenring.brain_tree_gate": "Калитка из мозгового дерева",
+	"block.edenring.brain_tree_ladder": "Лестница из мозгового дерева",
+	"block.edenring.brain_tree_planks": "Доски из мозгового дерева",
+	"block.edenring.brain_tree_plate": "Нажимная плита из мозгового дерева",
+	"block.edenring.brain_tree_sign": "Табличка из мозгового дерева",
+	"block.edenring.brain_tree_slab": "Плита из мозгового дерева",
+	"block.edenring.brain_tree_stairs": "Ступени из мозгового дерева",
+	"block.edenring.brain_tree_stripped_bark": "Обтёсанная кора мозгового дерева",
+	"block.edenring.brain_tree_stripped_log": "Обтёсанное бревно мозгового дерева",
+	"block.edenring.brain_tree_trapdoor": "Люк из мозгового дерева",
+	
+	"block.edenring.copper_framed_brain_tree_log": "Бревно мозгового дерева в медной рамке",
+	"block.edenring.gold_framed_brain_tree_log": "Бревно мозгового дерева в золотой рамке",
+	"block.edenring.iron_framed_brain_tree_log": "Бревно мозгового дерева в железной рамке",
+	
+	"block.edenring.tall_copper_grass": "Высокая медная трава",
+	"block.edenring.tall_gold_grass": "Высокая золотая трава",
+	"block.edenring.tall_iron_grass": "Высокая железная трава"
 }

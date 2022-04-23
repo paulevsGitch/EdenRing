@@ -1,0 +1,22 @@
+{
+	"variants": {
+		"axis=x": [
+			{ "model": "edenring:block/balloon_mushroom_stripped_bark_1", "x": 90, "y": 90, "weight": 4 },
+			{ "model": "edenring:block/balloon_mushroom_stripped_bark_2", "x": 90, "y": 90 },
+			{ "model": "edenring:block/balloon_mushroom_stripped_bark_3", "x": 90, "y": 90, "weight": 2 },
+			{ "model": "edenring:block/balloon_mushroom_stripped_bark_4", "x": 90, "y": 90, "weight": 2 }
+		],
+		"axis=y": [
+			{ "model": "edenring:block/balloon_mushroom_stripped_bark_1", "weight": 4 },
+			{ "model": "edenring:block/balloon_mushroom_stripped_bark_2" },
+			{ "model": "edenring:block/balloon_mushroom_stripped_bark_3", "weight": 2 },
+			{ "model": "edenring:block/balloon_mushroom_stripped_bark_4", "weight": 2 }
+		],
+		"axis=z": [
+			{ "model": "edenring:block/balloon_mushroom_stripped_bark_1", "x": 90, "weight": 4 },
+			{ "model": "edenring:block/balloon_mushroom_stripped_bark_2", "x": 90 },
+			{ "model": "edenring:block/balloon_mushroom_stripped_bark_3", "x": 90, "weight": 2 },
+			{ "model": "edenring:block/balloon_mushroom_stripped_bark_4", "x": 90, "weight": 2 }
+		]
+	}
+}

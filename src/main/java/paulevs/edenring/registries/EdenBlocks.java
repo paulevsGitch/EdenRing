@@ -57,6 +57,7 @@ import paulevs.edenring.blocks.TallBalloonMushroom;
 import paulevs.edenring.blocks.TexturedTerrainBlock;
 import paulevs.edenring.blocks.VolvoxBlock;
 import paulevs.edenring.blocks.VolvoxBlockDense;
+import paulevs.edenring.blocks.complex.BrainTreeComplexMaterial;
 import ru.bclib.api.BonemealAPI;
 import ru.bclib.api.ComposterAPI;
 import ru.bclib.api.ShovelAPI;
@@ -116,10 +117,14 @@ public class EdenBlocks {
 	public static final Block PULSE_TREE = register("pulse_tree", new PulseTreeBlock());
 	public static final ComplexMaterial PULSE_TREE_MATERIAL = new WoodenComplexMaterial(EdenRing.MOD_ID, "pulse_tree", "eden", MaterialColor.COLOR_CYAN, MaterialColor.COLOR_CYAN).init(REGISTRY, EdenItems.REGISTRY, EdenRecipes.CONFIG);
 	
-	public static final Block BRAIN_TREE_LOG = register("brain_tree_log", new BrainTreeLogBlock());
+	//public static final Block BRAIN_TREE_LOG = register("brain_tree_log", new BrainTreeLogBlock());
 	public static final Block BRAIN_TREE_BLOCK_IRON = register("brain_tree_block_iron", new BrainTreeBlock(MaterialColor.COLOR_LIGHT_GRAY));
 	public static final Block BRAIN_TREE_BLOCK_COPPER = register("brain_tree_block_copper", new BrainTreeBlock(MaterialColor.COLOR_ORANGE));
 	public static final Block BRAIN_TREE_BLOCK_GOLD = register("brain_tree_block_gold", new BrainTreeBlock(MaterialColor.GOLD));
+	public static final ComplexMaterial BRAIN_TREE_MATERIAL = new BrainTreeComplexMaterial("brain_tree").init(REGISTRY, EdenItems.REGISTRY, EdenRecipes.CONFIG);
+	public static final Block COPPER_FRAMED_BRAIN_TREE_LOG = register("copper_framed_brain_tree_log", new BrainTreeLogBlock());
+	public static final Block IRON_FRAMED_BRAIN_TREE_LOG = register("iron_framed_brain_tree_log", new BrainTreeLogBlock());
+	public static final Block GOLD_FRAMED_BRAIN_TREE_LOG = register("gold_framed_brain_tree_log", new BrainTreeLogBlock());
 	
 	public static final Block VOLVOX_BLOCK = register("volvox_block", new VolvoxBlock());
 	public static final Block VOLVOX_BLOCK_DENSE = register("volvox_block_dense", new VolvoxBlockDense());
@@ -133,9 +138,15 @@ public class EdenBlocks {
 	
 	public static final Block MYCOTIC_GRASS = register("mycotic_grass", new MycoticGrass());
 	public static final Block GOLDEN_GRASS = register("golden_grass", new OverlayPlantBlock(true));
-	public static final Block IRON_GRASS = register("iron_grass", new OverlayPlantBlock(true));
+	
 	public static final Block COPPER_GRASS = register("copper_grass", new OverlayPlantBlock(true));
+	public static final Block IRON_GRASS = register("iron_grass", new OverlayPlantBlock(true));
 	public static final Block GOLD_GRASS = register("gold_grass", new OverlayPlantBlock(true));
+	
+	public static final Block TALL_COPPER_GRASS = register("tall_copper_grass", new OverlayDoublePlantBlock());
+	public static final Block TALL_IRON_GRASS = register("tall_iron_grass", new OverlayDoublePlantBlock());
+	public static final Block TALL_GOLD_GRASS = register("tall_gold_grass", new OverlayDoublePlantBlock());
+	
 	public static final Block LONLIX = register("lonlix", new OverlayPlantBlock(true));
 	
 	public static final Block VIOLUM = register("violum", new OverlayDoublePlantBlock());

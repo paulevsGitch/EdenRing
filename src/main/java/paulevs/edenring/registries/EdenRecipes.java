@@ -4,6 +4,7 @@ import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import org.jetbrains.annotations.Nullable;
 import paulevs.edenring.EdenRing;
 import ru.bclib.api.tag.CommonItemTags;
 import ru.bclib.complexmaterials.WoodenComplexMaterial;
@@ -89,13 +90,16 @@ public class EdenRecipes {
 			.build();
 		
 		log = EdenBlocks.BRAIN_TREE_MATERIAL.getBlock(WoodenComplexMaterial.BLOCK_LOG);
+		Block log2 = EdenBlocks.BRAIN_TREE_MATERIAL.getBlock(WoodenComplexMaterial.BLOCK_STRIPPED_LOG);
+		Block log3 = EdenBlocks.BRAIN_TREE_MATERIAL.getBlock(WoodenComplexMaterial.BLOCK_STRIPPED_BARK);
+		Block log4 = EdenBlocks.BRAIN_TREE_MATERIAL.getBlock(WoodenComplexMaterial.BLOCK_BARK);
 		GridRecipe
 			.make(EdenRing.makeID("copper_framed_brain_tree_log"), EdenBlocks.COPPER_FRAMED_BRAIN_TREE_LOG)
 			.checkConfig(CONFIG)
 			.setOutputCount(9)
 			.setShape("MTM", "MTM", "MTM")
 			.addMaterial('M', EdenBlocks.BRAIN_TREE_BLOCK_COPPER)
-			.addMaterial('T', log)
+			.addMaterial('T', log, log2, log3, log4)
 			.build();
 		
 		GridRecipe
@@ -104,7 +108,7 @@ public class EdenRecipes {
 			.setOutputCount(9)
 			.setShape("MTM", "MTM", "MTM")
 			.addMaterial('M', EdenBlocks.BRAIN_TREE_BLOCK_IRON)
-			.addMaterial('T', log)
+			.addMaterial('T', log, log2, log3, log4)
 			.build();
 		
 		GridRecipe
@@ -113,7 +117,7 @@ public class EdenRecipes {
 			.setOutputCount(9)
 			.setShape("MTM", "MTM", "MTM")
 			.addMaterial('M', EdenBlocks.BRAIN_TREE_BLOCK_GOLD)
-			.addMaterial('T', log)
+			.addMaterial('T', log, log2, log3, log4)
 			.build();
 		
 		FurnaceRecipe.make(EdenRing.MOD_ID, "slime_ball", EdenBlocks.VOLVOX_BLOCK, Items.SLIME_BALL).checkConfig(CONFIG).build();

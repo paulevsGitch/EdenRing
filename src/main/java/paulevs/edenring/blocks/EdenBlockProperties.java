@@ -55,17 +55,19 @@ public class EdenBlockProperties extends BlockProperties {
 	}
 	
 	public enum PulseTreeState implements StringRepresentable {
-		UP("up"),
-		NORTH_SOUTH("north_south"),
-		EAST_WEST("east_west"),
-		HEAD_BIG("head_big"),
-		HEAD_MEDIUM("head_medium"),
-		HEAD_SMALL("head_small");
+		UP("up", false),
+		NORTH_SOUTH("north_south", false),
+		EAST_WEST("east_west", false),
+		HEAD_BIG("head_big", true),
+		HEAD_MEDIUM("head_medium", true),
+		HEAD_SMALL("head_small", true);
 		
 		private final String name;
+		private final boolean natural;
 		
-		PulseTreeState(String name) {
+		PulseTreeState(String name, boolean natural) {
 			this.name = name;
+			this.natural = natural;
 		}
 		
 		@Override
@@ -76,6 +78,10 @@ public class EdenBlockProperties extends BlockProperties {
 		@Override
 		public String toString() {
 			return this.name;
+		}
+		
+		public boolean isNatural() {
+			return natural;
 		}
 	}
 	

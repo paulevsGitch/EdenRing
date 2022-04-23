@@ -2,10 +2,13 @@ package paulevs.edenring.paintings;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.Nullable;
 import paulevs.edenring.EdenRing;
+import ru.bclib.BCLib;
 
 import java.util.Collection;
 import java.util.List;
@@ -16,7 +19,7 @@ public class EdenPaintings {
 	private static final List<PaintingInfo> PAINTINGS_LIST = Lists.newArrayList();
 	
 	public static void init() {
-		PaintingColorProvider biomeColor = (level, pos) -> level.calculateBlockTint(pos, BiomeColors.GRASS_COLOR_RESOLVER);
+		PaintingColorProvider biomeColor = getGrassColor();
 		register("limphium_leaves_small_1", 16, 16, biomeColor);
 		register("limphium_leaves_small_2", 16, 16, biomeColor);
 		register("limphium_leaves_small_3", 16, 16, biomeColor);
@@ -51,5 +54,15 @@ public class EdenPaintings {
 	
 	public static Collection<PaintingInfo> getPaintings() {
 		return PAINTING_BY_ID.values();
+	}
+	
+	@Nullable
+	private static PaintingColorProvider getGrassColor() {
+		return BCLib.isClient() ? getGrassColorClient() : null;
+	}
+	
+	@Environment(EnvType.CLIENT)
+	private static PaintingColorProvider getGrassColorClient() {
+		return (level, pos) -> level.calculateBlockTint(pos, BiomeColors.GRASS_COLOR_RESOLVER);
 	}
 }

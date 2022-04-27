@@ -13,8 +13,7 @@
 		{
 			"name": "table_of_contents",
 			"entries": [
-				{ "type": "title", "title": "§8§lTable Of" },
-				{ "type": "title", "title": "§8§lContents" },
+				{ "type": "title", "title": "§8§lОглавление" },
 				{
 					"type": "illustration",
 					"image": "edenring:textures/gui/illustrations/separator.png",
@@ -24,9 +23,9 @@
 				{
 					"type": "hyperText",
 					"lines": [
-						{ "text": "§3● §lWorld of Eden", "link": "world_structure"},
-						{ "text": "§3● §lGravity", "link": "eden_gravity"},
-						{ "text": "§3● §lBiomes", "link": "eden_biomes"}
+						{ "text": "§3● §lМир Эдена", "link": "world_structure"},
+						{ "text": "§3● §lГравитация", "link": "eden_gravity"},
+						{ "text": "§3● §lБиомы", "link": "eden_biomes"}
 					]
 				}
 			]
@@ -35,22 +34,22 @@
 		{
 			"name": "world_structure",
 			"entries": [
-				{ "type": "title", "title": "§8§lDescription" },
+				{ "type": "title", "title": "§8§lОписание" },
 				{
 					"type": "text",
 					"text": [
-						"§3Name: §8Eden",
-						"§3Mass: §828.5 Em",
-						"§3Class: §8Ice Giant",
-						"§3Atmosphere:",
+						"§3Название: §8Эден",
+						"§3Масса: §828.5 Зм",
+						"§3Класс: §8Ледяной гигиант",
+						"§3Атмосфера:",
 						"§3  §862% N2",
 						"§3  §818% H2O",
 						"§3  §812% NH3",
 						"§3  §805% H2",
-						"§3  §803% Other",
-						"§3Satellites:",
-						"§3  §88 Inner Moons",
-						"§3  §8Ring System"
+						"§3  §803% примеси",
+						"§3Спутники:",
+						"§3  §88 внутренних лун",
+						"§3  §8система колец"
 					]
 				},
 				{
@@ -65,7 +64,7 @@
 			"entries": [
 				{
 					"type": "text",
-					"text": "§8Eden is a large blue gas giant planet orbiting the F2 star. The planet is in habitable zone, but it is not suitable for life. However its rings have some gravity anomalies and the atmosphere similar to Earth. Ring system is a home for unique life and contain various resources, biomes and living organisms."
+					"text": "§8Эден это газовый гигант находящийся на орбите вокруг звезды класса F2. Планета находится в обитаемой зоне, но не пригодна для жизни. Однако её кольца обладают гравитационными аномалиями и имеют атмосферу сходную с земной. Система колец – дом для уникальных живых организмов и источник различных ресурсов."
 				}
 			]
 		},
@@ -73,10 +72,10 @@
 		{
 			"name": "eden_gravity",
 			"entries": [
-				{ "type": "title", "title": "§8§lEden Gravity" },
+				{ "type": "title", "title": "§8§lГравитация Эдена" },
 				{
 					"type": "text",
-					"text": "§8Gravity inside the Ring is a result of abnormal gravity field distortion. Gravity anomalies are caused by specific material that is possible to find only inside the ring - Gravilite."
+					"text": "§8Гравитация внутри колец это результат аномального искажения гравитационного поля, и причиной искажения является уникальный минерал обнаруженный только в кольце – Гравилит."
 				},
 				{
 					"type": "icon",
@@ -89,7 +88,7 @@
 			"entries": [
 				{
 					"type": "text",
-					"text": "§8Gravilite is a crystal-like material with blue color, its formations are common for the ring. Most formations looks like verticaly-oriented crystalline druse. Some druses have smaller formations around main crystal."
+					"text": "§8Гравилит это кристалическое вещество синего цвета. Большинство формаций выглядят как вертикальные кристаллические друзы. Иногда вокруг основной формации находятся несколько меньших."
 				},
 				{
 					"type": "illustration",
@@ -103,7 +102,7 @@
 			"entries": [
 				{
 					"type": "text",
-					"text": "§8Gravilite is useful material to construct machine that can change gravity - Gravity Compressor. It can use redstone signal to invert gravity direction above it, power will affect distance."
+					"text": "§8Гравилит можно использовать для изготовления Гравитационного компрессора. Используя сигнал редстоуна он может менять направление притяжения над собой. Разная сила сигнала даёт различную дистанцию."
 				},
 				{
 					"type": "icon",
@@ -116,7 +115,7 @@
 			"entries": [
 				{
 					"type": "text",
-					"text": "§8It is possible to use Gravilite as a decorative material. The crystals emit light and are useful for lanterns."
+					"text": "§8Гравилит так же можно использовать как декоративный материал и для создания светильников."
 				},
 				{
 					"type": "icon",
@@ -134,54 +133,54 @@
 		{
 			"name": "eden_biomes",
 			"entries": [
-				{ "type": "title", "title": "§8§lEden Biomes" },
+				{ "type": "title", "title": "§8§lБиомы Эдена" },
 				{
 					"type": "text",
-					"text": "§8Ring of Eden have many small zones with different conditions. As a result life in different parts of the ring formed different ecosystems and biomes."
+					"text": "§8Кольцо Эдена имеет много небольших зон с разными условиями. Жизнь адаптировалась к ним создав уникальные экосистемы и биомы."
 				},
 				{
 					"type": "text",
-					"text": "§8There are 3 big groups of biomes:"
+					"text": "§8Существует 3 больших группы биомов:"
 				},
 				{
 					"type": "text",
 					"text": [
-						"§8  - Land Biomes",
-						"§8  - Void Biomes",
-						"§8  - Cave Biomes"
+						"§8- Наземные биомы",
+						"§8- Пустотные биомы",
+						"§8- Пещерные биомы"
 					]
 				}
 			]
 		},
 		{
 			"entries": [
-				{ "type": "title", "title": "§8§lKnown Land Biomes" },
+				{ "type": "title", "title": "§8§lНаземные биомы" },
 				{
 					"type": "hyperText",
 					"lines": [
-						{ "text": "§3 ● Brainstorm", "link": "biome_brainstorm"},
-						{ "text": "§3 ● Golden Forest", "link": "biome_golden_forest"},
-						{ "text": "§3 ● Stone Garden", "link": "biome_stone_garden"},
-						{ "text": "§3 ● Lakeside Desert", "link": "biome_lakeside_desert"},
-						{ "text": "§3 ● Mycotic Forest", "link": "biome_mycotic_forest"},
-						{ "text": "§3 ● Old Mycotic Forest", "link": "biome_old_mycotic_forest"},
-						{ "text": "§3 ● Pulse Forest", "link": "biome_pulse_forest"}
+						{ "text": "§3● Мозговой шторм", "link": "biome_brainstorm"},
+						{ "text": "§3● Золотой лес", "link": "biome_golden_forest"},
+						{ "text": "§3● Каменный сад", "link": "biome_stone_garden"},
+						{ "text": "§3● Озёрная пустыня", "link": "biome_lakeside_desert"},
+						{ "text": "§3● Микотический лес", "link": "biome_mycotic_forest"},
+						{ "text": "§3● Ст. Микотический лес", "link": "biome_old_mycotic_forest"},
+						{ "text": "§3● Пульсирующий лес", "link": "biome_pulse_forest"}
 					]
 				},
-				{ "type": "title", "title": "§8§lKnown Void Biomes" },
+				{ "type": "title", "title": "§8§lПустотные биомы" },
 				{
 					"type": "hyperText",
 					"lines": [
-						{ "text": "§3 ● Air Ocean", "link": "biome_air_ocean"},
-						{ "text": "§3 ● Sky Colony", "link": "biome_sky_colony"}
+						{ "text": "§3● Воздушный океан", "link": "biome_air_ocean"},
+						{ "text": "§3● Небесная колония", "link": "biome_sky_colony"}
 					]
 				},
-				{ "type": "title", "title": "§8§lKnown Cave Biomes" },
+				{ "type": "title", "title": "§8§lПещерные биомы" },
 				{
 					"type": "hyperText",
 					"lines": [
-						{ "text": "§8 ● Empty Cave", "link": "biome_empty_cave"},
-						{ "text": "§8 ● Eroded Cave", "link": "biome_eroded_cave"}
+						{ "text": "§8● Пустая пещера", "link": "biome_empty_cave"},
+						{ "text": "§8● Эродированная п-ра", "link": "biome_eroded_cave"}
 					]
 				}
 			]
@@ -190,7 +189,7 @@
 		{
 			"name": "biome_brainstorm",
 			"entries": [
-				{ "type": "title", "title": "§8§lBrainstorm Biome" },
+				{ "type": "title", "title": "§8§lМозговой шторм" },
 				{
 					"type": "illustration",
 					"image": "edenring:textures/gui/illustrations/biome_brainstorm.png",
@@ -199,7 +198,7 @@
 				},
 				{
 					"type": "text",
-					"text": "§8Brainstorm is the biome formed in areas with large metal concentrations. Plants in this biome adapted to these conditions and have"
+					"text": "§8Мозговой шторм это биом сформированный в областях повышенного содержания металлов. Растения в этом биоме адаптировались к этим условиям и имеют"
 				}
 			]
 		},
@@ -207,11 +206,11 @@
 			"entries": [
 				{
 					"type": "text",
-					"text": "§8metal inclusions in their bodies."
+					"text": "§8 много металлических включений в своих организмах."
 				},
 				{
 					"type": "text",
-					"text": "§8Plants form unique biome weather with huge water evaporation and endless storm. Trees growing in this biome can accumulate a large charge and discharge it into any living organism nearby."
+					"text": "§8Растения формируют уникальную погоду в этом биоме с повышенным испарением и бесконечной бурей. Местные деревья могут аккумулировать зараяд и выпускать его в любой живой организм поблизости."
 				}
 			]
 		},
@@ -219,34 +218,35 @@
 			"entries": [
 				{
 					"type": "text",
-					"text": "§8Be careful during exploration and wear armour made of metals - if will work as Faraday cage and protect you."
+					"text": "§8Будте осторожны при изучении этого биома и носите броню из металла – она работает как клетка Фарадея и защитит вас."
 				},
-				{ "type": "title", "title": "§8§lSuitable Metals:" },
+				{ "type": "title", "title": "§8§lПодходящие:" },
+				{ "type": "title", "title": "§8§lметаллы:" },
 				{
 					"type": "text",
 					"text": [
-						"§8 - Iron",
-						"§8 - Gold",
-						"§8 - Netherite"
+						"§8 - Железо",
+						"§8 - Золото",
+						"§8 - Незерит"
 					]
 				}
 			]
 		},
 		{
 			"entries": [
-				{ "type": "title", "title": "§8§lCommon Plants:" },
+				{ "type": "title", "title": "§8§lФлора:" },
 				{
 					"type": "text",
 					"text": [
-						"§8 ● Copper Brain Tree",
-						"§8 ● Iron Brain Tree",
-						"§8 ● Gold Brain Tree",
-						"§8 ● Tall Copper Grass",
-						"§8 ● Tall Iron Grass",
-						"§8 ● Tall Gold Grass",
-						"§8 ● Copper Grass",
-						"§8 ● Iron Grass",
-						"§8 ● Gold Grass"
+						"§8 ● Медное м-вое д.",
+						"§8 ● Железное м-вое д.",
+						"§8 ● Зотое м-вое д.",
+						"§8 ● Высокая медная т.",
+						"§8 ● Высокая железная т.",
+						"§8 ● Высокая золотая т.",
+						"§8 ● Медная трава",
+						"§8 ● Железная трава",
+						"§8 ● Золотая трава"
 					]
 				}
 			]
@@ -255,7 +255,7 @@
 		{
 			"name": "biome_golden_forest",
 			"entries": [
-				{ "type": "title", "title": "§8§lGolden Forest Biome" },
+				{ "type": "title", "title": "§8§lЗолотой лес" },
 				{
 					"type": "illustration",
 					"image": "edenring:textures/gui/illustrations/biome_golden_forest.png",
@@ -264,7 +264,7 @@
 				},
 				{
 					"type": "text",
-					"text": "§8Golden Forest is a biome that look similar to Overworld forests during Autumn, but this is only visual match."
+					"text": "§8Золотой лес похож на осенние леса верхнего мира, но это только визуальное совпадение."
 				}
 			]
 		},
@@ -272,17 +272,17 @@
 			"entries": [
 				{
 					"type": "text",
-					"text": "§8Climate in this biome is moderate and plants color is related to yellow-colored photosynthetic pigment."
+					"text": "§8Климат в этом биоме умеренный, а цвет растений обусловлен жёлтым фотосинтетическим пигментом."
 				},
-				{ "type": "title", "title": "§8§lCommon Plants:" },
+				{ "type": "title", "title": "§8§lФлора:" },
 				{
 					"type": "text",
 					"text": [
-						"§8 ● Auritis Tree",
-						"§8 ● Golden grass",
-						"§8 ● Eden Vine",
-						"§8 ● MC Grass",
-						"§8 ● Parignum"
+						"§8 ● Ауритис",
+						"§8 ● Золотистая трава",
+						"§8 ● Лоза эдена",
+						"§8 ● Обычная трава",
+						"§8 ● Паригнум"
 					]
 				}
 			]
@@ -310,7 +310,7 @@
 					"type": "text",
 					"text": "§8Plant life in this biome consist of small plants and mosses. You can find some useful plants here, but biome is almost open-space."
 				},
-				{ "type": "title", "title": "§8§lCommon Plants:" },
+				{ "type": "title", "title": "§8§lФлора:" },
 				{
 					"type": "text",
 					"text": [
@@ -349,7 +349,7 @@
 					"type": "text",
 					"text": "§8and transform available dirt into sand and gravel."
 				},
-				{ "type": "title", "title": "§8§lCommon Plants:" },
+				{ "type": "title", "title": "§8§lФлора:" },
 				{
 					"type": "text",
 					"text": [
@@ -406,7 +406,7 @@
 		},
 		{
 			"entries": [
-				{ "type": "title", "title": "§8§lCommon Plants:" },
+				{ "type": "title", "title": "§8§lФлора:" },
 				{
 					"type": "text",
 					"text": [
@@ -460,7 +460,7 @@
 		},
 		{
 			"entries": [
-				{ "type": "title", "title": "§8§lCommon Plants:" },
+				{ "type": "title", "title": "§8§lФлора:" },
 				{
 					"type": "text",
 					"text": [
@@ -500,7 +500,7 @@
 					"type": "text",
 					"text": "§8This biome is a forest of big bamboo-like plants with wooden stems and big mushroom-like caps. All plants have syncronized bioluminescent pulsations that form unique outlook of this place."
 				},
-				{ "type": "title", "title": "§8§lCommon Plants:" },
+				{ "type": "title", "title": "§8§lФлора:" },
 				{
 					"type": "text",
 					"text": [
@@ -553,7 +553,7 @@
 		},
 		{
 			"entries": [
-				{ "type": "title", "title": "§8§lCommon Plants:" },
+				{ "type": "title", "title": "§8§lФлора:" },
 				{
 					"type": "text",
 					"text": [

@@ -160,12 +160,12 @@
 					"type": "hyperText",
 					"lines": [
 						{ "text": "§3 ● Brainstorm", "link": "biome_brainstorm"},
-						{ "text": "§3 ● Golden Forest", "link": ""},
-						{ "text": "§3 ● Stone Garden", "link": ""},
-						{ "text": "§3 ● Lakeside Desert", "link": ""},
-						{ "text": "§3 ● Mycotic Forest", "link": ""},
-						{ "text": "§3 ● Old Mycotic Forest", "link": ""},
-						{ "text": "§3 ● Pulse Forest", "link": ""}
+						{ "text": "§3 ● Golden Forest", "link": "biome_golden_forest"},
+						{ "text": "§3 ● Stone Garden", "link": "biome_stone_garden"},
+						{ "text": "§3 ● Lakeside Desert", "link": "biome_lakeside_desert"},
+						{ "text": "§3 ● Mycotic Forest", "link": "biome_mycotic_forest"},
+						{ "text": "§3 ● Old Mycotic Forest", "link": "biome_old_mycotic_forest"},
+						{ "text": "§3 ● Pulse Forest", "link": "biome_pulse_forest"}
 					]
 				}
 			]
@@ -231,6 +231,172 @@
 						"§8 ● Copper Grass",
 						"§8 ● Iron Grass",
 						"§8 ● Gold Grass"
+					]
+				}
+			]
+		},
+		
+		{
+			"name": "biome_golden_forest",
+			"entries": [
+				{ "type": "title", "title": "§8§lGolden Forest Biome" },
+				{
+					"type": "illustration",
+					"image": "edenring:textures/gui/illustrations/biome_golden_forest.png",
+					"width": 120,
+					"height": 60
+				},
+				{
+					"type": "text",
+					"text": "§8Golden Forest is a biome that look similar to Overworld forests during Autumn, but this is only visual match."
+				}
+			]
+		},
+		{
+			"entries": [
+				{
+					"type": "text",
+					"text": "§8Climate in this biome is moderate and plants color is related to yellow-colored photosynthetic pigment."
+				},
+				{ "type": "title", "title": "§8§lCommon Plants:" },
+				{
+					"type": "text",
+					"text": [
+						"§8 ● Auritis Tree",
+						"§8 ● Golden grass",
+						"§8 ● Eden Vine",
+						"§8 ● MC Grass",
+						"§8 ● Parignum"
+					]
+				}
+			]
+		},
+		
+		{
+			"name": "biome_stone_garden",
+			"entries": [
+				{ "type": "title", "title": "§8§lStone Garden Biome" },
+				{
+					"type": "illustration",
+					"image": "edenring:textures/gui/illustrations/biome_stone_garden.png",
+					"width": 120,
+					"height": 60
+				},
+				{
+					"type": "text",
+					"text": "§8Stone Garden biome contains different rock formation that were formed by wind erosion in this region."
+				}
+			]
+		},
+		{
+			"entries": [
+				{
+					"type": "text",
+					"text": "§8Plant life in this biome consist of small plants and mosses. You can find some useful plants here, but biome is almost open-space."
+				},
+				{ "type": "title", "title": "§8§lCommon Plants:" },
+				{
+					"type": "text",
+					"text": [
+						"§8 ● Eden Vine",
+						"§8 ● Eden Moss",
+						"§8 ● Violum",
+						"§8 ● Limphium",
+						"§8 ● MC Moss",
+						"§8 ● MC Grass",
+						"§8 ● Parignum",
+						"§8 ● Hanging roots"
+					]
+				}
+			]
+		},
+		
+		{
+			"name": "biome_lakeside_desert",
+			"entries": [
+				{ "type": "title", "title": "§8§lLakeside Desert" },
+				{
+					"type": "illustration",
+					"image": "edenring:textures/gui/illustrations/biome_lakeside_desert.png",
+					"width": 120,
+					"height": 60
+				},
+				{
+					"type": "text",
+					"text": "§8Lakeside desert is a biome formed by plant growing in it - Aquatus. This plant slowly dry water from land"
+				}
+			]
+		},
+		{
+			"entries": [
+				{
+					"type": "text",
+					"text": "§8and transform available dirt into sand and gravel."
+				},
+				{ "type": "title", "title": "§8§lCommon Plants:" },
+				{
+					"type": "text",
+					"text": [
+						"§8 ● Aquatus",
+						"§8 ● Dead bush"
+					]
+				}
+			]
+		},
+		
+		{
+			"name": "biome_mycotic_forest",
+			"entries": [
+				{ "type": "title", "title": "§8§lMycotic Forest" },
+				{
+					"type": "illustration",
+					"image": "edenring:textures/gui/illustrations/biome_mycotic_forest.png",
+					"width": 120,
+					"height": 60
+				},
+				{
+					"type": "text",
+					"text": "§8Mycotic Forest biome is a forest of big mushroom-like organisms which form unique landscape."
+				}
+			]
+		},
+		{
+			"entries": [
+				{
+					"type": "text",
+					"text": "§8These plants called \"Balloon Mushrooms\" support themselves with lightweight gas inside their caps."
+				},
+				{
+					"type": "text",
+					"text": "§8Balloon Mushroom Cap blocks can be placed in the air which is useful in building."
+				},
+				{
+					"type": "text",
+					"text": "§8Tall Balloon Mushrooms can be used to get some sticks or to farm more mushrooms."
+				}
+			]
+		},
+		{
+			"entries": [
+				{
+					"type": "text",
+					"text": "§8Balloon Mushrooms can grow to larger variant, but this process reqire some fertilisation. Bone meal can help with starting this process."
+				}
+			]
+		},
+		{
+			"entries": [
+				{ "type": "title", "title": "§8§lCommon Plants:" },
+				{
+					"type": "text",
+					"text": [
+						"§8 ● Balloon M-m tree",
+						"§8 ● Tall Balloon M-m",
+						"§8 ● Small Balloon M-m",
+						"§8 ● Limphium",
+						"§8 ● Tall Mycotic Grass",
+						"§8 ● Mycotic Grass",
+						"§8 ● MC Grass"
 					]
 				}
 			]

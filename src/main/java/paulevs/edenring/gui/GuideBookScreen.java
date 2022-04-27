@@ -32,9 +32,9 @@ public class GuideBookScreen extends Screen {
 	private static final Map<String, Function<JsonObject, PageEntry>> ENTRY_REGISTRY = Maps.newHashMap();
 	private static final ResourceLocation BOOK_TEXTURE = EdenRing.makeID("textures/gui/book.png");
 	private static final Map<String, BookInfo> BOOKS_CACHE = Maps.newHashMap();
+	private static final Stack<Integer> BACK_PAGES = new Stack<>();
 	private static int pageIndex = 0;
 	
-	private Stack<Integer> backPages = new Stack<>();
 	private final Minecraft minecraft;
 	private final Point arrowToHyper;
 	private final Point arrowNext;
@@ -67,7 +67,6 @@ public class GuideBookScreen extends Screen {
 	
 	private BookInfo getBook(String code) {
 		BookInfo book = BOOKS_CACHE.get(code);
-		System.out.println(book);
 		
 		if (book != null) {
 			return book;
@@ -107,11 +106,10 @@ public class GuideBookScreen extends Screen {
 				}
 				soundManager.play(SimpleSoundInstance.forUI(SoundEvents.BOOK_PAGE_TURN, 1.0F));
 			}
-			else if (!backPages.isEmpty() && x > arrowToHyper.x && y > arrowToHyper.y && x < arrowToHyper.x + 16 && y < arrowToHyper.y + 16) {
-				Integer index = backPages.pop();
+			else if (!BACK_PAGES.isEmpty() && x > arrowToHyper.x && y > arrowToHyper.y && x < arrowToHyper.x + 16 && y < arrowToHyper.y + 16) {
+				Integer index = BACK_PAGES.pop();
 				soundManager.play(SimpleSoundInstance.forUI(SoundEvents.BOOK_PAGE_TURN, 1.0F));
 				pageIndex = index.intValue();
-				System.out.println(pageIndex);
 			}
 			else {
 				for (byte j = 0; j < 2; j++) {
@@ -129,8 +127,7 @@ public class GuideBookScreen extends Screen {
 									if (px < size.x && py < size.y) {
 										if (hyperText.pages[n] == -1) break;
 										soundManager.play(SimpleSoundInstance.forUI(SoundEvents.BOOK_PAGE_TURN, 1.0F));
-										System.out.println(pageIndex);
-										backPages.push(Integer.valueOf(pageIndex));
+										BACK_PAGES.push(Integer.valueOf(pageIndex));
 										pageIndex = hyperText.pages[n];
 										break;
 									}
@@ -168,7 +165,7 @@ public class GuideBookScreen extends Screen {
 			arrowToHyper.y = posY + 8;
 			renderImage(poseStack, posX, posY, 160, 0, 146, 180, 512, 256);
 			renderImage(poseStack, arrowBack.x, arrowY, 0, 192, 16, 16, 512, 256);
-			if (!backPages.empty()) renderImage(poseStack, arrowToHyper.x, arrowToHyper.y, 0, 208, 16, 16, 512, 256);
+			if (!BACK_PAGES.empty()) renderImage(poseStack, arrowToHyper.x, arrowToHyper.y, 0, 208, 16, 16, 512, 256);
 			book.pages[pageIndex].render(poseStack, posX, posY + 16, 146, 180);
 			
 			posY = posY + 180 - 18;
@@ -185,7 +182,7 @@ public class GuideBookScreen extends Screen {
 			renderImage(poseStack, posX1, posY, 160, 0, 146, 180, 512, 256);
 			renderImage(poseStack, posX2, posY, 320, 0, 146, 180, 512, 256);
 			renderImage(poseStack, arrowBack.x, arrowY, 0, 192, 16, 16, 512, 256);
-			if (!backPages.empty()) renderImage(poseStack, arrowToHyper.x, arrowToHyper.y, 0, 208, 16, 16, 512, 256);
+			if (!BACK_PAGES.empty()) renderImage(poseStack, arrowToHyper.x, arrowToHyper.y, 0, 208, 16, 16, 512, 256);
 			
 			if (pageIndex < book.pages.length - 2) {
 				arrowNext.setLocation(posX2 + 146 + 8, arrowY);
@@ -193,7 +190,7 @@ public class GuideBookScreen extends Screen {
 			}
 			
 			book.pages[pageIndex].render(poseStack, posX1, posY + 16, 146, 180);
-			book.pages[pageIndex + 1].render(poseStack, posX2, posY + 16, 146, 180);
+			book.pages[pageIndex + 1].render(poseStack, posX2 - 6, posY + 16, 146, 180);
 			
 			posY = posY + 180 - 18;
 			String number1 = book.numberPrefix + pageIndex;
@@ -239,7 +236,7 @@ public class GuideBookScreen extends Screen {
 		
 		void render(PoseStack poseStack, int posX, int posY, int pageWidth, int pageHeight) {
 			for (PageEntry entry: entries) {
-				posY = entry.renderAndOffset(poseStack, posX, posY, pageWidth, pageHeight) + 4;
+				posY = entry.renderAndOffset(poseStack, posX + 2, posY, pageWidth, pageHeight) + 4;
 			}
 		}
 	}
@@ -417,7 +414,7 @@ public class GuideBookScreen extends Screen {
 		
 		@Override
 		int renderAndOffset(PoseStack poseStack, int posX, int posY, int pageWidth, int pageHeight) {
-			int posSide = posX + 2 + (pageWidth - width) / 2;
+			int posSide = posX + (pageWidth - width) / 2;
 			int posHeight = centered ? posY - 16 + (pageHeight - height) / 2 : posY;
 			RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 			RenderSystem.setShaderTexture(0, texture);

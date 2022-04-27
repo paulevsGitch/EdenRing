@@ -167,6 +167,22 @@
 						{ "text": "§3 ● Old Mycotic Forest", "link": "biome_old_mycotic_forest"},
 						{ "text": "§3 ● Pulse Forest", "link": "biome_pulse_forest"}
 					]
+				},
+				{ "type": "title", "title": "§8§lKnown Void Biomes" },
+				{
+					"type": "hyperText",
+					"lines": [
+						{ "text": "§3 ● Air Ocean", "link": "biome_air_ocean"},
+						{ "text": "§3 ● Sky Colony", "link": "biome_sky_colony"}
+					]
+				},
+				{ "type": "title", "title": "§8§lKnown Cave Biomes" },
+				{
+					"type": "hyperText",
+					"lines": [
+						{ "text": "§8 ● Empty Cave", "link": "biome_empty_cave"},
+						{ "text": "§8 ● Eroded Cave", "link": "biome_eroded_cave"}
+					]
 				}
 			]
 		},
@@ -381,6 +397,10 @@
 				{
 					"type": "text",
 					"text": "§8Balloon Mushrooms can grow to larger variant, but this process reqire some fertilisation. Bone meal can help with starting this process."
+				},
+				{
+					"type": "text",
+					"text": "§8To grow Balloon Mushroom tree or Tall Balloon Mushroom you need to use bonemeal on Small Balloon Mushroom growing on Eden Mycelium."
 				}
 			]
 		},
@@ -393,13 +413,165 @@
 						"§8 ● Balloon M-m tree",
 						"§8 ● Tall Balloon M-m",
 						"§8 ● Small Balloon M-m",
-						"§8 ● Limphium",
 						"§8 ● Tall Mycotic Grass",
 						"§8 ● Mycotic Grass",
+						"§8 ● Limphium",
 						"§8 ● MC Grass"
 					]
 				}
 			]
-		}
+		},
+		
+		{
+			"name": "biome_old_mycotic_forest",
+			"entries": [
+				{ "type": "title", "title": "§8§lOld Mycotic Forest" },
+				{
+					"type": "illustration",
+					"image": "edenring:textures/gui/illustrations/biome_old_mycotic_forest.png",
+					"width": 120,
+					"height": 60
+				},
+				{
+					"type": "text",
+					"text": "§8Old Mycotic Forest is a variation of forest Mycotic Forest biome with very old trees and complete mycotic ecosystem."
+				}
+			]
+		},
+		{
+			"entries": [
+				{
+					"type": "text",
+					"text": "§8Old Balloon trees have more unique blocks than ordinal trees - they have branches, mycotic lanterns and sporocarp blocks. The last two blocks can be painted into 16 colors and used in decoration."
+				}
+			]
+		},
+		{
+			"entries": [
+				{
+					"type": "text",
+					"text": "§8To grow Old Balloon Mushroom tree you need to plant Small Balloon Mushrooms in a 2x2 shape on Eden Mycelium."
+				},
+				{
+					"type": "text",
+					"text": "§8If there will be not enought space or not all conditions you can get ordinal Balloon Mushroom tree or Tall Balloon Mushroom."
+				}
+			]
+		},
+		{
+			"entries": [
+				{ "type": "title", "title": "§8§lCommon Plants:" },
+				{
+					"type": "text",
+					"text": [
+						"§8 ● Old Balloon M-m tree",
+						"§8 ● Balloon M-m tree",
+						"§8 ● Tall Balloon M-m",
+						"§8 ● Small Balloon M-m",
+						"§8 ● Tall Mycotic Grass",
+						"§8 ● Mycotic Grass",
+						"§8 ● Limphium"
+					]
+				}
+			]
+		},
+		
+		{
+			"name": "biome_pulse_forest",
+			"entries": [
+				{ "type": "title", "title": "§8§lPulse Forest" },
+				{
+					"type": "illustration",
+					"image": "edenring:textures/gui/illustrations/biome_pulse_forest_day.png",
+					"width": 120,
+					"height": 60
+				},
+				{
+					"type": "illustration",
+					"image": "edenring:textures/gui/illustrations/biome_pulse_forest_night.png",
+					"width": 120,
+					"height": 60
+				}
+			]
+		},
+		{
+			"entries": [
+				{
+					"type": "text",
+					"text": "§8This biome is a forest of big bamboo-like plants with wooden stems and big mushroom-like caps. All plants have syncronized bioluminescent pulsations that form unique outlook of this place."
+				},
+				{ "type": "title", "title": "§8§lCommon Plants:" },
+				{
+					"type": "text",
+					"text": [
+						"§8 ● Pulse tree",
+						"§8 ● Violum",
+						"§8 ● MC Grass"
+					]
+				}
+			]
+		},
+		
+		{
+			"name": "biome_air_ocean",
+			"entries": [
+				{ "type": "title", "title": "§8§lSky Ocean" },
+				{
+					"type": "illustration",
+					"image": "edenring:textures/gui/illustrations/biome_air_ocean.png",
+					"width": 120,
+					"height": 60
+				},
+				{
+					"type": "text",
+					"text": "§8Air ocean is a big empty space between islands filled with air."
+				},
+				{ "type": "title", "title": "§8§lCommon Animals:" },
+				{
+					"type": "text",
+					"text": [
+						"§8 ● Diskwing"
+					]
+				}
+			]
+		},
+		{
+			"name": "biome_sky_colony",
+			"entries": [
+				{ "type": "title", "title": "§8§lSky Colony" },
+				{
+					"type": "illustration",
+					"image": "edenring:textures/gui/illustrations/biome_sky_colony.png",
+					"width": 120,
+					"height": 60
+				},
+				{
+					"type": "text",
+					"text": "§8A biome filled with large colonial volvox-like organisms. Each colony have unique small ecosystem and water inside it."
+				}
+			]
+		},
+		{
+			"entries": [
+				{ "type": "title", "title": "§8§lCommon Plants:" },
+				{
+					"type": "text",
+					"text": [
+						"§8 ● Volvox",
+						"§8 ● Symbiotic Mold",
+						"§8 ● Parignum",
+						"§8 ● Eden Vine"
+					]
+				},
+				{ "type": "title", "title": "§8§lCommon Animals:" },
+				{
+					"type": "text",
+					"text": [
+						"§8 ● Diskwing"
+					]
+				}
+			]
+		},
+		{ "entries": [] }
 	]
 }

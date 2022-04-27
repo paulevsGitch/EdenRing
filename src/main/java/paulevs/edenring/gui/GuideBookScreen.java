@@ -390,6 +390,7 @@ public class GuideBookScreen extends Screen {
 						}
 					}
 				}
+				start[i].setLocation(posX, posY);
 				GuideBookScreen.this.font.draw(poseStack, line, posX, posY, 0);
 				posY += GuideBookScreen.this.font.lineHeight;
 			}

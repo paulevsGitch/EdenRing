@@ -13,26 +13,33 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.sounds.SoundManager;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.item.ItemStack;
 import paulevs.edenring.EdenRing;
+import paulevs.edenring.client.ItemScaler;
 import ru.bclib.util.JsonFactory;
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 import java.util.function.Function;
 
 public class GuideBookScreen extends Screen {
 	private static final Map<String, Function<JsonObject, PageEntry>> ENTRY_REGISTRY = Maps.newHashMap();
 	private static final ResourceLocation BOOK_TEXTURE = EdenRing.makeID("textures/gui/book.png");
+	private static final Map<String, BookInfo> BOOKS_CACHE = Maps.newHashMap();
 	private static int pageIndex = 0;
 	
-	private final Map<String, BookInfo> booksCache = Maps.newHashMap();
-	private final Map<String, PageInfo> pageByName = Maps.newHashMap();
-	private final BookInfo book;
+	private Stack<Integer> backPages = new Stack<>();
+	private final Minecraft minecraft;
+	private final Point arrowToHyper;
 	private final Point arrowNext;
 	private final Point arrowBack;
+	private final BookInfo book;
 	
 	public GuideBookScreen() {
 		super(NarratorChatListener.NO_TITLE);
@@ -40,18 +47,27 @@ public class GuideBookScreen extends Screen {
 		if (ENTRY_REGISTRY.isEmpty()) {
 			ENTRY_REGISTRY.put("text", TextPageEntry::new);
 			ENTRY_REGISTRY.put("title", TitlePageEntry::new);
+			ENTRY_REGISTRY.put("hyperText", HyperTextPageEntry::new);
 			ENTRY_REGISTRY.put("illustration", IllustrationPageEntry::new);
+			ENTRY_REGISTRY.put("icon", IconPageEntry::new);
 		}
 		
+		arrowToHyper = new Point();
 		arrowNext = new Point();
 		arrowBack = new Point();
 		
-		String code = Minecraft.getInstance().getLanguageManager().getSelected().getCode();
+		minecraft = Minecraft.getInstance();
+		String code = minecraft.getLanguageManager().getSelected().getCode();
 		book = getBook(code);
 	}
 	
+	public static void clearCache() {
+		BOOKS_CACHE.clear();
+	}
+	
 	private BookInfo getBook(String code) {
-		BookInfo book = booksCache.get(code);
+		BookInfo book = BOOKS_CACHE.get(code);
+		System.out.println(book);
 		
 		if (book != null) {
 			return book;
@@ -72,7 +88,7 @@ public class GuideBookScreen extends Screen {
 		}
 		
 		book = new BookInfo(prefix, bookPages);
-		booksCache.put(code, book);
+		BOOKS_CACHE.put(code, book);
 		return book;
 	}
 	
@@ -83,12 +99,47 @@ public class GuideBookScreen extends Screen {
 			pageIndex = pageIndex == 0 ? 1 : pageIndex + 2;
 			soundManager.play(SimpleSoundInstance.forUI(SoundEvents.BOOK_PAGE_TURN, 1.0F));
 		}
-		if (pageIndex > 0 && x > arrowBack.x && y > arrowBack.y && x < arrowBack.x + 16 && y < arrowBack.y + 16) {
-			pageIndex -= 2;
-			if (pageIndex < 0) {
-				pageIndex = 0;
+		if (pageIndex > 0) {
+			if (x > arrowBack.x && y > arrowBack.y && x < arrowBack.x + 16 && y < arrowBack.y + 16) {
+				pageIndex -= 2;
+				if (pageIndex < 0) {
+					pageIndex = 0;
+				}
+				soundManager.play(SimpleSoundInstance.forUI(SoundEvents.BOOK_PAGE_TURN, 1.0F));
 			}
-			soundManager.play(SimpleSoundInstance.forUI(SoundEvents.BOOK_PAGE_TURN, 1.0F));
+			else if (!backPages.isEmpty() && x > arrowToHyper.x && y > arrowToHyper.y && x < arrowToHyper.x + 16 && y < arrowToHyper.y + 16) {
+				Integer index = backPages.pop();
+				soundManager.play(SimpleSoundInstance.forUI(SoundEvents.BOOK_PAGE_TURN, 1.0F));
+				pageIndex = index.intValue();
+				System.out.println(pageIndex);
+			}
+			else {
+				for (byte j = 0; j < 2; j++) {
+					int index = pageIndex + j;
+					if (index < book.pages.length && book.pages[index] != null) {
+						book.pages[index].entries.forEach(pageEntry -> {
+							if (pageEntry instanceof HyperTextPageEntry) {
+								HyperTextPageEntry hyperText = (HyperTextPageEntry) pageEntry;
+								for (byte n = 0; n < hyperText.start.length; n++) {
+									Point start = hyperText.start[n];
+									if (start == null) continue;
+									Point size = hyperText.size[n];
+									float px = (float) (x - start.x);
+									float py = (float) (y - start.y);
+									if (px < size.x && py < size.y) {
+										if (hyperText.pages[n] == -1) break;
+										soundManager.play(SimpleSoundInstance.forUI(SoundEvents.BOOK_PAGE_TURN, 1.0F));
+										System.out.println(pageIndex);
+										backPages.push(Integer.valueOf(pageIndex));
+										pageIndex = hyperText.pages[n];
+										break;
+									}
+								}
+							}
+						});
+					}
+				}
+			}
 		}
 		return super.mouseClicked(x, y, i);
 	}
@@ -113,18 +164,28 @@ public class GuideBookScreen extends Screen {
 		else if (pageIndex + 1 >= book.pages.length) {
 			int posX = (this.width - 146) / 2;
 			arrowBack.setLocation(posX - 8 - 16, arrowY);
+			arrowToHyper.setLocation(arrowBack);
+			arrowToHyper.y = posY + 8;
 			renderImage(poseStack, posX, posY, 160, 0, 146, 180, 512, 256);
 			renderImage(poseStack, arrowBack.x, arrowY, 0, 192, 16, 16, 512, 256);
+			if (!backPages.empty()) renderImage(poseStack, arrowToHyper.x, arrowToHyper.y, 0, 208, 16, 16, 512, 256);
 			book.pages[pageIndex].render(poseStack, posX, posY + 16, 146, 180);
+			
+			posY = posY + 180 - 18;
+			String number = book.numberPrefix + pageIndex;
+			this.font.draw(poseStack, number, posX + 24, posY, 0);
 		}
 		else {
 			int posX1 = (this.width - 146 * 2 - 8) / 2;
 			int posX2 = posX1 + 146 + 8;
 			
 			arrowBack.setLocation(posX1 - 8 - 16, arrowY);
+			arrowToHyper.setLocation(arrowBack);
+			arrowToHyper.y = posY + 8;
 			renderImage(poseStack, posX1, posY, 160, 0, 146, 180, 512, 256);
 			renderImage(poseStack, posX2, posY, 320, 0, 146, 180, 512, 256);
 			renderImage(poseStack, arrowBack.x, arrowY, 0, 192, 16, 16, 512, 256);
+			if (!backPages.empty()) renderImage(poseStack, arrowToHyper.x, arrowToHyper.y, 0, 208, 16, 16, 512, 256);
 			
 			if (pageIndex < book.pages.length - 2) {
 				arrowNext.setLocation(posX2 + 146 + 8, arrowY);
@@ -163,9 +224,6 @@ public class GuideBookScreen extends Screen {
 		PageInfo(JsonObject obj) {
 			JsonElement element = obj.get("name");
 			name = element != null ? element.getAsString() : null;
-			if (name != null) {
-				pageByName.put(name, this);
-			}
 			element = obj.get("entries");
 			if (element != null && element instanceof JsonArray) {
 				element.getAsJsonArray().forEach(entry -> {
@@ -177,11 +235,6 @@ public class GuideBookScreen extends Screen {
 					}
 				});
 			}
-		}
-		
-		PageInfo addEntry(PageEntry entiry) {
-			entries.add(entiry);
-			return this;
 		}
 		
 		void render(PoseStack poseStack, int posX, int posY, int pageWidth, int pageHeight) {
@@ -215,21 +268,131 @@ public class GuideBookScreen extends Screen {
 	}
 	
 	class TextPageEntry extends PageEntry {
+		boolean requireRecombination = false;
 		String[] lines;
 		
 		TextPageEntry(JsonObject obj) {
 			super(obj);
-			JsonArray preLines = obj.getAsJsonArray("lines");
-			lines = new String[preLines.size()];
-			for (int i = 0; i < lines.length; i++) {
-				lines[i] = preLines.get(i).getAsString();
+			JsonElement element = obj.get("text");
+			if (element.isJsonArray()) {
+				JsonArray preLines = obj.getAsJsonArray("text");
+				lines = new String[preLines.size()];
+				for (int i = 0; i < lines.length; i++) {
+					lines[i] = preLines.get(i).getAsString();
+				}
+			}
+			else {
+				requireRecombination = true;
+				String text = element.getAsString();
+				lines = text.split(" ");
 			}
 		}
 		
 		@Override
 		int renderAndOffset(PoseStack poseStack, int posX, int posY, int pageWidth, int pageHeight) {
 			posX += 16;
+			if (requireRecombination) {
+				String modifier = null;
+				requireRecombination = false;
+				if (lines[0].startsWith("§")) {
+					modifier = lines[0].substring(0, 2);
+				}
+				boolean run = true;
+				List<String> newLines = new ArrayList<>(lines.length >> 2);
+				for (int i = 0; run && i < lines.length; ++i) {
+					int length = lines[i].length();
+					//int count = 1;
+					
+					StringBuilder builder = new StringBuilder();
+					if (modifier != null) {
+						if (i == 0) length -= 2;
+						else builder.append(modifier);
+					}
+					builder.append(lines[i]);
+					
+					for (int j = i + 1; j < lines.length; ++j) {
+						String word = lines[j];
+						length += word.length() + 1;
+						if (length < 22) {
+							builder.append(' ');
+							builder.append(word);
+							run = (j != lines.length - 1);
+							//count++;
+						}
+						else {
+							//length -= word.length() + 1;
+							i = j - 1;
+							break;
+						}
+					}
+					
+					String line = builder.toString();
+					/*if (count > 1) {
+						int spaces = 22 - length;
+						if (spaces > 0 && spaces < 11) {
+							int searchIndex = 0;
+							for (byte n = 0; n < spaces; n++) {
+								searchIndex = line.indexOf(' ', searchIndex + 2);
+								if (searchIndex < 0) searchIndex = line.indexOf(' ');
+								line = line.substring(0, searchIndex) + ' ' + line.substring(searchIndex);
+							}
+						}
+					}*/
+					newLines.add(line);
+				}
+				lines = newLines.toArray(new String[newLines.size()]);
+			}
 			for (String line: lines) {
+				GuideBookScreen.this.font.draw(poseStack, line, posX, posY, 0);
+				posY += GuideBookScreen.this.font.lineHeight;
+			}
+			return posY;
+		}
+	}
+	
+	class HyperTextPageEntry extends PageEntry {
+		String[] lines;
+		String[] keys;
+		Point[] start;
+		Point[] size;
+		int[] pages;
+		
+		HyperTextPageEntry(JsonObject obj) {
+			super(obj);
+			JsonArray preLines = obj.getAsJsonArray("lines");
+			lines = new String[preLines.size()];
+			start = new Point[lines.length];
+			size = new Point[lines.length];
+			keys = new String[lines.length];
+			pages = new int[lines.length];
+			for (int i = 0; i < lines.length; i++) {
+				obj = preLines.get(i).getAsJsonObject();
+				lines[i] = obj.get("text").getAsString();
+				keys[i] = obj.get("link").getAsString();
+			}
+		}
+		
+		@Override
+		int renderAndOffset(PoseStack poseStack, int posX, int posY, int pageWidth, int pageHeight) {
+			posX += 16;
+			for (byte i = 0; i < lines.length; i++) {
+				String line = lines[i];
+				if (start[i] == null) {
+					int width = GuideBookScreen.this.font.width(line);
+					int height = GuideBookScreen.this.font.lineHeight;
+					start[i] = new Point(posX, posY);
+					size[i] = new Point(width, height);
+					
+					String key = keys[i];
+					pages[i] = -1;
+					for (int n = 1; n < book.pages.length; n++) {
+						PageInfo info = book.pages[n];
+						if (info != null && info.name != null && info.name.equals(key)) {
+							pages[i] = (n & 1) == 1 ? n : n - 1;
+							break;
+						}
+					}
+				}
 				GuideBookScreen.this.font.draw(poseStack, line, posX, posY, 0);
 				posY += GuideBookScreen.this.font.lineHeight;
 			}
@@ -254,11 +417,36 @@ public class GuideBookScreen extends Screen {
 		
 		@Override
 		int renderAndOffset(PoseStack poseStack, int posX, int posY, int pageWidth, int pageHeight) {
-			int posSide = posX + (pageWidth - width) / 2;
+			int posSide = posX + 2 + (pageWidth - width) / 2;
 			int posHeight = centered ? posY - 16 + (pageHeight - height) / 2 : posY;
 			RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 			RenderSystem.setShaderTexture(0, texture);
 			renderImage(poseStack, posSide, posHeight, 0, 0, width, height, width, height);
+			return posY + height;
+		}
+	}
+	
+	class IconPageEntry extends PageEntry {
+		final private ItemStack item;
+		final private int height;
+		final boolean centered;
+		
+		IconPageEntry(JsonObject obj) {
+			super(obj);
+			String text = obj.get("item").getAsString();
+			height = obj.get("height").getAsInt();
+			ResourceLocation location = new ResourceLocation(text);
+			item = new ItemStack(Registry.ITEM.get(location));
+			JsonElement preCentered = obj.get("centered");
+			centered = preCentered == null ? false : preCentered.getAsBoolean();
+		}
+		
+		@Override
+		int renderAndOffset(PoseStack poseStack, int posX, int posY, int pageWidth, int pageHeight) {
+			int posSide = posX + (pageWidth - 16) / 2;
+			int posHeight = centered ? posY + (pageHeight) / 2 + 16 : posY + 16;
+			if (height != 16) ItemScaler.setScale(height);
+			minecraft.getItemRenderer().renderAndDecorateItem(item, posSide, posHeight);
 			return posY + height;
 		}
 	}

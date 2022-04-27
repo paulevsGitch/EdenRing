@@ -12,6 +12,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import paulevs.edenring.EdenRing;
+import paulevs.edenring.gui.GuideBookScreen;
+
+import java.util.concurrent.CompletableFuture;
 
 @Mixin(Minecraft.class)
 public class MinecraftMixin {
@@ -27,5 +30,10 @@ public class MinecraftMixin {
 			Biome biome = level.getBiomeManager().getNoiseBiomeAtPosition(player.blockPosition()).value();
 			info.setReturnValue(biome.getBackgroundMusic().orElse(Musics.GAME));
 		}
+	}
+	
+	@Inject(method = "reloadResourcePacks(Z)Ljava/util/concurrent/CompletableFuture;", at = @At("HEAD"))
+	private void eden_reloadResourcePacks(boolean bl, CallbackInfoReturnable<CompletableFuture<Void>> cir) {
+		GuideBookScreen.clearCache();
 	}
 }

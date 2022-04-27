@@ -1,94 +1,239 @@
 {
-  "lineNumberPrefix": "§8",
-  "pages": [
-    {
-      "entries": [
-        {
-          "type": "illustration",
-          "image": "edenring:textures/gui/illustrations/planet_logo.png",
-		  "width": 128,
-		  "height": 128,
-		  "centered": true
-        }
-      ]
-    },
-	
-    {
-      "name": "table_of_contents",
-      "entries": [
-        { "type": "title", "title": "§8§lTable Of" },
-        { "type": "title", "title": "§8§lContents" },
-        {
-          "type": "illustration",
-          "image": "edenring:textures/gui/illustrations/separator.png",
-		  "width": 128,
-		  "height": 16
-        },
-        {
-          "type": "text",
-          "lines": [
-            "§8● §lWorld of Eden",
-            "§8● §lGravity",
-            "§8● §lBiomes",
-            "§8● §lFlora"
-          ]
-        }
-      ]
-    },
-	
-	{
-	  "entries": [
-	    { "type": "title", "title": "§8§lDescription" },
-        {
-          "type": "text",
-          "lines": [
-            "§8Name: Eden",
-            "§8Mass: 28.5 Em",
-            "§8Class: Ice Giant",
-            "§8Atmosphere:",
-            "§8  62% N2",
-            "§8  18% H2O",
-            "§8  12% NH3",
-            "§8  05% H2",
-            "§8  03% Other",
-			"§8Satellites:",
-			"§8  8 Inner Moons",
-			"§8  Ring System"
-          ]
-        },
+	"lineNumberPrefix": "§8",
+	"pages": [
 		{
-          "type": "illustration",
-          "image": "edenring:textures/gui/illustrations/separator.png",
-		  "width": 128,
-		  "height": 16
-        }
-      ]
-	},
-	{
-      "name": "world_structure",
-      "entries": [
-        {
-          "type": "text",
-          "lines": [
-            "§8Eden is a large blue",
-            "§8gas giant planet",
-            "§8orbiting the G2 star.",
-			"§8The planet is in",
-			"§8habitable zone, but it",
-			"§8is not suitable for",
-			"§8life. However its rings",
-			"§8have some gravity",
-			"§8anomalies and the",
-			"§8atmosphere similar",
-			"§8to Earth. Ring system",
-			"§8is a home for unique",
-			"§8life and contain",
-			"§8various resources,",
-			"§8biomes and living",
-			"§8organisms."
-          ]
-        }
-      ]
-    }
-  ]
+			"entries": [{
+				"type": "illustration",
+				"image": "edenring:textures/gui/illustrations/planet_logo.png",
+				"width": 128,
+				"height": 128,
+				"centered": true
+			}]
+		},
+		{
+			"name": "table_of_contents",
+			"entries": [
+				{ "type": "title", "title": "§8§lTable Of" },
+				{ "type": "title", "title": "§8§lContents" },
+				{
+					"type": "illustration",
+					"image": "edenring:textures/gui/illustrations/separator.png",
+					"width": 128,
+					"height": 16
+				},
+				{
+					"type": "hyperText",
+					"lines": [
+						{ "text": "§3● §lWorld of Eden", "link": "world_structure"},
+						{ "text": "§3● §lGravity", "link": "eden_gravity"},
+						{ "text": "§3● §lBiomes", "link": "eden_biomes"}
+					]
+				}
+			]
+		},
+	
+		{
+			"name": "world_structure",
+			"entries": [
+				{ "type": "title", "title": "§8§lDescription" },
+				{
+					"type": "text",
+					"text": [
+						"§3Name: §8Eden",
+						"§3Mass: §828.5 Em",
+						"§3Class: §8Ice Giant",
+						"§3Atmosphere:",
+						"§3  §862% N2",
+						"§3  §818% H2O",
+						"§3  §812% NH3",
+						"§3  §805% H2",
+						"§3  §803% Other",
+						"§3Satellites:",
+						"§3  §88 Inner Moons",
+						"§3  §8Ring System"
+					]
+				},
+				{
+					"type": "illustration",
+					"image": "edenring:textures/gui/illustrations/separator.png",
+					"width": 128,
+					"height": 16
+				}
+			]
+		},
+		{
+			"entries": [
+				{
+					"type": "text",
+					"text": "§8Eden is a large blue gas giant planet orbiting the G2 star. The planet is in habitable zone, but it is not suitable for life. However its rings have some gravity anomalies and the atmosphere similar to Earth. Ring system is a home for unique life and contain various resources, biomes and living organisms."
+				}
+			]
+		},
+		
+		{
+			"name": "eden_gravity",
+			"entries": [
+				{ "type": "title", "title": "§8§lEden Gravity" },
+				{
+					"type": "text",
+					"text": "§8Gravity inside the Ring is a result of abnormal gravity field distortion. Gravity anomalies are caused by specific material that is possible to find only inside the ring - Gravilite."
+				},
+				{
+					"type": "icon",
+					"height": 32,
+					"item": "edenring:gravilite_block"
+				}
+			]
+		},
+		{
+			"entries": [
+				{
+					"type": "text",
+					"text": "§8Gravilite is a crystal-like material with blue color, its formations are common for the ring. Most formations looks like verticaly-oriented crystalline druse. Some druses have smaller formations around main crystal."
+				},
+				{
+					"type": "illustration",
+					"image": "edenring:textures/gui/illustrations/gravilite_crystals.png",
+					"width": 48,
+					"height": 48
+				}
+			]
+		},
+		{
+			"entries": [
+				{
+					"type": "text",
+					"text": "§8Gravility is useful material to construct machine that can change gravity - Gravity Compressor. It can use redstone signal to invert gravity direction above it, power will affect distance."
+				},
+				{
+					"type": "icon",
+					"height": 32,
+					"item": "edenring:gravity_compressor"
+				}
+			]
+		},
+		{
+			"entries": [
+				{
+					"type": "text",
+					"text": "§8It is possible to use Gravilite as a decorative material. The crystals emit light and are useful for lanterns."
+				},
+				{
+					"type": "icon",
+					"height": 32,
+					"item": "edenring:gravilite_lamp"
+				},
+				{
+					"type": "icon",
+					"height": 32,
+					"item": "edenring:gravilite_lantern"
+				}
+			]
+		},
+		
+		{
+			"name": "eden_biomes",
+			"entries": [
+				{ "type": "title", "title": "§8§lEden Biomes" },
+				{
+					"type": "text",
+					"text": "§8Ring of Eden have many small zones with different conditions. As a result life in different parts of the ring formed different ecosystems and biomes."
+				},
+				{
+					"type": "text",
+					"text": "§8There are 3 big groups of biomes:"
+				},
+				{
+					"type": "text",
+					"text": [
+						"§8  - Land Biomes",
+						"§8  - Void Biomes",
+						"§8  - Cave Biomes"
+					]
+				}
+			]
+		},
+		{
+			"entries": [
+				{ "type": "title", "title": "§8§lKnown Land Biomes" },
+				{
+					"type": "hyperText",
+					"lines": [
+						{ "text": "§3 ● Brainstorm", "link": "biome_brainstorm"},
+						{ "text": "§3 ● Golden Forest", "link": ""},
+						{ "text": "§3 ● Stone Garden", "link": ""},
+						{ "text": "§3 ● Lakeside Desert", "link": ""},
+						{ "text": "§3 ● Mycotic Forest", "link": ""},
+						{ "text": "§3 ● Old Mycotic Forest", "link": ""},
+						{ "text": "§3 ● Pulse Forest", "link": ""}
+					]
+				}
+			]
+		},
+		
+		{
+			"name": "biome_brainstorm",
+			"entries": [
+				{ "type": "title", "title": "§8§lBrainstorm Biome" },
+				{
+					"type": "illustration",
+					"image": "edenring:textures/gui/illustrations/biome_brainstorm.png",
+					"width": 120,
+					"height": 60
+				},
+				{
+					"type": "text",
+					"text": "§8Brainstorm is the biome formed in areas with large metal concentrations. Plants in this biome adapted to these conditions and have"
+				}
+			]
+		},
+		{
+			"entries": [
+				{
+					"type": "text",
+					"text": "§8metal inclusions in their bodies."
+				},
+				{
+					"type": "text",
+					"text": "§8Plants form unique biome weather with huge water evaporation and endless storm. Trees growing in this biome can accumulate a large charge and discharge it into any living organism nearby."
+				}
+			]
+		},
+		{
+			"entries": [
+				{
+					"type": "text",
+					"text": "§8Be careful during exploration and wear armour made of metals - if will work as Faraday cage and protect you."
+				},
+				{ "type": "title", "title": "§8§lSuitable Metals:" },
+				{
+					"type": "text",
+					"text": [
+						"§8 - Iron",
+						"§8 - Gold",
+						"§8 - Netherite"
+					]
+				}
+			]
+		},
+		{
+			"entries": [
+				{ "type": "title", "title": "§8§lCommon Plants:" },
+				{
+					"type": "text",
+					"text": [
+						"§8 ● Copper Brain Tree",
+						"§8 ● Iron Brain Tree",
+						"§8 ● Gold Brain Tree",
+						"§8 ● Tall Copper Grass",
+						"§8 ● Tall Iron Grass",
+						"§8 ● Tall Gold Grass",
+						"§8 ● Copper Grass",
+						"§8 ● Iron Grass",
+						"§8 ● Gold Grass"
+					]
+				}
+			]
+		}
+	]
 }

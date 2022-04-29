@@ -120,14 +120,6 @@ public class EdenPortalBlockEntity extends BlockEntity {
 				else {
 					if (e instanceof ServerPlayer) {
 						ServerPlayer player = (ServerPlayer) e;
-/*						player.teleportTo(
-							destination,
-							exit.getX() + 0.5,
-							exit.getY(),
-							exit.getZ() + 0.5,
-							player.getYRot(),
-							player.getXRot()
-						);*/
 						FabricDimensions.teleport(
 								player,
 								destination,

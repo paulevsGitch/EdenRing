@@ -2,6 +2,7 @@ package paulevs.edenring.blocks.entities;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.resources.ResourceKey;
@@ -19,7 +20,9 @@ import net.minecraft.world.level.chunk.ChunkStatus;
 import net.minecraft.world.level.levelgen.Heightmap.Types;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.portal.PortalInfo;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.interfaces.EdenPortable;
 import paulevs.edenring.registries.EdenBlockEntities;
@@ -117,13 +120,19 @@ public class EdenPortalBlockEntity extends BlockEntity {
 				else {
 					if (e instanceof ServerPlayer) {
 						ServerPlayer player = (ServerPlayer) e;
-						player.teleportTo(
-							destination,
-							exit.getX() + 0.5,
-							exit.getY(),
-							exit.getZ() + 0.5,
-							player.getYRot(),
-							player.getXRot()
+						FabricDimensions.teleport(
+								player,
+								destination,
+								new PortalInfo(
+										new Vec3(
+												exit.getX() + 0.5,
+												exit.getY(),
+												exit.getZ()+0.5
+												),
+										new Vec3(0,0,0),
+										player.getYRot(),
+										player.getXRot()
+								)
 						);
 						((EdenPortable) player).setPortalTimeout(20);
 					}

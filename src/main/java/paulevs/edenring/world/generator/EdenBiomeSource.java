@@ -2,6 +2,7 @@ package paulevs.edenring.world.generator;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.RegistryOps;
@@ -78,15 +79,15 @@ public class EdenBiomeSource extends BiomeSource {
 		cleanCache(x, z);
 		
 		int px = (x << 2) | 2;
+		int py = (y << 2) | 2;
 		int pz = (z << 2) | 2;
 		
-		float[] data = new float[32];
+		float[] data = new float[2];
 		TerrainGenerator generator = MultiThreadGenerator.getTerrainGenerator();
-		generator.fillTerrainDensity(data, px, pz, 4.0, 8.0);
+		generator.fillTerrainDensity(data, new BlockPos(px, py, pz), 4.0, 8.0);
 		
 		if (isLand(data)) {
-			int py = (y << 2) | 2;
-			if (isCave(py, data)) {
+			if (isCave(data)) {
 				return mapCave.getBiome(px, 0, pz).getActualBiome();
 			}
 			return mapLand.getBiome(px, 0, pz).getActualBiome();
@@ -117,11 +118,9 @@ public class EdenBiomeSource extends BiomeSource {
 		return false;
 	}
 	
-	private boolean isCave(int y, float[] data) {
-		int index = y >> 3;
-		if (index <= 0 || index >= data.length - 2) return false;
-		for (byte i = 0; i < 3; i++) {
-			if (data[index + i] < -0.01F) return false;
+	private boolean isCave(float[] data) {
+		for (byte i = 0; i < data.length; i++) {
+			if (data[i] < 0) return false;
 		}
 		return true;
 	}

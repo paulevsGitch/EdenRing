@@ -121,18 +121,14 @@ public class EdenPortalBlockEntity extends BlockEntity {
 					if (e instanceof ServerPlayer) {
 						ServerPlayer player = (ServerPlayer) e;
 						FabricDimensions.teleport(
-								player,
-								destination,
-								new PortalInfo(
-										new Vec3(
-												exit.getX() + 0.5,
-												exit.getY(),
-												exit.getZ()+0.5
-												),
-										new Vec3(0,0,0),
-										player.getYRot(),
-										player.getXRot()
-								)
+							player,
+							destination,
+							new PortalInfo(
+								new Vec3(exit.getX() + 0.5, exit.getY(), exit.getZ()+0.5),
+								new Vec3(0,0,0),
+								player.getYRot(),
+								player.getXRot()
+							)
 						);
 						((EdenPortable) player).setPortalTimeout(20);
 					}

@@ -10,14 +10,15 @@ import java.util.function.Function;
 public class InterpolationCell {
 	private final float[][][] data;
 	private final BlockPos origin;
-	private final int dxz;
-	private final int dy;
+	private final short dxz;
+	private final short dy;
 	
 	public InterpolationCell(Function<BlockPos, Float> generator, int width, int height, int dxz, int dy, BlockPos origin) {
 		this.data = new float[width][width][height];
 		this.origin = origin;
-		this.dxz = dxz;
-		this.dy = dy;
+		this.dxz = (short) dxz;
+		this.dy = (short) dy;
+		
 		MutableBlockPos pos = new MutableBlockPos();
 		for (int x = 0; x < width; x++) {
 			pos.setX(origin.getX() + x * dxz);
@@ -34,13 +35,15 @@ public class InterpolationCell {
 	public InterpolationCell(TerrainGenerator generator, int width, int height, int dxz, int dy, BlockPos origin) {
 		this.data = new float[width][width][height];
 		this.origin = origin;
-		this.dxz = dxz;
-		this.dy = dy;
+		this.dxz = (short) dxz;
+		this.dy = (short) dy;
+		
+		MutableBlockPos pos = origin.mutable();
 		for (int x = 0; x < width; x++) {
-			int px = origin.getX() + x * dxz;
+			pos.setX(origin.getX() + x * dxz);
 			for (int z = 0; z < width; z++) {
-				int pz = origin.getZ() + z * dxz;
-				generator.fillTerrainDensity(this.data[x][z], px, pz, dxz, dy);
+				pos.setZ(origin.getZ() + z * dxz);
+				generator.fillTerrainDensity(this.data[x][z], pos, dxz, dy);
 			}
 		}
 	}
@@ -74,5 +77,35 @@ public class InterpolationCell {
 		b = Mth.lerp(dy, c, d);
 		
 		return Mth.lerp(dz, a, b);
+	}
+	
+	public short getMinY() {
+		int max = data[0][0].length;
+		for (short y = 0; y < max; y++) {
+			if (checkSlice(y)) return getY(y - 1);
+		}
+		return getY(max - 1);
+	}
+	
+	public short getMaxY() {
+		for (short y = (short) (data[0][0].length - 1); y >= 0; y--) {
+			if (checkSlice(y)) return getY(y + 1);
+		}
+		return (short) origin.getY();
+	}
+	
+	private short getY(int y) {
+		return (short) (y * dy + origin.getY());
+	}
+	
+	private boolean checkSlice(short y) {
+		for (int x = 0; x < data.length; x++) {
+			for (int z = 0; z < data[0].length; z++) {
+				if (data[x][z][y] > 0) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

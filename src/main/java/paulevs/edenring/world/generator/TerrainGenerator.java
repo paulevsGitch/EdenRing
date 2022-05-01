@@ -1,6 +1,7 @@
 package paulevs.edenring.world.generator;
 
 import com.google.common.collect.Lists;
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import ru.bclib.util.MHelper;
 
@@ -23,14 +24,14 @@ public class TerrainGenerator {
 		smallIslands = new IslandLayer(random.nextInt(), GeneratorOptions.smallOptions);
 	}
 	
-	public void fillTerrainDensity(double[] buffer, int posX, int posZ, double scaleXZ, double scaleY, float[] floatBuffer) {
-		fillTerrainDensity(floatBuffer, posX, posZ, scaleXZ, scaleY);
+	public void fillTerrainDensity(double[] buffer, BlockPos pos, double scaleXZ, double scaleY, float[] floatBuffer) {
+		fillTerrainDensity(floatBuffer, pos, scaleXZ, scaleY);
 		for (short i = 0; i < buffer.length; i++) {
 			buffer[i] = floatBuffer[i];
 		}
 	}
 	
-	public float sample(int posX, int posY, int posZ) {
+	/*public float sample(int posX, int posY, int posZ) {
 		largeIslands.updatePositions(posX, posZ);
 		mediumIslands.updatePositions(posX, posZ);
 		smallIslands.updatePositions(posX, posZ);
@@ -43,15 +44,15 @@ public class TerrainGenerator {
 			dist = MHelper.max(dist, smallIslands.getDensity(posX, posY, posZ));
 		}
 		return dist;
-	}
+	}*/
 	
-	public void fillTerrainDensity(float[] buffer, int posX, int posZ, double scaleXZ, double scaleY) {
+	public void fillTerrainDensity(float[] buffer, BlockPos pos, double scaleXZ, double scaleY) {
 		largeIslands.clearCache();
 		mediumIslands.clearCache();
 		smallIslands.clearCache();
 		
-		int x = Mth.floor(posX / scaleXZ);
-		int z = Mth.floor(posZ / scaleXZ);
+		int x = Mth.floor(pos.getX() / scaleXZ);
+		int z = Mth.floor(pos.getZ() / scaleXZ);
 		double px = x * scaleXZ;
 		double pz = z * scaleXZ;
 		
@@ -60,7 +61,7 @@ public class TerrainGenerator {
 		smallIslands.updatePositions(px, pz);
 		
 		for (int y = 0; y < buffer.length; y++) {
-			double py = y * scaleY;
+			double py = y * scaleY + pos.getY();
 			float dist = largeIslands.getDensity(px, py, pz);
 			if (dist < 0.3F) {
 				dist = MHelper.max(dist, mediumIslands.getDensity(px, py, pz));

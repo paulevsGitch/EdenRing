@@ -7,6 +7,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
+import net.minecraft.world.level.chunk.LevelChunkSection;
 import net.minecraft.world.level.levelgen.Heightmap.Types;
 import paulevs.edenring.noise.InterpolationCell;
 import paulevs.edenring.noise.VoronoiNoise;
@@ -29,10 +30,10 @@ public class CaveGenerator {
 	}
 	
 	public static void carve(ChunkAccess chunkAccess, InterpolationCell cellTerrain) {
-		int minX = chunkAccess.getPos().getMinBlockX();
-		int minZ = chunkAccess.getPos().getMinBlockZ();
-		int minY = chunkAccess.getMinBuildHeight();
-		int maxY = chunkAccess.getMaxBuildHeight();
+		short minX = (short) chunkAccess.getPos().getMinBlockX();
+		short minZ = (short) chunkAccess.getPos().getMinBlockZ();
+		short minY = (short) chunkAccess.getMinBuildHeight();
+		short maxY = (short) chunkAccess.getMaxBuildHeight();
 		
 		final float[] buffer9 = new float[9];
 		final float[] buffer27 = new float[27];
@@ -47,19 +48,19 @@ public class CaveGenerator {
 		InterpolationCell cellPillars = new InterpolationCell(p -> getPillars(p, seed, buffer9, random), 5, (maxY - minY) / 4 + 1, 4, 4, origin);
 		
 		MutableBlockPos pos = new MutableBlockPos();
+		
+		short newMinY = (short) MHelper.min(cellTerrain.getMinY(), cellSparse.getMinY());
+		minY = (short) MHelper.max(minY, newMinY);
 		int maxCheck = maxY - 16;
 		
 		for (byte x = 0; x < 16; x++) {
 			pos.setX(x);
 			for (byte z = 0; z < 16; z++) {
 				pos.setZ(z);
-				
 				byte index = 0;
 				float[] accumulation = new float[8];
-				
-				int max = chunkAccess.getHeight(Types.WORLD_SURFACE_WG, x, z) - 10;
-				
-				for (short y = (short) max; y > minY; y--) {
+				short max = (short) chunkAccess.getHeight(Types.WORLD_SURFACE_WG, x, z);
+				for (short y = max; y >= minY; y--) {
 					if (y < maxCheck) {
 						float heightNoise = cellTerrain.get(pos.setY(y + 10), true);
 						if (heightNoise <= 0) {
@@ -73,13 +74,26 @@ public class CaveGenerator {
 						}
 					}
 					
+					LevelChunkSection section = chunkAccess.getSection(y >> 4);
 					pos.setY(y);
-					if (chunkAccess.getBlockState(pos).getBlock() == Blocks.STONE) {
-						float noise = cellVoronoi.get(pos, true);
-						accumulation[index++] = noise;
-						if (index >= accumulation.length) {
-							index = 0;
+					
+					if (y < maxCheck) {
+						float heightNoise = cellTerrain.get(pos.setY(y + 10), true);
+						if (heightNoise <= 0) {
+							continue;
 						}
+						if (y > 8) {
+							heightNoise = cellTerrain.get(pos.setY(y - 8), true);
+							if (heightNoise <= 0) {
+								continue;
+							}
+						}
+					}
+					
+					if (section.getBlockState(x, y & 15, z).is(Blocks.STONE)) {
+						float noise = cellVoronoi.get(pos, true);
+						accumulation[index] = noise;
+						index = (byte) ((index + 1) & 7);
 						
 						float average = 0;
 						for (byte i = 0; i < accumulation.length; i++) {
@@ -103,7 +117,7 @@ public class CaveGenerator {
 						}
 						
 						if (noise > 0) {
-							chunkAccess.setBlockState(pos, CAVE_AIR, false);
+							section.setBlockState(x, y & 15, z, CAVE_AIR, false);
 							int py = pos.getY();
 							pos.setY(py + 1);
 						}

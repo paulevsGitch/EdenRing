@@ -450,7 +450,7 @@
 			"entries": [
 				{
 					"type": "text",
-					"text": "§8To grow Old Balloon Mushroom tree you need to plant Small Balloon Mushrooms in a 2x2 shape on Eden Mycelium."
+					"text": "§8To grow Old Balloon Mushroom tree you need to plant Small Balloon Mushrooms in a 2x2 shape on Eden Mycelium and bonemeal it."
 				},
 				{
 					"type": "text",
@@ -515,7 +515,7 @@
 		{
 			"name": "biome_air_ocean",
 			"entries": [
-				{ "type": "title", "title": "§8§lSky Ocean" },
+				{ "type": "title", "title": "§8§lAir Ocean" },
 				{
 					"type": "illustration",
 					"image": "edenring:textures/gui/illustrations/biome_air_ocean.png",

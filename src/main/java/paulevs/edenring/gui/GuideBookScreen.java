@@ -63,6 +63,7 @@ public class GuideBookScreen extends Screen {
 	
 	public static void clearCache() {
 		BOOKS_CACHE.clear();
+		BACK_PAGES.clear();
 	}
 	
 	private BookInfo getBook(String code) {
@@ -124,7 +125,7 @@ public class GuideBookScreen extends Screen {
 									Point size = hyperText.size[n];
 									float px = (float) (x - start.x);
 									float py = (float) (y - start.y);
-									if (px < size.x && py < size.y) {
+									if (px >= 0 && py >= 0 && px < size.x && py < size.y) {
 										if (hyperText.pages[n] == -1) break;
 										soundManager.play(SimpleSoundInstance.forUI(SoundEvents.BOOK_PAGE_TURN, 1.0F));
 										BACK_PAGES.push(Integer.valueOf(pageIndex));

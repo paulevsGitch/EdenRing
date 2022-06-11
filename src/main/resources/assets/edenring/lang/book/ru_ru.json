@@ -291,7 +291,7 @@
 		{
 			"name": "biome_stone_garden",
 			"entries": [
-				{ "type": "title", "title": "§8§lStone Garden Biome" },
+				{ "type": "title", "title": "§8§lКаменный сад" },
 				{
 					"type": "illustration",
 					"image": "edenring:textures/gui/illustrations/biome_stone_garden.png",
@@ -300,7 +300,7 @@
 				},
 				{
 					"type": "text",
-					"text": "§8Stone Garden biome contains different rock formation that were formed by wind erosion in this region."
+					"text": "§8В каменном саду под воздействием ветровой эрозии сформировались различные каменные формации."
 				}
 			]
 		},
@@ -308,20 +308,20 @@
 			"entries": [
 				{
 					"type": "text",
-					"text": "§8Plant life in this biome consist of small plants and mosses. You can find some useful plants here, but biome is almost open-space."
+					"text": "§8Растительность в биоме представлена травами и мхами, можно найти несколько полезных видов. Местность в основном открытая."
 				},
 				{ "type": "title", "title": "§8§lФлора:" },
 				{
 					"type": "text",
 					"text": [
-						"§8 ● Eden Vine",
-						"§8 ● Eden Moss",
-						"§8 ● Violum",
-						"§8 ● Limphium",
-						"§8 ● MC Moss",
-						"§8 ● MC Grass",
-						"§8 ● Parignum",
-						"§8 ● Hanging roots"
+						"§8 ● Лоза Эдена",
+						"§8 ● Мох Эдена",
+						"§8 ● Виолум",
+						"§8 ● Лимфий",
+						"§8 ● Мох",
+						"§8 ● Трава",
+						"§8 ● Паригнум",
+						"§8 ● Св. корни"
 					]
 				}
 			]
@@ -330,7 +330,7 @@
 		{
 			"name": "biome_lakeside_desert",
 			"entries": [
-				{ "type": "title", "title": "§8§lLakeside Desert" },
+				{ "type": "title", "title": "§8§lОзёрная пустыня" },
 				{
 					"type": "illustration",
 					"image": "edenring:textures/gui/illustrations/biome_lakeside_desert.png",
@@ -339,7 +339,7 @@
 				},
 				{
 					"type": "text",
-					"text": "§8Lakeside desert is a biome formed by plant growing in it - Aquatus. This plant slowly dry water from land"
+					"text": "§8Озёрная пустыня целиком сформирована произрастающем в ней растением - акватусом. Это растение медленно осушает почву под ним"
 				}
 			]
 		},
@@ -347,14 +347,14 @@
 			"entries": [
 				{
 					"type": "text",
-					"text": "§8and transform available dirt into sand and gravel."
+					"text": "§8и превращает землю в песок и гравий."
 				},
 				{ "type": "title", "title": "§8§lФлора:" },
 				{
 					"type": "text",
 					"text": [
-						"§8 ● Aquatus",
-						"§8 ● Dead bush"
+						"§8 ● Акватус",
+						"§8 ● Мёртвый куст"
 					]
 				}
 			]
@@ -363,7 +363,7 @@
 		{
 			"name": "biome_mycotic_forest",
 			"entries": [
-				{ "type": "title", "title": "§8§lMycotic Forest" },
+				{ "type": "title", "title": "§8§lМикотический лес" },
 				{
 					"type": "illustration",
 					"image": "edenring:textures/gui/illustrations/biome_mycotic_forest.png",
@@ -372,7 +372,7 @@
 				},
 				{
 					"type": "text",
-					"text": "§8Mycotic Forest biome is a forest of big mushroom-like organisms which form unique landscape."
+					"text": "§8Биом микотического леса представляет собой заросли грибоподобных растений, которые формируют уникальный ландшафт."
 				}
 			]
 		},
@@ -380,15 +380,15 @@
 			"entries": [
 				{
 					"type": "text",
-					"text": "§8These plants called \"Balloon Mushrooms\" support themselves with lightweight gas inside their caps."
+					"text": "§8Эти растения, названые \"Воздушными Грибами\", поддерживаютca за счёт лёгкого газа внутри их шляпок."
 				},
 				{
 					"type": "text",
-					"text": "§8Balloon Mushroom Cap blocks can be placed in the air which is useful in building."
+					"text": "§8Блок шляпки можно разместить в воздухе, что очень полезно при строительстве."
 				},
 				{
 					"type": "text",
-					"text": "§8Tall Balloon Mushrooms can be used to get some sticks or to farm more mushrooms."
+					"text": "§8Высокие воздушные грибы можно использовать для получения палок или размножения грибов."
 				}
 			]
 		},
@@ -396,11 +396,11 @@
 			"entries": [
 				{
 					"type": "text",
-					"text": "§8Balloon Mushrooms can grow to larger variant, but this process reqire some fertilisation. Bone meal can help with starting this process."
+					"text": "§8Воздушные грибы способны вырастать в большие деревья, но для этого им нужно немного удобрения. Костная мука отлично подходит для этого."
 				},
 				{
 					"type": "text",
-					"text": "§8To grow Balloon Mushroom tree or Tall Balloon Mushroom you need to use bonemeal on Small Balloon Mushroom growing on Eden Mycelium."
+					"text": "§8Чтобы вырастить дерево необходимо использовать костную муку на маленьком воздушном грибе растущем на мицелии Эдена."
 				}
 			]
 		},
@@ -410,13 +410,13 @@
 				{
 					"type": "text",
 					"text": [
-						"§8 ● Balloon M-m tree",
-						"§8 ● Tall Balloon M-m",
-						"§8 ● Small Balloon M-m",
-						"§8 ● Tall Mycotic Grass",
-						"§8 ● Mycotic Grass",
-						"§8 ● Limphium",
-						"§8 ● MC Grass"
+						"§8 ● Возд. грибное д-во",
+						"§8 ● Выс. воздушный гриб",
+						"§8 ● Мал. воздушный гриб",
+						"§8 ● Выс. мик-я трава",
+						"§8 ● Микотическая трава",
+						"§8 ● Лимфий",
+						"§8 ● Трава"
 					]
 				}
 			]
@@ -425,7 +425,7 @@
 		{
 			"name": "biome_old_mycotic_forest",
 			"entries": [
-				{ "type": "title", "title": "§8§lOld Mycotic Forest" },
+				{ "type": "title", "title": "§8§lСт. Микотический лес" },
 				{
 					"type": "illustration",
 					"image": "edenring:textures/gui/illustrations/biome_old_mycotic_forest.png",
@@ -434,7 +434,7 @@
 				},
 				{
 					"type": "text",
-					"text": "§8Old Mycotic Forest is a variation of forest Mycotic Forest biome with very old trees and complete mycotic ecosystem."
+					"text": "§8Старый лес является вариантом обычного микотического леса, но с очень старыми деревьями и полностью сформированной экосистемой."
 				}
 			]
 		},
@@ -442,7 +442,7 @@
 			"entries": [
 				{
 					"type": "text",
-					"text": "§8Old Balloon trees have more unique blocks than ordinal trees - they have branches, mycotic lanterns and sporocarp blocks. The last two blocks can be painted into 16 colors and used in decoration."
+					"text": "§8Старые воздушные деревья имеют больше уникальных блоков нежли обычные - они имеют ветви, микотические фонари и блоки плодового тела, которые можно покрасить в 16 цветов."
 				}
 			]
 		},
@@ -450,11 +450,11 @@
 			"entries": [
 				{
 					"type": "text",
-					"text": "§8To grow Old Balloon Mushroom tree you need to plant Small Balloon Mushrooms in a 2x2 shape on Eden Mycelium."
+					"text": "§8Чтобы вырастить старое воздушное дерево надо посадить маленький воздушный гриб в форме квадрата 2х2 на мицелии Эдена и удобрить."
 				},
 				{
 					"type": "text",
-					"text": "§8If there will be not enought space or not all conditions you can get ordinal Balloon Mushroom tree or Tall Balloon Mushroom."
+					"text": "§8Если не все условия роста соблюдены, то может вырасти обычное воздушное дерево или высокий воздушный гриб."
 				}
 			]
 		},
@@ -464,13 +464,13 @@
 				{
 					"type": "text",
 					"text": [
-						"§8 ● Old Balloon M-m tree",
-						"§8 ● Balloon M-m tree",
-						"§8 ● Tall Balloon M-m",
-						"§8 ● Small Balloon M-m",
-						"§8 ● Tall Mycotic Grass",
-						"§8 ● Mycotic Grass",
-						"§8 ● Limphium"
+						"§8 ● Ст. грибное д-во",
+						"§8 ● Возд. грибное д-во",
+						"§8 ● Выс. воздушный гриб",
+						"§8 ● Мал. воздушный гриб",
+						"§8 ● Выс. мик-я трава",
+						"§8 ● Микотическая трава",
+						"§8 ● Лимфий"
 					]
 				}
 			]
@@ -479,7 +479,7 @@
 		{
 			"name": "biome_pulse_forest",
 			"entries": [
-				{ "type": "title", "title": "§8§lPulse Forest" },
+				{ "type": "title", "title": "§8§lПульсирующий лес" },
 				{
 					"type": "illustration",
 					"image": "edenring:textures/gui/illustrations/biome_pulse_forest_day.png",
@@ -498,15 +498,15 @@
 			"entries": [
 				{
 					"type": "text",
-					"text": "§8This biome is a forest of big bamboo-like plants with wooden stems and big mushroom-like caps. All plants have syncronized bioluminescent pulsations that form unique outlook of this place."
+					"text": "§8Этот биом представляет собой лес из высоких похожих на бамбук растений с большими шляпками. Растения синхронно пульсируют формируя уникальную атмосферу этого места."
 				},
 				{ "type": "title", "title": "§8§lФлора:" },
 				{
 					"type": "text",
 					"text": [
-						"§8 ● Pulse tree",
-						"§8 ● Violum",
-						"§8 ● MC Grass"
+						"§8 ● Пульсирующее д-во",
+						"§8 ● Виолум",
+						"§8 ● Трава"
 					]
 				}
 			]
@@ -515,7 +515,7 @@
 		{
 			"name": "biome_air_ocean",
 			"entries": [
-				{ "type": "title", "title": "§8§lSky Ocean" },
+				{ "type": "title", "title": "§8§lВоздушный океан" },
 				{
 					"type": "illustration",
 					"image": "edenring:textures/gui/illustrations/biome_air_ocean.png",
@@ -524,13 +524,13 @@
 				},
 				{
 					"type": "text",
-					"text": "§8Air ocean is a big empty space between islands filled with air."
+					"text": "§8Воздушный океан это пустое пространство между островами, заполненное воздухом."
 				},
-				{ "type": "title", "title": "§8§lCommon Animals:" },
+				{ "type": "title", "title": "§8§lФауна:" },
 				{
 					"type": "text",
 					"text": [
-						"§8 ● Diskwing"
+						"§8 ● Дискокрыл"
 					]
 				}
 			]
@@ -538,7 +538,7 @@
 		{
 			"name": "biome_sky_colony",
 			"entries": [
-				{ "type": "title", "title": "§8§lSky Colony" },
+				{ "type": "title", "title": "§8§lНебесная колония" },
 				{
 					"type": "illustration",
 					"image": "edenring:textures/gui/illustrations/biome_sky_colony.png",
@@ -547,7 +547,7 @@
 				},
 				{
 					"type": "text",
-					"text": "§8A biome filled with large colonial volvox-like organisms. Each colony have unique small ecosystem and water inside it."
+					"text": "§8Биом с крупными колониальными организмами напоминающими вольвокс. Каждая колония имеет свою уникальную экосистему."
 				}
 			]
 		},
@@ -557,17 +557,17 @@
 				{
 					"type": "text",
 					"text": [
-						"§8 ● Volvox",
-						"§8 ● Symbiotic Mold",
-						"§8 ● Parignum",
-						"§8 ● Eden Vine"
+						"§8 ● Вольвокс",
+						"§8 ● Симб. плесень",
+						"§8 ● Паригнум",
+						"§8 ● Лоза Эдена"
 					]
 				},
-				{ "type": "title", "title": "§8§lCommon Animals:" },
+				{ "type": "title", "title": "§8§lФауна:" },
 				{
 					"type": "text",
 					"text": [
-						"§8 ● Diskwing"
+						"§8 ● Дискокрыл"
 					]
 				}
 			]

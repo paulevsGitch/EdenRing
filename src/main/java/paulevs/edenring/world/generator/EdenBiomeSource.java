@@ -86,10 +86,6 @@ public class EdenBiomeSource extends BiomeSource {
 		}
 		MutableBlockPos pos = new MutableBlockPos(px, 0, pz);
 		
-		//float[] data = new float[2];
-		
-		//generator.fillTerrainDensity(data, new BlockPos(px, py, pz), 4.0, 8.0);
-		
 		if (isLand(cell, pos)) {
 			if (isCave(cell, pos.setY(py))) {
 				return mapCave.getBiome(px, 0, pz).biome;

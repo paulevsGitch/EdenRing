@@ -11,11 +11,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.material.Material;
 import ru.bclib.blocks.BaseBlock;
 import ru.bclib.client.models.BasePatterns;
 import ru.bclib.client.models.ModelsHelper;
@@ -28,7 +28,7 @@ public class GravityCompressorBlock extends BaseBlock {
 	public static final IntegerProperty POWER = BlockStateProperties.POWER;
 	
 	public GravityCompressorBlock() {
-		super(FabricBlockSettings.copyOf(Blocks.PISTON).luminance(state -> state.getValue(POWER)));
+		super(FabricBlockSettings.of(Material.PISTON).strength(1.5F).luminance(state -> state.getValue(POWER)));
 		registerDefaultState(getStateDefinition().any().setValue(POWER, 0));
 	}
 	

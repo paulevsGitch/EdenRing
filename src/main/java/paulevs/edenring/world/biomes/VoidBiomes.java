@@ -1,11 +1,11 @@
 package paulevs.edenring.world.biomes;
 
+import org.betterx.bclib.api.v2.levelgen.biomes.BCLBiome;
+import org.betterx.bclib.api.v2.levelgen.biomes.BCLBiomeBuilder;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.registries.EdenEntities;
 import paulevs.edenring.registries.EdenFeatures;
 import paulevs.edenring.registries.EdenParticles;
-import ru.bclib.api.biomes.BCLBiomeBuilder;
-import ru.bclib.world.biomes.BCLBiome;
 
 public class VoidBiomes {
 	public static BCLBiome makeAirOcean() {

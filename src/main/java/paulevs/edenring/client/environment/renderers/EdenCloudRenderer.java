@@ -53,12 +53,12 @@ public class EdenCloudRenderer implements CloudRenderer {
 		
 		Minecraft minecraft = context.gameRenderer().getMinecraft();
 		TransformHelper.applyPerspective(poseStack, camera);
-		if (minecraft.options.bobView && EdenRingClient.hasIris()) {
+		if (minecraft.options.bobView().get() && EdenRingClient.hasIris()) {
 			TransformHelper.fixBobbing(poseStack, minecraft.player, context.tickDelta());
 		}
 		
 		ChunkPos pos = camera.getEntity().chunkPosition();
-		int distance = context.gameRenderer().getMinecraft().options.renderDistance;
+		int distance = context.gameRenderer().getMinecraft().options.renderDistance().get();
 		grid.render(level, pos, distance << 1 | 1, poseStack, camera, context.tickDelta(), context.frustum());
 		
 		poseStack.popPose();

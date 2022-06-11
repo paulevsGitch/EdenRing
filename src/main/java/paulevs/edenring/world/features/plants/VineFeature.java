@@ -1,20 +1,19 @@
 package paulevs.edenring.world.features.plants;
 
 import net.minecraft.core.BlockPos.MutableBlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
+import org.betterx.bclib.blocks.BlockProperties;
+import org.betterx.bclib.blocks.BlockProperties.TripleShape;
+import org.betterx.bclib.util.BlocksHelper;
+import org.betterx.bclib.util.MHelper;
 import paulevs.edenring.registries.EdenBlocks;
 import paulevs.edenring.world.features.basic.CeilScatterFeature;
-import ru.bclib.blocks.BlockProperties;
-import ru.bclib.blocks.BlockProperties.TripleShape;
-import ru.bclib.util.BlocksHelper;
-import ru.bclib.util.MHelper;
-
-import java.util.Random;
 
 public class VineFeature extends CeilScatterFeature {
 	@Override
-	protected void generate(WorldGenLevel level, MutableBlockPos pos, Random random) {
+	protected void generate(WorldGenLevel level, MutableBlockPos pos, RandomSource random) {
 		BlockState bottom = EdenBlocks.EDEN_VINE.defaultBlockState().setValue(BlockProperties.TRIPLE_SHAPE, TripleShape.BOTTOM);
 		BlockState middle = EdenBlocks.EDEN_VINE.defaultBlockState().setValue(BlockProperties.TRIPLE_SHAPE, TripleShape.MIDDLE);
 		BlockState top = EdenBlocks.EDEN_VINE.defaultBlockState().setValue(BlockProperties.TRIPLE_SHAPE, TripleShape.TOP);

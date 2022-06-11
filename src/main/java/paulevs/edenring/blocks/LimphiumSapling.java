@@ -4,17 +4,16 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Half;
+import org.betterx.bclib.util.BlocksHelper;
+import org.betterx.bclib.util.MHelper;
 import paulevs.edenring.registries.EdenBlocks;
-import ru.bclib.util.BlocksHelper;
-import ru.bclib.util.MHelper;
-
-import java.util.Random;
 
 public class LimphiumSapling extends OverlayPlantBlock {
 	public LimphiumSapling() {
@@ -22,16 +21,16 @@ public class LimphiumSapling extends OverlayPlantBlock {
 	}
 	
 	@Override
-	public boolean isBonemealSuccess(Level world, Random random, BlockPos pos, BlockState state) {
+	public boolean isBonemealSuccess(Level world, RandomSource random, BlockPos pos, BlockState state) {
 		return random.nextInt(8) == 0;
 	}
 	
 	@Override
-	public void performBonemeal(ServerLevel level, Random random, BlockPos pos, BlockState state) {
+	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
 		grow(level, random, pos, state);
 	}
 	
-	public static void grow(WorldGenLevel level, Random random, BlockPos pos, BlockState state) {
+	public static void grow(WorldGenLevel level, RandomSource random, BlockPos pos, BlockState state) {
 		byte h = (byte) MHelper.randRange(2, 4, random);
 		MutableBlockPos p = pos.mutable().setY(pos.getY() + 1);
 		for (byte i = 1; i < h; i++) {
@@ -56,13 +55,13 @@ public class LimphiumSapling extends OverlayPlantBlock {
 	
 	@Override
 	@SuppressWarnings("deprecation")
-	public void randomTick(BlockState state, ServerLevel world, BlockPos pos, Random random) {
+	public void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
 		this.tick(state, world, pos, random);
 	}
 	
 	@Override
 	@SuppressWarnings("deprecation")
-	public void tick(BlockState state, ServerLevel world, BlockPos pos, Random random) {
+	public void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
 		super.tick(state, world, pos, random);
 		if (isBonemealSuccess(world, random, pos, state)) {
 			performBonemeal(world, random, pos, state);

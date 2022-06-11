@@ -4,8 +4,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
-import ru.bclib.blocks.BasePlantBlock;
-import ru.bclib.client.render.BCLRenderLayer;
+import org.betterx.bclib.blocks.BasePlantBlock;
+import org.betterx.bclib.client.render.BCLRenderLayer;
 
 public class CeilPlantBlock extends BasePlantBlock {
 	public CeilPlantBlock(Properties settings) {

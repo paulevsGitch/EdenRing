@@ -10,6 +10,10 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.dimension.DimensionType;
+import org.betterx.bclib.api.v2.datafixer.DataFixerAPI;
+import org.betterx.bclib.api.v2.datafixer.ForcedLevelPatch;
+import org.betterx.bclib.api.v2.datafixer.MigrationProfile;
+import org.betterx.bclib.registry.BaseRegistry;
 import paulevs.edenring.paintings.EdenPaintings;
 import paulevs.edenring.registries.EdenBiomes;
 import paulevs.edenring.registries.EdenBlockEntities;
@@ -22,10 +26,6 @@ import paulevs.edenring.registries.EdenSounds;
 import paulevs.edenring.world.EdenPortal;
 import paulevs.edenring.world.generator.EdenBiomeSource;
 import paulevs.edenring.world.generator.GeneratorOptions;
-import ru.bclib.api.datafixer.DataFixerAPI;
-import ru.bclib.api.datafixer.ForcedLevelPatch;
-import ru.bclib.api.datafixer.MigrationProfile;
-import ru.bclib.registry.BaseRegistry;
 
 public class EdenRing implements ModInitializer {
 	public static final String MOD_ID = "edenring";

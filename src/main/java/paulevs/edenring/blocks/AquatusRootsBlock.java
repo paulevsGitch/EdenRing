@@ -9,6 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
@@ -22,21 +23,20 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.betterx.bclib.blocks.BaseBlockNotFull;
+import org.betterx.bclib.client.models.BasePatterns;
+import org.betterx.bclib.client.models.ModelsHelper;
+import org.betterx.bclib.client.models.PatternsHelper;
+import org.betterx.bclib.client.render.BCLRenderLayer;
+import org.betterx.bclib.interfaces.RenderLayerProvider;
+import org.betterx.bclib.util.MHelper;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.registries.EdenBlocks;
-import ru.bclib.blocks.BaseBlockNotFull;
-import ru.bclib.client.models.BasePatterns;
-import ru.bclib.client.models.ModelsHelper;
-import ru.bclib.client.models.PatternsHelper;
-import ru.bclib.client.render.BCLRenderLayer;
-import ru.bclib.interfaces.RenderLayerProvider;
-import ru.bclib.util.MHelper;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Random;
 
 public class AquatusRootsBlock extends BaseBlockNotFull implements RenderLayerProvider {
 	private static final VoxelShape TOP_SHAPE = box(1, 8, 1, 15, 16, 15);
@@ -89,15 +89,15 @@ public class AquatusRootsBlock extends BaseBlockNotFull implements RenderLayerPr
 	
 	@Override
 	@SuppressWarnings("deprecation")
-	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, Random random) {
+	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource randomSource) {
 		if (state.getValue(UP)) {
 			return;
 		}
-		int px = pos.getX() + MHelper.randRange(-4, 4, random);
-		int pz = pos.getZ() + MHelper.randRange(-4, 4, random);
+		int px = pos.getX() + MHelper.randRange(-4, 4, randomSource);
+		int pz = pos.getZ() + MHelper.randRange(-4, 4, randomSource);
 		BlockPos repPos = new BlockPos(px, pos.getY() - 1, pz);
 		if (canReplace(level.getBlockState(repPos))) {
-			level.setBlockAndUpdate(repPos, random.nextInt(4) == 0 ? Blocks.GRAVEL.defaultBlockState() : Blocks.SAND.defaultBlockState());
+			level.setBlockAndUpdate(repPos, randomSource.nextInt(4) == 0 ? Blocks.GRAVEL.defaultBlockState() : Blocks.SAND.defaultBlockState());
 		}
 	}
 	

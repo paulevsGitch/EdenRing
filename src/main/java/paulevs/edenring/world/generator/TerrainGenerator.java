@@ -3,7 +3,7 @@ package paulevs.edenring.world.generator;
 import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
-import ru.bclib.util.MHelper;
+import org.betterx.bclib.util.MHelper;
 
 import java.awt.Point;
 import java.util.List;

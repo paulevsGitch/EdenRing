@@ -10,8 +10,8 @@ import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.levelgen.Heightmap.Types;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import ru.bclib.noise.OpenSimplexNoise;
-import ru.bclib.world.features.DefaultFeature;
+import org.betterx.bclib.api.v2.levelgen.features.features.DefaultFeature;
+import org.betterx.bclib.noise.OpenSimplexNoise;
 
 public class StoneLayer extends DefaultFeature {
 	private static final OpenSimplexNoise OFFSET_NOISE = new OpenSimplexNoise("stone".hashCode());

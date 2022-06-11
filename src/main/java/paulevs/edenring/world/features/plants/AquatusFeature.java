@@ -2,6 +2,7 @@ package paulevs.edenring.world.features.plants;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.GrassBlock;
@@ -10,19 +11,17 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.material.Material;
+import org.betterx.bclib.api.v2.levelgen.features.features.DefaultFeature;
+import org.betterx.bclib.util.BlocksHelper;
+import org.betterx.bclib.util.MHelper;
 import paulevs.edenring.registries.EdenBlocks;
-import ru.bclib.util.BlocksHelper;
-import ru.bclib.util.MHelper;
-import ru.bclib.world.features.DefaultFeature;
-
-import java.util.Random;
 
 public class AquatusFeature extends DefaultFeature {
 	@Override
 	public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> featurePlaceContext) {
 		WorldGenLevel level = featurePlaceContext.level();
 		BlockPos center = featurePlaceContext.origin();
-		Random random = featurePlaceContext.random();
+		RandomSource random = featurePlaceContext.random();
 		
 		int side = MHelper.randRange(1, 3, random);
 		int min = -(side >> 1);

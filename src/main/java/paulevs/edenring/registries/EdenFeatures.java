@@ -3,6 +3,8 @@ package paulevs.edenring.registries;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
+import org.betterx.bclib.api.v2.levelgen.features.BCLCommonFeatures;
+import org.betterx.bclib.api.v2.levelgen.features.BCLFeature;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.blocks.SixSidePlant;
 import paulevs.edenring.world.features.basic.DepthScatterFeature;
@@ -26,8 +28,6 @@ import paulevs.edenring.world.features.trees.BalloonMushroomTreeFeature;
 import paulevs.edenring.world.features.trees.BrainTreeFeature;
 import paulevs.edenring.world.features.trees.OldBalloonMushroomTreeFeature;
 import paulevs.edenring.world.features.trees.PulseTreeFeature;
-import ru.bclib.api.features.BCLCommonFeatures;
-import ru.bclib.world.features.BCLFeature;
 
 public class EdenFeatures {
 	public static final BCLFeature MOSS_LAYER = BCLCommonFeatures.makeVegetationFeature(EdenRing.makeID("moss_layer"), new ScatterFeature(Blocks.MOSS_CARPET), 4);

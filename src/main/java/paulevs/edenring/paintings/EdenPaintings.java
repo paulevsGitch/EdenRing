@@ -6,9 +6,9 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.resources.ResourceLocation;
+import org.betterx.bclib.BCLib;
 import org.jetbrains.annotations.Nullable;
 import paulevs.edenring.EdenRing;
-import ru.bclib.BCLib;
 
 import java.util.Collection;
 import java.util.List;

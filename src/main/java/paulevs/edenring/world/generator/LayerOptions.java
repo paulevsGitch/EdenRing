@@ -1,7 +1,7 @@
 package paulevs.edenring.world.generator;
 
 import net.minecraft.util.Mth;
-import ru.bclib.config.PathConfig;
+import org.betterx.bclib.config.PathConfig;
 
 public class LayerOptions {
 	public final float distance;

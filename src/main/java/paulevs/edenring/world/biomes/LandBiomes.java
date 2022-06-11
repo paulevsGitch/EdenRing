@@ -5,14 +5,14 @@ import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
+import org.betterx.bclib.api.v2.levelgen.biomes.BCLBiome;
+import org.betterx.bclib.api.v2.levelgen.biomes.BCLBiomeBuilder;
+import org.betterx.bclib.api.v2.levelgen.surface.SurfaceRuleBuilder;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.registries.EdenBlocks;
 import paulevs.edenring.registries.EdenFeatures;
 import paulevs.edenring.registries.EdenParticles;
 import paulevs.edenring.registries.EdenSounds;
-import ru.bclib.api.biomes.BCLBiomeBuilder;
-import ru.bclib.api.surface.SurfaceRuleBuilder;
-import ru.bclib.world.biomes.BCLBiome;
 
 public class LandBiomes {
 	public static BCLBiome makeStoneGardenBiome() {

@@ -1,17 +1,15 @@
 package paulevs.edenring.blocks.entities.renderers;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.BufferBuilder;
-import com.mojang.blaze3d.vertex.BufferUploader;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.Tesselator;
-import com.mojang.blaze3d.vertex.VertexFormat.Mode;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Matrix3f;
 import com.mojang.math.Matrix4f;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.blocks.entities.EdenPortalBlockEntity;
@@ -28,14 +26,9 @@ public class EdenPortalBlockEntityRenderer <T extends EdenPortalBlockEntity> imp
 	public void render(T entity, float tickDelta, PoseStack poseStack, MultiBufferSource multiBufferSource, int light, int overlay) {
 		poseStack.pushPose();
 		Matrix4f matrix = poseStack.last().pose();
+		Matrix3f normal = poseStack.last().normal();
 		
-		RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
-		RenderSystem.defaultBlendFunc();
-		RenderSystem.enableDepthTest();
 		RenderSystem.disableCull();
-		RenderSystem.enableBlend();
-		
-		BufferBuilder bufferBuilder = Tesselator.getInstance().getBuilder();
 		
 		float time1 = (float) ((((double) entity.getTicks() + tickDelta) * 0.025) % 1.0);
 		float time2 = (float) ((((double) entity.getTicks() + tickDelta) * 0.04) % 1.0);
@@ -46,45 +39,47 @@ public class EdenPortalBlockEntityRenderer <T extends EdenPortalBlockEntity> imp
 		float v3 = 1.0F + time2 + 0.3F;
 		float v4 = time2 + 0.3F;
 		
+		VertexConsumer consumer = multiBufferSource.getBuffer(RenderType.beaconBeam(
+			PORTAL_RAY_DEEP,
+			true
+		));
 		RenderSystem.setShaderTexture(0, PORTAL_RAY_DEEP);
-		renderFaces(bufferBuilder, matrix, v3, v4, 0.25F);
+		renderFaces(consumer, matrix, normal, v3, v4, 0.25F);
 		
+		consumer = multiBufferSource.getBuffer(RenderType.beaconBeam(
+			PORTAL_RAY,
+			true
+		));
 		RenderSystem.setShaderTexture(0, PORTAL_RAY);
-		renderFaces(bufferBuilder, matrix, v1, v2, 0.375F);
+		renderFaces(consumer, matrix, normal, v1, v2, 0.375F);
 		
 		poseStack.popPose();
 		
 		RenderSystem.enableCull();
-		RenderSystem.defaultBlendFunc();
 	}
 	
-	private void renderFaces(BufferBuilder bufferBuilder, Matrix4f matrix, float v1, float v2, float offset) {
+	private void renderFaces(VertexConsumer consumer, Matrix4f matrix, Matrix3f normal, float v1, float v2, float offset) {
 		float xz1 = -offset;
 		float xz2 = 1.0F + offset;
 		
-		bufferBuilder.begin(Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
+		consumer.vertex(matrix, xz2,  0.0F, xz1).color(255, 255, 255, 255).uv(0.0F, v1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(0xF000F0).normal(normal, 0.0f, 1.0f, 0.0f).endVertex();
+		consumer.vertex(matrix, xz2,  3.0F, xz1).color(255, 255, 255,   0).uv(0.0F, v2).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(0xF000F0).normal(normal, 0.0f, 1.0f, 0.0f).endVertex();
+		consumer.vertex(matrix, xz2,  3.0F, xz2).color(255, 255, 255,   0).uv(1.0F, v2).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(0xF000F0).normal(normal, 0.0f, 1.0f, 0.0f).endVertex();
+		consumer.vertex(matrix, xz2,  0.0F, xz2).color(255, 255, 255, 255).uv(1.0F, v1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(0xF000F0).normal(normal, 0.0f, 1.0f, 0.0f).endVertex();
 		
-		bufferBuilder.vertex(matrix, xz2,  0.0F, xz1).uv(0.0F, v1).color(255, 255, 255, 255).endVertex();
-		bufferBuilder.vertex(matrix, xz2,  3.0F, xz1).uv(0.0F, v2).color(255, 255, 255,   0).endVertex();
-		bufferBuilder.vertex(matrix, xz2,  3.0F, xz2).uv(1.0F, v2).color(255, 255, 255,   0).endVertex();
-		bufferBuilder.vertex(matrix, xz2,  0.0F, xz2).uv(1.0F, v1).color(255, 255, 255, 255).endVertex();
+		consumer.vertex(matrix, xz1,  0.0F, xz2).color(255, 255, 255, 255).uv(0.0F, v1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(0xF000F0).normal(normal, 0.0f, 1.0f, 0.0f).endVertex();
+		consumer.vertex(matrix, xz1,  3.0F, xz2).color(255, 255, 255,   0).uv(0.0F, v2).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(0xF000F0).normal(normal, 0.0f, 1.0f, 0.0f).endVertex();
+		consumer.vertex(matrix, xz1,  3.0F, xz1).color(255, 255, 255,   0).uv(1.0F, v2).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(0xF000F0).normal(normal, 0.0f, 1.0f, 0.0f).endVertex();
+		consumer.vertex(matrix, xz1,  0.0F, xz1).color(255, 255, 255, 255).uv(1.0F, v1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(0xF000F0).normal(normal, 0.0f, 1.0f, 0.0f).endVertex();
 		
-		bufferBuilder.vertex(matrix, xz1,  0.0F, xz2).uv(0.0F, v1).color(255, 255, 255, 255).endVertex();
-		bufferBuilder.vertex(matrix, xz1,  3.0F, xz2).uv(0.0F, v2).color(255, 255, 255,   0).endVertex();
-		bufferBuilder.vertex(matrix, xz1,  3.0F, xz1).uv(1.0F, v2).color(255, 255, 255,   0).endVertex();
-		bufferBuilder.vertex(matrix, xz1,  0.0F, xz1).uv(1.0F, v1).color(255, 255, 255, 255).endVertex();
+		consumer.vertex(matrix, xz1,  0.0F,  xz2).color(255, 255, 255, 255).uv(0.0F, v1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(0xF000F0).normal(normal, 0.0f, 1.0f, 0.0f).endVertex();
+		consumer.vertex(matrix, xz2,  0.0F,  xz2).color(255, 255, 255, 255).uv(1.0F, v1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(0xF000F0).normal(normal, 0.0f, 1.0f, 0.0f).endVertex();
+		consumer.vertex(matrix, xz2,  3.0F,  xz2).color(255, 255, 255,   0).uv(1.0F, v2).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(0xF000F0).normal(normal, 0.0f, 1.0f, 0.0f).endVertex();
+		consumer.vertex(matrix, xz1,  3.0F,  xz2).color(255, 255, 255,   0).uv(0.0F, v2).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(0xF000F0).normal(normal, 0.0f, 1.0f, 0.0f).endVertex();
 		
-		bufferBuilder.vertex(matrix, xz1,  0.0F,  xz2).uv(0.0F, v1).color(255, 255, 255, 255).endVertex();
-		bufferBuilder.vertex(matrix, xz2,  0.0F,  xz2).uv(1.0F, v1).color(255, 255, 255, 255).endVertex();
-		bufferBuilder.vertex(matrix, xz2,  3.0F,  xz2).uv(1.0F, v2).color(255, 255, 255,   0).endVertex();
-		bufferBuilder.vertex(matrix, xz1,  3.0F,  xz2).uv(0.0F, v2).color(255, 255, 255,   0).endVertex();
-		
-		bufferBuilder.vertex(matrix, xz1,  3.0F, xz1).uv(0.0F, v2).color(255, 255, 255,   0).endVertex();
-		bufferBuilder.vertex(matrix, xz2,  3.0F, xz1).uv(1.0F, v2).color(255, 255, 255,   0).endVertex();
-		bufferBuilder.vertex(matrix, xz2,  0.0F, xz1).uv(1.0F, v1).color(255, 255, 255, 255).endVertex();
-		bufferBuilder.vertex(matrix, xz1,  0.0F, xz1).uv(0.0F, v1).color(255, 255, 255, 255).endVertex();
-		
-		bufferBuilder.end();
-		BufferUploader.end(bufferBuilder);
+		consumer.vertex(matrix, xz1,  3.0F, xz1).color(255, 255, 255,   0).uv(0.0F, v2).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(0xF000F0).normal(normal, 0.0f, 1.0f, 0.0f).endVertex();
+		consumer.vertex(matrix, xz2,  3.0F, xz1).color(255, 255, 255,   0).uv(1.0F, v2).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(0xF000F0).normal(normal, 0.0f, 1.0f, 0.0f).endVertex();
+		consumer.vertex(matrix, xz2,  0.0F, xz1).color(255, 255, 255, 255).uv(1.0F, v1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(0xF000F0).normal(normal, 0.0f, 1.0f, 0.0f).endVertex();
+		consumer.vertex(matrix, xz1,  0.0F, xz1).color(255, 255, 255, 255).uv(0.0F, v1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(0xF000F0).normal(normal, 0.0f, 1.0f, 0.0f).endVertex();
 	}
 }

@@ -10,7 +10,7 @@ import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.particle.TextureSheetParticle;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.world.level.levelgen.Heightmap.Types;
-import ru.bclib.util.MHelper;
+import org.betterx.bclib.util.MHelper;
 
 public class WindParticle extends TextureSheetParticle {
 	private static final int[] OFFSET = new int[] { 0, 10, 18 };

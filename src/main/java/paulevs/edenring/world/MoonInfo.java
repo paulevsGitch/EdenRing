@@ -4,9 +4,8 @@ import com.mojang.math.Vector3f;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.util.Mth;
-import ru.bclib.util.MHelper;
-
-import java.util.Random;
+import net.minecraft.util.RandomSource;
+import org.betterx.bclib.util.MHelper;
 
 @Environment(EnvType.CLIENT)
 public final class MoonInfo {
@@ -17,7 +16,7 @@ public final class MoonInfo {
 	public final float speed;
 	public final float size;
 	
-	public MoonInfo(Random random) {
+	public MoonInfo(RandomSource random) {
 		orbitState = random.nextFloat() * (float) Math.PI * 2;
 		orbitRadius = MHelper.randRange(10F, 30F, random);
 		orbitAngle = MHelper.randRange(-30F, 30F, random);

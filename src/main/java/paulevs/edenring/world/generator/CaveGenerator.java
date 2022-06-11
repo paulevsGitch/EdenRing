@@ -9,11 +9,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.LevelChunkSection;
 import net.minecraft.world.level.levelgen.Heightmap.Types;
+import org.betterx.bclib.noise.OpenSimplexNoise;
+import org.betterx.bclib.util.BlocksHelper;
+import org.betterx.bclib.util.MHelper;
 import paulevs.edenring.noise.InterpolationCell;
 import paulevs.edenring.noise.VoronoiNoise;
-import ru.bclib.noise.OpenSimplexNoise;
-import ru.bclib.util.BlocksHelper;
-import ru.bclib.util.MHelper;
 
 import java.util.Random;
 

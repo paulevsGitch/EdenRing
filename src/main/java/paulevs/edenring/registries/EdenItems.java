@@ -2,13 +2,13 @@ package paulevs.edenring.registries;
 
 
 import net.minecraft.world.item.Item;
+import org.betterx.bclib.api.v2.ComposterAPI;
+import org.betterx.bclib.config.PathConfig;
+import org.betterx.bclib.items.ModelProviderItem;
+import org.betterx.bclib.registry.ItemRegistry;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.items.EdenPaintingItem;
 import paulevs.edenring.items.GuideBookItem;
-import ru.bclib.api.ComposterAPI;
-import ru.bclib.config.PathConfig;
-import ru.bclib.items.ModelProviderItem;
-import ru.bclib.registry.ItemRegistry;
 
 public class EdenItems {
 	private static final PathConfig ITEMS_CONFIG = new PathConfig(EdenRing.MOD_ID, "items");

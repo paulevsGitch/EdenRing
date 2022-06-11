@@ -26,14 +26,14 @@ import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import org.betterx.bclib.blocks.BasePlantBlock;
+import org.betterx.bclib.client.models.BasePatterns;
+import org.betterx.bclib.client.models.ModelsHelper;
+import org.betterx.bclib.client.models.PatternsHelper;
+import org.betterx.bclib.items.tool.BaseShearsItem;
+import org.betterx.bclib.util.MHelper;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.registries.EdenBlocks;
-import ru.bclib.blocks.BasePlantBlock;
-import ru.bclib.client.models.BasePatterns;
-import ru.bclib.client.models.ModelsHelper;
-import ru.bclib.client.models.PatternsHelper;
-import ru.bclib.items.tool.BaseShearsItem;
-import ru.bclib.util.MHelper;
 
 import java.util.Collections;
 import java.util.List;
@@ -114,10 +114,10 @@ public class TallBalloonMushroom extends BasePlantBlock {
 			return Lists.newArrayList(new ItemStack(this));
 		}
 		else if (state.getValue(TEXTURE) == 3) {
-			return Lists.newArrayList(new ItemStack(EdenBlocks.BALLOON_MUSHROOM_SMALL, MHelper.randRange(1, 3, MHelper.RANDOM)));
+			return Lists.newArrayList(new ItemStack(EdenBlocks.BALLOON_MUSHROOM_SMALL, MHelper.randRange(1, 3, MHelper.RANDOM_SOURCE)));
 		}
 		else if (MHelper.RANDOM.nextBoolean()) {
-			return Lists.newArrayList(new ItemStack(Items.STICK, MHelper.randRange(1, 2, MHelper.RANDOM)));
+			return Lists.newArrayList(new ItemStack(Items.STICK, MHelper.randRange(1, 2, MHelper.RANDOM_SOURCE)));
 		}
 		else {
 			return Collections.emptyList();

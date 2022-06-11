@@ -3,6 +3,7 @@ package paulevs.edenring.blocks;
 import com.google.common.collect.Maps;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.renderer.BiomeColors;
@@ -16,13 +17,15 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.GrassColor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import ru.bclib.client.models.ModelsHelper;
-import ru.bclib.client.models.PatternsHelper;
-import ru.bclib.interfaces.CustomColorProvider;
-import ru.bclib.util.ColorUtil;
+import org.betterx.bclib.client.models.ModelsHelper;
+import org.betterx.bclib.client.models.PatternsHelper;
+import org.betterx.bclib.interfaces.CustomColorProvider;
+import org.betterx.bclib.util.ColorUtil;
 
 import java.util.Map;
 import java.util.Optional;
@@ -31,7 +34,7 @@ public class EdenMossBlock extends SimplePlantBlock implements CustomColorProvid
 	private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 2, 16);
 	
 	public EdenMossBlock() {
-		super(false);
+		super(FabricBlockSettings.of(Material.PLANT).sound(SoundType.GRASS).noCollission());
 	}
 	
 	@Override
@@ -71,11 +74,6 @@ public class EdenMossBlock extends SimplePlantBlock implements CustomColorProvid
 		ResourceLocation modelId = new ResourceLocation(stateId.getNamespace(), "block/" + stateId.getPath());
 		this.registerBlockModel(stateId, modelId, blockState, modelCache);
 		return ModelsHelper.createRandomTopModel(modelId);
-	}
-	
-	@Override
-	public OffsetType getOffsetType() {
-		return OffsetType.NONE;
 	}
 	
 	@Override

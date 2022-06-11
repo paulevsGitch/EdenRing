@@ -3,6 +3,7 @@ package paulevs.edenring.world.features.trees;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -10,24 +11,23 @@ import net.minecraft.world.level.block.GrassBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import org.betterx.bclib.api.v2.levelgen.features.features.DefaultFeature;
+import org.betterx.bclib.util.BlocksHelper;
+import org.betterx.bclib.util.MHelper;
 import paulevs.edenring.blocks.EdenBlockProperties;
 import paulevs.edenring.blocks.EdenBlockProperties.BalloonMushroomStemState;
 import paulevs.edenring.blocks.EdenBlockProperties.QuadShape;
 import paulevs.edenring.registries.EdenBlocks;
-import ru.bclib.util.BlocksHelper;
-import ru.bclib.util.MHelper;
-import ru.bclib.world.features.DefaultFeature;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class BalloonMushroomTreeFeature extends DefaultFeature {
 	@Override
 	public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> featurePlaceContext) {
 		WorldGenLevel level = featurePlaceContext.level();
 		BlockPos center = featurePlaceContext.origin();
-		Random random = featurePlaceContext.random();
+		RandomSource random = featurePlaceContext.random();
 		
 		Block below = level.getBlockState(center.below()).getBlock();
 		if (!(below instanceof GrassBlock) && below != Blocks.DIRT) {

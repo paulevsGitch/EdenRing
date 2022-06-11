@@ -1,10 +1,9 @@
 package paulevs.edenring.interfaces;
 
-import ru.bclib.world.biomes.BCLBiome;
-
-import java.util.Random;
+import net.minecraft.util.RandomSource;
+import org.betterx.bclib.api.v2.levelgen.biomes.BCLBiome;
 
 @FunctionalInterface
 public interface BiomeCountProvider {
-	int getCount(BCLBiome biome, Random random);
+	int getCount(BCLBiome biome, RandomSource random);
 }

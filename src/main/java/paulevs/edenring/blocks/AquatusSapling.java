@@ -4,12 +4,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import org.betterx.bclib.blocks.FeatureSaplingBlock;
 import paulevs.edenring.registries.EdenFeatures;
-import ru.bclib.blocks.FeatureSaplingBlock;
 
 public class AquatusSapling extends FeatureSaplingBlock {
 	public AquatusSapling() {
-		super((state) -> EdenFeatures.AQUATUS.getFeature());
+		super((state) -> EdenFeatures.AQUATUS);
 	}
 	
 	@Override

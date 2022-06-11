@@ -15,11 +15,11 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import ru.bclib.client.models.ModelsHelper;
-import ru.bclib.client.models.ModelsHelper.MultiPartBuilder;
-import ru.bclib.client.models.PatternsHelper;
-import ru.bclib.interfaces.BlockModelProvider;
-import ru.bclib.util.BlocksHelper;
+import org.betterx.bclib.client.models.ModelsHelper;
+import org.betterx.bclib.client.models.ModelsHelper.MultiPartBuilder;
+import org.betterx.bclib.client.models.PatternsHelper;
+import org.betterx.bclib.interfaces.BlockModelProvider;
+import org.betterx.bclib.util.BlocksHelper;
 
 import java.util.Map;
 import java.util.Optional;

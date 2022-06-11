@@ -2,24 +2,23 @@ package paulevs.edenring.world.features.terrain;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import org.betterx.bclib.api.v2.levelgen.features.features.DefaultFeature;
+import org.betterx.bclib.util.BlocksHelper;
+import org.betterx.bclib.util.MHelper;
 import paulevs.edenring.registries.EdenBlocks;
-import ru.bclib.util.BlocksHelper;
-import ru.bclib.util.MHelper;
-import ru.bclib.world.features.DefaultFeature;
-
-import java.util.Random;
 
 public class SmallIslandFeature extends DefaultFeature {
 	@Override
 	public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> featurePlaceContext) {
 		WorldGenLevel level = featurePlaceContext.level();
 		BlockPos center = featurePlaceContext.origin();
-		Random random = featurePlaceContext.random();
+		RandomSource random = featurePlaceContext.random();
 		
 		if (getYOnSurface(level, center.getX(), center.getZ()) > 0) {
 			return false;
@@ -50,7 +49,7 @@ public class SmallIslandFeature extends DefaultFeature {
 		return true;
 	}
 	
-	private void makeCircle(WorldGenLevel level, BlockPos pos, BlockState state, int radius, Random random) {
+	private void makeCircle(WorldGenLevel level, BlockPos pos, BlockState state, int radius, RandomSource random) {
 		MutableBlockPos mut = pos.mutable();
 		int r2 = radius * radius;
 		for (int x = -radius; x <= radius; x++) {

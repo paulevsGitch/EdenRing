@@ -2,15 +2,14 @@ package paulevs.edenring.world.features.plants;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
+import org.betterx.bclib.util.BlocksHelper;
+import org.betterx.bclib.util.MHelper;
 import paulevs.edenring.blocks.EdenBlockProperties;
 import paulevs.edenring.registries.EdenBlocks;
 import paulevs.edenring.world.features.basic.ScatterFeature;
-import ru.bclib.util.BlocksHelper;
-import ru.bclib.util.MHelper;
-
-import java.util.Random;
 
 public class TallMushroomFeature extends ScatterFeature {
 	public TallMushroomFeature() {
@@ -18,7 +17,7 @@ public class TallMushroomFeature extends ScatterFeature {
 	}
 	
 	@Override
-	protected int getCount(Random random) {
+	protected int getCount(RandomSource random) {
 		return MHelper.randRange(5, 10, random);
 	}
 	

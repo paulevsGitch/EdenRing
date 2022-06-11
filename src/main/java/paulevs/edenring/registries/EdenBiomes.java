@@ -1,14 +1,15 @@
 package paulevs.edenring.registries;
 
 import com.google.common.collect.Lists;
+import org.betterx.bclib.api.v2.levelgen.biomes.BCLBiome;
+import org.betterx.bclib.api.v2.levelgen.biomes.BiomeAPI;
+import org.betterx.bclib.api.v2.levelgen.biomes.BiomeAPI.BiomeType;
+import org.betterx.bclib.config.EntryConfig;
+import org.betterx.bclib.config.IdConfig;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.world.biomes.CaveBiomes;
 import paulevs.edenring.world.biomes.LandBiomes;
 import paulevs.edenring.world.biomes.VoidBiomes;
-import ru.bclib.api.biomes.BiomeAPI;
-import ru.bclib.config.EntryConfig;
-import ru.bclib.config.IdConfig;
-import ru.bclib.world.biomes.BCLBiome;
 
 import java.util.List;
 
@@ -44,17 +45,17 @@ public class EdenBiomes {
 	
 	private static BCLBiome registerLand(BCLBiome biome) {
 		BIOMES_LAND.add(biome);
-		return BiomeAPI.registerBiome(biome);
+		return BiomeAPI.registerBiome(biome, BiomeType.NONE);
 	}
 	
 	private static BCLBiome registerVoid(BCLBiome biome) {
 		BIOMES_VOID.add(biome);
-		return BiomeAPI.registerBiome(biome);
+		return BiomeAPI.registerBiome(biome, BiomeType.NONE);
 	}
 	
 	private static BCLBiome registerCave(BCLBiome biome) {
 		BIOMES_CAVE.add(biome);
-		return BiomeAPI.registerBiome(biome);
+		return BiomeAPI.registerBiome(biome, BiomeType.NONE);
 	}
 	
 	private static BCLBiome registerSubLand(BCLBiome parent, BCLBiome biome) {

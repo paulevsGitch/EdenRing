@@ -4,12 +4,12 @@ import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import org.betterx.bclib.api.v2.tag.CommonItemTags;
+import org.betterx.bclib.complexmaterials.WoodenComplexMaterial;
+import org.betterx.bclib.config.PathConfig;
+import org.betterx.bclib.recipes.FurnaceRecipe;
+import org.betterx.bclib.recipes.GridRecipe;
 import paulevs.edenring.EdenRing;
-import ru.bclib.api.tag.CommonItemTags;
-import ru.bclib.complexmaterials.WoodenComplexMaterial;
-import ru.bclib.config.PathConfig;
-import ru.bclib.recipes.FurnaceRecipe;
-import ru.bclib.recipes.GridRecipe;
 
 public class EdenRecipes {
 	public static final PathConfig CONFIG = new PathConfig(EdenRing.MOD_ID, "recipes");

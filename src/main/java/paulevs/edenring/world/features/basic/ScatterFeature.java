@@ -4,16 +4,15 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import ru.bclib.util.BlocksHelper;
-import ru.bclib.util.MHelper;
-import ru.bclib.world.features.DefaultFeature;
-
-import java.util.Random;
+import org.betterx.bclib.api.v2.levelgen.features.features.DefaultFeature;
+import org.betterx.bclib.util.BlocksHelper;
+import org.betterx.bclib.util.MHelper;
 
 public class ScatterFeature extends DefaultFeature {
 	private Block block;
@@ -25,7 +24,7 @@ public class ScatterFeature extends DefaultFeature {
 	@Override
 	@SuppressWarnings("deprecation")
 	public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> featurePlaceContext) {
-		Random random = featurePlaceContext.random();
+		RandomSource random = featurePlaceContext.random();
 		BlockPos center = featurePlaceContext.origin();
 		WorldGenLevel level = featurePlaceContext.level();
 		
@@ -52,7 +51,7 @@ public class ScatterFeature extends DefaultFeature {
 		return true;
 	}
 	
-	protected int getCount(Random random) {
+	protected int getCount(RandomSource random) {
 		return MHelper.randRange(10, 20, random);
 	}
 	

@@ -12,6 +12,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -31,20 +32,19 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.betterx.bclib.blocks.BaseBlockNotFull;
+import org.betterx.bclib.client.models.BasePatterns;
+import org.betterx.bclib.client.models.ModelsHelper;
+import org.betterx.bclib.client.models.PatternsHelper;
+import org.betterx.bclib.client.render.BCLRenderLayer;
+import org.betterx.bclib.interfaces.RenderLayerProvider;
+import org.betterx.bclib.items.tool.BaseShearsItem;
+import org.betterx.bclib.util.BlocksHelper;
 import paulevs.edenring.blocks.EdenBlockProperties.QuadShape;
-import ru.bclib.blocks.BaseBlockNotFull;
-import ru.bclib.client.models.BasePatterns;
-import ru.bclib.client.models.ModelsHelper;
-import ru.bclib.client.models.PatternsHelper;
-import ru.bclib.client.render.BCLRenderLayer;
-import ru.bclib.interfaces.RenderLayerProvider;
-import ru.bclib.items.tool.BaseShearsItem;
-import ru.bclib.util.BlocksHelper;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Random;
 
 public class ShadedVineBlock extends BaseBlockNotFull implements RenderLayerProvider, BonemealableBlock {
 	public static final EnumProperty<QuadShape> SHAPE = EdenBlockProperties.QUAD_SHAPE;
@@ -161,7 +161,7 @@ public class ShadedVineBlock extends BaseBlockNotFull implements RenderLayerProv
 	}
 	
 	@Override
-	public boolean isBonemealSuccess(Level world, Random random, BlockPos pos, BlockState state) {
+	public boolean isBonemealSuccess(Level world, RandomSource random, BlockPos pos, BlockState state) {
 		while (world.getBlockState(pos).getBlock() == this) {
 			pos = pos.below();
 		}
@@ -169,7 +169,7 @@ public class ShadedVineBlock extends BaseBlockNotFull implements RenderLayerProv
 	}
 	
 	@Override
-	public void performBonemeal(ServerLevel world, Random random, BlockPos pos, BlockState state) {
+	public void performBonemeal(ServerLevel world, RandomSource random, BlockPos pos, BlockState state) {
 		while (world.getBlockState(pos).getBlock() == this) {
 			pos = pos.below();
 		}

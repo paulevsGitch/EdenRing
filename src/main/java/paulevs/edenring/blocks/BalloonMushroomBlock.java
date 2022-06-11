@@ -16,13 +16,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.MaterialColor;
+import org.betterx.bclib.client.models.BasePatterns;
+import org.betterx.bclib.client.models.ModelsHelper;
+import org.betterx.bclib.client.models.ModelsHelper.MultiPartBuilder;
+import org.betterx.bclib.client.models.PatternsHelper;
+import org.betterx.bclib.interfaces.CustomItemProvider;
 import paulevs.edenring.BaseCTBlock;
 import paulevs.edenring.items.BalloonMushroomBlockItem;
-import ru.bclib.client.models.BasePatterns;
-import ru.bclib.client.models.ModelsHelper;
-import ru.bclib.client.models.ModelsHelper.MultiPartBuilder;
-import ru.bclib.client.models.PatternsHelper;
-import ru.bclib.interfaces.CustomItemProvider;
 
 import java.util.Map;
 import java.util.Optional;

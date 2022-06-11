@@ -12,6 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -33,17 +34,16 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import ru.bclib.blocks.BaseBlockNotFull;
-import ru.bclib.client.render.BCLRenderLayer;
-import ru.bclib.interfaces.CustomColorProvider;
-import ru.bclib.interfaces.RenderLayerProvider;
-import ru.bclib.items.tool.BaseShearsItem;
-import ru.bclib.util.BlocksHelper;
-import ru.bclib.util.ColorUtil;
+import org.betterx.bclib.blocks.BaseBlockNotFull;
+import org.betterx.bclib.client.render.BCLRenderLayer;
+import org.betterx.bclib.interfaces.CustomColorProvider;
+import org.betterx.bclib.interfaces.RenderLayerProvider;
+import org.betterx.bclib.items.tool.BaseShearsItem;
+import org.betterx.bclib.util.BlocksHelper;
+import org.betterx.bclib.util.ColorUtil;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 public class SixSidePlant extends BaseBlockNotFull implements CustomColorProvider, RenderLayerProvider, BonemealableBlock {
 	public static final BooleanProperty[] DIRECTIONS = EdenBlockProperties.DIRECTIONS;
@@ -216,12 +216,12 @@ public class SixSidePlant extends BaseBlockNotFull implements CustomColorProvide
 	}
 	
 	@Override
-	public boolean isBonemealSuccess(Level level, Random random, BlockPos blockPos, BlockState blockState) {
+	public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos blockPos, BlockState blockState) {
 		return true;
 	}
 	
 	@Override
-	public void performBonemeal(ServerLevel level, Random random, BlockPos pos, BlockState state) {
+	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
 		ItemEntity item = new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, new ItemStack(this));
 		level.addFreshEntity(item);
 	}

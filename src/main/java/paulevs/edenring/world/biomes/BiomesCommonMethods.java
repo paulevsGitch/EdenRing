@@ -4,11 +4,11 @@ import net.minecraft.data.worldgen.placement.CavePlacements;
 import net.minecraft.data.worldgen.placement.OrePlacements;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
+import org.betterx.bclib.api.v2.levelgen.biomes.BCLBiomeBuilder;
+import org.betterx.bclib.api.v2.levelgen.surface.SurfaceRuleBuilder;
 import paulevs.edenring.registries.EdenBlocks;
 import paulevs.edenring.registries.EdenFeatures;
 import paulevs.edenring.registries.EdenSounds;
-import ru.bclib.api.biomes.BCLBiomeBuilder;
-import ru.bclib.api.surface.SurfaceRuleBuilder;
 
 public class BiomesCommonMethods {
 	public static void addDefaultLandFeatures(BCLBiomeBuilder builder) {

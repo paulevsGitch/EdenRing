@@ -1,27 +1,27 @@
 package paulevs.edenring.world.generator;
 
 import net.minecraft.util.Mth;
-import ru.bclib.noise.OpenSimplexNoise;
-import ru.bclib.sdf.SDF;
-import ru.bclib.sdf.operator.SDFCoordModify;
-import ru.bclib.sdf.operator.SDFDisplacement;
-import ru.bclib.sdf.operator.SDFScale;
-import ru.bclib.sdf.operator.SDFScale3D;
-import ru.bclib.sdf.operator.SDFSmoothUnion;
-import ru.bclib.sdf.operator.SDFTranslate;
-import ru.bclib.sdf.operator.SDFUnion;
-import ru.bclib.sdf.primitive.SDFCappedCone;
-import ru.bclib.sdf.primitive.SDFSphere;
-import ru.bclib.util.MHelper;
-import ru.bclib.util.WeightedList;
+import net.minecraft.util.RandomSource;
+import org.betterx.bclib.noise.OpenSimplexNoise;
+import org.betterx.bclib.sdf.SDF;
+import org.betterx.bclib.sdf.operator.SDFCoordModify;
+import org.betterx.bclib.sdf.operator.SDFDisplacement;
+import org.betterx.bclib.sdf.operator.SDFScale;
+import org.betterx.bclib.sdf.operator.SDFScale3D;
+import org.betterx.bclib.sdf.operator.SDFSmoothUnion;
+import org.betterx.bclib.sdf.operator.SDFTranslate;
+import org.betterx.bclib.sdf.operator.SDFUnion;
+import org.betterx.bclib.sdf.primitive.SDFCappedCone;
+import org.betterx.bclib.sdf.primitive.SDFSphere;
+import org.betterx.bclib.util.MHelper;
+import org.betterx.bclib.util.WeightedList;
 
-import java.util.Random;
 import java.util.function.BiFunction;
 
 public class IslandTypes {
-	private static final WeightedList<BiFunction<LayerOptions, Random, SDF>> ISLAND_FUNCTIONS;
+	private static final WeightedList<BiFunction<LayerOptions, RandomSource, SDF>> ISLAND_FUNCTIONS;
 	
-	public static SDF getIsland(LayerOptions options, Random random) {
+	public static SDF getIsland(LayerOptions options, RandomSource random) {
 		return ISLAND_FUNCTIONS.get(random).apply(options, random);
 	}
 	
@@ -31,7 +31,7 @@ public class IslandTypes {
 		return new SDFTranslate().setTranslate(0, minY + hh, 0).setSource(sdf);
 	}
 	
-	private static BiFunction<LayerOptions, Random, SDF> makeSimpleIsland() {
+	private static BiFunction<LayerOptions, RandomSource, SDF> makeSimpleIsland() {
 		SDF cone1 = makeCone(0, 0.4F, 0.2F, -0.3F);
 		SDF cone2 = makeCone(0.4F, 0.5F, 0.1F, -0.1F);
 		SDF cone3 = makeCone(0.5F, 0.45F, 0.03F, 0.0F);
@@ -72,7 +72,7 @@ public class IslandTypes {
 		};
 	}
 	
-	private static BiFunction<LayerOptions, Random, SDF> makeTallSphereIsland() {
+	private static BiFunction<LayerOptions, RandomSource, SDF> makeTallSphereIsland() {
 		SDF sphere = new SDFSphere().setRadius(1.0F);
 		sphere = new SDFScale3D().setScale(0.25F, 1.0F, 0.25F).setSource(sphere);
 		final SDF defaultIsland = sphere;
@@ -116,7 +116,7 @@ public class IslandTypes {
 		};
 	}
 	
-	private static BiFunction<LayerOptions, Random, SDF> makeDoubleConeIsland() {
+	private static BiFunction<LayerOptions, RandomSource, SDF> makeDoubleConeIsland() {
 		SDF cone1 = makeCone(0, 0.4F, 0.2F, -0.3F);
 		SDF cone2 = makeCone(0.4F, 0.5F, 0.1F, -0.1F);
 		SDF cone3 = makeCone(0.5F, 0.45F, 0.03F, 0.0F);

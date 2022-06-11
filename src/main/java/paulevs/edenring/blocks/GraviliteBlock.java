@@ -10,9 +10,9 @@ import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import ru.bclib.blocks.BaseRotatedPillarBlock;
-import ru.bclib.client.models.ModelsHelper;
-import ru.bclib.client.models.PatternsHelper;
+import org.betterx.bclib.blocks.BaseRotatedPillarBlock;
+import org.betterx.bclib.client.models.ModelsHelper;
+import org.betterx.bclib.client.models.PatternsHelper;
 
 import java.util.Map;
 import java.util.Optional;

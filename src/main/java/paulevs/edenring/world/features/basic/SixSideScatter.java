@@ -2,16 +2,15 @@ package paulevs.edenring.world.features.basic;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import org.betterx.bclib.api.v2.levelgen.features.features.DefaultFeature;
+import org.betterx.bclib.util.BlocksHelper;
+import org.betterx.bclib.util.MHelper;
 import paulevs.edenring.blocks.SixSidePlant;
-import ru.bclib.util.BlocksHelper;
-import ru.bclib.util.MHelper;
-import ru.bclib.world.features.DefaultFeature;
-
-import java.util.Random;
 
 public class SixSideScatter extends DefaultFeature {
 	private SixSidePlant block;
@@ -23,7 +22,7 @@ public class SixSideScatter extends DefaultFeature {
 	@Override
 	@SuppressWarnings("deprecation")
 	public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> featurePlaceContext) {
-		Random random = featurePlaceContext.random();
+		RandomSource random = featurePlaceContext.random();
 		BlockPos center = featurePlaceContext.origin();
 		WorldGenLevel level = featurePlaceContext.level();
 		

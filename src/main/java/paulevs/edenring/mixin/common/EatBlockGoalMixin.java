@@ -7,7 +7,6 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.gameevent.GameEvent;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -28,7 +27,7 @@ public class EatBlockGoalMixin {
 	@Shadow
 	private Level level;
 	
-	@Inject(method = "Lnet/minecraft/world/entity/ai/goal/EatBlockGoal;canUse()Z", at = @At(
+	@Inject(method = "canUse()Z", at = @At(
 		value = "INVOKE",
 		target = "Lnet/minecraft/world/entity/Mob;blockPosition()Lnet/minecraft/core/BlockPos;",
 		shift = Shift.BEFORE
@@ -40,7 +39,7 @@ public class EatBlockGoalMixin {
 		}
 	}
 	
-	@Inject(method = "Lnet/minecraft/world/entity/ai/goal/EatBlockGoal;tick()V", at = @At(
+	@Inject(method = "tick()V", at = @At(
 		value = "INVOKE",
 		target = "Lnet/minecraft/core/BlockPos;below()Lnet/minecraft/core/BlockPos;",
 		shift = Shift.AFTER
@@ -53,7 +52,6 @@ public class EatBlockGoalMixin {
 				this.level.setBlock(pos, Blocks.DIRT.defaultBlockState(), 2);
 			}
 			this.mob.ate();
-			this.mob.gameEvent(GameEvent.EAT, this.mob.eyeBlockPosition());
 		}
 	}
 }

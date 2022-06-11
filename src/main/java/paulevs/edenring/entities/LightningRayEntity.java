@@ -92,10 +92,10 @@ public class LightningRayEntity extends Entity {
 		}
 	}
 	
-	@Override
+	/*@Override
 	public float getBrightness() {
 		return 1.0F;
-	}
+	}*/
 	
 	private ListTag vecToNBT(Vec3 vec) {
 		ListTag tag = new ListTag();

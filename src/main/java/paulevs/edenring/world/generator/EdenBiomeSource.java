@@ -9,11 +9,11 @@ import net.minecraft.resources.RegistryOps;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.biome.Climate.Sampler;
+import org.betterx.bclib.api.v2.generator.BiomePicker;
+import org.betterx.bclib.api.v2.generator.map.hex.HexBiomeMap;
+import org.betterx.bclib.interfaces.BiomeMap;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.registries.EdenBiomes;
-import ru.bclib.interfaces.BiomeMap;
-import ru.bclib.world.generator.BiomePicker;
-import ru.bclib.world.generator.map.hex.HexBiomeMap;
 
 import java.util.stream.Collectors;
 
@@ -37,27 +37,23 @@ public class EdenBiomeSource extends BiomeSource {
 			.entrySet()
 			.stream()
 			.filter(entry -> entry.getKey().location().getNamespace().equals(EdenRing.MOD_ID))
-			.map(entry -> biomeRegistry.getOrCreateHolder(entry.getKey()))
+			.map(entry -> biomeRegistry.getOrCreateHolder(entry.getKey()).get().left().get())
 			.collect(Collectors.toList()));
 		this.biomeRegistry = biomeRegistry;
 		
 		if (pickerLand == null) {
-			pickerLand = new BiomePicker();
+			pickerLand = new BiomePicker(biomeRegistry);
 			EdenBiomes.BIOMES_LAND.forEach(biome -> pickerLand.addBiome(biome));
 			pickerLand.rebuild();
 			
-			pickerVoid = new BiomePicker();
+			pickerVoid = new BiomePicker(biomeRegistry);
 			EdenBiomes.BIOMES_VOID.forEach(biome -> pickerVoid.addBiome(biome));
 			pickerVoid.rebuild();
 			
-			pickerCave = new BiomePicker();
+			pickerCave = new BiomePicker(biomeRegistry);
 			EdenBiomes.BIOMES_CAVE.forEach(biome -> pickerCave.addBiome(biome));
 			pickerCave.rebuild();
 		}
-		
-		pickerLand.getBiomes().forEach(biome -> biome.updateActualBiomes(biomeRegistry));
-		pickerVoid.getBiomes().forEach(biome -> biome.updateActualBiomes(biomeRegistry));
-		pickerCave.getBiomes().forEach(biome -> biome.updateActualBiomes(biomeRegistry));
 		
 		mapLand = new HexBiomeMap(0, GeneratorOptions.biomeSizeLand, pickerLand);
 		mapVoid = new HexBiomeMap(0, GeneratorOptions.biomeSizeVoid, pickerVoid);
@@ -67,11 +63,6 @@ public class EdenBiomeSource extends BiomeSource {
 	@Override
 	protected Codec<? extends BiomeSource> codec() {
 		return CODEC;
-	}
-	
-	@Override
-	public BiomeSource withSeed(long seed) {
-		return new EdenBiomeSource(biomeRegistry);
 	}
 	
 	@Override
@@ -88,11 +79,11 @@ public class EdenBiomeSource extends BiomeSource {
 		
 		if (isLand(data)) {
 			if (isCave(data)) {
-				return mapCave.getBiome(px, 0, pz).getActualBiome();
+				return mapCave.getBiome(px, 0, pz).biome;
 			}
-			return mapLand.getBiome(px, 0, pz).getActualBiome();
+			return mapLand.getBiome(px, 0, pz).biome;
 		}
-		return mapVoid.getBiome(px, 0, pz).getActualBiome();
+		return mapVoid.getBiome(px, 0, pz).biome;
 	}
 	
 	public void setSeed(long seed) {

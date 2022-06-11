@@ -1,7 +1,7 @@
 package paulevs.edenring.noise;
 
 import net.minecraft.util.Mth;
-import ru.bclib.util.MHelper;
+import org.betterx.bclib.util.MHelper;
 
 import java.util.Arrays;
 import java.util.Random;

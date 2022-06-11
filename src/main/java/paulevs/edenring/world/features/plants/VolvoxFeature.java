@@ -6,30 +6,30 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import org.betterx.bclib.api.v2.levelgen.features.features.DefaultFeature;
+import org.betterx.bclib.blocks.BlockProperties;
+import org.betterx.bclib.blocks.BlockProperties.TripleShape;
+import org.betterx.bclib.util.BlocksHelper;
+import org.betterx.bclib.util.MHelper;
+import org.betterx.bclib.util.SplineHelper;
 import paulevs.edenring.blocks.SixSidePlant;
 import paulevs.edenring.registries.EdenBlocks;
-import ru.bclib.blocks.BlockProperties;
-import ru.bclib.blocks.BlockProperties.TripleShape;
-import ru.bclib.util.BlocksHelper;
-import ru.bclib.util.MHelper;
-import ru.bclib.util.SplineHelper;
-import ru.bclib.world.features.DefaultFeature;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class VolvoxFeature extends DefaultFeature {
 	@Override
 	public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> featurePlaceContext) {
 		WorldGenLevel level = featurePlaceContext.level();
 		BlockPos center = featurePlaceContext.origin();
-		Random random = featurePlaceContext.random();
+		RandomSource random = featurePlaceContext.random();
 		
 		byte type = (byte) random.nextInt(8);
 		if (type < 2) {
@@ -45,19 +45,19 @@ public class VolvoxFeature extends DefaultFeature {
 		return true;
 	}
 	
-	private BlockPos getRandom(BlockPos pos, Random random) {
+	private BlockPos getRandom(BlockPos pos, RandomSource random) {
 		int x = (pos.getX() & 0xFFFFFFF0) | random.nextInt(16);
 		int z = (pos.getZ() & 0xFFFFFFF0) | random.nextInt(16);
 		return new BlockPos(x, MHelper.randRange(64, 192, random), z);
 	}
 	
-	private BlockPos getCentered(BlockPos pos, Random random) {
+	private BlockPos getCentered(BlockPos pos, RandomSource random) {
 		int x = (pos.getX() & 0xFFFFFFF0) | 8;
 		int z = (pos.getZ() & 0xFFFFFFF0) | 8;
 		return new BlockPos(x, MHelper.randRange(64, 192, random), z);
 	}
 	
-	private void generateSmall(WorldGenLevel level, BlockPos pos, Random random) {
+	private void generateSmall(WorldGenLevel level, BlockPos pos, RandomSource random) {
 		BlockState volvox = EdenBlocks.VOLVOX_BLOCK.defaultBlockState();
 		byte count = (byte) MHelper.randRange(3, 7, random);
 		pos = getCentered(pos, random);
@@ -73,7 +73,7 @@ public class VolvoxFeature extends DefaultFeature {
 		}
 	}
 	
-	private void generateMedium(WorldGenLevel level, BlockPos pos, Random random) {
+	private void generateMedium(WorldGenLevel level, BlockPos pos, RandomSource random) {
 		BlockState volvox = EdenBlocks.VOLVOX_BLOCK.defaultBlockState();
 		BlockState water = Blocks.WATER.defaultBlockState();
 		float radius = MHelper.randRange(5F, 8F, random);
@@ -83,7 +83,7 @@ public class VolvoxFeature extends DefaultFeature {
 		addSmallPlants(level, pos, sphere, random);
 	}
 	
-	private void generateLarge(WorldGenLevel level, BlockPos pos, Random random) {
+	private void generateLarge(WorldGenLevel level, BlockPos pos, RandomSource random) {
 		BlockState volvoxDense = EdenBlocks.VOLVOX_BLOCK_DENSE.defaultBlockState();
 		BlockState volvox = EdenBlocks.VOLVOX_BLOCK.defaultBlockState();
 		BlockState water = Blocks.WATER.defaultBlockState();
@@ -112,7 +112,7 @@ public class VolvoxFeature extends DefaultFeature {
 		addSmallPlants(level, pos, sphere, random);
 	}
 	
-	private void addSmallPlants(WorldGenLevel level, BlockPos center, List<BlockPos> blocks, Random random) {
+	private void addSmallPlants(WorldGenLevel level, BlockPos center, List<BlockPos> blocks, RandomSource random) {
 		MutableBlockPos pos = new MutableBlockPos();
 		BlockState mold1 = EdenBlocks.SYMBIOTIC_MOLD.defaultBlockState();
 		BlockState mold2 = EdenBlocks.SYMBIOTIC_MOLD_EMISSIVE.defaultBlockState();

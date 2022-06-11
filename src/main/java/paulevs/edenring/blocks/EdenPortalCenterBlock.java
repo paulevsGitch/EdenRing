@@ -17,18 +17,18 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.betterx.bclib.blocks.BaseBlockWithEntity;
+import org.betterx.bclib.client.models.BasePatterns;
+import org.betterx.bclib.client.models.ModelsHelper;
+import org.betterx.bclib.client.models.PatternsHelper;
+import org.betterx.bclib.interfaces.BlockModelProvider;
 import paulevs.edenring.blocks.entities.EdenPortalBlockEntity;
-import ru.bclib.blocks.BaseBlockWithEntity;
-import ru.bclib.client.models.BasePatterns;
-import ru.bclib.client.models.ModelsHelper;
-import ru.bclib.client.models.PatternsHelper;
-import ru.bclib.interfaces.BlockModelProvider;
 
 import java.util.Optional;
 
 public class EdenPortalCenterBlock extends BaseBlockWithEntity implements BlockModelProvider {
 	public EdenPortalCenterBlock() {
-		super(FabricBlockSettings.copyOf(Blocks.BARRIER).luminance(15).noCollision().noOcclusion().noDrops());
+		super(FabricBlockSettings.copyOf(Blocks.BARRIER).luminance(15).noCollision().noOcclusion());
 	}
 	
 	@Override

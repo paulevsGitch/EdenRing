@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.GrassBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import ru.bclib.blocks.BasePlantBlock;
+import org.betterx.bclib.blocks.BasePlantBlock;
 
 public class SimplePlantBlock extends BasePlantBlock {
 	private boolean isGrass;

@@ -12,8 +12,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
+import org.betterx.bclib.interfaces.ItemModelProvider;
 import paulevs.edenring.entities.EdenPainting;
-import ru.bclib.interfaces.ItemModelProvider;
 
 public class EdenPaintingItem extends HangingEntityItem implements ItemModelProvider {
 	public EdenPaintingItem(EntityType<? extends HangingEntity> entityType, Properties properties) {

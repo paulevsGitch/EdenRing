@@ -1,18 +1,18 @@
 package paulevs.edenring.client.environment.animation;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import paulevs.edenring.interfaces.SpriteInitializer;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class SpriteChunk {
 	protected final List<SpriteAnimation> data = new ArrayList<>();
 	protected final int chunkX;
 	protected final int chunkZ;
 	
-	public SpriteChunk(int chunkX, int chunkZ, Random random, int count, SpriteInitializer animationInit) {
+	public SpriteChunk(int chunkX, int chunkZ, RandomSource random, int count, SpriteInitializer animationInit) {
 		this.chunkX = chunkX;
 		this.chunkZ = chunkZ;
 		int blockX = chunkX << 4;

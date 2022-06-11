@@ -15,21 +15,22 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.chunk.LevelChunk;
+import net.minecraft.world.level.levelgen.XoroshiroRandomSource;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import org.betterx.bclib.api.v2.levelgen.biomes.BCLBiome;
+import org.betterx.bclib.api.v2.levelgen.biomes.BiomeAPI;
+import org.betterx.bclib.util.MHelper;
 import org.jetbrains.annotations.Nullable;
 import paulevs.edenring.client.environment.TransformHelper;
 import paulevs.edenring.interfaces.BiomeCountProvider;
 import paulevs.edenring.interfaces.SpriteInitializer;
-import ru.bclib.api.biomes.BiomeAPI;
-import ru.bclib.util.MHelper;
-import ru.bclib.world.biomes.BCLBiome;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class SpriteGrid {
 	private final BiomeCountProvider spriteCount;
@@ -38,7 +39,7 @@ public class SpriteGrid {
 	private final List<List<ChunkPos>> missingChunks = new ArrayList<>(2);
 	private final SpriteChunk[][] chunks = new SpriteChunk[128][128];
 	private final List<SpriteAnimation> animations = new ArrayList<>(256);
-	private final Random random = new Random();
+	private final RandomSource random = new XoroshiroRandomSource(0);
 	private final Vector4f color = new Vector4f();
 	private final Vector3f pos = new Vector3f();
 	
@@ -204,8 +205,7 @@ public class SpriteGrid {
 			float v = sprite.getFrame() * sprite.getVSize();
 			renderSprite(sprite.getScale(), v, v + sprite.getVSize(), bufferBuilder, poseStack);
 		});
-		bufferBuilder.end();
-		BufferUploader.end(bufferBuilder);
+		BufferUploader.drawWithShader(bufferBuilder.end());
 	}
 	
 	private SpriteChunk initChunk(ClientLevel level, int px, int pz) {

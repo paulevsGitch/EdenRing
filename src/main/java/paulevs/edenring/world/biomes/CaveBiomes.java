@@ -3,10 +3,10 @@ package paulevs.edenring.world.biomes;
 import net.minecraft.data.worldgen.placement.CavePlacements;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
+import org.betterx.bclib.api.v2.levelgen.biomes.BCLBiome;
+import org.betterx.bclib.api.v2.levelgen.biomes.BCLBiomeBuilder;
+import org.betterx.bclib.api.v2.levelgen.surface.SurfaceRuleBuilder;
 import paulevs.edenring.EdenRing;
-import ru.bclib.api.biomes.BCLBiomeBuilder;
-import ru.bclib.api.surface.SurfaceRuleBuilder;
-import ru.bclib.world.biomes.BCLBiome;
 
 public class CaveBiomes {
 	public static BCLBiome makeEmptyCaveBiome() {

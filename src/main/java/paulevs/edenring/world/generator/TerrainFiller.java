@@ -7,8 +7,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.LevelChunkSection;
+import org.betterx.bclib.util.MHelper;
 import paulevs.edenring.noise.InterpolationCell;
-import ru.bclib.util.MHelper;
 
 public class TerrainFiller {
 	private static final BlockState STONE = Blocks.STONE.defaultBlockState();

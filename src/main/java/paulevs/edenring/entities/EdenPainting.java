@@ -150,7 +150,8 @@ public class EdenPainting extends HangingEntity {
 	
 	@Override
 	public Packet<?> getAddEntityPacket() {
-		return new ClientboundAddEntityPacket(this, this.getType(), this.direction.get2DDataValue(), this.pos);
+		//return new ClientboundAddEntityPacket(this, this.getType(), this.direction.get2DDataValue(), this.pos);
+		return new ClientboundAddEntityPacket(this);
 	}
 	
 	@Override

@@ -10,10 +10,10 @@ import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.GrassColor;
 import net.minecraft.world.level.block.state.BlockState;
-import ru.bclib.client.models.ModelsHelper;
-import ru.bclib.client.models.PatternsHelper;
-import ru.bclib.interfaces.CustomColorProvider;
-import ru.bclib.util.ColorUtil;
+import org.betterx.bclib.client.models.ModelsHelper;
+import org.betterx.bclib.client.models.PatternsHelper;
+import org.betterx.bclib.interfaces.CustomColorProvider;
+import org.betterx.bclib.util.ColorUtil;
 
 import java.util.Map;
 import java.util.Optional;

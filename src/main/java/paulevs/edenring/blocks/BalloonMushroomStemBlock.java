@@ -21,13 +21,13 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.betterx.bclib.blocks.BaseBlockNotFull;
+import org.betterx.bclib.client.models.ModelsHelper;
+import org.betterx.bclib.client.render.BCLRenderLayer;
+import org.betterx.bclib.interfaces.RenderLayerProvider;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.blocks.EdenBlockProperties.BalloonMushroomStemState;
 import paulevs.edenring.registries.EdenBlocks;
-import ru.bclib.blocks.BaseBlockNotFull;
-import ru.bclib.client.models.ModelsHelper;
-import ru.bclib.client.render.BCLRenderLayer;
-import ru.bclib.interfaces.RenderLayerProvider;
 
 import java.util.Map;
 

@@ -12,12 +12,12 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.level.levelgen.Heightmap.Types;
+import org.betterx.bclib.api.v2.spawning.SpawnRuleBuilder;
+import org.betterx.bclib.config.PathConfig;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.entities.DiskwingEntity;
 import paulevs.edenring.entities.EdenPainting;
 import paulevs.edenring.entities.LightningRayEntity;
-import ru.bclib.api.spawning.SpawnRuleBuilder;
-import ru.bclib.config.PathConfig;
 
 public class EdenEntities {
 	private static final PathConfig ENTITY_CONFIG = new PathConfig(EdenRing.MOD_ID, "entities");

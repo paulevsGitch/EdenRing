@@ -15,11 +15,11 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.GrassBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import ru.bclib.blocks.BaseDoublePlantBlock;
-import ru.bclib.client.models.ModelsHelper;
-import ru.bclib.client.models.PatternsHelper;
-import ru.bclib.interfaces.CustomColorProvider;
-import ru.bclib.util.ColorUtil;
+import org.betterx.bclib.blocks.BaseDoublePlantBlock;
+import org.betterx.bclib.client.models.ModelsHelper;
+import org.betterx.bclib.client.models.PatternsHelper;
+import org.betterx.bclib.interfaces.CustomColorProvider;
+import org.betterx.bclib.util.ColorUtil;
 
 import java.util.Map;
 import java.util.Optional;

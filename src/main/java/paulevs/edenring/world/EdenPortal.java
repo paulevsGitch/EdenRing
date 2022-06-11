@@ -10,10 +10,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import org.betterx.bclib.util.BlocksHelper;
 import paulevs.edenring.blocks.EdenBlockProperties;
 import paulevs.edenring.blocks.EdenBlockProperties.EdenPortalState;
 import paulevs.edenring.registries.EdenBlocks;
-import ru.bclib.util.BlocksHelper;
 
 import java.util.Map;
 

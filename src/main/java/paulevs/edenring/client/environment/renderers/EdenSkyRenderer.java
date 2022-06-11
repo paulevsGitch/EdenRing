@@ -3,6 +3,7 @@ package paulevs.edenring.client.environment.renderers;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.BufferBuilder.RenderedBuffer;
 import com.mojang.blaze3d.vertex.BufferUploader;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -22,16 +23,16 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.CubicSampler;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.biome.BiomeManager;
+import net.minecraft.world.level.levelgen.XoroshiroRandomSource;
 import net.minecraft.world.phys.Vec3;
+import org.betterx.bclib.util.BackgroundInfo;
+import org.betterx.bclib.util.MHelper;
 import org.lwjgl.opengl.GL11;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.client.EdenRingClient;
 import paulevs.edenring.world.MoonInfo;
-import ru.bclib.util.BackgroundInfo;
-import ru.bclib.util.MHelper;
-
-import java.util.Random;
 
 @Environment(value= EnvType.CLIENT)
 public class EdenSkyRenderer implements SkyRenderer {
@@ -54,8 +55,6 @@ public class EdenSkyRenderer implements SkyRenderer {
 	private static VertexBuffer stars;
 	
 	private boolean shouldInit = true;
-	private static int windowHeight;
-	private static int windowWidth;
 	
 	private void init() {
 		shouldInit = false;
@@ -79,7 +78,7 @@ public class EdenSkyRenderer implements SkyRenderer {
 		
 		stars = buildBufferSquares(bufferBuilder, stars, 0.125, 0.875, 5000, 4, 41315);
 		
-		Random random = new Random(0);
+		RandomSource random = new XoroshiroRandomSource(0);
 		for (int i = 0; i < MOONS.length; i++) {
 			MOONS[i] = new MoonInfo(random);
 		}
@@ -147,8 +146,7 @@ public class EdenSkyRenderer implements SkyRenderer {
 		bufferBuilder.vertex(projectionMatrix,  10.0F, -10.0F, 0.0F).endVertex();
 		bufferBuilder.vertex(projectionMatrix,  10.0F,  10.0F, 0.0F).endVertex();
 		bufferBuilder.vertex(projectionMatrix, -10.0F,  10.0F, 0.0F).endVertex();
-		bufferBuilder.end();
-		BufferUploader.end(bufferBuilder);
+		BufferUploader.drawWithShader(bufferBuilder.end());
 		
 		// Render Nebula And Stars //
 		
@@ -189,8 +187,7 @@ public class EdenSkyRenderer implements SkyRenderer {
 		bufferBuilder.vertex(matrix,  80.0F, 100.0F, -80.0F).uv(1.0F, 0.0F).endVertex();
 		bufferBuilder.vertex(matrix,  80.0F, 100.0F,  80.0F).uv(1.0F, 1.0F).endVertex();
 		bufferBuilder.vertex(matrix, -80.0F, 100.0F,  80.0F).uv(0.0F, 1.0F).endVertex();
-		bufferBuilder.end();
-		BufferUploader.end(bufferBuilder);
+		BufferUploader.drawWithShader(bufferBuilder.end());
 		
 		float color = (float) Math.cos(dayTime * Math.PI * 2) * 1.1F;
 		color = Mth.clamp(color, 0.3F, 1.0F);
@@ -202,8 +199,7 @@ public class EdenSkyRenderer implements SkyRenderer {
 		bufferBuilder.vertex(matrix,  30.0F, 100.0F, -30.0F).uv(1.0F, 0.0F).endVertex();
 		bufferBuilder.vertex(matrix,  30.0F, 100.0F,  30.0F).uv(1.0F, 1.0F).endVertex();
 		bufferBuilder.vertex(matrix, -30.0F, 100.0F,  30.0F).uv(0.0F, 1.0F).endVertex();
-		bufferBuilder.end();
-		BufferUploader.end(bufferBuilder);
+		BufferUploader.drawWithShader(bufferBuilder.end());
 		RenderSystem.defaultBlendFunc();
 		
 		poseStack.popPose();
@@ -229,8 +225,7 @@ public class EdenSkyRenderer implements SkyRenderer {
 		bufferBuilder.vertex(matrix,  130.0F, 0.0F, -130.0F).uv(1.0F, 0.0F).endVertex();
 		bufferBuilder.vertex(matrix,  130.0F, 0.0F,  130.0F).uv(1.0F, 1.0F).endVertex();
 		bufferBuilder.vertex(matrix, -130.0F, 0.0F,  130.0F).uv(0.0F, 1.0F).endVertex();
-		bufferBuilder.end();
-		BufferUploader.end(bufferBuilder);
+		BufferUploader.drawWithShader(bufferBuilder.end());
 		
 		poseStack.popPose();
 		
@@ -259,8 +254,7 @@ public class EdenSkyRenderer implements SkyRenderer {
 		bufferBuilder.vertex(matrix,  140,  140, 0.0F).uv(1.0F, 0.0F).endVertex();
 		bufferBuilder.vertex(matrix,  140, -140, 0.0F).uv(1.0F, 1.0F).endVertex();
 		bufferBuilder.vertex(matrix, -140, -140, 0.0F).uv(0.0F, 1.0F).endVertex();
-		bufferBuilder.end();
-		BufferUploader.end(bufferBuilder);
+		BufferUploader.drawWithShader(bufferBuilder.end());
 		
 		poseStack.popPose();
 		
@@ -287,8 +281,7 @@ public class EdenSkyRenderer implements SkyRenderer {
 			bufferBuilder.vertex(matrix,  130.0F, 0.001F,   0.0F).uv(1.0F, 0.5F).endVertex();
 			bufferBuilder.vertex(matrix,  130.0F, 0.001F, 130.0F).uv(1.0F, 1.0F).endVertex();
 			bufferBuilder.vertex(matrix, -130.0F, 0.001F, 130.0F).uv(0.0F, 1.0F).endVertex();
-			bufferBuilder.end();
-			BufferUploader.end(bufferBuilder);
+			BufferUploader.drawWithShader(bufferBuilder.end());
 			poseStack.popPose();
 		}
 		
@@ -357,8 +350,7 @@ public class EdenSkyRenderer implements SkyRenderer {
 			bufferBuilder.vertex(projectionMatrix, 10.0F, -10.0F, 0.0F).endVertex();
 			bufferBuilder.vertex(projectionMatrix, 10.0F, 10.0F, 0.0F).endVertex();
 			bufferBuilder.vertex(projectionMatrix, -10.0F, 10.0F, 0.0F).endVertex();
-			bufferBuilder.end();
-			BufferUploader.end(bufferBuilder);
+			BufferUploader.drawWithShader(bufferBuilder.end());
 		}
 		
 		// Finalize //
@@ -378,20 +370,23 @@ public class EdenSkyRenderer implements SkyRenderer {
 		
 		buffer = new VertexBuffer();
 		makeCylinder(bufferBuilder, 16, height, 100);
-		bufferBuilder.end();
-		buffer.upload(bufferBuilder);
+		RenderedBuffer renderBuffer = bufferBuilder.end();
+		buffer.bind();
+		buffer.upload(renderBuffer);
 		
 		return buffer;
 	}
 	
 	private void renderBuffer(PoseStack matrices, Matrix4f matrix4f, VertexBuffer buffer, VertexFormat format, float r, float g, float b, float a) {
 		RenderSystem.setShaderColor(r, g, b, a);
+		buffer.bind();
 		if (format == DefaultVertexFormat.POSITION) {
 			buffer.drawWithShader(matrices.last().pose(), matrix4f, GameRenderer.getPositionShader());
 		}
 		else {
 			buffer.drawWithShader(matrices.last().pose(), matrix4f, GameRenderer.getPositionTexShader());
 		}
+		VertexBuffer.unbind();
 	}
 	
 	private void makeCylinder(BufferBuilder buffer, int segments, double height, double radius) {
@@ -421,14 +416,15 @@ public class EdenSkyRenderer implements SkyRenderer {
 		
 		buffer = new VertexBuffer();
 		makeStars(bufferBuilder, minSize, maxSize, count, verticalCount, seed);
-		bufferBuilder.end();
-		buffer.upload(bufferBuilder);
+		RenderedBuffer renderBuffer = bufferBuilder.end();
+		buffer.bind();
+		buffer.upload(renderBuffer);
 		
 		return buffer;
 	}
 	
 	private void makeStars(BufferBuilder buffer, double minSize, double maxSize, int count, int verticalCount, long seed) {
-		Random random = new Random(seed);
+		RandomSource random = new XoroshiroRandomSource(seed);
 		buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 		
 		for (int i = 0; i < count; ++i) {
@@ -492,8 +488,7 @@ public class EdenSkyRenderer implements SkyRenderer {
 		bufferBuilder.vertex(matrix,  size,  size, 0.0F).uv(1.0F, v0).endVertex();
 		bufferBuilder.vertex(matrix,  size, -size, 0.0F).uv(1.0F, v1).endVertex();
 		bufferBuilder.vertex(matrix, -size, -size, 0.0F).uv(0.0F, v1).endVertex();
-		bufferBuilder.end();
-		BufferUploader.end(bufferBuilder);
+		BufferUploader.drawWithShader(bufferBuilder.end());
 		
 		matrices.popPose();
 	}

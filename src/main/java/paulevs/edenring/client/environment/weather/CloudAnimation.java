@@ -2,11 +2,10 @@ package paulevs.edenring.client.environment.weather;
 
 import com.mojang.math.Vector3f;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.AABB;
+import org.betterx.bclib.util.MHelper;
 import paulevs.edenring.client.environment.animation.SpriteAnimation;
-import ru.bclib.util.MHelper;
-
-import java.util.Random;
 
 public class CloudAnimation extends SpriteAnimation {
 	private static final float DISTANCE = 300.0F;
@@ -21,7 +20,7 @@ public class CloudAnimation extends SpriteAnimation {
 	private float scale;
 	private float alpha;
 	
-	public CloudAnimation(BlockPos origin, Random random) {
+	public CloudAnimation(BlockPos origin, RandomSource random) {
 		super(origin);
 		this.start = random.nextInt(4096);
 		this.index = (byte) random.nextInt(4);

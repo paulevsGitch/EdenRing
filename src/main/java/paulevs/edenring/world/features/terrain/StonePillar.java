@@ -2,34 +2,33 @@ package paulevs.edenring.world.features.terrain;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import org.betterx.bclib.api.v2.levelgen.features.features.DefaultFeature;
+import org.betterx.bclib.blocks.BlockProperties;
+import org.betterx.bclib.blocks.BlockProperties.TripleShape;
+import org.betterx.bclib.noise.OpenSimplexNoise;
+import org.betterx.bclib.sdf.SDF;
+import org.betterx.bclib.sdf.operator.SDFDisplacement;
+import org.betterx.bclib.sdf.operator.SDFScale3D;
+import org.betterx.bclib.sdf.operator.SDFSmoothUnion;
+import org.betterx.bclib.sdf.operator.SDFTranslate;
+import org.betterx.bclib.sdf.primitive.SDFCappedCone;
+import org.betterx.bclib.sdf.primitive.SDFSphere;
+import org.betterx.bclib.util.MHelper;
 import paulevs.edenring.blocks.EdenGrassBlock;
 import paulevs.edenring.registries.EdenBlocks;
-import ru.bclib.blocks.BlockProperties;
-import ru.bclib.blocks.BlockProperties.TripleShape;
-import ru.bclib.noise.OpenSimplexNoise;
-import ru.bclib.sdf.SDF;
-import ru.bclib.sdf.operator.SDFDisplacement;
-import ru.bclib.sdf.operator.SDFScale3D;
-import ru.bclib.sdf.operator.SDFSmoothUnion;
-import ru.bclib.sdf.operator.SDFTranslate;
-import ru.bclib.sdf.primitive.SDFCappedCone;
-import ru.bclib.sdf.primitive.SDFSphere;
-import ru.bclib.util.MHelper;
-import ru.bclib.world.features.DefaultFeature;
-
-import java.util.Random;
 
 public class StonePillar extends DefaultFeature {
 	@Override
 	public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> featurePlaceContext) {
 		WorldGenLevel level = featurePlaceContext.level();
 		BlockPos center = featurePlaceContext.origin();
-		Random random = featurePlaceContext.random();
+		RandomSource random = featurePlaceContext.random();
 		center = getPosOnSurface(level, center);
 		
 		if (center.getY() < 5) {

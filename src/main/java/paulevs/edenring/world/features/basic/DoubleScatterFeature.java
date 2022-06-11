@@ -1,14 +1,13 @@
 package paulevs.edenring.world.features.basic;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import ru.bclib.blocks.BaseDoublePlantBlock;
-import ru.bclib.util.BlocksHelper;
-import ru.bclib.util.MHelper;
-
-import java.util.Random;
+import org.betterx.bclib.blocks.BaseDoublePlantBlock;
+import org.betterx.bclib.util.BlocksHelper;
+import org.betterx.bclib.util.MHelper;
 
 public class DoubleScatterFeature extends ScatterFeature {
 	private int count;
@@ -23,7 +22,7 @@ public class DoubleScatterFeature extends ScatterFeature {
 	}
 	
 	@Override
-	protected int getCount(Random random) {
+	protected int getCount(RandomSource random) {
 		return MHelper.randRange(count >> 1, count, random);
 	}
 	

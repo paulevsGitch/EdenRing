@@ -17,9 +17,9 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ItemStack;
+import org.betterx.bclib.util.JsonFactory;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.client.ItemScaler;
-import ru.bclib.util.JsonFactory;
 
 import java.awt.Point;
 import java.util.ArrayList;

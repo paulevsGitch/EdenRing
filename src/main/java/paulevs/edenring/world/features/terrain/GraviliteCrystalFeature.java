@@ -4,24 +4,23 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import org.betterx.bclib.api.v2.levelgen.features.features.DefaultFeature;
+import org.betterx.bclib.util.BlocksHelper;
+import org.betterx.bclib.util.MHelper;
 import paulevs.edenring.registries.EdenBlocks;
-import ru.bclib.util.BlocksHelper;
-import ru.bclib.util.MHelper;
-import ru.bclib.world.features.DefaultFeature;
-
-import java.util.Random;
 
 public class GraviliteCrystalFeature extends DefaultFeature {
 	@Override
 	public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> featurePlaceContext) {
 		WorldGenLevel level = featurePlaceContext.level();
 		BlockPos center = featurePlaceContext.origin();
-		Random random = featurePlaceContext.random();
+		RandomSource random = featurePlaceContext.random();
 		
 		center = new BlockPos(center.getX(), MHelper.randRange(64, 192, random), center.getZ());
 		
@@ -61,7 +60,7 @@ public class GraviliteCrystalFeature extends DefaultFeature {
 		return true;
 	}
 	
-	private void makeCluster(WorldGenLevel level, BlockPos center, int height, Random random, BlockState pillar, BlockState crystalTop, BlockState crystalBottom) {
+	private void makeCluster(WorldGenLevel level, BlockPos center, int height, RandomSource random, BlockState pillar, BlockState crystalTop, BlockState crystalBottom) {
 		float radius = height * 0.2F;
 		MutableBlockPos pos = new MutableBlockPos();
 		int count = (int) MHelper.randRange(radius * 5, radius * 10, random);

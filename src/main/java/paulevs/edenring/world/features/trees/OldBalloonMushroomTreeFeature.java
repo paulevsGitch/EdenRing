@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
@@ -14,25 +15,24 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.material.Material;
+import org.betterx.bclib.api.v2.levelgen.features.features.DefaultFeature;
+import org.betterx.bclib.complexmaterials.WoodenComplexMaterial;
+import org.betterx.bclib.util.BlocksHelper;
+import org.betterx.bclib.util.MHelper;
 import paulevs.edenring.blocks.EdenBlockProperties;
 import paulevs.edenring.blocks.EdenBlockProperties.BalloonMushroomStemState;
 import paulevs.edenring.blocks.EdenBlockProperties.QuadShape;
 import paulevs.edenring.registries.EdenBlocks;
-import ru.bclib.complexmaterials.WoodenComplexMaterial;
-import ru.bclib.util.BlocksHelper;
-import ru.bclib.util.MHelper;
-import ru.bclib.world.features.DefaultFeature;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class OldBalloonMushroomTreeFeature extends DefaultFeature {
 	@Override
 	public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> featurePlaceContext) {
 		WorldGenLevel level = featurePlaceContext.level();
 		BlockPos center = featurePlaceContext.origin();
-		Random random = featurePlaceContext.random();
+		RandomSource random = featurePlaceContext.random();
 		
 		Block below = level.getBlockState(center.below()).getBlock();
 		if (!(below instanceof GrassBlock) && below != Blocks.DIRT) {
@@ -80,7 +80,7 @@ public class OldBalloonMushroomTreeFeature extends DefaultFeature {
 		}
 	}
 	
-	private void makeCap(WorldGenLevel level, MutableBlockPos p, BlockState block, byte height, Random random) {
+	private void makeCap(WorldGenLevel level, MutableBlockPos p, BlockState block, byte height, RandomSource random) {
 		BlockState bottom = block.setValue(EdenBlockProperties.NATURAL, true);
 		
 		BlockState state = EdenBlocks.BALLOON_MUSHROOM_HYMENOPHORE.defaultBlockState();
@@ -172,7 +172,7 @@ public class OldBalloonMushroomTreeFeature extends DefaultFeature {
 		}
 	}
 	
-	private void makeRoots(WorldGenLevel level, BlockPos center, MutableBlockPos p, BlockState log, BlockState bark, BlockState stem, Random random) {
+	private void makeRoots(WorldGenLevel level, BlockPos center, MutableBlockPos p, BlockState log, BlockState bark, BlockState stem, RandomSource random) {
 		byte[][] mask = new byte[4][4];
 		mask[1][1] = 4;
 		mask[1][2] = 4;
@@ -251,7 +251,7 @@ public class OldBalloonMushroomTreeFeature extends DefaultFeature {
 		}
 	}
 	
-	private void makeBranches(WorldGenLevel level, BlockPos center, MutableBlockPos p, BlockState stem, byte height, Random random) {
+	private void makeBranches(WorldGenLevel level, BlockPos center, MutableBlockPos p, BlockState stem, byte height, RandomSource random) {
 		BlockState branch = EdenBlocks.BALLOON_MUSHROOM_BRANCH.defaultBlockState().setValue(BlockStateProperties.UP, true);
 		for (byte i = 0; i < 2; i++) {
 			if (random.nextInt(4) > 0) {

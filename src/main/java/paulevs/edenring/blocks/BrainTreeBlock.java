@@ -13,6 +13,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
@@ -31,24 +32,23 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.AABB;
+import org.betterx.bclib.blocks.BaseBlock;
+import org.betterx.bclib.blocks.BlockProperties;
+import org.betterx.bclib.client.models.ModelsHelper;
+import org.betterx.bclib.client.models.PatternsHelper;
+import org.betterx.bclib.client.render.BCLRenderLayer;
+import org.betterx.bclib.interfaces.BlockModelProvider;
+import org.betterx.bclib.interfaces.RenderLayerProvider;
+import org.betterx.bclib.util.MHelper;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.entities.LightningRayEntity;
 import paulevs.edenring.registries.EdenEntities;
 import paulevs.edenring.registries.EdenSounds;
-import ru.bclib.blocks.BaseBlock;
-import ru.bclib.blocks.BlockProperties;
-import ru.bclib.client.models.ModelsHelper;
-import ru.bclib.client.models.PatternsHelper;
-import ru.bclib.client.render.BCLRenderLayer;
-import ru.bclib.interfaces.BlockModelProvider;
-import ru.bclib.interfaces.RenderLayerProvider;
-import ru.bclib.util.MHelper;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Random;
 
 public class BrainTreeBlock extends BaseBlock implements BlockModelProvider, RenderLayerProvider {
 	public static final BooleanProperty	ACTIVE = BlockProperties.ACTIVE;
@@ -96,7 +96,7 @@ public class BrainTreeBlock extends BaseBlock implements BlockModelProvider, Ren
 	
 	@Override
 	@SuppressWarnings("deprecation")
-	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, Random random) {
+	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		if (state.getValue(ACTIVE)) {
 			hitLighting(level, random, pos);
 			if (!state.getValue(POWERED)) {
@@ -118,7 +118,7 @@ public class BrainTreeBlock extends BaseBlock implements BlockModelProvider, Ren
 		}
 	}
 	
-	private void hitLighting(ServerLevel world, Random random, BlockPos pos) {
+	private void hitLighting(ServerLevel world, RandomSource random, BlockPos pos) {
 		List<LivingEntity> entities = world.getNearbyEntities(LivingEntity.class, TargetingConditions.forNonCombat(), null, new AABB(pos).inflate(16, 16, 16));
 		if (!entities.isEmpty()) {
 			LivingEntity entity = entities.get(random.nextInt(entities.size()));
@@ -207,7 +207,7 @@ public class BrainTreeBlock extends BaseBlock implements BlockModelProvider, Ren
 	}
 	
 	@Override
-	public void animateTick(BlockState blockState, Level level, BlockPos blockPos, Random random) {
+	public void animateTick(BlockState blockState, Level level, BlockPos blockPos, RandomSource random) {
 		if (!blockState.getValue(ACTIVE)) {
 			return;
 		}

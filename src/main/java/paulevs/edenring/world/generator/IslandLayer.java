@@ -2,20 +2,21 @@ package paulevs.edenring.world.generator;
 
 import com.google.common.collect.Maps;
 import net.minecraft.core.BlockPos;
-import ru.bclib.noise.OpenSimplexNoise;
-import ru.bclib.sdf.SDF;
-import ru.bclib.util.MHelper;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.levelgen.XoroshiroRandomSource;
+import org.betterx.bclib.noise.OpenSimplexNoise;
+import org.betterx.bclib.sdf.SDF;
+import org.betterx.bclib.util.MHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 public class IslandLayer {
 	private final Map<BlockPos, SDF> islandCache = Maps.newHashMap();
 	private final List<BlockPos> positions = new ArrayList<>(9);
 	private final List<SDF> nearIslands = new ArrayList<>(9);
-	private final Random random = new Random();
+	private final RandomSource random = new XoroshiroRandomSource(0);
 	private final OpenSimplexNoise density;
 	private final LayerOptions options;
 	private final int seed;

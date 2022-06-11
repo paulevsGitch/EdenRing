@@ -9,9 +9,9 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.betterx.bclib.BCLib;
+import org.betterx.bclib.items.ModelProviderItem;
 import paulevs.edenring.gui.GuideBookScreen;
-import ru.bclib.BCLib;
-import ru.bclib.items.ModelProviderItem;
 
 public class GuideBookItem extends ModelProviderItem {
 	public GuideBookItem(Properties properties) {

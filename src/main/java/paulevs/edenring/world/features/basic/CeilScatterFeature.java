@@ -4,21 +4,20 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import ru.bclib.util.MHelper;
-import ru.bclib.world.features.DefaultFeature;
-
-import java.util.Random;
+import org.betterx.bclib.api.v2.levelgen.features.features.DefaultFeature;
+import org.betterx.bclib.util.MHelper;
 
 public abstract class CeilScatterFeature extends DefaultFeature {
 	@Override
 	public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> featurePlaceContext) {
 		WorldGenLevel level = featurePlaceContext.level();
 		BlockPos center = featurePlaceContext.origin();
-		Random random = featurePlaceContext.random();
+		RandomSource random = featurePlaceContext.random();
 		Biome biome = level.getBiome(center).value();
 		
 		MutableBlockPos pos = center.mutable();
@@ -54,5 +53,5 @@ public abstract class CeilScatterFeature extends DefaultFeature {
 		return true;
 	}
 	
-	protected abstract void generate(WorldGenLevel level, MutableBlockPos pos, Random random);
+	protected abstract void generate(WorldGenLevel level, MutableBlockPos pos, RandomSource random);
 }

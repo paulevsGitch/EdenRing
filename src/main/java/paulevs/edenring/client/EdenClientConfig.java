@@ -1,8 +1,8 @@
 package paulevs.edenring.client;
 
+import org.betterx.bclib.config.ConfigUI;
+import org.betterx.bclib.config.NamedPathConfig;
 import paulevs.edenring.EdenRing;
-import ru.bclib.config.ConfigUI;
-import ru.bclib.config.NamedPathConfig;
 
 public class EdenClientConfig extends NamedPathConfig {
 	@ConfigUI

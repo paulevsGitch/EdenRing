@@ -5,21 +5,20 @@ import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.material.Material;
+import org.betterx.bclib.api.v2.levelgen.features.features.DefaultFeature;
+import org.betterx.bclib.blocks.BlockProperties;
+import org.betterx.bclib.blocks.BlockProperties.TripleShape;
+import org.betterx.bclib.complexmaterials.WoodenComplexMaterial;
+import org.betterx.bclib.util.BlocksHelper;
+import org.betterx.bclib.util.MHelper;
 import paulevs.edenring.registries.EdenBlocks;
-import ru.bclib.blocks.BlockProperties;
-import ru.bclib.blocks.BlockProperties.TripleShape;
-import ru.bclib.complexmaterials.WoodenComplexMaterial;
-import ru.bclib.util.BlocksHelper;
-import ru.bclib.util.MHelper;
-import ru.bclib.world.features.DefaultFeature;
-
-import java.util.Random;
 
 public class AuritisTreeFeature extends DefaultFeature {
 	@Override
@@ -27,7 +26,7 @@ public class AuritisTreeFeature extends DefaultFeature {
 	public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> featurePlaceContext) {
 		WorldGenLevel level = featurePlaceContext.level();
 		BlockPos center = featurePlaceContext.origin();
-		Random random = featurePlaceContext.random();
+		RandomSource random = featurePlaceContext.random();
 		
 		if (!EdenBlocks.AURITIS_SAPLING.canSurvive(EdenBlocks.AURITIS_SAPLING.defaultBlockState(), level, center)) {
 			return false;
@@ -96,7 +95,7 @@ public class AuritisTreeFeature extends DefaultFeature {
 		return true;
 	}
 	
-	private void makeBranch(WorldGenLevel level, BlockPos pos, float dx, float dz, int length, BlockState bark, BlockState leaves, BlockState moss, boolean natural, Random random) {
+	private void makeBranch(WorldGenLevel level, BlockPos pos, float dx, float dz, int length, BlockState bark, BlockState leaves, BlockState moss, boolean natural, RandomSource random) {
 		MutableBlockPos mut = pos.mutable();
 		float px = 0.5F;
 		float pz = 0.5F;
@@ -120,12 +119,12 @@ public class AuritisTreeFeature extends DefaultFeature {
 		makeCanopy(level, mut, leaves, natural, random);
 	}
 	
-	private void makeCanopy(WorldGenLevel level, BlockPos pos, BlockState leaves, boolean generateVines, Random random) {
+	private void makeCanopy(WorldGenLevel level, BlockPos pos, BlockState leaves, boolean generateVines, RandomSource random) {
 		makeCircle(level, pos, leaves, 2, 0, generateVines, random);
 		makeCircle(level, pos.above(), leaves, 1, 1, false, random);
 	}
 	
-	private void makeCircle(WorldGenLevel level, BlockPos pos, BlockState leaves, int radius, int offset, boolean generateVines, Random random) {
+	private void makeCircle(WorldGenLevel level, BlockPos pos, BlockState leaves, int radius, int offset, boolean generateVines, RandomSource random) {
 		BlockState bottom = EdenBlocks.EDEN_VINE.defaultBlockState().setValue(BlockProperties.TRIPLE_SHAPE, TripleShape.BOTTOM);
 		BlockState middle = EdenBlocks.EDEN_VINE.defaultBlockState().setValue(BlockProperties.TRIPLE_SHAPE, TripleShape.MIDDLE);
 		BlockState top = EdenBlocks.EDEN_VINE.defaultBlockState().setValue(BlockProperties.TRIPLE_SHAPE, TripleShape.TOP);

@@ -11,6 +11,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -26,21 +27,20 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.betterx.bclib.blocks.BaseBlockNotFull;
+import org.betterx.bclib.client.models.ModelsHelper;
+import org.betterx.bclib.client.models.PatternsHelper;
+import org.betterx.bclib.client.render.BCLRenderLayer;
+import org.betterx.bclib.interfaces.RenderLayerProvider;
+import org.betterx.bclib.util.MHelper;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.blocks.EdenBlockProperties.PulseTreeState;
 import paulevs.edenring.registries.EdenBlocks;
-import ru.bclib.blocks.BaseBlockNotFull;
-import ru.bclib.client.models.ModelsHelper;
-import ru.bclib.client.models.PatternsHelper;
-import ru.bclib.client.render.BCLRenderLayer;
-import ru.bclib.interfaces.RenderLayerProvider;
-import ru.bclib.util.MHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Random;
 
 public class PulseTreeBlock extends BaseBlockNotFull implements RenderLayerProvider {
 	public static final EnumProperty<PulseTreeState> PULSE_TREE = EdenBlockProperties.PULSE_TREE;
@@ -139,7 +139,7 @@ public class PulseTreeBlock extends BaseBlockNotFull implements RenderLayerProvi
 	
 	@Override
 	@SuppressWarnings("deprecation")
-	public void tick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, Random random) {
+	public void tick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource random) {
 		if (!canSurvive(blockState, serverLevel, blockPos)) {
 			serverLevel.destroyBlock(blockPos, true);
 		}

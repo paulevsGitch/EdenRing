@@ -14,12 +14,12 @@ import net.minecraft.world.level.GrassColor;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
-import ru.bclib.blocks.BaseVineBlock;
-import ru.bclib.blocks.BlockProperties.TripleShape;
-import ru.bclib.client.models.ModelsHelper;
-import ru.bclib.client.models.PatternsHelper;
-import ru.bclib.interfaces.CustomColorProvider;
-import ru.bclib.util.ColorUtil;
+import org.betterx.bclib.blocks.BaseVineBlock;
+import org.betterx.bclib.blocks.BlockProperties.TripleShape;
+import org.betterx.bclib.client.models.ModelsHelper;
+import org.betterx.bclib.client.models.PatternsHelper;
+import org.betterx.bclib.interfaces.CustomColorProvider;
+import org.betterx.bclib.util.ColorUtil;
 
 import java.util.Map;
 import java.util.Optional;

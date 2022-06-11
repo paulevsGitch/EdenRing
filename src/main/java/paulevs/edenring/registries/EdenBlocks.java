@@ -19,6 +19,21 @@ import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
+import org.betterx.bclib.api.v2.BonemealAPI;
+import org.betterx.bclib.api.v2.ComposterAPI;
+import org.betterx.bclib.api.v2.ShovelAPI;
+import org.betterx.bclib.api.v2.tag.NamedBlockTags;
+import org.betterx.bclib.api.v2.tag.NamedItemTags;
+import org.betterx.bclib.api.v2.tag.NamedMineableTags;
+import org.betterx.bclib.api.v2.tag.TagAPI;
+import org.betterx.bclib.blocks.BaseBlock;
+import org.betterx.bclib.blocks.BaseLeavesBlock;
+import org.betterx.bclib.blocks.BaseVineBlock;
+import org.betterx.bclib.blocks.FeatureSaplingBlock;
+import org.betterx.bclib.complexmaterials.ComplexMaterial;
+import org.betterx.bclib.complexmaterials.WoodenComplexMaterial;
+import org.betterx.bclib.config.PathConfig;
+import org.betterx.bclib.registry.BlockRegistry;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.blocks.AquatusBlock;
 import paulevs.edenring.blocks.AquatusRootsBlock;
@@ -58,21 +73,6 @@ import paulevs.edenring.blocks.TexturedTerrainBlock;
 import paulevs.edenring.blocks.VolvoxBlock;
 import paulevs.edenring.blocks.VolvoxBlockDense;
 import paulevs.edenring.blocks.complex.BrainTreeComplexMaterial;
-import ru.bclib.api.BonemealAPI;
-import ru.bclib.api.ComposterAPI;
-import ru.bclib.api.ShovelAPI;
-import ru.bclib.api.tag.NamedBlockTags;
-import ru.bclib.api.tag.NamedItemTags;
-import ru.bclib.api.tag.NamedMineableTags;
-import ru.bclib.api.tag.TagAPI;
-import ru.bclib.blocks.BaseBlock;
-import ru.bclib.blocks.BaseLeavesBlock;
-import ru.bclib.blocks.BaseVineBlock;
-import ru.bclib.blocks.FeatureSaplingBlock;
-import ru.bclib.complexmaterials.ComplexMaterial;
-import ru.bclib.complexmaterials.WoodenComplexMaterial;
-import ru.bclib.config.PathConfig;
-import ru.bclib.registry.BlockRegistry;
 
 import java.util.Map;
 
@@ -83,7 +83,7 @@ public class EdenBlocks {
 	public static final Block EDEN_MYCELIUM = register("eden_mycelium", new TexturedTerrainBlock());
 	public static final Block MOSSY_STONE = register("mossy_stone", new MossyStoneBlock());
 	
-	public static final Block AURITIS_SAPLING = register("auritis_sapling", new FeatureSaplingBlock((state) -> EdenFeatures.AURITIS_TREE.getFeature()));
+	public static final Block AURITIS_SAPLING = register("auritis_sapling", new FeatureSaplingBlock((state) -> EdenFeatures.AURITIS_TREE));
 	public static final Block AURITIS_LEAVES = register("auritis_leaves", new AuritisLeavesBlock());
 	public static final ComplexMaterial AURITIS_MATERIAL = new WoodenComplexMaterial(EdenRing.MOD_ID, "auritis", "eden", MaterialColor.COLOR_BROWN, MaterialColor.GOLD).init(REGISTRY, EdenItems.REGISTRY, new PathConfig(EdenRing.MOD_ID, "recipes"));
 	
@@ -113,7 +113,7 @@ public class EdenBlocks {
 		}
 	}
 	
-	public static final Block PULSE_TREE_SAPLING = register("pulse_tree_sapling", new FeatureSaplingBlock((state) -> EdenFeatures.PULSE_TREE.getFeature()));
+	public static final Block PULSE_TREE_SAPLING = register("pulse_tree_sapling", new FeatureSaplingBlock((state) -> EdenFeatures.PULSE_TREE));
 	public static final Block PULSE_TREE = register("pulse_tree", new PulseTreeBlock());
 	public static final ComplexMaterial PULSE_TREE_MATERIAL = new WoodenComplexMaterial(EdenRing.MOD_ID, "pulse_tree", "eden", MaterialColor.COLOR_CYAN, MaterialColor.COLOR_CYAN).init(REGISTRY, EdenItems.REGISTRY, EdenRecipes.CONFIG);
 	

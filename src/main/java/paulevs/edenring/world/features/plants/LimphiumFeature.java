@@ -1,16 +1,15 @@
 package paulevs.edenring.world.features.plants;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import org.betterx.bclib.util.MHelper;
 import paulevs.edenring.blocks.LimphiumSapling;
 import paulevs.edenring.registries.EdenBlocks;
 import paulevs.edenring.world.features.basic.ScatterFeature;
-import ru.bclib.util.MHelper;
-
-import java.util.Random;
 
 public class LimphiumFeature extends ScatterFeature {
 	public LimphiumFeature() {
@@ -27,7 +26,7 @@ public class LimphiumFeature extends ScatterFeature {
 	}
 	
 	@Override
-	protected int getCount(Random random) {
+	protected int getCount(RandomSource random) {
 		return MHelper.randRange(5, 10, random);
 	}
 	

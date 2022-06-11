@@ -1,14 +1,13 @@
 package paulevs.edenring.blocks;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MaterialColor;
+import org.betterx.bclib.blocks.BaseLeavesBlock;
 import paulevs.edenring.registries.EdenBlocks;
 import paulevs.edenring.registries.EdenParticles;
-import ru.bclib.blocks.BaseLeavesBlock;
-
-import java.util.Random;
 
 public class AuritisLeavesBlock extends BaseLeavesBlock {
 	public AuritisLeavesBlock() {
@@ -16,7 +15,7 @@ public class AuritisLeavesBlock extends BaseLeavesBlock {
 	}
 	
 	@Override
-	public void animateTick(BlockState blockState, Level level, BlockPos pos, Random random) {
+	public void animateTick(BlockState blockState, Level level, BlockPos pos, RandomSource random) {
 		if (random.nextInt(128) == 0 && level.getBlockState(pos.below()).isAir()) {
 			float dx = random.nextFloat();
 			float dz = random.nextFloat();

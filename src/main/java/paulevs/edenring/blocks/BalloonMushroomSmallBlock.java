@@ -1,31 +1,38 @@
 package paulevs.edenring.blocks;
 
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.betterx.bclib.blocks.FeatureSaplingBlock;
 import paulevs.edenring.registries.EdenBlocks;
 import paulevs.edenring.registries.EdenFeatures;
-import ru.bclib.blocks.FeatureSaplingBlock;
 
 import java.util.Optional;
-import java.util.Random;
 
 public class BalloonMushroomSmallBlock extends FeatureSaplingBlock {
 	private static final VoxelShape SHAPE = Block.box(4, 0, 4, 12, 8, 12);
 	
 	public BalloonMushroomSmallBlock() {
-		super((state) -> EdenFeatures.BALLOON_MUSHROOM_TREE.getFeature());
+		super(FabricBlockSettings
+			.of(Material.PLANT)
+			.collidable(false)
+			.instabreak()
+			.sound(SoundType.GRASS)
+			.offsetType(OffsetType.XZ),
+			(state) -> EdenFeatures.BALLOON_MUSHROOM_TREE
+		);
 	}
-	
-	@Override
-	public void randomTick(BlockState state, ServerLevel world, BlockPos pos, Random random) {}
 	
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter view, BlockPos pos, CollisionContext ePos) {
@@ -34,17 +41,12 @@ public class BalloonMushroomSmallBlock extends FeatureSaplingBlock {
 	}
 	
 	@Override
-	public OffsetType getOffsetType() {
-		return OffsetType.XZ;
-	}
-	
-	@Override
 	protected boolean mayPlaceOn(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
 		return blockState.is(EdenBlocks.EDEN_MYCELIUM);
 	}
 	
 	@Override
-	public void advanceTree(ServerLevel level, BlockPos pos, BlockState blockState, Random random) {
+	public void advanceTree(ServerLevel level, BlockPos pos, BlockState blockState, RandomSource random) {
 		BlockPos start = getStart(level, pos);
 		if (start == null) super.advanceTree(level, pos, blockState, random);
 		FeaturePlaceContext context = new FeaturePlaceContext(Optional.empty(), level, level.getChunkSource().getGenerator(), random, start, null);

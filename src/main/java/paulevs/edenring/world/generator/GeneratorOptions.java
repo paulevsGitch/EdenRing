@@ -1,7 +1,7 @@
 package paulevs.edenring.world.generator;
 
+import org.betterx.bclib.config.PathConfig;
 import paulevs.edenring.EdenRing;
-import ru.bclib.config.PathConfig;
 
 public class GeneratorOptions {
 	public static LayerOptions bigOptions;

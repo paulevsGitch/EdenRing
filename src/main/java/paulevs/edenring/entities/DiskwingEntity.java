@@ -8,6 +8,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
@@ -27,14 +28,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import org.betterx.bclib.entity.DespawnableAnimal;
+import org.betterx.bclib.util.MHelper;
 import org.jetbrains.annotations.Nullable;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.registries.EdenEntities;
-import ru.bclib.entity.DespawnableAnimal;
-import ru.bclib.util.MHelper;
 
 import java.util.EnumSet;
-import java.util.Random;
 
 public class DiskwingEntity extends DespawnableAnimal {
 	private static final EntityDataAccessor<Byte> VARIANT = SynchedEntityData.defineId(DiskwingEntity.class, EntityDataSerializers.BYTE);
@@ -282,7 +282,7 @@ public class DiskwingEntity extends DespawnableAnimal {
 		
 		@Override
 		public void start() {
-			Random random = DiskwingEntity.this.random;
+			RandomSource random = DiskwingEntity.this.random;
 			BlockPos point = DiskwingEntity.this.anchorPoint;
 			Level level = DiskwingEntity.this.level;
 			int x = point.getX() + MHelper.randRange(-20, 20, random);

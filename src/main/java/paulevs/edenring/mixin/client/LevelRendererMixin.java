@@ -14,6 +14,8 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.RenderBuffers;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -37,7 +39,7 @@ public class LevelRendererMixin {
 	private static BufferBuilder eden_bufferBuilder;
 	
 	@Inject(method = "<init>*", at = @At("TAIL"))
-	private void eden_onRendererInit(Minecraft client, RenderBuffers bufferBuilders, CallbackInfo info) {
+	private void eden_onRendererInit(Minecraft minecraft, EntityRenderDispatcher entityRenderDispatcher, BlockEntityRenderDispatcher blockEntityRenderDispatcher, RenderBuffers renderBuffers, CallbackInfo info) {
 		eden_bufferBuilder = Tesselator.getInstance().getBuilder();
 	}
 	
@@ -111,9 +113,7 @@ public class LevelRendererMixin {
 		eden_bufferBuilder.vertex(matrix,  1.001F, -0.001F, -0.001F).uv(1.0F, 0.0F).endVertex();
 		eden_bufferBuilder.vertex(matrix, -0.001F, -0.001F, -0.001F).uv(0.0F, 0.0F).endVertex();
 		
-		eden_bufferBuilder.end();
-		
-		BufferUploader.end(eden_bufferBuilder);
+		BufferUploader.draw(eden_bufferBuilder.end());
 		
 		poseStack.popPose();
 	}

@@ -10,7 +10,7 @@ import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.particle.TextureSheetParticle;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
-import ru.bclib.util.MHelper;
+import org.betterx.bclib.util.MHelper;
 
 public class OscillatingParticle extends TextureSheetParticle {
 	private double preVX;

@@ -20,7 +20,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import paulevs.edenring.EdenRing;
-import paulevs.edenring.LimphiumBlock;
 import paulevs.edenring.blocks.AquatusBlock;
 import paulevs.edenring.blocks.AquatusRootsBlock;
 import paulevs.edenring.blocks.AquatusSapling;
@@ -42,6 +41,7 @@ import paulevs.edenring.blocks.GraviliteLanternBlock;
 import paulevs.edenring.blocks.GraviliteShardsBlock;
 import paulevs.edenring.blocks.GraviliteTallLanternBlock;
 import paulevs.edenring.blocks.GravityCompressorBlock;
+import paulevs.edenring.blocks.LimphiumBlock;
 import paulevs.edenring.blocks.LimphiumSapling;
 import paulevs.edenring.blocks.MossyStoneBlock;
 import paulevs.edenring.blocks.MycoticGrass;
@@ -117,7 +117,6 @@ public class EdenBlocks {
 	public static final Block PULSE_TREE = register("pulse_tree", new PulseTreeBlock());
 	public static final ComplexMaterial PULSE_TREE_MATERIAL = new WoodenComplexMaterial(EdenRing.MOD_ID, "pulse_tree", "eden", MaterialColor.COLOR_CYAN, MaterialColor.COLOR_CYAN).init(REGISTRY, EdenItems.REGISTRY, EdenRecipes.CONFIG);
 	
-	//public static final Block BRAIN_TREE_LOG = register("brain_tree_log", new BrainTreeLogBlock());
 	public static final Block BRAIN_TREE_BLOCK_IRON = register("brain_tree_block_iron", new BrainTreeBlock(MaterialColor.COLOR_LIGHT_GRAY));
 	public static final Block BRAIN_TREE_BLOCK_COPPER = register("brain_tree_block_copper", new BrainTreeBlock(MaterialColor.COLOR_ORANGE));
 	public static final Block BRAIN_TREE_BLOCK_GOLD = register("brain_tree_block_gold", new BrainTreeBlock(MaterialColor.GOLD));
@@ -171,6 +170,9 @@ public class EdenBlocks {
 	
 	public static final Block PORTAL_BLOCK = registerBlockOnly("portal_block", new EdenPortalBlock());
 	public static final Block PORTAL_CENTER = registerBlockOnly("portal_center", new EdenPortalCenterBlock());
+	
+	//public static final Block INSULECTRICA_STEM = register("insulectrica_stem", new BaseBlock(FabricBlockSettings.copyOf(Blocks.STONE)));
+	//public static final Block INSULECTRICA_ROD = register("insulectrica_rod", new BaseBlock(FabricBlockSettings.copyOf(Blocks.STONE)));
 	
 	public static void init() {
 		BlockRegistry.getModBlocks(EdenRing.MOD_ID).forEach(block -> {

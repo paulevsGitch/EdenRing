@@ -1,7 +1,9 @@
-package paulevs.edenring;
+package paulevs.edenring.blocks;
 
+import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
@@ -12,7 +14,12 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.Half;
-import paulevs.edenring.blocks.OverlayPlantBlock;
+import net.minecraft.world.level.storage.loot.LootContext.Builder;
+import paulevs.edenring.registries.EdenBlocks;
+import paulevs.edenring.registries.EdenItems;
+import ru.bclib.util.MHelper;
+
+import java.util.List;
 
 public class LimphiumBlock extends OverlayPlantBlock {
 	public static final EnumProperty<Half> HALF = BlockStateProperties.HALF;
@@ -45,5 +52,13 @@ public class LimphiumBlock extends OverlayPlantBlock {
 	@Override
 	public boolean isValidBonemealTarget(BlockGetter world, BlockPos pos, BlockState state, boolean isClient) {
 		return false;
+	}
+	
+	@Override
+	public List<ItemStack> getLoot(BlockState state, Builder builder) {
+		if (state.getValue(HALF) == Half.TOP) {
+			return Lists.newArrayList(new ItemStack(EdenItems.LIMPHIUM_LEAF, MHelper.randRange(2, 4, MHelper.RANDOM)));
+		}
+		return MHelper.RANDOM.nextBoolean() ? Lists.newArrayList() : Lists.newArrayList(new ItemStack(EdenBlocks.LIMPHIUM_SAPLING));
 	}
 }

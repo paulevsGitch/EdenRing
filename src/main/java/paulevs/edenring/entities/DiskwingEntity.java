@@ -7,6 +7,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
@@ -33,6 +34,7 @@ import org.betterx.bclib.util.MHelper;
 import org.jetbrains.annotations.Nullable;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.registries.EdenEntities;
+import paulevs.edenring.registries.EdenSounds;
 
 import java.util.EnumSet;
 
@@ -148,6 +150,19 @@ public class DiskwingEntity extends DespawnableAnimal {
 	public boolean onClimbable() {
 		return false;
 	}
+	
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return EdenSounds.DISKWING_AMBIENT;
+	}
+	
+	@Override
+	protected SoundEvent getHurtSound(DamageSource damageSource) {
+		return EdenSounds.DISKWING_DAMAGE;
+	}
+	
+	@Override
+	protected void playStepSound(BlockPos blockPos, BlockState blockState) {}
 	
 	public DiskwingType getVariant() {
 		byte type = this.entityData.get(VARIANT);

@@ -105,5 +105,51 @@
 				"stream": true
 			}
 		]
+	},
+	
+	"edenring.entity.diskwing.ambient": {
+		"category": "entity",
+		"sounds": [
+			{
+				"name": "edenring:entity/diskwing_1",
+				"volume": 1.0,
+				"stream": false
+			},
+			{
+				"name": "edenring:entity/diskwing_2",
+				"volume": 1.0,
+				"stream": false
+			},
+			{
+				"name": "edenring:entity/diskwing_3",
+				"volume": 1.0,
+				"stream": false
+			},
+			{
+				"name": "edenring:entity/diskwing_4",
+				"volume": 1.0,
+				"stream": false
+			},
+			{
+				"name": "edenring:entity/diskwing_5",
+				"volume": 1.0,
+				"stream": false
+			},
+			{
+				"name": "edenring:entity/diskwing_6",
+				"volume": 1.0,
+				"stream": false
+			}
+		]
+	},
+	"edenring.entity.diskwing.damage": {
+		"category": "entity",
+		"sounds": [
+			{
+				"name": "edenring:entity/diskwing_damage",
+				"volume": 1.0,
+				"stream": false
+			}
+		]
 	}
 }

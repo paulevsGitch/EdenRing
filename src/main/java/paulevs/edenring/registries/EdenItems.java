@@ -14,7 +14,7 @@ public class EdenItems {
 	private static final PathConfig ITEMS_CONFIG = new PathConfig(EdenRing.MOD_ID, "items");
 	public static final ItemRegistry REGISTRY = new ItemRegistry(EdenRing.EDEN_TAB, ITEMS_CONFIG);
 	
-	public static final Item GUIDE_BOOK = register("guide_book", new GuideBookItem(REGISTRY.makeItemSettings()));
+	public static final Item GUIDE_BOOK = register("guide_book", new GuideBookItem(REGISTRY.makeItemSettings().maxCount(16)));
 	public static final Item LIMPHIUM_LEAF = register("limphium_leaf", new ModelProviderItem(REGISTRY.makeItemSettings()));
 	public static final Item LIMPHIUM_LEAF_DRYED = register("limphium_leaf_dryed", new ModelProviderItem(REGISTRY.makeItemSettings()));
 	public static final Item LIMPHIUM_PAINTING = register("limphium_painting", new EdenPaintingItem(EdenEntities.LIMPHIUM_PAINTING, REGISTRY.makeItemSettings()));

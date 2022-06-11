@@ -2,6 +2,7 @@ package paulevs.edenring;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
@@ -10,6 +11,10 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.dimension.DimensionType;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import org.betterx.bclib.api.v2.datafixer.DataFixerAPI;
 import org.betterx.bclib.api.v2.datafixer.ForcedLevelPatch;
 import org.betterx.bclib.api.v2.datafixer.MigrationProfile;
@@ -93,6 +98,29 @@ public class EdenRing implements ModInitializer {
 				}
 				
 				return false;
+			}
+		});
+		
+		final ResourceLocation[] possibleLocations = new ResourceLocation[] {
+			new ResourceLocation("chests/end_city_treasure"),
+			new ResourceLocation("chests/buried_treasure"),
+			new ResourceLocation("chests/desert_pyramid"),
+			new ResourceLocation("chests/igloo_chest"),
+			new ResourceLocation("chests/jungle_temple"),
+			new ResourceLocation("chests/pillager_outpost"),
+			new ResourceLocation("chests/shipwreck_treasure"),
+			new ResourceLocation("chests/simple_dungeon")
+		};
+		LootTableEvents.MODIFY.register((resourceManager, lootManager, id, table, setter) -> {
+			for (ResourceLocation resourceLocation: possibleLocations) {
+				if (id.equals(resourceLocation)) {
+					LootPool.Builder builder = LootPool.lootPool();
+					builder.setRolls(ConstantValue.exactly(1));
+					builder.conditionally(LootItemRandomChanceCondition.randomChance(0.4f).build());
+					builder.add(LootItem.lootTableItem(EdenItems.GUIDE_BOOK));
+					table.withPool(builder);
+					break;
+				}
 			}
 		});
 	}

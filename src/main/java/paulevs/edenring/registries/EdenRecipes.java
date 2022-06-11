@@ -148,6 +148,15 @@ public class EdenRecipes {
 				.build();
 		});
 		
+		GridRecipe
+			.make(EdenRing.makeID("eden_book"), EdenItems.GUIDE_BOOK)
+			.checkConfig(CONFIG)
+			.setOutputCount(2)
+			.setList("BE")
+			.addMaterial('B', EdenItems.GUIDE_BOOK)
+			.addMaterial('E', Items.BOOK)
+			.build();
+		
 		CONFIG.saveChanges();
 	}
 }

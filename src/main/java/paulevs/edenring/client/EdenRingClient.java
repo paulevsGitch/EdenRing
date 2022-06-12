@@ -11,7 +11,7 @@ import paulevs.edenring.client.environment.renderers.EdenSkyRenderer;
 import paulevs.edenring.client.environment.renderers.EdenWeatherRenderer;
 import paulevs.edenring.registries.EdenBlockEntitiesRenderers;
 import paulevs.edenring.registries.EdenEntitiesRenderers;
-import paulevs.edenring.registries.EdenParticles;
+import paulevs.edenring.registries.EdenParticleFactories;
 
 public class EdenRingClient implements ClientModInitializer {
 	public static final EdenClientConfig CLIENT_CONFIG = new EdenClientConfig();
@@ -21,7 +21,7 @@ public class EdenRingClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		EdenBlockEntitiesRenderers.init();
 		EdenEntitiesRenderers.init();
-		EdenParticles.register();
+		EdenParticleFactories.register();
 		if (BCLib.isDevEnvironment()) {
 			TranslationHelper.printMissingEnNames(EdenRing.MOD_ID);
 			TranslationHelper.printMissingNames(EdenRing.MOD_ID, "ru_ru");

@@ -1,5 +1,7 @@
 package paulevs.edenring.registries;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -14,6 +16,7 @@ import paulevs.edenring.client.entities.renderers.LightningRayRenderer;
 
 import java.util.function.Function;
 
+@Environment(EnvType.CLIENT)
 public class EdenEntitiesRenderers {
 	public static final ModelLayerLocation LIGHTNING_RAY_MODEL = registerMain("lightning_ray");
 	public static final ModelLayerLocation DISKWING_MODEL = registerMain("diskwing");

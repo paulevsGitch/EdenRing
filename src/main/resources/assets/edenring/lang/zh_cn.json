@@ -8,6 +8,11 @@
 	"biome.edenring.brainstorm": "风暴之脑",
 	"biome.edenring.lakeside_desert": "湖滨沙漠",
 	"biome.edenring.wind_valley": "微风河谷",
+	"biome.edenring.air_ocean": "空海",
+	"biome.edenring.sky_colony": "浮空群落",
+	"biome.edenring.empty_cave": "中空洞穴",
+	"biome.edenring.eroded_cave": "侵蚀洞穴",
+	"biome.edenring.old_mycotic_forest": "旧菌菇森林",
 	
 	"block.edenring.auritis_outer_leaves": "伊甸朴木树叶（外层）",
 	"block.edenring.auritis_bark": "伊甸朴木",
@@ -25,6 +30,7 @@
 	"block.edenring.auritis_log": "伊甸朴木原木",
 	"block.edenring.auritis_planks": "伊甸朴木木板",
 	"block.edenring.auritis_plate": "伊甸朴木压力板",
+	"block.edenring.auritis_sapling": "伊甸朴木树苗",
 	"block.edenring.auritis_sign": "伊甸朴木告示牌",
 	"block.edenring.auritis_slab": "伊甸朴木台阶",
 	"block.edenring.auritis_stairs": "伊甸朴木楼梯",
@@ -55,16 +61,28 @@
 	"block.edenring.balloon_mushroom_stripped_bark": "去皮气球菇菌杆块",
 	"block.edenring.balloon_mushroom_stripped_log": "去皮气球菇原木",
 	"block.edenring.balloon_mushroom_trapdoor": "气球菇活板门",
+	"block.edenring.balloon_mushroom_branch": "气球菇菌枝",
+	"block.edenring.balloon_mushroom_hymenophore": "气球菇子实层体",
 	
 	"block.edenring.eden_grass": "伊甸草方块",
+	"block.edenring.eden_moss": "伊甸苔藓",
 	"block.edenring.eden_mycelium": "伊甸菌丝",
 	"block.edenring.eden_vine": "伊甸藤蔓",
+	"block.edenring.copper_grass": "铜草",
+	"block.edenring.gold_grass": "金草",
+	"block.edenring.iron_grass": "铁草",
+	"block.edenring.tall_copper_grass": "高铜草",
+	"block.edenring.tall_gold_grass": "高金草",
+	"block.edenring.tall_iron_grass": "高铁草",
+	"block.edenring.tall_mycotic_grass": "高菌丝草",
+	"block.edenring.tall_balloon_mushroom": "高气球菇",
 	"block.edenring.golden_grass": "金色草",
+	"block.edenring.lonlix": "朗草",
 	"block.edenring.mossy_stone": "伊甸苔石",
 	"block.edenring.mycotic_grass": "菌丝草",
-	
-	"block.edenring.auritis_sapling": "伊甸朴木树苗",
-	"block.edenring.eden_moss": "伊甸苔藓",
+	"block.edenring.parignum": "帕里薇",
+	"block.edenring.violum": "堇色草",
+
 	"block.edenring.pulse_tree": "伊甸荜树",
 	"block.edenring.pulse_tree_bark": "伊甸荜树木",
 	"block.edenring.pulse_tree_barrel": "伊甸荜树木桶",
@@ -87,51 +105,32 @@
 	"block.edenring.pulse_tree_stripped_bark": "去皮伊甸荜树木",
 	"block.edenring.pulse_tree_stripped_log": "去皮伊甸荜树原木",
 	"block.edenring.pulse_tree_trapdoor": "伊甸荜树活板门",
-	"block.edenring.violum": "堇色草",
-	
-	"block.edenring.brain_tree_block_copper": "铜脑树方块",
-	"block.edenring.brain_tree_block_gold": "金脑树方块",
-	"block.edenring.brain_tree_block_iron": "铁脑树方块",
-	"block.edenring.portal_block": "传送门方块",
-	"block.edenring.portal_center": "传送门中心",
-	
+
 	"block.edenring.gravilite_block": "重力水晶块",
 	"block.edenring.gravilite_shards": "重力水晶蔟",
-	
 	"block.edenring.gravilite_lamp": "重力水晶灯",
 	"block.edenring.gravilite_lantern": "重力水晶灯笼",
 	"block.edenring.gravilite_lantern_tall": "高重力水晶灯笼",
-	
+
 	"block.edenring.aquatus_block": "储水树方块",
 	"block.edenring.aquatus_roots": "储水树根茎",
-	"block.edenring.brain_tree_log": "脑树原木",
-	"block.edenring.copper_grass": "铜草",
-	"block.edenring.gold_grass": "金草",
-	"block.edenring.iron_grass": "铁草",
-	"entity.edenring.lightning_ray": "闪电束",
 	"block.edenring.aquatus_sapling": "储水树树苗",
 	"block.edenring.gravity_compressor": "反重力活塞",
-	"block.edenring.lonlix": "朗草",
-	"item.edenring.guide_book": "伊甸全书",
+	"block.edenring.portal_block": "传送门方块",
+	"block.edenring.portal_center": "传送门中心",
 
-	"biome.edenring.air_ocean": "空海",
-	"biome.edenring.sky_colony": "浮空群落",
-	"block.edenring.parignum": "帕里薇",
 	"block.edenring.symbiotic_mold": "共生霉菌",
 	"block.edenring.symbiotic_mold_emissive": "发光共生霉菌",
 	"block.edenring.volvox_block": "团藻块",
 	"block.edenring.volvox_block_dense": "硬团藻块",
-	"entity.edenring.diskwing": "盘翼",
-	"item.edenring.spawn_egg_diskwing": "盘翼刷怪蛋",
-	
-	"biome.edenring.empty_cave": "中空洞穴",
-	"biome.edenring.eroded_cave": "侵蚀洞穴",
-	"block.edenring.tall_balloon_mushroom": "高气球菇",
-	"block.edenring.tall_mycotic_grass": "高菌丝草",
-	"block.edenring.balloon_mushroom_branch": "气球菇菌枝",
-	"biome.edenring.old_mycotic_forest": "旧菌菇森林",
-	"block.edenring.balloon_mushroom_hymenophore": "气球菇子实层体",
-	
+
+	"block.edenring.copper_framed_brain_tree_log": "铜镶边脑树原木",
+	"block.edenring.gold_framed_brain_tree_log": "金镶边脑树原木",
+	"block.edenring.iron_framed_brain_tree_log": "铁镶边脑树原木",
+
+	"block.edenring.limphium": "灵芙",
+	"block.edenring.limphium_sapling": "灵芙树苗",
+
 	"block.edenring.mycotic_lantern_white": "白色菌菇灯笼",
 	"block.edenring.mycotic_lantern_black": "黑色菌菇灯笼",
 	"block.edenring.mycotic_lantern_blue": "蓝色菌菇灯笼",
@@ -165,15 +164,7 @@
 	"block.edenring.balloon_mushroom_sporocarp_red": "红色气球菇子实体",
 	"block.edenring.balloon_mushroom_sporocarp_white": "白色气球菇子实体",
 	"block.edenring.balloon_mushroom_sporocarp_yellow": "黄色气球菇子实体",
-	
-	"block.edenring.limphium": "灵芙",
-	"block.edenring.limphium_sapling": "灵芙树苗",
-	"item.edenring.limphium_leaf": "灵芙叶",
-	"item.edenring.limphium_leaf_dryed": "干燥灵芙叶",
-	
-	"entity.edenring.limphium_painting": "灵芙装饰",
-	"item.edenring.limphium_painting": "灵芙装饰",
-	
+
 	"block.edenring.brain_tree_bark": "脑树木",
 	"block.edenring.brain_tree_barrel": "脑树木桶",
 	"block.edenring.brain_tree_bookshelf": "脑树书架",
@@ -185,6 +176,7 @@
 	"block.edenring.brain_tree_fence": "脑树栅栏",
 	"block.edenring.brain_tree_gate": "脑树栅栏门",
 	"block.edenring.brain_tree_ladder": "脑树梯子",
+	"block.edenring.brain_tree_log": "脑树原木",
 	"block.edenring.brain_tree_planks": "脑树木板",
 	"block.edenring.brain_tree_plate": "脑树压力板",
 	"block.edenring.brain_tree_sign": "脑树告示牌",
@@ -193,12 +185,16 @@
 	"block.edenring.brain_tree_stripped_bark": "去皮脑树木",
 	"block.edenring.brain_tree_stripped_log": "去皮脑树原木",
 	"block.edenring.brain_tree_trapdoor": "脑树活板门",
-	
-	"block.edenring.copper_framed_brain_tree_log": "铜镶边脑树原木",
-	"block.edenring.gold_framed_brain_tree_log": "金镶边脑树原木",
-	"block.edenring.iron_framed_brain_tree_log": "铁镶边脑树原木",
-	
-	"block.edenring.tall_copper_grass": "高铜草",
-	"block.edenring.tall_gold_grass": "高金草",
-	"block.edenring.tall_iron_grass": "高铁草"
+	"block.edenring.brain_tree_block_copper": "铜脑树方块",
+	"block.edenring.brain_tree_block_gold": "金脑树方块",
+	"block.edenring.brain_tree_block_iron": "铁脑树方块",
+
+	"entity.edenring.diskwing": "盘翼",
+	"entity.edenring.lightning_ray": "闪电束",
+	"entity.edenring.limphium_painting": "灵芙装饰",
+	"item.edenring.guide_book": "伊甸全书",
+	"item.edenring.limphium_leaf": "灵芙叶",
+	"item.edenring.limphium_leaf_dryed": "干燥灵芙叶",
+	"item.edenring.limphium_painting": "灵芙装饰",
+	"item.edenring.spawn_egg_diskwing": "盘翼刷怪蛋"
 }

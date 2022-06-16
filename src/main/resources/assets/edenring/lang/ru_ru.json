@@ -59,7 +59,7 @@
 	"block.edenring.eden_grass": "Дёрн Эдена",
 	"block.edenring.eden_mycelium": "Мицелий Эдена",
 	"block.edenring.eden_vine": "Лоза Эдена",
-	"block.edenring.golden_grass": "Блок золотистого дёрна",
+	"block.edenring.golden_grass": "Золотистая трава",
 	"block.edenring.mossy_stone": "Замшелый камень",
 	"block.edenring.mycotic_grass": "Микотическая трава",
 	
@@ -118,7 +118,7 @@
 	"biome.edenring.sky_colony": "Небесная колония",
 	"block.edenring.parignum": "Паригнум",
 	"block.edenring.symbiotic_mold": "Симбиотический слизневик",
-	"block.edenring.symbiotic_mold_emissive": "Эмиссионный симбиотический слизневик",
+	"block.edenring.symbiotic_mold_emissive": "Светящийся симбиотический слизневик",
 	"block.edenring.volvox_block": "Блок вольвокса",
 	"block.edenring.volvox_block_dense": "Плотный блок вольвокса",
 	"entity.edenring.diskwing": "Дискокрыл",

@@ -48,7 +48,10 @@ public class BalloonMushroomSmallBlock extends FeatureSaplingBlock {
 	@Override
 	public void advanceTree(ServerLevel level, BlockPos pos, BlockState blockState, RandomSource random) {
 		BlockPos start = getStart(level, pos);
-		if (start == null) super.advanceTree(level, pos, blockState, random);
+		if (start == null) {
+			super.advanceTree(level, pos, blockState, random);
+			return;
+		};
 		FeaturePlaceContext context = new FeaturePlaceContext(Optional.empty(), level, level.getChunkSource().getGenerator(), random, start, null);
 		EdenFeatures.OLD_BALLOON_MUSHROOM_TREE.getFeature().place(context);
 	}

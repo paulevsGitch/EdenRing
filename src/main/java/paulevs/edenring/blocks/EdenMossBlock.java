@@ -15,8 +15,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.GrassColor;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.MossBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
@@ -24,17 +27,20 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.betterx.bclib.client.models.ModelsHelper;
 import org.betterx.bclib.client.models.PatternsHelper;
+import org.betterx.bclib.client.render.BCLRenderLayer;
+import org.betterx.bclib.interfaces.BlockModelProvider;
 import org.betterx.bclib.interfaces.CustomColorProvider;
+import org.betterx.bclib.interfaces.RenderLayerProvider;
 import org.betterx.bclib.util.ColorUtil;
 
 import java.util.Map;
 import java.util.Optional;
 
-public class EdenMossBlock extends SimplePlantBlock implements CustomColorProvider {
+public class EdenMossBlock extends MossBlock implements BlockModelProvider, CustomColorProvider, RenderLayerProvider {
 	private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 2, 16);
 	
 	public EdenMossBlock() {
-		super(FabricBlockSettings.of(Material.PLANT).sound(SoundType.GRASS).noCollission());
+		super(FabricBlockSettings.of(Material.MOSS).sound(SoundType.MOSS).offsetType(OffsetType.NONE).noCollission());
 	}
 	
 	@Override
@@ -100,5 +106,16 @@ public class EdenMossBlock extends SimplePlantBlock implements CustomColorProvid
 	@Environment(EnvType.CLIENT)
 	public ItemColor getItemProvider() {
 		return (itemStack, i) -> GrassColor.get(0.5D, 1.0D);
+	}
+	
+	@Override
+	public BCLRenderLayer getRenderLayer() {
+		return BCLRenderLayer.CUTOUT;
+	}
+	
+	@Override
+	@SuppressWarnings("deprecation")
+	public BlockState updateShape(BlockState state, Direction facing, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
+		return canSurvive(state, world, pos) ? state : Blocks.AIR.defaultBlockState();
 	}
 }

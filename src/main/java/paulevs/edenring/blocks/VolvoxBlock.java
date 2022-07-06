@@ -9,9 +9,11 @@ import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SlimeBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.loot.LootContext;
 import org.betterx.bclib.client.models.ModelsHelper;
 import org.betterx.bclib.client.models.PatternsHelper;
 import org.betterx.bclib.client.render.BCLRenderLayer;
@@ -21,6 +23,8 @@ import org.betterx.bclib.interfaces.RenderLayerProvider;
 import org.betterx.bclib.noise.OpenSimplexNoise;
 import org.betterx.bclib.util.ColorUtil;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -31,7 +35,7 @@ public class VolvoxBlock extends SlimeBlock implements RenderLayerProvider, Bloc
 	private static final int[] COLORS;
 	
 	public VolvoxBlock() {
-		super(FabricBlockSettings.copyOf(Blocks.SLIME_BLOCK));
+		super(FabricBlockSettings.copyOf(Blocks.SLIME_BLOCK).hardness(0.5F));
 	}
 	
 	@Override
@@ -51,6 +55,12 @@ public class VolvoxBlock extends SlimeBlock implements RenderLayerProvider, Bloc
 	public BlockModel getItemModel(ResourceLocation itemID) {
 		Optional<String> pattern = PatternsHelper.createBlockColored(itemID);
 		return ModelsHelper.fromPattern(pattern);
+	}
+	
+	@Override
+	@SuppressWarnings("deprecation")
+	public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+		return Collections.singletonList(new ItemStack(this));
 	}
 	
 	@Override

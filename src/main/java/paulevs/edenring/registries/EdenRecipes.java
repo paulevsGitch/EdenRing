@@ -119,7 +119,23 @@ public class EdenRecipes {
 			.addMaterial('T', log, log2, log3, log4)
 			.build();
 		
+		GridRecipe
+			.make(EdenRing.makeID("volvox_block_dense"), EdenBlocks.VOLVOX_BLOCK_DENSE)
+			.checkConfig(CONFIG)
+			.setShape("BB", "BB")
+			.addMaterial('B', EdenBlocks.VOLVOX_BLOCK)
+			.build();
+		
+		GridRecipe
+			.make(EdenRing.makeID("volvox_block"), EdenBlocks.VOLVOX_BLOCK)
+			.checkConfig(CONFIG)
+			.setOutputCount(4)
+			.setList("B")
+			.addMaterial('B', EdenBlocks.VOLVOX_BLOCK_DENSE)
+			.build();
+		
 		FurnaceRecipe.make(EdenRing.MOD_ID, "slime_ball", EdenBlocks.VOLVOX_BLOCK, Items.SLIME_BALL).checkConfig(CONFIG).build();
+		FurnaceRecipe.make(EdenRing.MOD_ID, "slime_ball_4", EdenBlocks.VOLVOX_BLOCK_DENSE, Items.SLIME_BALL).setOutputCount(4).checkConfig(CONFIG).build();
 		FurnaceRecipe.make(EdenRing.MOD_ID, "limphium_leaf", EdenItems.LIMPHIUM_LEAF, EdenItems.LIMPHIUM_LEAF_DRYED).checkConfig(CONFIG).build();
 		
 		Block[] coloredBlocks = EdenBlocks.MYCOTIC_LANTERN_COLORED.values().toArray(new Block[16]);

@@ -22,7 +22,7 @@ import java.util.Optional;
 
 public class VolvoxBlockDense extends BaseBlock {
 	public VolvoxBlockDense() {
-		super(FabricBlockSettings.of(Material.WOOD).sounds(SoundType.SLIME_BLOCK));
+		super(FabricBlockSettings.of(Material.WOOD).hardness(1F).sounds(SoundType.SLIME_BLOCK));
 	}
 	
 	@Override

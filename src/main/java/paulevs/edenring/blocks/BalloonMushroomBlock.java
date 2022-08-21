@@ -10,6 +10,7 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -42,8 +43,8 @@ public class BalloonMushroomBlock extends BaseCTBlock implements CustomItemProvi
 	}
 	
 	@Override
-	public BlockItem getCustomItem(ResourceLocation resourceLocation, FabricItemSettings fabricItemSettings) {
-		return new BalloonMushroomBlockItem(this, fabricItemSettings);
+	public BlockItem getCustomItem(ResourceLocation resourceLocation, Item.Properties itemProperties) {
+		return new BalloonMushroomBlockItem(this, itemProperties);
 	}
 	
 	@Override

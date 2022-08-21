@@ -45,17 +45,17 @@ public class EdenBiomes {
 	
 	private static BCLBiome registerLand(BCLBiome biome) {
 		BIOMES_LAND.add(biome);
-		return BiomeAPI.registerBiome(biome, BiomeType.NONE);
+		return BiomeAPI.registerBuiltinBiomeAndOverrideIntendedDimension(biome, BiomeType.NONE);
 	}
 	
 	private static BCLBiome registerVoid(BCLBiome biome) {
 		BIOMES_VOID.add(biome);
-		return BiomeAPI.registerBiome(biome, BiomeType.NONE);
+		return BiomeAPI.registerBuiltinBiomeAndOverrideIntendedDimension(biome, BiomeType.NONE);
 	}
 	
 	private static BCLBiome registerCave(BCLBiome biome) {
 		BIOMES_CAVE.add(biome);
-		return BiomeAPI.registerBiome(biome, BiomeType.NONE);
+		return BiomeAPI.registerBuiltinBiomeAndOverrideIntendedDimension(biome, BiomeType.NONE);
 	}
 	
 	private static BCLBiome registerSubLand(BCLBiome parent, BCLBiome biome) {

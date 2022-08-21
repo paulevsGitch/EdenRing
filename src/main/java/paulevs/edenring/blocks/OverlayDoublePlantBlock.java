@@ -19,7 +19,7 @@ import org.betterx.bclib.blocks.BaseDoublePlantBlock;
 import org.betterx.bclib.client.models.ModelsHelper;
 import org.betterx.bclib.client.models.PatternsHelper;
 import org.betterx.bclib.interfaces.CustomColorProvider;
-import org.betterx.bclib.util.ColorUtil;
+import org.betterx.ui.ColorUtil;
 
 import java.util.Map;
 import java.util.Optional;

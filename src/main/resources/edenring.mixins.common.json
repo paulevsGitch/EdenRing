@@ -8,6 +8,7 @@
 		"AmethystClusterBlockMixin",
 		"FlintAndSteelItemMixin",
 		"DensityFunctionsMixin",
+		"PistonBaseBlockMixin",
 		"NoiseSettingsMixin",
 		"EatBlockGoalMixin",
 		"LivingEntityMixin",

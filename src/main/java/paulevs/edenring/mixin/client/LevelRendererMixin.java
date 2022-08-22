@@ -1,120 +1,72 @@
 package paulevs.edenring.mixin.client;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.BufferBuilder;
-import com.mojang.blaze3d.vertex.BufferUploader;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.Tesselator;
-import com.mojang.blaze3d.vertex.VertexFormat.Mode;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix4f;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.MultiBufferSource.BufferSource;
 import net.minecraft.client.renderer.RenderBuffers;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
-import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.At.Shift;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import paulevs.edenring.EdenRing;
+import paulevs.edenring.items.BalloonMushroomBlockItem;
 import paulevs.edenring.registries.EdenBlocks;
 
 @Mixin(LevelRenderer.class)
-public class LevelRendererMixin {
-	@Final
+public abstract class LevelRendererMixin {
+	@Final @Shadow private Minecraft minecraft;
+	@Shadow @Final private RenderBuffers renderBuffers;
+	
 	@Shadow
-	private Minecraft minecraft;
+	protected static void renderShape(PoseStack poseStack, VertexConsumer vertexConsumer, VoxelShape voxelShape, double d, double e, double f, float g, float h, float i, float j) {}
 	
-	private static final ResourceLocation EDEN_FRAME = EdenRing.makeID("textures/environment/frame.png");
-	private static BufferBuilder eden_bufferBuilder;
-	
-	@Inject(method = "<init>*", at = @At("TAIL"))
-	private void eden_onRendererInit(Minecraft minecraft, EntityRenderDispatcher entityRenderDispatcher, BlockEntityRenderDispatcher blockEntityRenderDispatcher, RenderBuffers renderBuffers, CallbackInfo info) {
-		eden_bufferBuilder = Tesselator.getInstance().getBuilder();
-	}
-	
-	@Inject(method = "renderLevel", at = @At("TAIL"))
+	@Inject(method = "renderLevel", at = @At(
+		value = "INVOKE",
+		target = "Lcom/mojang/blaze3d/systems/RenderSystem;getModelViewStack()Lcom/mojang/blaze3d/vertex/PoseStack;",
+		shift = Shift.BEFORE
+	))
 	public void eden_renderLevel(PoseStack poseStack, float f, long l, boolean bl, Camera camera, GameRenderer gameRenderer, LightTexture lightTexture, Matrix4f matrix4f, CallbackInfo info) {
-		renderMushroomFrame(poseStack, camera);
-	}
-	
-	private void renderMushroomFrame(PoseStack poseStack, Camera camera) {
 		if (minecraft.hitResult == null || !(minecraft.hitResult instanceof BlockHitResult)) {
 			return;
 		}
 		
 		ItemStack item = minecraft.player.getMainHandItem();
-		if (item != null && !(item.getItem() instanceof BlockItem) || ((BlockItem) item.getItem()).getBlock() != EdenBlocks.BALLOON_MUSHROOM_BLOCK) {
+		if (item != null && !(item.getItem() instanceof BalloonMushroomBlockItem)) {
 			return;
 		}
 		
-		poseStack.pushPose();
+		BlockPos pos = ((BlockHitResult) minecraft.hitResult).getBlockPos();
+		BlockState state = minecraft.level.getBlockState(pos);
+		if (!state.getMaterial().isReplaceable()) return;
 		
-		BlockHitResult bnr = (BlockHitResult) minecraft.hitResult;
-		if (!minecraft.level.getBlockState(bnr.getBlockPos()).isAir()) {
-			return;
-		}
+		state = EdenBlocks.BALLOON_MUSHROOM_BLOCK.defaultBlockState();
+		BufferSource bufferSource = this.renderBuffers.bufferSource();
+		VertexConsumer consumer = bufferSource.getBuffer(RenderType.lines());
+		Vec3 camPos = camera.getPosition();
 		
-		double dx = bnr.getBlockPos().getX();
-		double dy = bnr.getBlockPos().getY();
-		double dz = bnr.getBlockPos().getZ();
-		
-		dx -= camera.getPosition().x;
-		dy -= camera.getPosition().y;
-		dz -= camera.getPosition().z;
-		poseStack.translate(dx, dy, dz);
-		
-		Matrix4f matrix = poseStack.last().pose();
-		
-		RenderSystem.enableTexture();
-		RenderSystem.setShaderColor(1, 1, 1, 1);
-		RenderSystem.setShader(GameRenderer::getPositionTexShader);
-		RenderSystem.setShaderTexture(0, EDEN_FRAME);
-		
-		eden_bufferBuilder.begin(Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-		
-		eden_bufferBuilder.vertex(matrix, -0.001F, -0.001F, -0.001F).uv(0.0F, 0.0F).endVertex();
-		eden_bufferBuilder.vertex(matrix,  1.001F, -0.001F, -0.001F).uv(1.0F, 0.0F).endVertex();
-		eden_bufferBuilder.vertex(matrix,  1.001F, -0.001F,  1.001F).uv(1.0F, 1.0F).endVertex();
-		eden_bufferBuilder.vertex(matrix, -0.001F, -0.001F,  1.001F).uv(0.0F, 1.0F).endVertex();
-		
-		eden_bufferBuilder.vertex(matrix, -0.001F,  1.001F,  1.001F).uv(0.0F, 1.0F).endVertex();
-		eden_bufferBuilder.vertex(matrix,  1.001F,  1.001F,  1.001F).uv(1.0F, 1.0F).endVertex();
-		eden_bufferBuilder.vertex(matrix,  1.001F,  1.001F, -0.001F).uv(1.0F, 0.0F).endVertex();
-		eden_bufferBuilder.vertex(matrix, -0.001F,  1.001F, -0.001F).uv(0.0F, 0.0F).endVertex();
-		
-		eden_bufferBuilder.vertex(matrix, 1.001F, -0.001F, -0.001F).uv(0.0F, 0.0F).endVertex();
-		eden_bufferBuilder.vertex(matrix, 1.001F,  1.001F, -0.001F).uv(1.0F, 0.0F).endVertex();
-		eden_bufferBuilder.vertex(matrix, 1.001F,  1.001F,  1.001F).uv(1.0F, 1.0F).endVertex();
-		eden_bufferBuilder.vertex(matrix, 1.001F, -0.001F,  1.001F).uv(0.0F, 1.0F).endVertex();
-		
-		eden_bufferBuilder.vertex(matrix, -0.001F, -0.001F,  1.001F).uv(0.0F, 1.0F).endVertex();
-		eden_bufferBuilder.vertex(matrix, -0.001F,  1.001F,  1.001F).uv(1.0F, 1.0F).endVertex();
-		eden_bufferBuilder.vertex(matrix, -0.001F,  1.001F, -0.001F).uv(1.0F, 0.0F).endVertex();
-		eden_bufferBuilder.vertex(matrix, -0.001F, -0.001F, -0.001F).uv(0.0F, 0.0F).endVertex();
-		
-		eden_bufferBuilder.vertex(matrix, -0.001F, -0.001F,  1.001F).uv(0.0F, 0.0F).endVertex();
-		eden_bufferBuilder.vertex(matrix,  1.001F, -0.001F,  1.001F).uv(1.0F, 0.0F).endVertex();
-		eden_bufferBuilder.vertex(matrix,  1.001F,  1.001F,  1.001F).uv(1.0F, 1.0F).endVertex();
-		eden_bufferBuilder.vertex(matrix, -0.001F,  1.001F,  1.001F).uv(0.0F, 1.0F).endVertex();
-		
-		eden_bufferBuilder.vertex(matrix, -0.001F,  1.001F, -0.001F).uv(0.0F, 1.0F).endVertex();
-		eden_bufferBuilder.vertex(matrix,  1.001F,  1.001F, -0.001F).uv(1.0F, 1.0F).endVertex();
-		eden_bufferBuilder.vertex(matrix,  1.001F, -0.001F, -0.001F).uv(1.0F, 0.0F).endVertex();
-		eden_bufferBuilder.vertex(matrix, -0.001F, -0.001F, -0.001F).uv(0.0F, 0.0F).endVertex();
-		
-		BufferUploader.draw(eden_bufferBuilder.end());
-		
-		poseStack.popPose();
+		this.renderShape(
+			poseStack, consumer,
+			state.getShape(minecraft.level, pos, CollisionContext.of(camera.getEntity())),
+			pos.getX() - camPos.x(), pos.getY() - camPos.y(), pos.getZ() - camPos.z(),
+			0.7019F, 0.4549F, 0.5568F, 0.5F
+		);
 	}
 }

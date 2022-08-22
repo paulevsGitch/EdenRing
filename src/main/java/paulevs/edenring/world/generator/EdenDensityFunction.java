@@ -1,13 +1,9 @@
 package paulevs.edenring.world.generator;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.core.BlockPos;
 import net.minecraft.util.KeyDispatchDataCodec;
 import net.minecraft.world.level.levelgen.DensityFunction;
 import net.minecraft.world.level.levelgen.DensityFunction.SimpleFunction;
-import org.betterx.bclib.util.MHelper;
-
-import java.util.Random;
 
 public class EdenDensityFunction implements SimpleFunction {
 	public static final KeyDispatchDataCodec<EdenDensityFunction> CODEC = KeyDispatchDataCodec.of(MapCodec.unit(new EdenDensityFunction(0L)));

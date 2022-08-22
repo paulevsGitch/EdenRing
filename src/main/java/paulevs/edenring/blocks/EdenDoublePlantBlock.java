@@ -24,7 +24,6 @@ import org.betterx.bclib.client.models.PatternsHelper;
 import org.betterx.bclib.items.tool.BaseShearsItem;
 import paulevs.edenring.EdenRing;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;

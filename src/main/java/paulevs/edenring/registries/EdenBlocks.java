@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.registry.TillableBlockRegistry;
 import net.fabricmc.fabric.mixin.object.builder.AbstractBlockAccessor;
 import net.fabricmc.fabric.mixin.object.builder.AbstractBlockSettingsAccessor;
 import net.minecraft.core.BlockPos;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.Items;
@@ -22,10 +23,6 @@ import net.minecraft.world.level.material.MaterialColor;
 import org.betterx.bclib.api.v2.BonemealAPI;
 import org.betterx.bclib.api.v2.ComposterAPI;
 import org.betterx.bclib.api.v2.ShovelAPI;
-import org.betterx.bclib.api.v2.tag.NamedBlockTags;
-import org.betterx.bclib.api.v2.tag.NamedItemTags;
-import org.betterx.bclib.api.v2.tag.NamedMineableTags;
-import org.betterx.bclib.api.v2.tag.TagAPI;
 import org.betterx.bclib.blocks.BaseBlock;
 import org.betterx.bclib.blocks.BaseLeavesBlock;
 import org.betterx.bclib.blocks.BaseVineBlock;
@@ -34,6 +31,10 @@ import org.betterx.bclib.complexmaterials.ComplexMaterial;
 import org.betterx.bclib.complexmaterials.WoodenComplexMaterial;
 import org.betterx.bclib.config.PathConfig;
 import org.betterx.bclib.registry.BlockRegistry;
+import org.betterx.worlds.together.tag.v3.CommonBlockTags;
+import org.betterx.worlds.together.tag.v3.CommonItemTags;
+import org.betterx.worlds.together.tag.v3.MineableTags;
+import org.betterx.worlds.together.tag.v3.TagManager;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.blocks.AquatusBlock;
 import paulevs.edenring.blocks.AquatusRootsBlock;
@@ -83,7 +84,7 @@ public class EdenBlocks {
 	public static final Block EDEN_MYCELIUM = register("eden_mycelium", new TexturedTerrainBlock());
 	public static final Block MOSSY_STONE = register("mossy_stone", new MossyStoneBlock());
 	
-	public static final Block AURITIS_SAPLING = register("auritis_sapling", new FeatureSaplingBlock((state) -> EdenFeatures.AURITIS_TREE));
+	public static final Block AURITIS_SAPLING = register("auritis_sapling", new FeatureSaplingBlock((state) -> EdenFeatures.AURITIS_TREE.configuredFeature));
 	public static final Block AURITIS_LEAVES = register("auritis_leaves", new AuritisLeavesBlock());
 	public static final ComplexMaterial AURITIS_MATERIAL = new WoodenComplexMaterial(EdenRing.MOD_ID, "auritis", "eden", MaterialColor.COLOR_BROWN, MaterialColor.GOLD).init(REGISTRY, EdenItems.REGISTRY, new PathConfig(EdenRing.MOD_ID, "recipes"));
 	
@@ -113,7 +114,7 @@ public class EdenBlocks {
 		}
 	}
 	
-	public static final Block PULSE_TREE_SAPLING = register("pulse_tree_sapling", new FeatureSaplingBlock((state) -> EdenFeatures.PULSE_TREE));
+	public static final Block PULSE_TREE_SAPLING = register("pulse_tree_sapling", new FeatureSaplingBlock((state) -> EdenFeatures.PULSE_TREE.configuredFeature));
 	public static final Block PULSE_TREE = register("pulse_tree", new PulseTreeBlock());
 	public static final ComplexMaterial PULSE_TREE_MATERIAL = new WoodenComplexMaterial(EdenRing.MOD_ID, "pulse_tree", "eden", MaterialColor.COLOR_CYAN, MaterialColor.COLOR_CYAN).init(REGISTRY, EdenItems.REGISTRY, EdenRecipes.CONFIG);
 	
@@ -180,28 +181,28 @@ public class EdenBlocks {
 			Material material = ((AbstractBlockSettingsAccessor) properties).getMaterial();
 			
 			if (block instanceof BaseLeavesBlock) {
-				TagAPI.addBlockTag(NamedMineableTags.HOE, block);
-				TagAPI.addBlockTag(NamedBlockTags.LEAVES, block);
-				TagAPI.addItemTag(NamedItemTags.LEAVES, block);
+				TagManager.BLOCKS.add(MineableTags.HOE, block);
+				TagManager.BLOCKS.add(CommonBlockTags.LEAVES, block);
+				TagManager.ITEMS.add(CommonItemTags.LEAVES, block);
 				ComposterAPI.allowCompost(0.3F, block);
 			}
 			else if (block instanceof GrassBlock) {
-				TagAPI.addBlockTag(NamedMineableTags.SHOVEL, block);
+				TagManager.BLOCKS.add(MineableTags.SHOVEL, block);
 				ShovelAPI.addShovelBehaviour(block, Blocks.DIRT_PATH.defaultBlockState());
 				TillableBlockRegistry.register(block, HoeItem::onlyIfAirAbove, Blocks.FARMLAND.defaultBlockState());
 			}
 			else if (material == Material.PLANT || material == Material.REPLACEABLE_PLANT) {
-				TagAPI.addBlockTag(NamedMineableTags.HOE, block);
+				TagManager.BLOCKS.add(MineableTags.HOE, block);
 				if (block.asItem() != Items.AIR) {
 					ComposterAPI.allowCompost(0.1F, block);
 				}
 			}
 			else if (material == Material.STONE || material == Material.METAL || material == Material.HEAVY_METAL || material == Material.AMETHYST) {
-				TagAPI.addBlockTag(NamedMineableTags.PICKAXE, block);
+				TagManager.BLOCKS.add(MineableTags.PICKAXE, block);
 			}
 			
 			if (block instanceof BaseVineBlock) {
-				TagAPI.addBlockTag(NamedBlockTags.CLIMBABLE, block);
+				TagManager.BLOCKS.add(BlockTags.CLIMBABLE, block);
 			}
 		});
 		

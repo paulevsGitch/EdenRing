@@ -30,7 +30,7 @@ public class BalloonMushroomSmallBlock extends FeatureSaplingBlock {
 			.instabreak()
 			.sound(SoundType.GRASS)
 			.offsetType(OffsetType.XZ),
-			(state) -> EdenFeatures.BALLOON_MUSHROOM_TREE
+			(state) -> EdenFeatures.BALLOON_MUSHROOM_TREE.configuredFeature
 		);
 	}
 	

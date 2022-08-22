@@ -40,7 +40,7 @@ import org.betterx.bclib.interfaces.CustomColorProvider;
 import org.betterx.bclib.interfaces.RenderLayerProvider;
 import org.betterx.bclib.items.tool.BaseShearsItem;
 import org.betterx.bclib.util.BlocksHelper;
-import org.betterx.bclib.util.ColorUtil;
+import org.betterx.ui.ColorUtil;
 
 import java.util.List;
 import java.util.Map;

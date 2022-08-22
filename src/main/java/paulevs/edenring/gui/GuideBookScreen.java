@@ -8,12 +8,12 @@ import com.google.gson.JsonObject;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.chat.NarratorChatListener;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.core.Registry;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ItemStack;
@@ -42,7 +42,7 @@ public class GuideBookScreen extends Screen {
 	private final BookInfo book;
 	
 	public GuideBookScreen() {
-		super(NarratorChatListener.NO_TITLE);
+		super(Component.empty());
 		
 		if (ENTRY_REGISTRY.isEmpty()) {
 			ENTRY_REGISTRY.put("text", TextPageEntry::new);

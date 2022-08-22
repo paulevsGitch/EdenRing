@@ -31,7 +31,7 @@ import org.betterx.bclib.client.render.BCLRenderLayer;
 import org.betterx.bclib.interfaces.BlockModelProvider;
 import org.betterx.bclib.interfaces.CustomColorProvider;
 import org.betterx.bclib.interfaces.RenderLayerProvider;
-import org.betterx.bclib.util.ColorUtil;
+import org.betterx.ui.ColorUtil;
 
 import java.util.Map;
 import java.util.Optional;

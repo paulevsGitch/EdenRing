@@ -9,7 +9,7 @@ import paulevs.edenring.registries.EdenFeatures;
 
 public class AquatusSapling extends FeatureSaplingBlock {
 	public AquatusSapling() {
-		super((state) -> EdenFeatures.AQUATUS);
+		super((state) -> EdenFeatures.AQUATUS.configuredFeature);
 	}
 	
 	@Override

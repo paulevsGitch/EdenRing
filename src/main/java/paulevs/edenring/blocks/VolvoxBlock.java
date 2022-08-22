@@ -21,7 +21,7 @@ import org.betterx.bclib.interfaces.BlockModelProvider;
 import org.betterx.bclib.interfaces.CustomColorProvider;
 import org.betterx.bclib.interfaces.RenderLayerProvider;
 import org.betterx.bclib.noise.OpenSimplexNoise;
-import org.betterx.bclib.util.ColorUtil;
+import org.betterx.ui.ColorUtil;
 
 import java.util.Collections;
 import java.util.List;

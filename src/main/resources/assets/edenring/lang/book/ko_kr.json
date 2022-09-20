@@ -1,94 +1,732 @@
-{
-  "lineNumberPrefix": "§8",
-  "pages": [
-    {
-      "entries": [
+﻿{
+    "lineNumberPrefix": "§8",
+    "pages": [
         {
-          "type": "illustration",
-          "image": "edenring:textures/gui/illustrations/planet_logo.png",
-		  "width": 128,
-		  "height": 128,
-		  "centered": true
-        }
-      ]
-    },
-	
-    {
-      "name": "table_of_contents",
-      "entries": [
-        { "type": "title", "title": "§8§l목" },
-        { "type": "title", "title": "§8§l차" },
-        {
-          "type": "illustration",
-          "image": "edenring:textures/gui/illustrations/separator.png",
-		  "width": 128,
-		  "height": 16
+            "entries": [{
+                    "type": "illustration",
+                    "image": "edenring:textures/gui/illustrations/planet_logo.png",
+                    "width": 128,
+                    "height": 128,
+                    "centered": true
+            }]
         },
         {
-          "type": "text",
-          "text": [
-            "§8● §l에덴의 세계",
-            "§8● §l중력",
-            "§8● §l생물군계",
-            "§8● §l플로라"
-          ]
-        }
-      ]
-    },
-	
-	{
-	  "entries": [
-	    { "type": "title", "title": "§8§l설명" },
-        {
-          "type": "text",
-          "text": [
-            "§8이름: 에덴",
-            "§8질량: 28.5 Em",
-            "§8분류: 거대 얼음",
-            "§8대기:",
-            "§8  62% 질소(N\u2082)",
-            "§8  18% 물(H\u2082O)",
-            "§8  12% 암모니아(NH\u2083)",
-            "§8  05% 수소(H\u2082)",
-            "§8  03% 기타",
-			"§8위성:",
-			"§8  8개",
-			"§8  고리계"
-          ]
+            "name": "table_of_contents",
+            "entries": [
+                { "type": "title", "title": "§8§l목    차" },
+                {
+                    "type": "illustration",
+                    "image": "edenring:textures/gui/illustrations/separator.png",
+                    "width": 128,
+                    "height": 16
+                },
+                {
+                    "type": "hyperText",
+                    "lines": [
+                        { "text": "§3● §l에덴의 세계", "link": "world_structure" },
+                        { "text": "§3● §l중력",        "link": "eden_gravity"    },
+                        { "text": "§3● §l생물군계",    "link": "eden_biomes"     }
+                    ]
+                }
+            ]
         },
-		{
-          "type": "illustration",
-          "image": "edenring:textures/gui/illustrations/separator.png",
-		  "width": 128,
-		  "height": 16
-        }
-      ]
-	},
-	{
-      "name": "world_structure",
-      "entries": [
         {
-          "type": "text",
-          "text": [
-            "§8에덴은 F2 별을 돌고 있는",
-            "§8크고 푸른",
-            "§8가스 행성입니다.",
-			"§8그 행성은 생명체가",
-			"§8살 수 있는 지역에 있지만",
-			"§8생명체가 살기에",
-			"§8적합하지 않습니다. 그러나",
-			"§8그것의 고리는",
-			"§8지구와 비슷한 대기와",
-			"§8중력 이상을 가지고",
-			"§8있습니다. 고리계는",
-			"§8독특한 생명체를 위한",
-			"§8보금자리이며",
-			"§8다양한 자원, 생물군계,",
-			"§8살아있는 유기체를",
-			"§8포함하고 있습니다."
-          ]
-        }
-      ]
-    }
-  ]
+            "name": "world_structure",
+            "entries": [
+                { "type": "title", "title": "§8§l행성 설명" },
+                {
+                    "type": "text",
+                    "text": [
+                        "§3이름: §8에덴",
+                        "§3질량: §8지구 질량의 약 28.5배",
+                        "§3분류: §8거대 얼음 행성",
+                        "§3대기:",
+                        "§3  §862% 질소(N₂)",
+                        "§3  §818% 물(H₂O)",
+                        "§3  §812% 암모니아(NH₃)",
+                        "§3  §8 5% 수소(H₂)",
+                        "§3  §8 3% 기타",
+                        "§3위성:",
+                        "§3  §88개",
+                        "§3  §8고리계"
+                    ]
+                },
+                {
+                    "type": "illustration",
+                    "image": "edenring:textures/gui/illustrations/separator.png",
+                    "width": 128,
+                    "height": 16
+                }
+            ]
+        },
+        {
+            "entries": [
+                {
+                    "type": "text",
+                    "text": [
+                        "§8에덴은 F2형 항성 주위를 돌고 ",
+                        "있는 크고 푸른 가스형 행성입 ",
+                        "니다. 이 행성은 항성의 생명체",
+                        "거주 가능 구역 내에 있지만,  ",
+                        "행성 표면은 생명체가 살기에  ",
+                        "적합하지 않습니다. 그러나 에 ",
+                        "덴의 고리는 지구와 같은 중력 ",
+                        "이상이 있으며, 지구의 대기와 ",
+                        "비슷한 대기를 갖고 있습니다. ",
+                        "에덴의 고리계는 독특한 생명체",
+                        "를 위한 보금자리이며, 다양한 ",
+                        "자원과 생물군계가 존재하고 살",
+                        "아 있는 유기체가 서식합니다. "
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "eden_gravity",
+            "entries": [
+                { "type": "title", "title": "§8§l에덴의 중력" },
+                {
+                    "type": "text",
+                    "text": [
+                        "§8고리 내부의 중력은 비정상적인",
+                        "중력장 뒤틀림의 결과입니다.  ",
+                        "중력 이상은 고리 내에서 발견 ",
+                        "할 수 있는 '그래빌라이트'라는",
+                        "특수한 물질에 의해 발생합니다."
+                    ]
+                },
+                {
+                    "type": "icon",
+                    "height": 32,
+                    "item": "edenring:gravilite_block"
+                }
+            ]
+        },
+        {
+            "entries": [
+                {
+                    "type": "text",
+                    "text": [
+                        "§8그래빌라이트는 파란색의 결정 ",
+                        "형 물질로, 고리 내에 흔하게  ",
+                        "존재합니다. 대부분의 형태는  ",
+                        "수직으로 정렬된 결정질 정동처",
+                        "럼 생겼습니다. 일부 정동은 결",
+                        "정 주위에 작게 형성되어 있습 ",
+                        "니다."
+                    ]
+                },
+                {
+                    "type": "illustration",
+                    "image": "edenring:textures/gui/illustrations/gravilite_crystals.png",
+                    "width": 48,
+                    "height": 48
+                }
+            ]
+        },
+        {
+            "entries": [
+                {
+                    "type": "text",
+                    "text": [
+                        "§8그래빌라이트는 '중력 압축기'",
+                        "라는 중력 제어 장치를 만들 때",
+                        "유용합니다. 레드스톤 신호를  ",
+                        "사용하여 중력 압축기 위에서  ",
+                        "척력 중력을 만들어낼 수 있으 ",
+                        "며, 레드스톤 신호의 강도로 척",
+                        "력 중력의 세기를 조절할 수 있",
+                        "습니다."
+                    ]
+                },
+                {
+                    "type": "icon",
+                    "height": 32,
+                    "item": "edenring:gravity_compressor"
+                }
+            ]
+        },
+        {
+            "entries": [
+                {
+                    "type": "text",
+                    "text": [
+                        "§8그래빌라이트를 장식 재료로 사",
+                        "용할 수도 있습니다. 그래빌라 ",
+                        "이트는 빛나는 물질이기 때문에",
+                        "램프와 랜턴으로 가공할 수 있 ",
+                        "습니다."
+                    ]
+                },
+                {
+                    "type": "icon",
+                    "height": 32,
+                    "item": "edenring:gravilite_lamp"
+                },
+                {
+                    "type": "icon",
+                    "height": 32,
+                    "item": "edenring:gravilite_lantern"
+                }
+            ]
+        },
+        {
+            "name": "eden_biomes",
+            "entries": [
+                { "type": "title", "title": "§8§l에덴의 생물군계" },
+                {
+                    "type": "text",
+                    "text": [
+                        "§8에덴의 고리는 다양한 환경을  ",
+                        "가진 작은 영역들로 이루어져  ",
+                        "있습니다. 그 결과, 고리 각지 ",
+                        "에 서식하는 생명들이 여러 생 ",
+                        "물군계와 다양한 생태계를 이루",
+                        "며 살아가고 있습니다."
+                    ]
+                },
+                {
+                    "type": "text",
+                    "text": [
+                        "§8생물군계는 다음과 같이 크게  ",
+                        "3가지로 분류됩니다."
+                    ]
+                },
+                {
+                    "type": "text",
+                    "text": [
+                        "§8 - 육지 생물군계",
+                        "§8 - 공허 생물군계",
+                        "§8 - 동굴 생물군계"
+                    ]
+                }
+            ]
+        },
+        {
+            "entries": [
+                { "type": "title", "title": "§8§l육지 생물군계" },
+                {
+                    "type": "hyperText",
+                    "lines": [
+                        { "text": "§3 ● 묘안",      "link": "biome_brainstorm"      },
+                        { "text": "§3 ● 금빛 숲",   "link": "biome_golden_forest"   },
+                        { "text": "§3 ● 돌 정원",   "link": "biome_stone_garden"    },
+                        { "text": "§3 ● 호반 사막", "link": "biome_lakeside_desert" },
+                        { "text": "§3 ● 곰팡이의 숲",      "link": "biome_mycotic_forest"     },
+                        { "text": "§3 ● 원시 곰팡이의 숲", "link": "biome_old_mycotic_forest" },
+                        { "text": "§3 ● 맥박 숲",          "link": "biome_pulse_forest"       }
+                    ]
+                },
+                { "type": "title", "title": "§8§l공허 생물군계" },
+                {
+                    "type": "hyperText",
+                    "lines": [
+                        { "text": "§3 ● 하늘 바다", "link": "biome_air_ocean"  },
+                        { "text": "§3 ● 하늘 군락", "link": "biome_sky_colony" }
+                    ]
+                },
+                {
+                    "type": "title",
+                    "title": "§8§l동굴 생물군계"
+                },
+                {
+                    "type": "hyperText",
+                    "lines": [
+                        { "text": "§8 ● 빈 동굴",   "link": "biome_empty_cave"  },
+                        { "text": "§8 ● 침식 동굴", "link": "biome_eroded_cave" }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "biome_brainstorm",
+            "entries": [
+                { "type": "title", "title": "§8§l묘안" },
+                {
+                    "type": "illustration",
+                    "image": "edenring:textures/gui/illustrations/biome_brainstorm.png",
+                    "width": 120,
+                    "height": 60
+                },
+                {
+                    "type": "text",
+                    "text": [
+                        "§8묘안은 금속 함유량이 높은 지 ",
+                        "역입니다. 이곳에 거주하는 식 ",
+                        "물들은 이러한 환경에 적응하였",
+                        "으며, 이로 인해 식물 몸체에  ",
+                        "금속을 함유하고 있습니다."
+                    ]
+                }
+            ]
+        },
+        {
+            "entries": [
+                {
+                    "type": "text",
+                    "text": [
+                        "§8이곳의 식물들은 다량의 수분을",
+                        "방출하고 끝없는 폭풍이 몰아치",
+                        "는 독특한 날씨를 형성합니다. ",
+                        "이곳에서 자라나는 나무들은 다",
+                        "량의 전하를 축적하고 있으며, ",
+                        "근처에 접근하는 생명체에 방전",
+                        "합니다."
+                    ]
+                }
+            ]
+        },
+        {
+            "entries": [
+                {
+                    "type": "text",
+                    "text": [
+                        "§8이곳을 탐험할 때는 각별한 주 ",
+                        "의를 요하며, 따라서 금속제 방",
+                        "어구를 착용하여야 합니다. 이 ",
+                        "는 패러데이 새장 효과를 형성 ",
+                        "하여 당신을 방전으로부터 보호",
+                        "해주기 때문입니다.",
+                        ""
+                    ]
+                },
+                { "type": "title", "title": "§8§l적절한 금속:" },
+                {
+                    "type": "text",
+                    "text": [
+                        "§8 - 구리",
+                        "§8 - 철",
+                        "§8 - 금"
+                    ]
+                }
+            ]
+        },
+        {
+            "entries": [
+                { "type": "title", "title": "§8§l주요 식물:" },
+                {
+                    "type": "text",
+                    "text": [
+                        "§8 ● 구리 뇌나무",
+                        "§8 ● 철 뇌나무",
+                        "§8 ● 금 뇌나무",
+                        "§8 ● 구리 잔디",
+                        "§8 ● 철 잔디",
+                        "§8 ● 금 잔디",
+                        "§8 ● 키 큰 구리 잔디",
+                        "§8 ● 키 큰 철 잔디",
+                        "§8 ● 키 큰 금 잔디"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "biome_golden_forest",
+            "entries": [
+                { "type": "title", "title": "§8§l금빛 숲" },
+                {
+                    "type": "illustration",
+                    "image": "edenring:textures/gui/illustrations/biome_golden_forest.png",
+                    "width": 120,
+                    "height": 60
+                },
+                {
+                    "type": "text",
+                    "text": [
+                        "§8금빛 숲은 가을에 볼 수 있는  ",
+                        "숲의 풍경과 비슷하지만, 겉모 ",
+                        "습만 비슷할 뿐입니다. 이곳의 ",
+                        "기후는 온화하며, 식물들의 색 ",
+                        "깔은 노란빛의 광합성 색소로부",
+                        "터 기인합니다."
+                    ]
+                }
+            ]
+        },
+        {
+            "entries": [
+                { "type": "title", "title": "§8§l주요 식물:" },
+                {
+                    "type": "text",
+                    "text": [
+                        "§8 ● 오리티스나무",
+                        "§8 ● 금빛 잔디",
+                        "§8 ● 에덴 덩굴",
+                        "§8 ● 잔디",
+                        "§8 ● 벽이끼"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "biome_stone_garden",
+            "entries": [
+                { "type": "title", "title": "§8§l돌 정원" },
+                {
+                    "type": "illustration",
+                    "image": "edenring:textures/gui/illustrations/biome_stone_garden.png",
+                    "width": 120,
+                    "height": 60
+                },
+                {
+                    "type": "text",
+                    "text": [
+                        "§8돌 정원은 바람의 침식 작용으 ",
+                        "로 인해 형성된 암석들로 이루 ",
+                        "어져 있습니다. 이 생물군계에 ",
+                        "존재하는 식물들은 작은 식물과",
+                        "이끼로 구성됩니다."
+                    ]
+                }
+            ]
+        },
+        {
+            "entries": [
+                {
+                    "type": "text",
+                    "text": [
+                        "§8이곳에서 일부 유용한 식물들을",
+			"발견할 수도 있지만, 이 생물군",
+			"계는 대부분 땅이 없는 공간으 ",
+`			"로 이루어져 있습니다."
+                    ]
+                },
+                { "type": "title", "title": "§8§l주요 식물:" },
+                {
+                    "type": "text",
+                    "text": [
+                        "§8 ● 에덴 덩굴",
+                        "§8 ● 에덴 이끼",
+                        "§8 ● 비올룸",
+                        "§8 ● 림피움",
+                        "§8 ● 이끼 바닥",
+                        "§8 ● 잔디",
+                        "§8 ● 벽이끼",
+                        "§8 ● 매달린 뿌리"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "biome_lakeside_desert",
+            "entries": [
+                { "type": "title", "title": "§8§l호반 사막" },
+                {
+                    "type": "illustration",
+                    "image": "edenring:textures/gui/illustrations/biome_lakeside_desert.png",
+                    "width": 120,
+                    "height": 60
+                },
+                {
+                    "type": "text",
+                    "text": [
+                        "§8호반 사막은 이곳에서 자라는  ",
+                        "아쿠아투스나무로 이루어진 생 ",
+                        "물군계입니다. 이 식물은 땅의 ",
+                        "수분을 서서히 마르게 하며 흙 ",
+                        "을 서서히 모래와 자갈로 변화 ",
+                        "시킵니다."
+                    ]
+                }
+            ]
+        },
+        {
+            "entries": [
+                { "type": "title", "title": "§8§l주요 식물:" },
+                {
+                    "type": "text",
+                    "text": [
+                        "§8 ● 아쿠아투스나무",
+                        "§8 ● 마른 덤불"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "biome_mycotic_forest",
+            "entries": [
+                { "type": "title", "title": "§8§l곰팡이의 숲" },
+                {
+                    "type": "illustration",
+                    "image": "edenring:textures/gui/illustrations/biome_mycotic_forest.png",
+                    "width": 120,
+                    "height": 60
+                },
+                {
+                    "type": "text",
+                    "text": [
+                        "§8곰팡이의 숲은 커다란 버섯처럼",
+                        "생긴 유기물로 이루어진 숲이며",
+                        "독특한 풍경을 형성합니다."
+                    ]
+                }
+            ]
+        },
+        {
+            "entries": [
+                {
+                    "type": "text",
+                    "text": [
+                        "§8이 식물들은 \"풍선 버섯\"이라",
+                        "고 불리며, 버섯의 갓 안에 가 ",
+                        "벼운 기체들을 함유하고 있습니",
+                        "다."
+                    ]
+                },
+                {
+                    "type": "text",
+                    "text": [
+                        "§8풍선 버섯의 갓을 캘 경우 허공",
+                        "에 설치할 수 있습니다. 따라서",
+                        "건축할 때 유용하게 사용 가능 ",
+                        "합니다."
+                    ]
+                },
+                {
+                    "type": "text",
+                    "text": [
+                        "§8키 큰 풍선 버섯으로 막대기를 ",
+                        "얻을 수 있습니다. 또, 더 많은",
+                        "풍선 버섯을 재배하기 위해 사 ",
+                        "용할 수 있습니다."
+                    ]
+                }
+            ]
+        },
+        {
+            "entries": [
+                {
+                    "type": "text",
+                    "text": [
+                        "§8풍선 버섯은 커다란 형태로도  ",
+                        "자랄 수 있지만, 그 전에 토지 ",
+                        "비옥화가 필요합니다. 뼛가루를",
+                        "사용하면 좋습니다."
+                    ]
+                },
+                {
+                    "type": "text",
+                    "text": [
+                        "§8풍선 버섯 나무나 키 큰 풍선  ",
+                        "버섯을 생성하려면, 에덴 균사 ",
+                        "체 위에 있는 작은 풍선 버섯에",
+                        "뼛가루를 사용해야 합니다."
+                    ]
+                }
+            ]
+        },
+        {
+            "entries": [
+                { "type": "title", "title": "§8§l주요 식물:" },
+                {
+                    "type": "text",
+                    "text": [
+                        "§8 ● 풍선 버섯 나무",
+                        "§8 ● 키 큰 풍선 버섯",
+                        "§8 ● 작은 풍선 버섯",
+                        "§8 ● 곰팡이의 잔디",
+                        "§8 ● 키 큰 곰팡이의 잔디",
+                        "§8 ● 림피움",
+                        "§8 ● 잔디"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "biome_old_mycotic_forest",
+            "entries": [
+                { "type": "title", "title": "§8§l원시 곰팡이의 숲" },
+                {
+                    "type": "illustration",
+                    "image": "edenring:textures/gui/illustrations/biome_old_mycotic_forest.png",
+                    "width": 120,
+                    "height": 60
+                },
+                {
+                    "type": "text",
+                    "text": [
+                        "§8원시 곰팡이의 숲 생물군계는  ",
+                        "곰팡이의 숲 생물군계와 비슷하",
+                        "지만, 아주 오래된 나무들로 이",
+                        "루어져 있으며 완전한 곰팡이  ",
+                        "생태계가 구축되어 있습니다."
+                    ]
+                }
+            ]
+        },
+        {
+            "entries": [
+                {
+                    "type": "text",
+                    "text": [
+                        "§8오래된 풍선 버섯 나무는 일반 ",
+                        "적인 나무보다 더 독특한 블록 ",
+                        "들로 이루어져 있습니다. 여러 ",
+                        "개의 가지들이 있고 곰팡이 랜 ",
+                        "턴과 버섯 포자낭이 있습니다. ",
+                        "곰팡이 랜턴과 버섯 포자낭은  ",
+                        "염료를 사용하여 16가지 색깔로",
+                        "물들여 장식 블록으로 사용할  ",
+                        "수 있습니다."
+                    ]
+                }
+            ]
+        },
+        {
+            "entries": [
+                {
+                    "type": "text",
+                    "text": [
+                        "§8오래된 풍선 버섯 나무를 생성 ",
+                        "하려면, 작은 풍선 버섯을 에덴",
+                        "균사체 위에 2×2 모양으로 심은",
+                        "다음 뼛가루를 사용하면 됩니다."
+                    ]
+                },
+                {
+                    "type": "text",
+                    "text": [
+                        "§8만약 공간이 충분하지 않거나  ",
+                        "생성 조건 일부가 충족되지 않 ",
+                        "으면, 평범한 풍선 버섯 나무나",
+                        "키 큰 풍선 버섯을 얻게 됩니다."
+                    ]
+                }
+            ]
+        },
+        {
+            "entries": [
+                { "type": "title", "title": "§8§l주요 식물:" },
+                {
+                    "type": "text",
+                    "text": [
+                        "§8 ● 오래된 풍선 버섯 나무",
+                        "§8 ● 풍선 버섯 나무",
+                        "§8 ● 키 큰 풍선 버섯",
+                        "§8 ● 작은 풍선 버섯",
+                        "§8 ● 키 큰 곰팡이의 잔디",
+                        "§8 ● 곰팡이의 잔디",
+                        "§8 ● 림피움"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "biome_pulse_forest",
+            "entries": [
+                { "type": "title", "title": "§8§l맥박 숲" },
+                {
+                    "type": "illustration",
+                    "image": "edenring:textures/gui/illustrations/biome_pulse_forest_day.png",
+                    "width": 120,
+                    "height": 60
+                },
+                {
+                    "type": "illustration",
+                    "image": "edenring:textures/gui/illustrations/biome_pulse_forest_night.png",
+                    "width": 120,
+                    "height": 60
+                }
+            ]
+        },
+        {
+            "entries": [
+                {
+                    "type": "text",
+                    "text": [
+                        "§8맥박 숲은 나무 재질 줄기와 버",
+                        "섯의 갓 같은 것이 있는 커다란",
+                        "대나무처럼 생긴 식물로 이루어",
+                        "진 숲입니다. 이곳의 모든 식물",
+                        "들은 서로 같은 주기로 맥박성 ",
+                        "생체 발광 현상을 보이고, 이것",
+                        "이 이 생물군계의 독특한 경치 ",
+                        "를 만들어냅니다.",
+                        ""
+                    ]
+                },
+                { "type": "title", "title": "§8§l주요 식물:" },
+                {
+                    "type": "text",
+                    "text": [
+                        "§8 ● 맥박나무",
+                        "§8 ● 비올룸",
+                        "§8 ● 잔디"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "biome_air_ocean",
+            "entries": [
+                { "type": "title", "title": "§8§l바람 계곡" },
+                {
+                    "type": "illustration",
+                    "image": "edenring:textures/gui/illustrations/biome_air_ocean.png",
+                    "width": 120,
+                    "height": 60
+                },
+                {
+                    "type": "text",
+                    "text": [
+                        "§8바람 계곡은 섬과 섬 사이의 거",
+                        "대한 빈 공간으로, 대기가 흐르",
+                        "고 있습니다."
+                    ]
+                },
+                { "type": "title", "title": "§8§l주요 동물:" },
+                {
+                    "type": "text",
+                    "text": [
+                        "§8 ● 디스크윙"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "biome_sky_colony",
+            "entries": [
+                { "type": "title", "title": "§8§l하늘 군락" },
+                {
+                    "type": "illustration",
+                    "image": "edenring:textures/gui/illustrations/biome_sky_colony.png",
+                    "width": 120,
+                    "height": 60
+                },
+                {
+                    "type": "text",
+                    "text": [
+                        "§8하늘 군락은 볼복스 및 이와 유",
+                        "사한 유기체가 모여 군락을 이 ",
+                        "루고 있는 생물군계입니다. 각 ",
+                        "각의 군락은 고유한 생태계를  ",
+                        "이루고 있으며, 군락 내부에는 ",
+                        "물이 존재합니다."
+                    ]
+                }
+            ]
+        },
+        {
+            "entries": [
+                { "type": "title", "title": "§8§l주요 식물:" },
+                {
+                    "type": "text",
+                    "text": [
+                        "§8 ● 볼복스",
+                        "§8 ● 실곰팡이",
+                        "§8 ● 벽이끼",
+                        "§8 ● 에덴 덩굴"
+                    ]
+                },
+                { "type": "title", "title": "§8§l주요 동물:" },
+                {
+                    "type": "text",
+                    "text": [
+                        "§8 ● 디스크윙"
+                    ]
+                }
+            ]
+        },
+        { "entries": [] }
+    ]
 }

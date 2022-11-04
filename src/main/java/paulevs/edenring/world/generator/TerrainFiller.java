@@ -35,7 +35,9 @@ public class TerrainFiller {
 		for (short y = minY; y < maxY; y++) {
 			pos.setY(y);
 			wpos.setY(y);
-			LevelChunkSection section = chunkAccess.getSection(y >> 4);
+			short sectionY = (short) chunkAccess.getSectionIndexFromSectionY(y >> 4);
+			if (sectionY < 0 || sectionY >= chunkAccess.getMaxSection()) continue;
+			LevelChunkSection section = chunkAccess.getSection(sectionY);
 			for (byte x = 0; x < 16; x++) {
 				pos.setX(x);
 				wpos.setX(x | origin.getX());

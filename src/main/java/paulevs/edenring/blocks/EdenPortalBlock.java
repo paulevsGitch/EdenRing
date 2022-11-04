@@ -70,7 +70,9 @@ public class EdenPortalBlock extends BaseBlockNotFull {
 	
 	@Override
 	public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
-		Block drop = state.getValue(EDEN_PORTAL) == EdenPortalState.PILLAR_TOP ? Blocks.AMETHYST_BLOCK : Blocks.WAXED_COPPER_BLOCK;
+		Block drop = Blocks.WAXED_COPPER_BLOCK;
+		if (state.getValue(EDEN_PORTAL) == EdenPortalState.PILLAR_TOP) drop = Blocks.AMETHYST_BLOCK;
+		else if (state.getValue(EDEN_PORTAL) == EdenPortalState.CENTER_MIDDLE) drop = Blocks.GOLD_BLOCK;
 		return Collections.singletonList(new ItemStack(drop));
 	}
 	

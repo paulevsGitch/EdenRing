@@ -33,3 +33,4 @@ output/
 Convert.class
 ModelPart.class
 libs/
+/src/main/generated/.cache/

@@ -1,19 +1,21 @@
 package paulevs.edenring.registries;
 
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvent;
 import paulevs.edenring.EdenRing;
 
 public class EdenSounds {
 	public static final SoundEvent BLOCK_ELECTRIC = register("block", "electric");
-	public static final SoundEvent MUSIC_COMMON = register("music", "common");
+	public static final Holder<SoundEvent> MUSIC_COMMON = registerForHolder("music", "common");
 	
-	public static final SoundEvent AMBIENCE_BRAINSTORM = register("ambience", "brainstorm");
-	public static final SoundEvent AMBIENCE_GOLDEN_FOREST = register("ambience", "golden_forest");
-	public static final SoundEvent AMBIENCE_LAKESIDE_DESSERT = register("ambience", "lakeside_dessert");
-	public static final SoundEvent AMBIENCE_MYCOTIC_FOREST = register("ambience", "mycotic_forest");
-	public static final SoundEvent AMBIENCE_PULSE_FOREST = register("ambience", "pulse_forest");
-	public static final SoundEvent AMBIENCE_WIND_VALLEY = register("ambience", "wind_valley");
+	public static final Holder<SoundEvent> AMBIENCE_BRAINSTORM = registerForHolder("ambience", "brainstorm");
+	public static final Holder<SoundEvent> AMBIENCE_GOLDEN_FOREST = registerForHolder("ambience", "golden_forest");
+	public static final Holder<SoundEvent> AMBIENCE_LAKESIDE_DESSERT = registerForHolder("ambience", "lakeside_dessert");
+	public static final Holder<SoundEvent> AMBIENCE_MYCOTIC_FOREST = registerForHolder("ambience", "mycotic_forest");
+	public static final Holder<SoundEvent> AMBIENCE_PULSE_FOREST = registerForHolder("ambience", "pulse_forest");
+	public static final Holder<SoundEvent> AMBIENCE_WIND_VALLEY = registerForHolder("ambience", "wind_valley");
 	
 	public static final SoundEvent DISKWING_AMBIENT = register("entity", "diskwing", "ambient");
 	public static final SoundEvent DISKWING_DAMAGE = register("entity", "diskwing", "damage");
@@ -25,7 +27,19 @@ public class EdenSounds {
 			builder.append(part);
 		}
 		String id = builder.toString();
-		return Registry.register(Registry.SOUND_EVENT, id, new SoundEvent(EdenRing.makeID(id)));
+		var key = EdenRing.makeID(id);
+		return Registry.register(BuiltInRegistries.SOUND_EVENT, key, SoundEvent.createVariableRangeEvent(key));
+	}
+
+	private static Holder<SoundEvent> registerForHolder(String... path) {
+		StringBuilder builder = new StringBuilder(EdenRing.MOD_ID);
+		for (String part: path) {
+			builder.append('.');
+			builder.append(part);
+		}
+		String id = builder.toString();
+		var key = EdenRing.makeID(id);
+		return Registry.registerForHolder(BuiltInRegistries.SOUND_EVENT, key, SoundEvent.createVariableRangeEvent(key));
 	}
 	
 	public static void init() {}

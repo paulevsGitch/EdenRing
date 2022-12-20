@@ -1,9 +1,9 @@
 package paulevs.edenring.client.environment.animation;
 
-import com.mojang.math.Vector3f;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
 
 public abstract class SpriteAnimation {
 	public abstract void update(double time);

@@ -1,0 +1,63 @@
+{
+  "carvers": {
+    "air": [],
+    "liquid": []
+  },
+  "downfall": 1.0,
+  "effects": {
+    "fog_color": -4729601,
+    "foliage_color": 7371847,
+    "grass_color": 7371847,
+    "music": {
+      "max_delay": 2400,
+      "min_delay": 600,
+      "replace_current_music": true,
+      "sound": "edenring:edenring.music.common"
+    },
+    "sky_color": -9325825,
+    "water_color": 4159204,
+    "water_fog_color": 329011
+  },
+  "features": [
+    [
+      "edenring:small_island",
+      "edenring:gravilite_crystal"
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "edenring:slate_layer",
+      "edenring:calcite_layer",
+      "edenring:tuff_layer",
+      "minecraft:amethyst_geode",
+      "minecraft:ore_granite_upper",
+      "minecraft:ore_andesite_upper",
+      "minecraft:ore_diorite_upper",
+      "edenring:ore_mossy_cobble",
+      "edenring:ore_cobble",
+      "edenring:ore_coal",
+      "edenring:ore_iron",
+      "edenring:ore_copper",
+      "minecraft:dripstone_cluster",
+      "minecraft:large_dripstone",
+      "minecraft:pointed_dripstone"
+    ]
+  ],
+  "precipitation": "none",
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 1.0
+}

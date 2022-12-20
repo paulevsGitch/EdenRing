@@ -14,7 +14,7 @@ public class CaveBiomes {
 		BiomesCommonMethods.addDefaultLandFeatures(builder);
 		BiomesCommonMethods.setDefaultColors(builder);
 		BiomesCommonMethods.addDefaultSounds(builder);
-		return builder.surface(Blocks.STONE).plantsColor(0x707c47).build();
+		return builder.surface(Blocks.STONE).plantsColor(0x707c47).build().biome();
 	}
 	
 	public static BCLBiome makeErodedCaveBiome() {
@@ -32,6 +32,6 @@ public class CaveBiomes {
 				.surface(Blocks.DRIPSTONE_BLOCK.defaultBlockState())
 				.subsurface(Blocks.DRIPSTONE_BLOCK.defaultBlockState(), 3)
 				.build()
-			).build();
+			).build().biome();
 	}
 }

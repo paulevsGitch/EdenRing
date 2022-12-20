@@ -3,6 +3,7 @@ package paulevs.edenring.registries;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
@@ -48,7 +49,7 @@ public class EdenEntities {
 	protected static <T extends Entity> EntityType<T> register(String name, EntityType<T> type) {
 		ResourceLocation id = EdenRing.makeID(name);
 		if (ENTITY_CONFIG.getBooleanRoot(id.getPath(), true)) {
-			Registry.register(Registry.ENTITY_TYPE, id, type);
+			Registry.register(BuiltInRegistries.ENTITY_TYPE, id, type);
 		}
 		return type;
 	}
@@ -57,7 +58,7 @@ public class EdenEntities {
 		ResourceLocation id = EdenRing.makeID(name);
 		EntityType<T> type = FabricEntityTypeBuilder.create(group, entity).dimensions(EntityDimensions.fixed(width, height)).build();
 		if (ENTITY_CONFIG.getBooleanRoot(id.getPath(), true)) {
-			Registry.register(Registry.ENTITY_TYPE, id, type);
+			Registry.register(BuiltInRegistries.ENTITY_TYPE, id, type);
 			FabricDefaultAttributeRegistry.register(type, attributes);
 			EdenItems.REGISTRY.registerEgg(EdenRing.makeID("spawn_egg_" + name), type, eggColor, dotsColor);
 		}

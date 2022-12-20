@@ -1,0 +1,10 @@
+{
+  "type": "bclib:biome",
+  "biome": "edenring:brainstorm",
+  "edgeSize": 0,
+  "fogDensity": 2.0,
+  "genChance": 1.0,
+  "intended_for": "NONE",
+  "terrainHeight": 0.1,
+  "vertical": false
+}

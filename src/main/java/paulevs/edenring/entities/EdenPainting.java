@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -17,6 +18,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import paulevs.edenring.paintings.EdenPaintings;
 import paulevs.edenring.paintings.PaintingInfo;
@@ -149,7 +151,8 @@ public class EdenPainting extends HangingEntity {
 	}
 	
 	@Override
-	public Packet<?> getAddEntityPacket() {
+	@NotNull
+	public Packet<ClientGamePacketListener> getAddEntityPacket() {
 		//return new ClientboundAddEntityPacket(this, this.getType(), this.direction.get2DDataValue(), this.pos);
 		return new ClientboundAddEntityPacket(this);
 	}

@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
@@ -435,9 +436,9 @@ public class GuideBookScreen extends Screen {
 			String text = obj.get("item").getAsString();
 			height = obj.get("height").getAsInt();
 			ResourceLocation location = new ResourceLocation(text);
-			item = new ItemStack(Registry.ITEM.get(location));
+			item = new ItemStack(BuiltInRegistries.ITEM.get(location));
 			JsonElement preCentered = obj.get("centered");
-			centered = preCentered == null ? false : preCentered.getAsBoolean();
+			centered = preCentered != null && preCentered.getAsBoolean();
 		}
 		
 		@Override

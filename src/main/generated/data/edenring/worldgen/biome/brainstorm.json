@@ -1,0 +1,76 @@
+{
+  "carvers": {
+    "air": [],
+    "liquid": []
+  },
+  "downfall": 1.0,
+  "effects": {
+    "ambient_sound": "edenring:edenring.ambience.brainstorm",
+    "fog_color": -4934476,
+    "foliage_color": -3618616,
+    "grass_color": -3618616,
+    "music": {
+      "max_delay": 2400,
+      "min_delay": 600,
+      "replace_current_music": true,
+      "sound": "edenring:edenring.music.common"
+    },
+    "sky_color": -9325825,
+    "water_color": 4159204,
+    "water_fog_color": 329011
+  },
+  "features": [
+    [
+      "edenring:small_island",
+      "edenring:gravilite_crystal"
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "edenring:slate_layer",
+      "edenring:calcite_layer",
+      "edenring:tuff_layer",
+      "minecraft:amethyst_geode",
+      "minecraft:ore_granite_upper",
+      "minecraft:ore_andesite_upper",
+      "minecraft:ore_diorite_upper",
+      "edenring:ore_mossy_cobble",
+      "edenring:ore_cobble",
+      "edenring:ore_coal",
+      "edenring:ore_iron",
+      "edenring:ore_copper",
+      "edenring:layered_iron",
+      "edenring:layered_copper",
+      "edenring:layered_gold"
+    ],
+    [],
+    [
+      "minecraft:patch_grass_forest",
+      "minecraft:patch_tall_grass",
+      "edenring:tall_copper_grass",
+      "edenring:tall_iron_grass",
+      "edenring:tall_gold_grass",
+      "edenring:copper_grass",
+      "edenring:iron_grass",
+      "edenring:gold_grass",
+      "edenring:brain_tree"
+    ]
+  ],
+  "precipitation": "none",
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 1.0
+}

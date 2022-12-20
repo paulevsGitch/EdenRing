@@ -2,9 +2,7 @@ package paulevs.edenring.client.entities.renderers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix3f;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -18,6 +16,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import org.joml.Matrix3f;
+import org.joml.Matrix4f;
 import paulevs.edenring.entities.EdenPainting;
 import paulevs.edenring.paintings.PaintingColorProvider;
 import paulevs.edenring.paintings.PaintingInfo;
@@ -35,7 +35,7 @@ public class EdenPaintingRenderer extends EntityRenderer<EdenPainting> {
 	public void render(EdenPainting painting, float f, float g, PoseStack poseStack, MultiBufferSource multiBufferSource, int i) {
 		PaintingInfo info = painting.getPainting();
 		poseStack.pushPose();
-		poseStack.mulPose(Vector3f.YP.rotationDegrees(180.0F - f));
+		poseStack.mulPose(Axis.YP.rotationDegrees(180.0F - f));
 		poseStack.scale(0.0625F, 0.0625F, 0.0625F);
 		VertexConsumer vertexConsumer = multiBufferSource.getBuffer(RenderType.entityCutout(getTextureLocation(painting)));
 		this.renderPainting(poseStack, vertexConsumer, painting, info);

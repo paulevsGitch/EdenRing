@@ -1,11 +1,11 @@
 package paulevs.edenring.world;
 
-import com.mojang.math.Vector3f;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import org.betterx.bclib.util.MHelper;
+import org.joml.Vector3f;
 
 @Environment(EnvType.CLIENT)
 public final class MoonInfo {

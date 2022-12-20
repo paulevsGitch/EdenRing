@@ -2,7 +2,6 @@ package paulevs.edenring;
 
 import com.google.common.collect.Maps;
 import com.mojang.math.Transformation;
-import com.mojang.math.Vector3f;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.block.model.BlockModel;
@@ -28,6 +27,7 @@ import org.betterx.bclib.client.models.PatternsHelper;
 import org.betterx.bclib.client.render.BCLRenderLayer;
 import org.betterx.bclib.interfaces.RenderLayerProvider;
 import org.betterx.bclib.util.BlocksHelper;
+import org.joml.Vector3f;
 import paulevs.edenring.blocks.EdenBlockProperties;
 import paulevs.edenring.blocks.EdenPatterns;
 
@@ -135,12 +135,14 @@ public class BaseCTBlock extends BaseBlock implements RenderLayerProvider {
 			BlockStateProperties.DOWN,
 			BlockStateProperties.EAST
 		};
-		
-		Vector3f offset = Direction.NORTH.step().copy();
+
+		var north = Direction.NORTH.step();
+		Vector3f offset = new Vector3f(north.x, north.y, north.z);
 		offset.mul(0.001F);
 		transformation = new Transformation(offset, Direction.NORTH.getRotation(), null, null);
-		
-		offset = Direction.SOUTH.step().copy();
+
+		var south = Direction.SOUTH.step();
+		offset = new Vector3f(south.x, south.y, south.z);
 		offset.mul(0.001F);
 		Transformation transformation2 = new Transformation(offset, Direction.SOUTH.getRotation(), null, null);
 		
@@ -167,12 +169,14 @@ public class BaseCTBlock extends BaseBlock implements RenderLayerProvider {
 			BlockStateProperties.DOWN,
 			BlockStateProperties.SOUTH
 		};
-		
-		offset = Direction.EAST.step().copy();
+
+		var east = Direction.EAST.step();
+		offset = new Vector3f(east.x, east.y, east.z);
 		offset.mul(0.002F);
 		transformation = new Transformation(offset, Direction.EAST.getRotation(), null, null);
-		
-		offset = Direction.WEST.step().copy();
+
+		var west = Direction.WEST.step();
+		offset = new Vector3f(west.x, west.y, west.z);
 		offset.mul(0.002F);
 		transformation2 = new Transformation(offset, Direction.WEST.getRotation(), null, null);
 		

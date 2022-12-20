@@ -1,10 +1,10 @@
 package paulevs.edenring.client.environment.weather;
 
-import com.mojang.math.Vector3f;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.AABB;
 import org.betterx.bclib.util.MHelper;
+import org.joml.Vector3f;
 import paulevs.edenring.client.environment.animation.SpriteAnimation;
 
 public class CloudAnimation extends SpriteAnimation {

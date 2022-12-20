@@ -2,10 +2,6 @@ buildscript {
     dependencies {
         classpath 'org.kohsuke:github-api:1.114'
     }
-	
-	repositories {
-		gradlePluginPortal()
-	}
 }
 
 plugins {
@@ -23,6 +19,37 @@ version = project.mod_version
 group = project.maven_group
 def local_bclib = findProject(':BCLib') != null
 
+loom {
+    interfaceInjection {
+        // When enabled injected interfaces from dependecies will be applied.
+        enableDependencyInterfaceInjection = true
+    }
+    runs {
+        // This adds a new gradle task that runs the datagen API: "gradlew runDatagenClient"
+        datagenClient {
+            inherit client
+            name "Data Generation"
+            vmArg "-Dfabric-api.datagen"
+            vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
+            vmArg "-Dfabric-api.datagen.strict-validation"
+            vmArg "-Dfabric-api.datagen.modid=edenring"
+
+            runDir "build/datagen"
+        }
+    }
+}
+
+sourceSets {
+    main {
+        // Add the datagenned files into the jar.
+        resources {
+            srcDirs += [
+                    'src/main/generated'
+            ]
+        }
+    }
+}
+
 repositories {
     maven { url "https://maven.dblsaiko.net/" }
     maven { url "https://maven.fabricmc.net/" }
@@ -30,6 +57,17 @@ repositories {
     maven { url "https://maven.shedaniel.me/" }
     maven { url 'https://jitpack.io' }
 	maven { url 'https://maven.terraformersmc.com/releases' }
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "Modrinth"
+                url = "https://api.modrinth.com/maven"
+            }
+        }
+        filter {
+            includeGroup "maven.modrinth"
+        }
+    }
 	flatDir {
         dirs 'libs'
     }
@@ -45,7 +83,7 @@ dependencies {
     if (local_bclib){		
         implementation( project(path:":BCLib", configuration: 'dev') )
     } else {
-        modImplementation "com.github.quiqueck:BCLib:${project.bclib_version}"
+        modImplementation "maven.modrinth:BCLib:${project.bclib_version}"
     }
 }
 

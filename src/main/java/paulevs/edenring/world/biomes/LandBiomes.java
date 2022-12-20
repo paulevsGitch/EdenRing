@@ -36,7 +36,7 @@ public class LandBiomes {
 			.feature(EdenFeatures.EDEN_VINE)
 			.feature(EdenFeatures.ROOTS)
 			.feature(EdenFeatures.PARIGNUM)
-			.build();
+			.build().biome();
 	}
 	
 	public static BCLBiome makeGoldenForestBiome() {
@@ -59,7 +59,7 @@ public class LandBiomes {
 			.feature(EdenFeatures.EDEN_VINE)
 			.feature(EdenFeatures.ORE_GOLD)
 			.feature(EdenFeatures.PARIGNUM)
-			.build();
+			.build().biome();
 	}
 	
 	public static BCLBiome makeMycoticForestBiome() {
@@ -90,7 +90,7 @@ public class LandBiomes {
 			.feature(EdenFeatures.TALL_MYCOTIC_GRASS)
 			.feature(EdenFeatures.MYCOTIC_GRASS)
 			.feature(EdenFeatures.EDEN_VINE)
-			.build();
+			.build().biome();
 	}
 	
 	public static BCLBiome makeOldMycoticForestBiome() {
@@ -122,7 +122,7 @@ public class LandBiomes {
 			.feature(EdenFeatures.MYCOTIC_GRASS)
 			.feature(EdenFeatures.EDEN_VINE)
 			.genChance(0.5F)
-			.build();
+			.build().biome();
 	}
 	
 	public static BCLBiome makePulseForestBiome() {
@@ -144,7 +144,7 @@ public class LandBiomes {
 			.feature(EdenFeatures.LIMPHIUM)
 			.feature(EdenFeatures.VIOLUM_DENSE)
 			.feature(EdenFeatures.EDEN_VINE)
-			.build();
+			.build().biome();
 	}
 	
 	public static BCLBiome makeBrainstormBiome() {
@@ -172,7 +172,7 @@ public class LandBiomes {
 			.feature(EdenFeatures.LAYERED_IRON)
 			.feature(EdenFeatures.LAYERED_COPPER)
 			.feature(EdenFeatures.LAYERED_GOLD)
-			.build();
+			.build().biome();
 	}
 	
 	public static BCLBiome makeLakesideDesertBiome() {
@@ -203,7 +203,7 @@ public class LandBiomes {
 			.feature(EdenFeatures.GRAVEL_FLOOR)
 			.feature(EdenFeatures.GRASS_FLOOR)
 			.feature(EdenFeatures.AQUATUS)
-			.build();
+			.build().biome();
 	}
 	
 	public static BCLBiome makeWindValleyBiome() {
@@ -224,6 +224,6 @@ public class LandBiomes {
 			.feature(EdenFeatures.VIOLUM_RARE)
 			.feature(EdenFeatures.LONLIX)
 			.feature(EdenFeatures.PARIGNUM)
-			.build();
+			.build().biome();
 	}
 }

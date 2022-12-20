@@ -1,13 +1,17 @@
 package paulevs.edenring.registries;
 
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import org.betterx.bclib.api.v3.levelgen.features.BCLFeature;
 import org.betterx.bclib.api.v3.levelgen.features.BCLFeatureBuilder;
 import paulevs.edenring.EdenRing;
@@ -145,8 +149,8 @@ public class EdenFeatures {
 
 	public static <F extends Feature<FC>, FC extends FeatureConfiguration> F inlineBuild(String name, F feature) {
 		ResourceLocation l = EdenRing.makeID(name);
-		if (Registry.FEATURE.containsKey(l)) {
-			return (F) Registry.FEATURE.get(l);
+		if (BuiltInRegistries.FEATURE.containsKey(l)) {
+			return (F) BuiltInRegistries.FEATURE.get(l);
 		}
 		return BCLFeature.register(l, feature);
 	}
@@ -168,11 +172,11 @@ public class EdenFeatures {
 		ResourceLocation id = EdenRing.makeID(name);
 		return BCLFeatureBuilder.start(id, feature)
 				.configuration(config)
-				.buildAndRegister()
+				.build()
 				.place()
 				.onEveryLayerMax(density)
 				.onlyInBiome()
-				.buildAndRegister();
+				.build();
 	}
 
 	private static <F extends Feature<NoneFeatureConfiguration>> BCLFeature<F, NoneFeatureConfiguration> registerChanced(
@@ -203,13 +207,13 @@ public class EdenFeatures {
 				BCLFeatureBuilder
 						.start(EdenRing.makeID(name), feature)
 						.configuration(config)
-						.buildAndRegister()
+						.build()
 						.place()
 						.decoration(decoration)
 						.onceEvery(chance)
 						.squarePlacement()
 						.onlyInBiome()
-						.buildAndRegister();
+						.build();
 	}
 
 	private static <F extends Feature<NoneFeatureConfiguration>> BCLFeature<F, NoneFeatureConfiguration> registerRawGen(
@@ -237,12 +241,12 @@ public class EdenFeatures {
 		return BCLFeatureBuilder
 				.start(EdenRing.makeID(name), feature)
 				.configuration(config)
-				.buildAndRegister()
+				.build()
 				.place()
 				.decoration(Decoration.UNDERGROUND_DECORATION)
 				.count(1)
 				.onlyInBiome()
-				.buildAndRegister();
+				.build();
 	}
 
 	public static void init() {}

@@ -3,6 +3,7 @@ package paulevs.edenring.world.features.terrain;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -19,7 +20,7 @@ public class StoneLayer extends DefaultFeature {
 	private Block block;
 	
 	public StoneLayer(Block block) {
-		noise = new OpenSimplexNoise(Registry.BLOCK.getKey(block).hashCode());
+		noise = new OpenSimplexNoise(BuiltInRegistries.BLOCK.getKey(block).hashCode());
 		this.block = block;
 	}
 	

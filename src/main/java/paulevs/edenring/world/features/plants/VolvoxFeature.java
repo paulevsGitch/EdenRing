@@ -1,7 +1,5 @@
 package paulevs.edenring.world.features.plants;
 
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
@@ -18,6 +16,8 @@ import org.betterx.bclib.blocks.BlockProperties.TripleShape;
 import org.betterx.bclib.util.BlocksHelper;
 import org.betterx.bclib.util.MHelper;
 import org.betterx.bclib.util.SplineHelper;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 import paulevs.edenring.blocks.SixSidePlant;
 import paulevs.edenring.registries.EdenBlocks;
 
@@ -100,10 +100,10 @@ public class VolvoxFeature extends DefaultFeature {
 		);
 		axis.normalize();
 		float angle = random.nextFloat() * (float) Math.PI * 2;
-		Quaternion rotation = new Quaternion(axis, angle, false);
+		Quaternionf rotation = new Quaternionf().setAngleAxis(angle, axis.x(), axis.y(), axis.z());
 		for (byte i = 0; i < 3; i++) {
 			List<Vector3f> spline = makeCircleSpline(radius, i);
-			spline.forEach(point -> point.transform(rotation));
+			spline.forEach(point -> point.rotate(rotation));
 			SplineHelper.offset(spline, offset);
 			spline.add(spline.get(0));
 			SplineHelper.fillSplineForce(spline, level, volvoxDense, pos, state -> state.getMaterial().isReplaceable() || state.equals(volvox));

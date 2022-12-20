@@ -10,8 +10,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexBuffer;
 import com.mojang.blaze3d.vertex.VertexFormat;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry.SkyRenderer;
@@ -29,9 +28,11 @@ import net.minecraft.world.level.levelgen.XoroshiroRandomSource;
 import net.minecraft.world.phys.Vec3;
 import org.betterx.bclib.util.BackgroundInfo;
 import org.betterx.bclib.util.MHelper;
+import org.joml.Matrix4f;
+import org.joml.Vector3f;
 import org.lwjgl.opengl.GL11;
 import paulevs.edenring.EdenRing;
-import paulevs.edenring.client.EdenRingClient;
+import paulevs.edenring.config.Configs;
 import paulevs.edenring.world.MoonInfo;
 
 @Environment(value= EnvType.CLIENT)
@@ -86,7 +87,7 @@ public class EdenSkyRenderer implements SkyRenderer {
 	
 	@Override
 	public void render(WorldRenderContext context) {
-		if (!EdenRingClient.CLIENT_CONFIG.renderSky()) {
+		if (!Configs.CLIENT_CONFIG.renderSky()) {
 			return;
 		}
 		
@@ -157,8 +158,8 @@ public class EdenSkyRenderer implements SkyRenderer {
 		RenderSystem.enableBlend();
 		
 		poseStack.pushPose();
-		poseStack.mulPose(Vector3f.XP.rotation(-0.4F));
-		poseStack.mulPose(Vector3f.YP.rotation((float) Math.PI * 0.5F - dayTime * (float) Math.PI * 2.0F));
+		poseStack.mulPose(Axis.XP.rotation(-0.4F));
+		poseStack.mulPose(Axis.YP.rotation((float) Math.PI * 0.5F - dayTime * (float) Math.PI * 2.0F));
 		
 		RenderSystem.setShaderTexture(0, STARS);
 		renderBuffer(poseStack, projectionMatrix, stars, DefaultVertexFormat.POSITION_TEX, 1.0F, 1.0F, 1.0F, skyBlend * 0.25F + 0.75F);
@@ -177,7 +178,7 @@ public class EdenSkyRenderer implements SkyRenderer {
 		// Render Sun //
 		
 		poseStack.pushPose();
-		poseStack.mulPose(Vector3f.ZP.rotation((float) Math.PI * 0.5F));
+		poseStack.mulPose(Axis.ZP.rotation((float) Math.PI * 0.5F));
 		Matrix4f matrix = poseStack.last().pose();
 		
 		RenderSystem.setShaderColor(skyR, skyG, skyB, 1.0F);
@@ -214,7 +215,7 @@ public class EdenSkyRenderer implements SkyRenderer {
 		
 		poseStack.pushPose();
 		poseStack.translate(0, 0, -100);
-		poseStack.mulPose(Vector3f.XP.rotation(angle));
+		poseStack.mulPose(Axis.XP.rotation(angle));
 		
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 		RenderSystem.setShaderTexture(0, RINGS_SOFT_TEXTURE);
@@ -259,9 +260,8 @@ public class EdenSkyRenderer implements SkyRenderer {
 		poseStack.popPose();
 		
 		// Render Moons Front //
-		
-		for (int i = 0; i < MOONS.length; i++) {
-			MoonInfo moon = MOONS[i];
+
+		for (MoonInfo moon : MOONS) {
 			double position = moon.orbitState + dayTime * moon.speed;
 			renderMoon(true, poseStack, position, moon.orbitRadius, moon.orbitAngle, moon.size, v0, v1, moon.color);
 		}
@@ -271,7 +271,7 @@ public class EdenSkyRenderer implements SkyRenderer {
 		if (py > 0) {
 			poseStack.pushPose();
 			poseStack.translate(0, 0, -100);
-			poseStack.mulPose(Vector3f.XP.rotation(angle));
+			poseStack.mulPose(Axis.XP.rotation(angle));
 			RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 			RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, py > 0.5F ? 0.5F : (float) py);
 			RenderSystem.setShaderTexture(0, RINGS_TEXTURE);
@@ -293,7 +293,7 @@ public class EdenSkyRenderer implements SkyRenderer {
 			if (BackgroundInfo.fogDensity > 1.5F) {
 				float density = Mth.clamp(BackgroundInfo.fogDensity - 1.5F, 0, 1);
 				poseStack.pushPose();
-				poseStack.mulPose(Vector3f.YP.rotation((float) (-time * 0.00003)));
+				poseStack.mulPose(Axis.YP.rotation((float) (-time * 0.00003)));
 				renderBuffer(
 					poseStack,
 					projectionMatrix,
@@ -308,7 +308,7 @@ public class EdenSkyRenderer implements SkyRenderer {
 			}
 			
 			poseStack.pushPose();
-			poseStack.mulPose(Vector3f.YP.rotation((float) (time * 0.0002)));
+			poseStack.mulPose(Axis.YP.rotation((float) (time * 0.0002)));
 			float density = Mth.clamp(BackgroundInfo.fogDensity, 1, 2);
 			renderBuffer(
 				poseStack,
@@ -323,7 +323,7 @@ public class EdenSkyRenderer implements SkyRenderer {
 			poseStack.popPose();
 			
 			poseStack.pushPose();
-			poseStack.mulPose(Vector3f.YP.rotation((float) (-time * 0.0001)));
+			poseStack.mulPose(Axis.YP.rotation((float) (-time * 0.0001)));
 			renderBuffer(
 				poseStack,
 				projectionMatrix,

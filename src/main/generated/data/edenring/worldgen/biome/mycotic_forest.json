@@ -1,0 +1,73 @@
+{
+  "carvers": {
+    "air": [],
+    "liquid": []
+  },
+  "downfall": 1.0,
+  "effects": {
+    "ambient_sound": "edenring:edenring.ambience.mycotic_forest",
+    "fog_color": -5082993,
+    "foliage_color": -6792573,
+    "grass_color": -2325827,
+    "music": {
+      "max_delay": 2400,
+      "min_delay": 600,
+      "replace_current_music": true,
+      "sound": "edenring:edenring.music.common"
+    },
+    "sky_color": -9325825,
+    "water_color": 4159204,
+    "water_fog_color": 329011
+  },
+  "features": [
+    [
+      "edenring:small_island",
+      "edenring:gravilite_crystal"
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "edenring:slate_layer",
+      "edenring:calcite_layer",
+      "edenring:tuff_layer",
+      "minecraft:amethyst_geode",
+      "minecraft:ore_granite_upper",
+      "minecraft:ore_andesite_upper",
+      "minecraft:ore_diorite_upper",
+      "edenring:ore_mossy_cobble",
+      "edenring:ore_cobble",
+      "edenring:ore_coal",
+      "edenring:ore_iron",
+      "edenring:ore_copper"
+    ],
+    [],
+    [
+      "minecraft:patch_grass_forest",
+      "edenring:balloon_mushroom_tree",
+      "edenring:tall_balloon_mushroom",
+      "edenring:balloon_mushroom_small",
+      "edenring:grass_floor",
+      "edenring:limphium",
+      "edenring:tall_mycotic_grass",
+      "edenring:mycotic_grass",
+      "edenring:eden_vine"
+    ]
+  ],
+  "precipitation": "none",
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 1.0
+}

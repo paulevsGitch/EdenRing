@@ -1,0 +1,10 @@
+{
+  "type": "bclib:biome",
+  "biome": "edenring:lakeside_desert",
+  "edgeSize": 0,
+  "fogDensity": 1.75,
+  "genChance": 1.0,
+  "intended_for": "NONE",
+  "terrainHeight": 0.1,
+  "vertical": false
+}

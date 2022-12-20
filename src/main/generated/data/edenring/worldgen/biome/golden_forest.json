@@ -1,0 +1,73 @@
+{
+  "carvers": {
+    "air": [],
+    "liquid": []
+  },
+  "downfall": 1.0,
+  "effects": {
+    "ambient_sound": "edenring:edenring.ambience.golden_forest",
+    "fog_color": -4729601,
+    "foliage_color": -20892,
+    "grass_color": -20892,
+    "music": {
+      "max_delay": 2400,
+      "min_delay": 600,
+      "replace_current_music": true,
+      "sound": "edenring:edenring.music.common"
+    },
+    "sky_color": -9325825,
+    "water_color": 4159204,
+    "water_fog_color": 329011
+  },
+  "features": [
+    [
+      "edenring:small_island",
+      "edenring:gravilite_crystal"
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "edenring:slate_layer",
+      "edenring:calcite_layer",
+      "edenring:tuff_layer",
+      "minecraft:amethyst_geode",
+      "minecraft:ore_granite_upper",
+      "minecraft:ore_andesite_upper",
+      "minecraft:ore_diorite_upper",
+      "edenring:ore_mossy_cobble",
+      "edenring:ore_cobble",
+      "edenring:ore_coal",
+      "edenring:ore_iron",
+      "edenring:ore_copper",
+      "edenring:ore_gold"
+    ],
+    [],
+    [
+      "minecraft:patch_grass_forest",
+      "minecraft:patch_tall_grass",
+      "minecraft:patch_large_fern",
+      "edenring:auritis_tree",
+      "edenring:eden_moss_layer",
+      "edenring:golden_grass",
+      "edenring:eden_vine",
+      "edenring:parignum"
+    ]
+  ],
+  "precipitation": "none",
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 1.0
+}

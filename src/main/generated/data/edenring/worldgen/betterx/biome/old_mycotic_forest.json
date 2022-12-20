@@ -1,0 +1,11 @@
+{
+  "type": "bclib:biome",
+  "parent": "edenring:mycotic_forest",
+  "biome": "edenring:old_mycotic_forest",
+  "edgeSize": 0,
+  "fogDensity": 1.0,
+  "genChance": 0.5,
+  "intended_for": "NONE",
+  "terrainHeight": 0.1,
+  "vertical": false
+}

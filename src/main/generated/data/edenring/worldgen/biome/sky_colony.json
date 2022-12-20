@@ -1,0 +1,65 @@
+{
+  "carvers": {
+    "air": [],
+    "liquid": []
+  },
+  "downfall": 1.0,
+  "effects": {
+    "fog_color": 8704833,
+    "foliage_color": 1998166,
+    "grass_color": 1998166,
+    "music": {
+      "max_delay": 2400,
+      "min_delay": 600,
+      "replace_current_music": true,
+      "sound": "edenring:edenring.music.common"
+    },
+    "particle": {
+      "options": {
+        "type": "edenring:young_volvox"
+      },
+      "probability": 1.0E-4
+    },
+    "sky_color": -9325825,
+    "water_color": 1998166,
+    "water_fog_color": 329011
+  },
+  "features": [
+    [
+      "edenring:small_island",
+      "edenring:gravilite_crystal"
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "edenring:volvox",
+      "edenring:parignum"
+    ]
+  ],
+  "precipitation": "none",
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [
+      {
+        "type": "edenring:diskwing",
+        "maxCount": 6,
+        "minCount": 3,
+        "weight": 20
+      }
+    ],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 1.0
+}

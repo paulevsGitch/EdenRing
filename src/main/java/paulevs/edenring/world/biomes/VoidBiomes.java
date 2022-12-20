@@ -15,7 +15,7 @@ public class VoidBiomes {
 		BiomesCommonMethods.setDefaultColors(builder);
 		BiomesCommonMethods.addDefaultSounds(builder);
 		builder.spawn(EdenEntities.DISKWING, 20, 3, 6);
-		return builder.build();
+		return builder.build().biome();
 	}
 	
 	public static BCLBiome makeSkyColony() {
@@ -32,6 +32,6 @@ public class VoidBiomes {
 			.particles(EdenParticles.YOUNG_VOLVOX, 0.0001F)
 			.feature(EdenFeatures.VOLVOX)
 			.feature(EdenFeatures.PARIGNUM)
-			.build();
+			.build().biome();
 	}
 }

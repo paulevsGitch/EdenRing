@@ -2,10 +2,9 @@ package paulevs.edenring.world.generator;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.BlockPos;
+import net.minecraft.core.*;
 import net.minecraft.core.BlockPos.MutableBlockPos;
-import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.RegistryOps;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.biome.Biome;
@@ -13,10 +12,11 @@ import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.biome.Climate.Sampler;
 import org.betterx.bclib.api.v2.generator.BiomePicker;
 import org.betterx.bclib.api.v2.generator.map.hex.HexBiomeMap;
+import org.betterx.bclib.api.v2.levelgen.biomes.BCLBiome;
 import org.betterx.bclib.interfaces.BiomeMap;
 import paulevs.edenring.EdenRing;
+import paulevs.edenring.datagen.worldgen.EdenRingBiomesDataProvider;
 import paulevs.edenring.noise.InterpolationCell;
-import paulevs.edenring.registries.EdenBiomes;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 public class EdenBiomeSource extends BiomeSource {
 	public static final Codec<EdenBiomeSource> CODEC = RecordCodecBuilder.create(
 		(instance) -> instance.group(
-			RegistryOps.retrieveRegistry(Registry.BIOME_REGISTRY).forGetter((theEndBiomeSource) -> null)
+			RegistryOps.retrieveGetter(Registries.BIOME)
 		).apply(instance, instance.stable(EdenBiomeSource::new))
 	);
 	
@@ -37,25 +37,23 @@ public class EdenBiomeSource extends BiomeSource {
 	private BiomeMap mapVoid;
 	private BiomeMap mapCave;
 	
-	public EdenBiomeSource(Registry<Biome> biomeRegistry) {
-		super(biomeRegistry
-			.entrySet()
-			.stream()
-			.filter(entry -> entry.getKey().location().getNamespace().equals(EdenRing.MOD_ID))
-			.map(entry -> biomeRegistry.getOrCreateHolder(entry.getKey()).get().left().get())
+	public EdenBiomeSource(HolderGetter<Biome> biomeRegistry) {
+		super(((HolderLookup<Biome>) biomeRegistry).listElementIds()
+			.filter(key -> key.location().getNamespace().equals(EdenRing.MOD_ID))
+			.map(biomeRegistry::getOrThrow)
 			.collect(Collectors.toList()));
 		
 		if (pickerLand == null) {
 			pickerLand = new BiomePicker(biomeRegistry);
-			EdenBiomes.BIOMES_LAND.forEach(biome -> pickerLand.addBiome(biome));
+			EdenRingBiomesDataProvider.BIOMES_LAND.forEach(biome -> pickerLand.addBiome(biome));
 			pickerLand.rebuild();
 			
 			pickerVoid = new BiomePicker(biomeRegistry);
-			EdenBiomes.BIOMES_VOID.forEach(biome -> pickerVoid.addBiome(biome));
+			EdenRingBiomesDataProvider.BIOMES_VOID.forEach(biome -> pickerVoid.addBiome(biome));
 			pickerVoid.rebuild();
 			
 			pickerCave = new BiomePicker(biomeRegistry);
-			EdenBiomes.BIOMES_CAVE.forEach(biome -> pickerCave.addBiome(biome));
+			EdenRingBiomesDataProvider.BIOMES_CAVE.forEach(biome -> pickerCave.addBiome(biome));
 			pickerCave.rebuild();
 		}
 		

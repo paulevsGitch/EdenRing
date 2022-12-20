@@ -1,0 +1,76 @@
+{
+  "carvers": {
+    "air": [],
+    "liquid": []
+  },
+  "downfall": 1.0,
+  "effects": {
+    "fog_color": -4729601,
+    "foliage_color": -6111631,
+    "grass_color": -6111631,
+    "music": {
+      "max_delay": 2400,
+      "min_delay": 600,
+      "replace_current_music": true,
+      "sound": "edenring:edenring.music.common"
+    },
+    "sky_color": -9325825,
+    "water_color": 4159204,
+    "water_fog_color": 329011
+  },
+  "features": [
+    [
+      "edenring:small_island",
+      "edenring:gravilite_crystal",
+      "edenring:stone_pillar"
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "edenring:slate_layer",
+      "edenring:calcite_layer",
+      "edenring:tuff_layer",
+      "minecraft:amethyst_geode",
+      "minecraft:ore_granite_upper",
+      "minecraft:ore_andesite_upper",
+      "minecraft:ore_diorite_upper",
+      "edenring:ore_mossy_cobble",
+      "edenring:ore_cobble",
+      "edenring:ore_coal",
+      "edenring:ore_iron",
+      "edenring:ore_copper"
+    ],
+    [],
+    [
+      "minecraft:patch_grass_forest",
+      "minecraft:patch_tall_grass",
+      "minecraft:forest_rock",
+      "edenring:cobble_floor",
+      "edenring:moss_floor",
+      "edenring:moss_layer",
+      "edenring:eden_moss_layer",
+      "edenring:limphium",
+      "edenring:violum_rare",
+      "edenring:eden_vine",
+      "edenring:roots",
+      "edenring:parignum"
+    ]
+  ],
+  "precipitation": "none",
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 1.0
+}

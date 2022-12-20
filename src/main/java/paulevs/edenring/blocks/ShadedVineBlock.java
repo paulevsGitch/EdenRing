@@ -153,7 +153,7 @@ public class ShadedVineBlock extends BaseBlockNotFull implements RenderLayerProv
 	}
 	
 	@Override
-	public boolean isValidBonemealTarget(BlockGetter world, BlockPos pos, BlockState state, boolean isClient) {
+	public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state, boolean isClient) {
 		while (world.getBlockState(pos).getBlock() == this) {
 			pos = pos.below();
 		}

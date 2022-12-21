@@ -23,15 +23,8 @@ import org.betterx.bclib.api.v2.datafixer.MigrationProfile;
 import org.betterx.bclib.registry.BaseRegistry;
 import org.betterx.worlds.together.util.Logger;
 import paulevs.edenring.config.Configs;
-import paulevs.edenring.datagen.worldgen.EdenRingBiomesDataProvider;
 import paulevs.edenring.paintings.EdenPaintings;
-import paulevs.edenring.registries.EdenBlockEntities;
-import paulevs.edenring.registries.EdenBlocks;
-import paulevs.edenring.registries.EdenEntities;
-import paulevs.edenring.registries.EdenFeatures;
-import paulevs.edenring.registries.EdenItems;
-import paulevs.edenring.registries.EdenRecipes;
-import paulevs.edenring.registries.EdenSounds;
+import paulevs.edenring.registries.*;
 import paulevs.edenring.world.EdenPortal;
 import paulevs.edenring.world.generator.EdenBiomeSource;
 import paulevs.edenring.world.generator.GeneratorOptions;
@@ -39,7 +32,7 @@ import paulevs.edenring.world.generator.GeneratorOptions;
 public class EdenRing implements ModInitializer {
 	public static final String MOD_ID = "edenring";
 	public static final Logger LOGGER = new Logger(MOD_ID);
-	
+
 	public static final ResourceKey<DimensionType> EDEN_RING_TYPE_KEY = ResourceKey.create(Registries.DIMENSION_TYPE, makeID(MOD_ID));
 	public static final ResourceKey<Level> EDEN_RING_KEY = ResourceKey.create(Registries.DIMENSION, makeID(MOD_ID));
 	public static final CreativeModeTab EDEN_TAB = FabricItemGroup.builder(makeID("eden_tab"))
@@ -58,7 +51,8 @@ public class EdenRing implements ModInitializer {
 		EdenPaintings.init();
 		EdenEntities.init();
 		EdenItems.init();
-		EdenFeatures.init();
+		EdenBiomes.register();
+		EdenFeatures.register();
 		EdenRecipes.init();
 		Configs.saveConfigs();
 		

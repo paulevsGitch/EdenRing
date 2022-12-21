@@ -1,4 +1,4 @@
-package paulevs.edenring.world.biomes;
+package paulevs.edenring.world.biome;
 
 import net.minecraft.data.worldgen.placement.CavePlacements;
 import net.minecraft.data.worldgen.placement.OrePlacements;
@@ -34,22 +34,5 @@ public class BiomesCommonMethods {
 		builder
 			.feature(EdenFeatures.SMALL_ISLAND)
 			.feature(EdenFeatures.GRAVILITE_CRYSTAL);
-	}
-	
-	public static void addDefaultSurface(BCLBiomeBuilder builder) {
-		builder.surface(SurfaceRuleBuilder
-			.start()
-			.surface(EdenBlocks.EDEN_GRASS_BLOCK.defaultBlockState())
-			.subsurface(Blocks.DIRT.defaultBlockState(), 3)
-			.build()
-		);
-	}
-	
-	public static void addDefaultSounds(BCLBiomeBuilder builder) {
-		builder.music(EdenSounds.MUSIC_COMMON);
-	}
-	
-	public static void setDefaultColors(BCLBiomeBuilder builder) {
-		builder.skyColor(113, 178, 255).fogColor(183, 212, 255).waterFogColor(329011).waterColor(4159204);
 	}
 }

@@ -1,21 +1,19 @@
 package paulevs.edenring.registries;
 
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import org.betterx.bclib.api.v2.levelgen.biomes.BCLBiomeBuilder;
 import org.betterx.bclib.api.v3.levelgen.features.BCLFeature;
 import org.betterx.bclib.api.v3.levelgen.features.BCLFeatureBuilder;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.blocks.SixSidePlant;
+import paulevs.edenring.world.biome.BiomesCommonMethods;
 import paulevs.edenring.world.features.basic.DepthScatterFeature;
 import paulevs.edenring.world.features.basic.DoubleScatterFeature;
 import paulevs.edenring.world.features.basic.FloorScatterFeature;
@@ -249,5 +247,6 @@ public class EdenFeatures {
 				.build();
 	}
 
-	public static void init() {}
+	public static void register() {
+	}
 }

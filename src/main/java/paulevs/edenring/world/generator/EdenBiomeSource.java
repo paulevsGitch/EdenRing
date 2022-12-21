@@ -12,7 +12,6 @@ import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.biome.Climate.Sampler;
 import org.betterx.bclib.api.v2.generator.BiomePicker;
 import org.betterx.bclib.api.v2.generator.map.hex.HexBiomeMap;
-import org.betterx.bclib.api.v2.levelgen.biomes.BCLBiome;
 import org.betterx.bclib.interfaces.BiomeMap;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.datagen.worldgen.EdenRingBiomesDataProvider;
@@ -31,10 +30,10 @@ public class EdenBiomeSource extends BiomeSource {
 	
 	private Map<ChunkPos, InterpolationCell> terrainCache = new ConcurrentHashMap<>();
 	private BiomePicker pickerLand;
-	private BiomePicker pickerVoid;
+	private BiomePicker pickerAir;
 	private BiomePicker pickerCave;
 	private BiomeMap mapLand;
-	private BiomeMap mapVoid;
+	private BiomeMap mapAir;
 	private BiomeMap mapCave;
 	
 	public EdenBiomeSource(HolderGetter<Biome> biomeRegistry) {
@@ -48,9 +47,9 @@ public class EdenBiomeSource extends BiomeSource {
 			EdenRingBiomesDataProvider.BIOMES_LAND.forEach(biome -> pickerLand.addBiome(biome));
 			pickerLand.rebuild();
 			
-			pickerVoid = new BiomePicker(biomeRegistry);
-			EdenRingBiomesDataProvider.BIOMES_VOID.forEach(biome -> pickerVoid.addBiome(biome));
-			pickerVoid.rebuild();
+			pickerAir = new BiomePicker(biomeRegistry);
+			EdenRingBiomesDataProvider.BIOMES_AIR.forEach(biome -> pickerAir.addBiome(biome));
+			pickerAir.rebuild();
 			
 			pickerCave = new BiomePicker(biomeRegistry);
 			EdenRingBiomesDataProvider.BIOMES_CAVE.forEach(biome -> pickerCave.addBiome(biome));
@@ -58,7 +57,7 @@ public class EdenBiomeSource extends BiomeSource {
 		}
 		
 		mapLand = new HexBiomeMap(0, GeneratorOptions.biomeSizeLand, pickerLand);
-		mapVoid = new HexBiomeMap(0, GeneratorOptions.biomeSizeVoid, pickerVoid);
+		mapAir = new HexBiomeMap(0, GeneratorOptions.biomeSizeAir, pickerAir);
 		mapCave = new HexBiomeMap(0, GeneratorOptions.biomeSizeCave, pickerCave);
 	}
 	
@@ -90,12 +89,12 @@ public class EdenBiomeSource extends BiomeSource {
 			}
 			return mapLand.getBiome(px, 0, pz).biome;
 		}
-		return mapVoid.getBiome(px, 0, pz).biome;
+		return mapAir.getBiome(px, 0, pz).biome;
 	}
 	
 	public void setSeed(long seed) {
 		mapLand = new HexBiomeMap(seed, GeneratorOptions.biomeSizeLand, pickerLand);
-		mapVoid = new HexBiomeMap(seed, GeneratorOptions.biomeSizeVoid, pickerVoid);
+		mapAir = new HexBiomeMap(seed, GeneratorOptions.biomeSizeAir, pickerAir);
 		mapCave = new HexBiomeMap(seed, GeneratorOptions.biomeSizeCave, pickerCave);
 	}
 	
@@ -103,7 +102,7 @@ public class EdenBiomeSource extends BiomeSource {
 		if ((x & 63) == 0 && (z & 63) == 0) {
 			terrainCache.clear();
 			mapLand.clearCache();
-			mapVoid.clearCache();
+			mapAir.clearCache();
 			mapCave.clearCache();
 		}
 	}

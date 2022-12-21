@@ -11,6 +11,8 @@ import paulevs.edenring.client.EdenClientConfig;
 
 public class Configs {
     public static final IdConfig BIOMES = new EntryConfig(EdenRing.MOD_ID, "biomes");
+    public static final PathConfig GENERATOR = new PathConfig(EdenRing.MOD_ID, "generator", false, false);
+    public static final PathConfig ITEMS = new PathConfig(EdenRing.MOD_ID, "items");
     public static final PathConfig RECIPES = new PathConfig(EdenRing.MOD_ID, "recipes");
 
     @Environment(EnvType.CLIENT)
@@ -18,6 +20,8 @@ public class Configs {
 
     public static void saveConfigs() {
         BIOMES.saveChanges();
+        GENERATOR.saveChanges();
+        ITEMS.saveChanges();
         RECIPES.saveChanges();
 
         if (BCLib.isClient()) {

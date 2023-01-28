@@ -16,10 +16,11 @@ import paulevs.edenring.client.environment.TransformHelper;
 import paulevs.edenring.client.environment.animation.SpriteGrid;
 import paulevs.edenring.client.environment.weather.LightningAnimation;
 import paulevs.edenring.datagen.worldgen.EdenRingBiomesDataProvider;
+import paulevs.edenring.registries.EdenBiomes;
 
 public class EdenWeatherRenderer implements WeatherRenderer {
 	private static final ResourceLocation LIGHTNING = EdenRing.makeID("textures/environment/lightning.png");
-	private SpriteGrid grid = new SpriteGrid(LightningAnimation::new, (biome, random) -> biome == EdenRingBiomesDataProvider.BRAINSTORM ? random.nextInt(3) : 0);
+	private SpriteGrid grid = new SpriteGrid(LightningAnimation::new, (biome, random) -> biome.getBiomeKey() == EdenBiomes.BRAINSTORM ? random.nextInt(3) : 0);
 	
 	@Override
 	public void render(WorldRenderContext context) {

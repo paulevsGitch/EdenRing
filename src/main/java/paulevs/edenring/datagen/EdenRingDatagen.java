@@ -12,7 +12,6 @@ import paulevs.edenring.datagen.worldgen.EdenRingRegistriesDataProvider;
 public class EdenRingDatagen implements DataGeneratorEntrypoint {
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator dataGenerator) {
-        BCLBiomeRegistry.prepareForDatagen();
         EdenRingBiomesDataProvider.ensureStaticallyLoaded();
 
         final FabricDataGenerator.Pack pack = dataGenerator.createPack();

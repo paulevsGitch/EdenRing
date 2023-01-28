@@ -210,8 +210,8 @@ public class EdenBlocks {
 		
 		BonemealAPI.addLandGrass(MYCOTIC_GRASS, EDEN_MYCELIUM);
 		
-		BonemealAPI.addLandGrass(EdenRingBiomesDataProvider.GOLDEN_FOREST.getID(), GOLDEN_GRASS, EDEN_GRASS_BLOCK);
-		BonemealAPI.addLandGrass(EdenRingBiomesDataProvider.GOLDEN_FOREST.getID(), Blocks.GRASS, EDEN_GRASS_BLOCK);
+		BonemealAPI.addLandGrass(EdenBiomes.GOLDEN_FOREST.location(), GOLDEN_GRASS, EDEN_GRASS_BLOCK);
+		BonemealAPI.addLandGrass(EdenBiomes.GOLDEN_FOREST.location(), Blocks.GRASS, EDEN_GRASS_BLOCK);
 		
 		BonemealAPI.addSpreadableBlock(MOSSY_STONE, Blocks.STONE);
 	}

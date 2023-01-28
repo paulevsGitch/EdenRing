@@ -28,24 +28,24 @@ public class EdenRingBiomesDataProvider extends TagDataProvider<Biome> {
     public static final List<EdenRingBiome> BIOMES_CAVE = Lists.newArrayList();
 
     // LAND //
-    public static final EdenRingBiome STONE_GARDEN = registerLand(new StoneGardenBiome());
-    public static final EdenRingBiome GOLDEN_FOREST = registerLand(new GoldenForestBiome());
-    public static final EdenRingBiome MYCOTIC_FOREST = registerLand(new MycoticForestBiome());
-    public static final EdenRingBiome PULSE_FOREST = registerLand(new PulseForestBiome());
-    public static final EdenRingBiome BRAINSTORM = registerLand(new BrainstormBiome());
-    public static final EdenRingBiome LAKESIDE_DESERT = registerLand(new LakesideDesertBiome());
-    public static final EdenRingBiome WIND_VALLEY = registerLand(new WindValleyBiome());
+    private static final EdenRingBiome STONE_GARDEN = registerLand(new StoneGardenBiome());
+    private static final EdenRingBiome GOLDEN_FOREST = registerLand(new GoldenForestBiome());
+    private static final EdenRingBiome MYCOTIC_FOREST = registerLand(new MycoticForestBiome());
+    private static final EdenRingBiome PULSE_FOREST = registerLand(new PulseForestBiome());
+    private static final EdenRingBiome BRAINSTORM = registerLand(new BrainstormBiome());
+    private static final EdenRingBiome LAKESIDE_DESERT = registerLand(new LakesideDesertBiome());
+    private static final EdenRingBiome WIND_VALLEY = registerLand(new WindValleyBiome());
 
     // AIR //
-    public static final EdenRingBiome AIR_OCEAN = registerVoid(new AirOceanBiome());
-    public static final EdenRingBiome SKY_COLONY = registerVoid(new SkyColonyBiome());
+    private static final EdenRingBiome AIR_OCEAN = registerVoid(new AirOceanBiome());
+    private static final EdenRingBiome SKY_COLONY = registerVoid(new SkyColonyBiome());
 
     // CAVES //
-    public static final EdenRingBiome EMPTY_CAVE = registerCave(new EmptyCaveBiome());
-    public static final EdenRingBiome ERODED_CAVE = registerCave(new ErodedCaveBiome());
+    private static final EdenRingBiome EMPTY_CAVE = registerCave(new EmptyCaveBiome());
+    private static final EdenRingBiome ERODED_CAVE = registerCave(new ErodedCaveBiome());
 
     // SUBBIOMES //
-    public static final EdenRingBiome OLD_MYCOTIC_FOREST = registerSubBiome(new OldMycoticForestBiome(), MYCOTIC_FOREST);
+    private static final EdenRingBiome OLD_MYCOTIC_FOREST = registerSubBiome(new OldMycoticForestBiome(), MYCOTIC_FOREST);
 
     public EdenRingBiomesDataProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(TagManager.BIOMES, List.of(EdenRing.MOD_ID), output, registriesFuture);

@@ -1,6 +1,5 @@
 package paulevs.edenring.blocks;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -10,10 +9,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.betterx.bclib.behaviours.BehaviourBuilders;
 import org.betterx.bclib.blocks.FeatureSaplingBlock;
 import paulevs.edenring.registries.EdenBlocks;
 import paulevs.edenring.registries.EdenFeatures;
@@ -24,9 +23,8 @@ public class BalloonMushroomSmallBlock extends FeatureSaplingBlock {
 	private static final VoxelShape SHAPE = Block.box(4, 0, 4, 12, 8, 12);
 	
 	public BalloonMushroomSmallBlock() {
-		super(FabricBlockSettings
-			.of(Material.PLANT)
-			.collidable(false)
+		super(BehaviourBuilders.createPlant()
+			.noCollission()
 			.instabreak()
 			.sound(SoundType.GRASS)
 			.offsetType(OffsetType.XZ),

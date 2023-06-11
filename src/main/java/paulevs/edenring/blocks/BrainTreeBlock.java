@@ -14,7 +14,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
@@ -30,7 +29,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.AABB;
 import org.betterx.bclib.blocks.BaseBlock;
 import org.betterx.bclib.blocks.BlockProperties;
@@ -60,8 +59,8 @@ public class BrainTreeBlock extends BaseBlock implements BlockModelProvider, Ren
 		ArmorMaterials.NETHERITE
 	};
 	
-	public BrainTreeBlock(MaterialColor color) {
-		super(FabricBlockSettings.copyOf(Blocks.COPPER_BLOCK).color(color).lightLevel(state -> state.getValue(ACTIVE) ? 15 : 0).randomTicks());
+	public BrainTreeBlock(MapColor color) {
+		super(FabricBlockSettings.copyOf(Blocks.COPPER_BLOCK).mapColor(color).lightLevel(state -> state.getValue(ACTIVE) ? 15 : 0).randomTicks());
 		this.registerDefaultState(this.getStateDefinition().any().setValue(ACTIVE, false).setValue(POWERED, false));
 	}
 	
@@ -144,7 +143,7 @@ public class BrainTreeBlock extends BaseBlock implements BlockModelProvider, Ren
 			for (int i = 2; i < count; i++) {
 				mpos.set(pos.getX() + dx * i, pos.getY() + dy * i, pos.getZ() + dz * i);
 				BlockState blockState = world.getBlockState(mpos);
-				if (blockState.getMaterial().blocksMotion() && !(blockState.getBlock() instanceof BrainTreeBlock)) {
+				if (blockState.blocksMotion() && !(blockState.getBlock() instanceof BrainTreeBlock)) {
 					hit = false;
 					break;
 				}
@@ -188,7 +187,7 @@ public class BrainTreeBlock extends BaseBlock implements BlockModelProvider, Ren
 				}
 				
 				if (resistance < 1) {
-					entity.hurt(DamageSource.LIGHTNING_BOLT, (1 - resistance) * 3F);
+					entity.hurt(world.damageSources().lightningBolt(), (1 - resistance) * 3F);
 				}
 			}
 		}

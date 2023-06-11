@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
 import org.betterx.bclib.client.models.BasePatterns;
 import org.betterx.bclib.client.models.ModelsHelper;
 import org.betterx.bclib.client.models.ModelsHelper.MultiPartBuilder;
@@ -31,7 +31,7 @@ public class BalloonMushroomBlock extends BaseCTBlock implements CustomItemProvi
 	public static final BooleanProperty NATURAL = EdenBlockProperties.NATURAL;
 	
 	public BalloonMushroomBlock() {
-		super(FabricBlockSettings.copyOf(Blocks.MUSHROOM_STEM).mapColor(MaterialColor.COLOR_PURPLE));
+		super(FabricBlockSettings.copyOf(Blocks.MUSHROOM_STEM).mapColor(MapColor.COLOR_PURPLE));
 		registerDefaultState(defaultBlockState().setValue(NATURAL, false));
 	}
 	

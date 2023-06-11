@@ -8,7 +8,7 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import net.minecraft.world.level.material.Material;
+
 import org.betterx.bclib.api.v2.levelgen.features.features.DefaultFeature;
 import org.betterx.bclib.blocks.BlockProperties;
 import org.betterx.bclib.complexmaterials.WoodenComplexMaterial;
@@ -101,6 +101,6 @@ public class BrainTreeFeature extends DefaultFeature {
 	}
 	
 	private boolean canReplace(BlockState state) {
-		return state.isAir() || state.getMaterial().isReplaceable() || state.getMaterial().equals(Material.PLANT);
+		return state.isAir() || BlocksHelper.replaceableOrPlant(state);
 	}
 }

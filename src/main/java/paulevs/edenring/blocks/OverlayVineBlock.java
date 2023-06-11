@@ -3,7 +3,6 @@ package paulevs.edenring.blocks;
 import com.google.common.collect.Maps;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.renderer.BiomeColors;
@@ -13,7 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.GrassColor;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
+import org.betterx.bclib.behaviours.BehaviourBuilders;
 import org.betterx.bclib.blocks.BaseVineBlock;
 import org.betterx.bclib.blocks.BlockProperties.TripleShape;
 import org.betterx.bclib.client.models.ModelsHelper;
@@ -26,7 +25,7 @@ import java.util.Optional;
 
 public class OverlayVineBlock extends BaseVineBlock implements CustomColorProvider {
 	public OverlayVineBlock() {
-		super(FabricBlockSettings.of(Material.PLANT).sound(SoundType.VINE).noCollission().noOcclusion());
+		super(BehaviourBuilders.createPlant().sound(SoundType.VINE).noCollission().noOcclusion());
 	}
 	
 	@Override

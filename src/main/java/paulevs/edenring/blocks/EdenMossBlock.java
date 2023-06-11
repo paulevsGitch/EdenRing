@@ -22,7 +22,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.MossBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.betterx.bclib.client.models.ModelsHelper;
@@ -40,7 +39,7 @@ public class EdenMossBlock extends MossBlock implements BlockModelProvider, Cust
 	private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 2, 16);
 	
 	public EdenMossBlock() {
-		super(FabricBlockSettings.of(Material.MOSS).sound(SoundType.MOSS).offsetType(OffsetType.NONE).noCollission());
+		super(FabricBlockSettings.copyOf(Blocks.MOSS_BLOCK).sound(SoundType.MOSS).offsetType(OffsetType.NONE).noCollission());
 	}
 	
 	@Override

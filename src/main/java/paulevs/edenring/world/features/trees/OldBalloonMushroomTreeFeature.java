@@ -14,7 +14,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import net.minecraft.world.level.material.Material;
 import org.betterx.bclib.api.v2.levelgen.features.features.DefaultFeature;
 import org.betterx.bclib.complexmaterials.WoodenComplexMaterial;
 import org.betterx.bclib.util.BlocksHelper;
@@ -310,7 +309,7 @@ public class OldBalloonMushroomTreeFeature extends DefaultFeature {
 	
 	private void setBlock(WorldGenLevel level, BlockPos pos, BlockState state) {
 		BlockState place = level.getBlockState(pos);
-		if (place.getMaterial().isReplaceable() || place.is(EdenBlocks.BALLOON_MUSHROOM_SMALL) || place.getMaterial().equals(Material.PLANT)) {
+		if (BlocksHelper.replaceableOrPlant(place) || place.is(EdenBlocks.BALLOON_MUSHROOM_SMALL)) {
 			BlocksHelper.setWithoutUpdate(level, pos, state);
 		}
 	}

@@ -4,14 +4,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
 import org.betterx.bclib.blocks.BaseLeavesBlock;
 import paulevs.edenring.registries.EdenBlocks;
 import paulevs.edenring.registries.EdenParticles;
 
 public class AuritisLeavesBlock extends BaseLeavesBlock {
 	public AuritisLeavesBlock() {
-		super(EdenBlocks.AURITIS_SAPLING, MaterialColor.GOLD);
+		super(EdenBlocks.AURITIS_SAPLING, MapColor.GOLD);
 	}
 	
 	@Override

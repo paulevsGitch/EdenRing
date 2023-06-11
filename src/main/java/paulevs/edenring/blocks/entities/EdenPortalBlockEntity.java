@@ -19,10 +19,10 @@ import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.ChunkStatus;
 import net.minecraft.world.level.levelgen.Heightmap.Types;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.portal.PortalInfo;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import org.betterx.bclib.util.BlocksHelper;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.interfaces.EdenPortable;
 import paulevs.edenring.registries.EdenBlockEntities;
@@ -179,7 +179,7 @@ public class EdenPortalBlockEntity extends BlockEntity {
 		
 		pos.setY(maxY);
 		BlockState state = level.getBlockState(pos);
-		while (pos.getY() > 0 && (state.isAir() || state.getMaterial().isReplaceable() || state.getMaterial().equals(Material.PLANT))) {
+		while (pos.getY() > 0 && (state.isAir() || BlocksHelper.replaceableOrPlant(state))) {
 			pos.setY(pos.getY() - 1);
 			state = chunk.getBlockState(pos);
 		}

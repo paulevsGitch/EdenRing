@@ -10,7 +10,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import net.minecraft.world.level.material.Material;
 import org.betterx.bclib.api.v2.levelgen.features.features.DefaultFeature;
 import org.betterx.bclib.util.BlocksHelper;
 import org.betterx.bclib.util.MHelper;
@@ -118,7 +117,7 @@ public class AquatusFeature extends DefaultFeature {
 	}
 	
 	private boolean canReplace(BlockState state) {
-		return state.isAir() || state.is(EdenBlocks.AQUATUS_BLOCK) || state.getMaterial().isReplaceable() || state.getMaterial().equals(Material.PLANT);
+		return state.isAir() || state.is(EdenBlocks.AQUATUS_BLOCK) || BlocksHelper.replaceableOrPlant(state);
 	}
 	
 	private void setBlock(WorldGenLevel level, BlockPos pos, BlockState state) {

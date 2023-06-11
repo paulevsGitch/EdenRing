@@ -12,7 +12,7 @@ import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
+import org.betterx.bclib.behaviours.BehaviourBuilders;
 import org.betterx.bclib.blocks.BaseBlock;
 import org.betterx.bclib.client.models.ModelsHelper;
 import org.betterx.bclib.client.models.PatternsHelper;
@@ -22,7 +22,7 @@ import java.util.Optional;
 
 public class VolvoxBlockDense extends BaseBlock {
 	public VolvoxBlockDense() {
-		super(FabricBlockSettings.of(Material.WOOD).hardness(1F).sounds(SoundType.SLIME_BLOCK));
+		super(BehaviourBuilders.createWood().strength(1F).sound(SoundType.SLIME_BLOCK));
 	}
 	
 	@Override

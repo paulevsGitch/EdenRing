@@ -11,7 +11,7 @@ import paulevs.edenring.items.EdenPaintingItem;
 import paulevs.edenring.items.GuideBookItem;
 
 public class EdenItems {
-	public static final ItemRegistry REGISTRY = new ItemRegistry(EdenRing.EDEN_TAB, Configs.ITEMS);
+	public static final ItemRegistry REGISTRY = new ItemRegistry(Configs.ITEMS);
 	
 	public static final Item GUIDE_BOOK = register("guide_book", new GuideBookItem(REGISTRY.makeItemSettings().stacksTo(16)));
 	public static final Item LIMPHIUM_LEAF = register("limphium_leaf", new ModelProviderItem(REGISTRY.makeItemSettings()));

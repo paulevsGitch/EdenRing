@@ -68,7 +68,7 @@ public class EdenPaintingRenderer extends EntityRenderer<EdenPainting> {
 			POS.move(cross, x);
 			for (int y = 0; y < h; y++) {
 				POS.setY(origin.getY() + y);
-				int l = LevelRenderer.getLightColor(painting.level, POS);
+				int l = LevelRenderer.getLightColor(painting.level(), POS);
 				if (l > light) light = l;
 			}
 		}
@@ -76,7 +76,7 @@ public class EdenPaintingRenderer extends EntityRenderer<EdenPainting> {
 		int rgb = WHITE;
 		PaintingColorProvider provider = info.getProvider();
 		if (provider != null) {
-			rgb = provider.getColor((ClientLevel) painting.level, POS);
+			rgb = provider.getColor((ClientLevel) painting.level(), POS);
 		}
 		
 		this.vertex(pos, normal, vertexConsumer, rgb, -dx,  dy, -0.5f, 1, 0, light);

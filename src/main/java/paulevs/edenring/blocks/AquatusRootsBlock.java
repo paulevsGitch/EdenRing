@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.betterx.bclib.blocks.BaseBlockNotFull;
@@ -102,7 +102,7 @@ public class AquatusRootsBlock extends BaseBlockNotFull implements RenderLayerPr
 	}
 	
 	@Override
-	public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+	public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
 		return state.getValue(UP) && MHelper.RANDOM.nextInt(4) == 0 ? Collections.singletonList(new ItemStack(EdenBlocks.AQUATUS_SAPLING)) : Collections.EMPTY_LIST;
 	}
 	

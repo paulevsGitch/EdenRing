@@ -16,8 +16,10 @@ import org.betterx.bclib.client.models.PatternsHelper;
 
 import java.util.Map;
 import java.util.Optional;
+import org.betterx.bclib.interfaces.tools.AddMineableHammer;
+import org.betterx.bclib.interfaces.tools.AddMineablePickaxe;
 
-public class GraviliteBlock extends BaseRotatedPillarBlock {
+public class GraviliteBlock extends BaseRotatedPillarBlock implements AddMineableHammer, AddMineablePickaxe {
 	public GraviliteBlock() {
 		super(FabricBlockSettings.copyOf(Blocks.AMETHYST_BLOCK).luminance(15));
 	}

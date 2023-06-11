@@ -47,7 +47,7 @@ public class IslandLayer {
 					double posY = MHelper.randRange(options.minY, options.maxY, random);
 					double posZ = (pz + random.nextFloat()) * options.distance;
 					if (density.eval(posX * 0.01, posZ * 0.01) > options.coverage) {
-						BlockPos pos = new BlockPos(posX, posY, posZ);
+						BlockPos pos = new BlockPos((int) posX, (int) posY, (int) posZ);
 						nearIslands.add(getIsland(pos));
 						positions.add(pos);
 					}

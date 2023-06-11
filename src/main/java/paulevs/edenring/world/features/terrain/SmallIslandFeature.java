@@ -60,7 +60,7 @@ public class SmallIslandFeature extends DefaultFeature {
 				mut.setZ(pos.getZ() + z);
 				BlockState worldState = level.getBlockState(mut);
 				if (x2 + z2 <= r2 - random.nextInt(radius)) {
-					if (worldState.isAir() || worldState.getMaterial().isReplaceable()) {
+					if (worldState.isAir() || worldState.canBeReplaced()) {
 						BlockState setState = state;
 						if (state.is(EdenBlocks.EDEN_GRASS_BLOCK) && !level.getBlockState(mut.above()).isAir()) {
 							setState = Blocks.DIRT.defaultBlockState();

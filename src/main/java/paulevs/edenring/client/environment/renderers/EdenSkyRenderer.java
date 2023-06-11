@@ -134,7 +134,6 @@ public class EdenSkyRenderer implements SkyRenderer {
 		RenderSystem.depthMask(false);
 		RenderSystem.disableBlend();
 		RenderSystem.disableCull();
-		RenderSystem.disableTexture();
 		RenderSystem.disableDepthTest();
 		
 		// Render Background //
@@ -152,8 +151,7 @@ public class EdenSkyRenderer implements SkyRenderer {
 		// Render Nebula And Stars //
 		
 		float dayTime = level.getTimeOfDay(tickDelta);
-		
-		RenderSystem.enableTexture();
+
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		RenderSystem.enableBlend();
 		
@@ -341,7 +339,6 @@ public class EdenSkyRenderer implements SkyRenderer {
 		
 		if (BackgroundInfo.blindness > 0) {
 			RenderSystem.defaultBlendFunc();
-			RenderSystem.disableTexture();
 			
 			RenderSystem.setShaderColor(0, 0, 0, BackgroundInfo.blindness);
 			RenderSystem.setShader(GameRenderer::getPositionShader);
@@ -354,8 +351,7 @@ public class EdenSkyRenderer implements SkyRenderer {
 		}
 		
 		// Finalize //
-		
-		RenderSystem.enableTexture();
+
 		RenderSystem.depthMask(true);
 		RenderSystem.defaultBlendFunc();
 		RenderSystem.disableBlend();
@@ -368,7 +364,7 @@ public class EdenSkyRenderer implements SkyRenderer {
 			buffer.close();
 		}
 		
-		buffer = new VertexBuffer();
+		buffer = new VertexBuffer(VertexBuffer.Usage.STATIC);;
 		makeCylinder(bufferBuilder, 16, height, 100);
 		RenderedBuffer renderBuffer = bufferBuilder.end();
 		buffer.bind();
@@ -414,7 +410,7 @@ public class EdenSkyRenderer implements SkyRenderer {
 			buffer.close();
 		}
 		
-		buffer = new VertexBuffer();
+		buffer = new VertexBuffer(VertexBuffer.Usage.STATIC);;
 		makeStars(bufferBuilder, minSize, maxSize, count, verticalCount, seed);
 		RenderedBuffer renderBuffer = bufferBuilder.end();
 		buffer.bind();

@@ -53,7 +53,7 @@ public abstract class LevelRendererMixin {
 		
 		BlockPos pos = ((BlockHitResult) minecraft.hitResult).getBlockPos();
 		BlockState state = minecraft.level.getBlockState(pos);
-		if (!state.getMaterial().isReplaceable()) return;
+		if (!state.canBeReplaced()) return;
 		
 		state = EdenBlocks.BALLOON_MUSHROOM_BLOCK.defaultBlockState();
 		BufferSource bufferSource = this.renderBuffers.bufferSource();

@@ -27,8 +27,11 @@ import org.betterx.bclib.interfaces.RenderLayerProvider;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Optional;
+import org.betterx.bclib.interfaces.tools.AddMineableHammer;
+import org.betterx.bclib.interfaces.tools.AddMineablePickaxe;
 
-public class GraviliteShardsBlock extends BaseAttachedBlock implements BlockModelProvider, RenderLayerProvider {
+public class GraviliteShardsBlock extends BaseAttachedBlock implements BlockModelProvider, RenderLayerProvider,
+		AddMineableHammer, AddMineablePickaxe {
 	private static final EnumMap<Direction, VoxelShape> BOUNDING_SHAPES = Maps.newEnumMap(Direction.class);
 	
 	public GraviliteShardsBlock() {

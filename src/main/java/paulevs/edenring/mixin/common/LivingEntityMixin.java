@@ -17,7 +17,7 @@ public class LivingEntityMixin {
 	@ModifyConstant(method = "travel", constant = @Constant(doubleValue = 0.08D))
 	private double eden_changeGravity(double gravity) {
 		LivingEntity entity = LivingEntity.class.cast(this);
-		if (entity.level.dimension() == EdenRing.EDEN_RING_KEY) {
+		if (entity.level().dimension() == EdenRing.EDEN_RING_KEY) {
 			gravity *= GravityController.getGravityMultiplier(entity.getY());
 		}
 		double gravilite = GravityController.getGraviliteMultiplier(entity);
@@ -31,7 +31,7 @@ public class LivingEntityMixin {
 	@Inject(method = "checkFallDamage", at = @At("TAIL"))
 	private void eden_checkFallDamage(double d, boolean bl, BlockState blockState, BlockPos blockPos, CallbackInfo info) {
 		LivingEntity entity = LivingEntity.class.cast(this);
-		if (entity.level.dimension().equals(EdenRing.EDEN_RING_KEY)) {
+		if (entity.level().dimension().equals(EdenRing.EDEN_RING_KEY)) {
 			entity.fallDistance *= GravityController.getGravityMultiplier(entity.getY());
 		}
 		double gravilite = GravityController.getGraviliteMultiplier(entity);

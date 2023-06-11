@@ -19,13 +19,16 @@ import org.betterx.bclib.blocks.BaseAttachedBlock;
 import org.betterx.bclib.client.models.ModelsHelper;
 import org.betterx.bclib.client.models.PatternsHelper;
 import org.betterx.bclib.interfaces.BlockModelProvider;
+import org.betterx.bclib.interfaces.tools.AddMineableHammer;
+import org.betterx.bclib.interfaces.tools.AddMineablePickaxe;
 import paulevs.edenring.EdenRing;
 
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class GraviliteLanternBlock extends BaseAttachedBlock implements BlockModelProvider {
+public class GraviliteLanternBlock extends BaseAttachedBlock implements BlockModelProvider,
+		AddMineableHammer, AddMineablePickaxe {
 	private static final EnumMap<Direction, VoxelShape> BOUNDING_SHAPES = Maps.newEnumMap(Direction.class);
 	
 	public GraviliteLanternBlock() {

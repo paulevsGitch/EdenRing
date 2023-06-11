@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -69,7 +69,7 @@ public class EdenPortalBlock extends BaseBlockNotFull {
 	}
 	
 	@Override
-	public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+	public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
 		Block drop = Blocks.WAXED_COPPER_BLOCK;
 		if (state.getValue(EDEN_PORTAL) == EdenPortalState.PILLAR_TOP) drop = Blocks.AMETHYST_BLOCK;
 		else if (state.getValue(EDEN_PORTAL) == EdenPortalState.CENTER_MIDDLE) drop = Blocks.GOLD_BLOCK;

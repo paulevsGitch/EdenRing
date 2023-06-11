@@ -69,7 +69,7 @@ public class VolvoxFeature extends DefaultFeature {
 			float px = p.x() * distance + 0.5F;
 			float py = p.y() * distance + 0.5F;
 			float pz = p.z() * distance + 0.5F;
-			makeSphere(level, pos.offset(px, py, pz), radius, -1, volvox, null, null);
+			makeSphere(level, pos.offset((int) px, (int) py, (int) pz), radius, -1, volvox, null, null);
 		}
 	}
 	
@@ -106,7 +106,7 @@ public class VolvoxFeature extends DefaultFeature {
 			spline.forEach(point -> point.rotate(rotation));
 			SplineHelper.offset(spline, offset);
 			spline.add(spline.get(0));
-			SplineHelper.fillSplineForce(spline, level, volvoxDense, pos, state -> state.getMaterial().isReplaceable() || state.equals(volvox));
+			SplineHelper.fillSplineForce(spline, level, volvoxDense, pos, state -> state.canBeReplaced() || state.equals(volvox));
 		}
 		
 		addSmallPlants(level, pos, sphere, random);
@@ -132,7 +132,7 @@ public class VolvoxFeature extends DefaultFeature {
 			}
 			pos.set(p).move(Direction.DOWN);
 			BlockState state = level.getBlockState(pos);
-			if (state.getFluidState().isEmpty() && state.getMaterial().isReplaceable()) {
+			if (state.getFluidState().isEmpty() && state.canBeReplaced()) {
 				int plant = random.nextInt(8);
 				if (plant == 0) {
 					if (pos.getY() < center.getY()) {
@@ -152,7 +152,7 @@ public class VolvoxFeature extends DefaultFeature {
 						pos.move(Direction.DOWN);
 						state = level.getBlockState(pos);
 						pos.move(Direction.UP);
-						if (!state.getFluidState().isEmpty() || !state.getMaterial().isReplaceable()) {
+						if (!state.getFluidState().isEmpty() || !state.canBeReplaced()) {
 							BlocksHelper.setWithoutUpdate(level, pos, vine2);
 							break;
 						}
@@ -183,14 +183,14 @@ public class VolvoxFeature extends DefaultFeature {
 					if (d <= r21) {
 						pos.setZ(center.getZ() + z);
 						if (d >= r22) {
-							if (level.getBlockState(pos).getMaterial().isReplaceable()) {
+							if (level.getBlockState(pos).canBeReplaced()) {
 								BlocksHelper.setWithoutUpdate(level, pos, wall);
 								if (positions != null) {
 									positions.add(pos.immutable());
 								}
 							}
 						}
-						else if (y < waterY && level.getBlockState(pos).getMaterial().isReplaceable()) {
+						else if (y < waterY && level.getBlockState(pos).canBeReplaced()) {
 							BlocksHelper.setWithoutUpdate(level, pos, water);
 						}
 					}

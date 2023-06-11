@@ -37,6 +37,7 @@ import org.betterx.bclib.client.models.ModelsHelper;
 import org.betterx.bclib.client.models.PatternsHelper;
 import org.betterx.bclib.client.render.BCLRenderLayer;
 import org.betterx.bclib.interfaces.RenderLayerProvider;
+import org.betterx.bclib.interfaces.tools.AddMineableHoe;
 import org.betterx.bclib.items.tool.BaseShearsItem;
 import org.betterx.bclib.util.BlocksHelper;
 import paulevs.edenring.blocks.EdenBlockProperties.QuadShape;
@@ -45,7 +46,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class ShadedVineBlock extends BaseBlockNotFull implements RenderLayerProvider, BonemealableBlock {
+public class ShadedVineBlock extends BaseBlockNotFull implements RenderLayerProvider, BonemealableBlock,
+		AddMineableHoe {
 	public static final EnumProperty<QuadShape> SHAPE = EdenBlockProperties.QUAD_SHAPE;
 	private static final VoxelShape VOXEL_SHAPE = Block.box(2, 0, 2, 14, 16, 14);
 	

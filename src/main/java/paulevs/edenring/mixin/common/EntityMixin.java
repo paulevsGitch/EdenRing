@@ -18,7 +18,7 @@ public class EntityMixin implements EdenPortable {
 	@Inject(method = "checkOutOfWorld", at = @At("HEAD"), cancellable = true)
 	public void eden_checkOutOfWorld(CallbackInfo info) {
 		Entity entity = Entity.class.cast(this);
-		if (entity.level.dimension() == EdenRing.EDEN_RING_KEY && entity.getY() > entity.level.getMaxBuildHeight() + 64) {
+		if (entity.level().dimension() == EdenRing.EDEN_RING_KEY && entity.getY() > entity.level().getMaxBuildHeight() + 64) {
 			outOfWorld();
 			info.cancel();
 		}

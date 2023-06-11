@@ -17,13 +17,16 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.betterx.bclib.blocks.BaseRotatedPillarBlock;
 import org.betterx.bclib.client.models.ModelsHelper;
 import org.betterx.bclib.client.models.PatternsHelper;
+import org.betterx.bclib.interfaces.tools.AddMineableHammer;
+import org.betterx.bclib.interfaces.tools.AddMineablePickaxe;
 import paulevs.edenring.EdenRing;
 
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class GraviliteTallLanternBlock extends BaseRotatedPillarBlock {
+public class GraviliteTallLanternBlock extends BaseRotatedPillarBlock implements AddMineableHammer,
+		AddMineablePickaxe {
 	private static final EnumMap<Axis, VoxelShape> BOUNDING_SHAPES = Maps.newEnumMap(Axis.class);
 	
 	public GraviliteTallLanternBlock() {

@@ -299,7 +299,7 @@ public class DiskwingEntity extends DespawnableAnimal {
 		public void start() {
 			RandomSource random = DiskwingEntity.this.random;
 			BlockPos point = DiskwingEntity.this.anchorPoint;
-			Level level = DiskwingEntity.this.level;
+			Level level = DiskwingEntity.this.level();
 			int x = point.getX() + MHelper.randRange(-20, 20, random);
 			int y = point.getY() + MHelper.randRange(-20, 20, random);
 			int z = point.getZ() + MHelper.randRange(-20, 20, random);
@@ -362,11 +362,11 @@ public class DiskwingEntity extends DespawnableAnimal {
 			if (this.touchingTarget()) {
 				this.selectNext();
 			}
-			if (DiskwingEntity.this.moveTargetPoint.y < DiskwingEntity.this.getY() && !DiskwingEntity.this.level.isEmptyBlock(DiskwingEntity.this.blockPosition().below(1))) {
+			if (DiskwingEntity.this.moveTargetPoint.y < DiskwingEntity.this.getY() && !DiskwingEntity.this.level().isEmptyBlock(DiskwingEntity.this.blockPosition().below(1))) {
 				this.height = Math.max(1.0f, this.height);
 				this.selectNext();
 			}
-			if (DiskwingEntity.this.moveTargetPoint.y > DiskwingEntity.this.getY() && !DiskwingEntity.this.level.isEmptyBlock(DiskwingEntity.this.blockPosition().above(1))) {
+			if (DiskwingEntity.this.moveTargetPoint.y > DiskwingEntity.this.getY() && !DiskwingEntity.this.level().isEmptyBlock(DiskwingEntity.this.blockPosition().above(1))) {
 				this.height = Math.min(-1.0f, this.height);
 				this.selectNext();
 			}

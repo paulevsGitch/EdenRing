@@ -17,7 +17,7 @@ public class GravityController {
 		MutableBlockPos pos = entity.blockPosition().mutable();
 		int dist = 8;
 		for (int i = 0; i < 8; i++) {
-			if (entity.level.getBlockState(pos).is(EdenBlocks.GRAVILITE_BLOCK)) {
+			if (entity.level().getBlockState(pos).is(EdenBlocks.GRAVILITE_BLOCK)) {
 				dist = i;
 				break;
 			}
@@ -35,7 +35,7 @@ public class GravityController {
 		int power = 0;
 		int dist = 64;
 		for (int i = 0; i < 64; i++) {
-			BlockState state = entity.level.getBlockState(pos);
+			BlockState state = entity.level().getBlockState(pos);
 			if (state.is(EdenBlocks.GRAVITY_COMPRESSOR)) {
 				power = state.getValue(BlockStateProperties.POWER);
 				dist = i;

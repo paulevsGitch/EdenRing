@@ -14,12 +14,13 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.betterx.bclib.behaviours.BehaviourBuilders;
 import org.betterx.bclib.blocks.FeatureSaplingBlock;
+import org.betterx.bclib.interfaces.tools.AddMineableHoe;
 import paulevs.edenring.registries.EdenBlocks;
 import paulevs.edenring.registries.EdenFeatures;
 
 import java.util.Optional;
 
-public class BalloonMushroomSmallBlock extends FeatureSaplingBlock {
+public class BalloonMushroomSmallBlock extends FeatureSaplingBlock implements AddMineableHoe {
 	private static final VoxelShape SHAPE = Block.box(4, 0, 4, 12, 8, 12);
 	
 	public BalloonMushroomSmallBlock() {

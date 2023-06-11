@@ -12,7 +12,7 @@ public class ItemEntityMixin {
 	@ModifyConstant(method = "tick", constant = @Constant(doubleValue = -0.04D))
 	private double eden_changeGravity(double gravity) {
 		ItemEntity entity = ItemEntity.class.cast(this);
-		if (entity.level.dimension() == EdenRing.EDEN_RING_KEY) {
+		if (entity.level().dimension() == EdenRing.EDEN_RING_KEY) {
 			gravity *= GravityController.getGravityMultiplier(entity.getY());
 		}
 		double gravilite = GravityController.getGraviliteMultiplier(entity);

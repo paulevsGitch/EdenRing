@@ -20,6 +20,7 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import org.betterx.bclib.api.v2.datafixer.DataFixerAPI;
 import org.betterx.bclib.api.v2.datafixer.ForcedLevelPatch;
 import org.betterx.bclib.api.v2.datafixer.MigrationProfile;
+import org.betterx.bclib.creativetab.BCLCreativeTabManager;
 import org.betterx.bclib.registry.BaseRegistry;
 import org.betterx.worlds.together.util.Logger;
 import paulevs.edenring.config.Configs;
@@ -35,15 +36,22 @@ public class EdenRing implements ModInitializer {
 
 	public static final ResourceKey<DimensionType> EDEN_RING_TYPE_KEY = ResourceKey.create(Registries.DIMENSION_TYPE, makeID(MOD_ID));
 	public static final ResourceKey<Level> EDEN_RING_KEY = ResourceKey.create(Registries.DIMENSION, makeID(MOD_ID));
-	public static final CreativeModeTab EDEN_TAB = FabricItemGroup.builder(makeID("eden_tab"))
-		.icon(() -> new ItemStack(EdenBlocks.MOSSY_STONE))
-		.displayItems((featureFlagSet, output, bl) -> {
-			output.acceptAll(BaseRegistry.getModBlockItems(MOD_ID).stream().map(ItemStack::new).toList());
-			output.acceptAll(BaseRegistry.getModItems(MOD_ID).stream().map(ItemStack::new).toList());
-		}).build();
-	
+
+
 	@Override
 	public void onInitialize() {
+
+		BCLCreativeTabManager.create(EdenRing.MOD_ID)
+				.createTab("eden_tab")
+				.setPredicate(
+						item -> BaseRegistry.getModBlockItems(MOD_ID).contains(item)
+								|| BaseRegistry.getModItems(MOD_ID).contains(item)
+				)
+				.setIcon(EdenBlocks.MOSSY_STONE)
+				.build()
+				.processBCLRegistry()
+				.register();
+
 		GeneratorOptions.init();
 		EdenSounds.init();
 		EdenBlocks.init();

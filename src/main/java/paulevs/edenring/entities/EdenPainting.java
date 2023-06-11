@@ -117,7 +117,7 @@ public class EdenPainting extends HangingEntity {
 	
 	@Override
 	public void dropItem(@Nullable Entity entity) {
-		if (!this.level.getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) {
+		if (!this.level().getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) {
 			return;
 		}
 		this.playSound(SoundEvents.PAINTING_BREAK, 1.0f, 1.0f);

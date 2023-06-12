@@ -15,17 +15,17 @@ import paulevs.edenring.interfaces.EdenPortable;
 public class EntityMixin implements EdenPortable {
 	private int eden_PortalTimeout = 0;
 	
-	@Inject(method = "checkOutOfWorld", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "checkBelowWorld", at = @At("HEAD"), cancellable = true)
 	public void eden_checkOutOfWorld(CallbackInfo info) {
 		Entity entity = Entity.class.cast(this);
 		if (entity.level().dimension() == EdenRing.EDEN_RING_KEY && entity.getY() > entity.level().getMaxBuildHeight() + 64) {
-			outOfWorld();
+			onBelowWorld();
 			info.cancel();
 		}
 	}
 	
 	@Shadow
-	protected void outOfWorld() {}
+	protected void onBelowWorld() {}
 	
 	@Override
 	public int getPortalTimeout() {

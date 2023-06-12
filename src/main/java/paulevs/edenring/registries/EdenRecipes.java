@@ -1,11 +1,17 @@
 package paulevs.edenring.registries;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeItem;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import org.betterx.bclib.complexmaterials.WoodenComplexMaterial;
+import org.betterx.bclib.recipes.AbstractBaseRecipeBuilder;
+import org.betterx.bclib.recipes.AbstractSimpleRecipeBuilder;
 import org.betterx.bclib.recipes.BCLRecipeBuilder;
+import org.betterx.bclib.recipes.CookingRecipeBuilder;
 import org.betterx.worlds.together.tag.v3.CommonItemTags;
 import paulevs.edenring.EdenRing;
 import paulevs.edenring.config.Configs;
@@ -119,9 +125,9 @@ public class EdenRecipes {
 			.addMaterial('B', EdenBlocks.VOLVOX_BLOCK_DENSE)
 			.build();
 		
-		BCLRecipeBuilder.smelting(EdenRing.makeID("slime_ball"), Items.SLIME_BALL).setInput(EdenBlocks.VOLVOX_BLOCK).build();
-		BCLRecipeBuilder.smelting(EdenRing.makeID("slime_ball_4"), Items.SLIME_BALL).setInput(EdenBlocks.VOLVOX_BLOCK_DENSE).setOutputCount(4).build();
-		BCLRecipeBuilder.smelting(EdenRing.makeID("limphium_leaf"), EdenItems.LIMPHIUM_LEAF_DRYED).setInput(EdenItems.LIMPHIUM_LEAF).build();
+		BCLRecipeBuilder.smelting(EdenRing.makeID("slime_ball"), Items.SLIME_BALL).setPrimaryInputAndUnlock(EdenBlocks.VOLVOX_BLOCK).build();
+		MultiOutputRecipeBuilder.make(EdenRing.makeID("slime_ball_4"), Items.SLIME_BALL, 4).setPrimaryInputAndUnlock(EdenBlocks.VOLVOX_BLOCK_DENSE).build();
+		BCLRecipeBuilder.smelting(EdenRing.makeID("limphium_leaf"), EdenItems.LIMPHIUM_LEAF_DRYED).setPrimaryInputAndUnlock(EdenItems.LIMPHIUM_LEAF).build();
 		
 		Block[] coloredBlocks = EdenBlocks.MYCOTIC_LANTERN_COLORED.values().toArray(new Block[16]);
 		EdenBlocks.MYCOTIC_LANTERN_COLORED.forEach(((color, block) -> {
@@ -154,5 +160,18 @@ public class EdenRecipes {
 			.addMaterial('B', EdenItems.GUIDE_BOOK)
 			.addMaterial('E', Items.BOOK)
 			.build();
+	}
+
+	protected static class MultiOutputRecipeBuilder extends CookingRecipeBuilder {
+
+
+		protected MultiOutputRecipeBuilder(ResourceLocation id, ItemLike output, int count) {
+			super(id, output);
+			this.output.setCount(count);
+		}
+
+		static MultiOutputRecipeBuilder make(ResourceLocation id, ItemLike output, int count) {
+			return new MultiOutputRecipeBuilder(id, output, count);
+		}
 	}
 }

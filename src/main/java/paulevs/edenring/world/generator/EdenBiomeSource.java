@@ -2,6 +2,8 @@ package paulevs.edenring.world.generator;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import java.util.List;
+import java.util.stream.Stream;
 import net.minecraft.core.*;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.registries.Registries;
@@ -35,12 +37,16 @@ public class EdenBiomeSource extends BiomeSource {
 	private BiomeMap mapLand;
 	private BiomeMap mapAir;
 	private BiomeMap mapCave;
+
+	private List<Holder<Biome>> biomes;
 	
 	public EdenBiomeSource(HolderGetter<Biome> biomeRegistry) {
-		super(((HolderLookup<Biome>) biomeRegistry).listElementIds()
+		super();
+
+		biomes = ((HolderLookup<Biome>) biomeRegistry).listElementIds()
 			.filter(key -> key.location().getNamespace().equals(EdenRing.MOD_ID))
 			.map(biomeRegistry::getOrThrow)
-			.collect(Collectors.toList()));
+			.collect(Collectors.toList());
 		
 		if (pickerLand == null) {
 			pickerLand = new BiomePicker(biomeRegistry);
@@ -59,6 +65,11 @@ public class EdenBiomeSource extends BiomeSource {
 		mapLand = new HexBiomeMap(0, GeneratorOptions.biomeSizeLand, pickerLand);
 		mapAir = new HexBiomeMap(0, GeneratorOptions.biomeSizeAir, pickerAir);
 		mapCave = new HexBiomeMap(0, GeneratorOptions.biomeSizeCave, pickerCave);
+	}
+
+	@Override
+	protected Stream<Holder<Biome>> collectPossibleBiomes() {
+		return biomes.stream();
 	}
 	
 	@Override

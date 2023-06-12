@@ -18,6 +18,7 @@ archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 def local_bclib = findProject(':BCLib') != null
+def local_wunderlib = findProject(':WunderLib') != null
 
 loom {
     interfaceInjection {
@@ -33,7 +34,6 @@ loom {
             vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
             vmArg "-Dfabric-api.datagen.strict-validation"
             vmArg "-Dfabric-api.datagen.modid=edenring"
-
             runDir "build/datagen"
         }
     }
@@ -84,6 +84,14 @@ dependencies {
         implementation( project(path:":BCLib", configuration: 'dev') )
     } else {
         modImplementation "maven.modrinth:BCLib:${project.bclib_version}"
+    }
+
+    if (local_wunderlib) {
+        implementation project(path: ":WunderLib", configuration: 'dev')
+        include project(path: ":WunderLib", configuration: 'dev')
+    } else {
+        modApi "com.github.quiqueck:WunderLib"
+        include "com.github.quiqueck:WunderLib"
     }
 }
 

@@ -145,6 +145,7 @@ public class GuideBookScreen extends Screen {
 	
 	@Override
 	public void render(GuiGraphics guiGraphics, int i, int j, float f) {
+		PoseStack poseStack = guiGraphics.pose();
 		this.renderBackground(guiGraphics);
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
@@ -157,22 +158,22 @@ public class GuideBookScreen extends Screen {
 		if (pageIndex <= 0) {
 			int posX = (this.width - 146) / 2;
 			arrowNext.setLocation(posX + 146 + 8, arrowY);
-			renderImage(poseStack, posX, posY, 0, 0, 146, 180, 512, 256);
-			renderImage(poseStack, arrowNext.x, arrowY, 16, 192, 16, 16, 512, 256);
+			renderImage(guiGraphics, posX, posY, 0, 0, 146, 180, 512, 256);
+			renderImage(guiGraphics, arrowNext.x, arrowY, 16, 192, 16, 16, 512, 256);
 		}
 		else if (pageIndex + 1 >= book.pages.length) {
 			int posX = (this.width - 146) / 2;
 			arrowBack.setLocation(posX - 8 - 16, arrowY);
 			arrowToHyper.setLocation(arrowBack);
 			arrowToHyper.y = posY + 8;
-			renderImage(poseStack, posX, posY, 160, 0, 146, 180, 512, 256);
-			renderImage(poseStack, arrowBack.x, arrowY, 0, 192, 16, 16, 512, 256);
-			if (!BACK_PAGES.empty()) renderImage(poseStack, arrowToHyper.x, arrowToHyper.y, 0, 208, 16, 16, 512, 256);
-			book.pages[pageIndex].render(poseStack, posX, posY + 16, 146, 180);
+			renderImage(guiGraphics, posX, posY, 160, 0, 146, 180, 512, 256);
+			renderImage(guiGraphics, arrowBack.x, arrowY, 0, 192, 16, 16, 512, 256);
+			if (!BACK_PAGES.empty()) renderImage(guiGraphics, arrowToHyper.x, arrowToHyper.y, 0, 208, 16, 16, 512, 256);
+			book.pages[pageIndex].render(guiGraphics, posX, posY + 16, 146, 180);
 			
 			posY = posY + 180 - 18;
 			String number = book.numberPrefix + pageIndex;
-			this.font.draw(poseStack, number, posX + 24, posY, 0);
+			guiGraphics.drawString(this.font, number, posX + 24, posY, 0);
 		}
 		else {
 			int posX1 = (this.width - 146 * 2 - 8) / 2;
@@ -181,29 +182,30 @@ public class GuideBookScreen extends Screen {
 			arrowBack.setLocation(posX1 - 8 - 16, arrowY);
 			arrowToHyper.setLocation(arrowBack);
 			arrowToHyper.y = posY + 8;
-			renderImage(poseStack, posX1, posY, 160, 0, 146, 180, 512, 256);
-			renderImage(poseStack, posX2, posY, 320, 0, 146, 180, 512, 256);
-			renderImage(poseStack, arrowBack.x, arrowY, 0, 192, 16, 16, 512, 256);
-			if (!BACK_PAGES.empty()) renderImage(poseStack, arrowToHyper.x, arrowToHyper.y, 0, 208, 16, 16, 512, 256);
+			renderImage(guiGraphics, posX1, posY, 160, 0, 146, 180, 512, 256);
+			renderImage(guiGraphics, posX2, posY, 320, 0, 146, 180, 512, 256);
+			renderImage(guiGraphics, arrowBack.x, arrowY, 0, 192, 16, 16, 512, 256);
+			if (!BACK_PAGES.empty()) renderImage(guiGraphics, arrowToHyper.x, arrowToHyper.y, 0, 208, 16, 16, 512, 256);
 			
 			if (pageIndex < book.pages.length - 2) {
 				arrowNext.setLocation(posX2 + 146 + 8, arrowY);
-				renderImage(poseStack, arrowNext.x, arrowY, 16, 192, 16, 16, 512, 256);
+				renderImage(guiGraphics, arrowNext.x, arrowY, 16, 192, 16, 16, 512, 256);
 			}
 			
-			book.pages[pageIndex].render(poseStack, posX1, posY + 16, 146, 180);
-			book.pages[pageIndex + 1].render(poseStack, posX2 - 6, posY + 16, 146, 180);
+			book.pages[pageIndex].render(guiGraphics, posX1, posY + 16, 146, 180);
+			book.pages[pageIndex + 1].render(guiGraphics, posX2 - 6, posY + 16, 146, 180);
 			
 			posY = posY + 180 - 18;
 			String number1 = book.numberPrefix + pageIndex;
 			String number2 = book.numberPrefix + (pageIndex + 1);
-			this.font.draw(poseStack, number1, posX1 + 24, posY, 0);
-			this.font.draw(poseStack, number2, posX2 + 146 - 24 - this.font.width(number2), posY, 0);
+			guiGraphics.drawString(this.font, number1, posX1 + 24, posY, 0);
+			guiGraphics.drawString(this.font, number2, posX2 + 146 - 24 - this.font.width(number2), posY, 0);
 		}
 	}
 	
-	private void renderImage(PoseStack poseStack, int x, int y, int u, int v, int width, int height, int atlasWidth, int atlasHeight) {
-		this.blit(poseStack, x, y, u, v, width, height, atlasWidth, atlasHeight);
+	private void renderImage(GuiGraphics guiGraphics, int x, int y, int u, int v, int width, int height, int atlasWidth, int atlasHeight) {
+
+		guiGraphics.blit(BOOK_TEXTURE, x, y, u, v, width, height, atlasWidth, atlasHeight);
 	}
 	
 	class BookInfo {
@@ -236,9 +238,9 @@ public class GuideBookScreen extends Screen {
 			}
 		}
 		
-		void render(PoseStack poseStack, int posX, int posY, int pageWidth, int pageHeight) {
+		void render(GuiGraphics guiGraphics, int posX, int posY, int pageWidth, int pageHeight) {
 			for (PageEntry entry: entries) {
-				posY = entry.renderAndOffset(poseStack, posX + 2, posY, pageWidth, pageHeight) + 4;
+				posY = entry.renderAndOffset(guiGraphics, posX + 2, posY, pageWidth, pageHeight) + 4;
 			}
 		}
 	}
@@ -246,7 +248,7 @@ public class GuideBookScreen extends Screen {
 	abstract class PageEntry {
 		PageEntry(JsonObject obj) {}
 		
-		abstract int renderAndOffset(PoseStack poseStack, int posX, int posY, int pageWidth, int pageHeight);
+		abstract int renderAndOffset(GuiGraphics guiGraphics, int posX, int posY, int pageWidth, int pageHeight);
 	}
 	
 	class TitlePageEntry extends PageEntry {
@@ -258,14 +260,14 @@ public class GuideBookScreen extends Screen {
 		}
 		
 		@Override
-		int renderAndOffset(PoseStack poseStack, int posX, int posY, int pageWidth, int pageHeight) {
+		int renderAndOffset(GuiGraphics guiGraphics, int posX, int posY, int pageWidth, int pageHeight) {
 			int width = GuideBookScreen.this.font.width(title);
 			int posSide = posX + (pageWidth - width) / 2;
-			GuideBookScreen.this.font.draw(poseStack, title, posSide, posY, 0);
+			guiGraphics.drawString(GuideBookScreen.this.font, title, posSide, posY, 0);
 			return posY + GuideBookScreen.this.font.lineHeight;
 		}
 	}
-	
+
 	class TextPageEntry extends PageEntry {
 		boolean requireRecombination = false;
 		String[] lines;
@@ -288,7 +290,7 @@ public class GuideBookScreen extends Screen {
 		}
 		
 		@Override
-		int renderAndOffset(PoseStack poseStack, int posX, int posY, int pageWidth, int pageHeight) {
+		int renderAndOffset(GuiGraphics guiGraphics, int posX, int posY, int pageWidth, int pageHeight) {
 			posX += 16;
 			if (requireRecombination) {
 				String modifier = null;
@@ -342,7 +344,7 @@ public class GuideBookScreen extends Screen {
 				lines = newLines.toArray(new String[newLines.size()]);
 			}
 			for (String line: lines) {
-				GuideBookScreen.this.font.draw(poseStack, line, posX, posY, 0);
+				guiGraphics.drawString(GuideBookScreen.this.font, line, posX, posY, 0);
 				posY += GuideBookScreen.this.font.lineHeight;
 			}
 			return posY;
@@ -372,7 +374,7 @@ public class GuideBookScreen extends Screen {
 		}
 		
 		@Override
-		int renderAndOffset(PoseStack poseStack, int posX, int posY, int pageWidth, int pageHeight) {
+		int renderAndOffset(GuiGraphics guiGraphics, int posX, int posY, int pageWidth, int pageHeight) {
 			posX += 16;
 			for (byte i = 0; i < lines.length; i++) {
 				String line = lines[i];
@@ -393,7 +395,7 @@ public class GuideBookScreen extends Screen {
 					}
 				}
 				start[i].setLocation(posX, posY);
-				GuideBookScreen.this.font.draw(poseStack, line, posX, posY, 0);
+				guiGraphics.drawString(GuideBookScreen.this.font, line, posX, posY, 0);
 				posY += GuideBookScreen.this.font.lineHeight;
 			}
 			return posY;
@@ -416,12 +418,12 @@ public class GuideBookScreen extends Screen {
 		}
 		
 		@Override
-		int renderAndOffset(PoseStack poseStack, int posX, int posY, int pageWidth, int pageHeight) {
+		int renderAndOffset(GuiGraphics guiGraphics, int posX, int posY, int pageWidth, int pageHeight) {
 			int posSide = posX + (pageWidth - width) / 2;
 			int posHeight = centered ? posY - 16 + (pageHeight - height) / 2 : posY;
 			RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 			RenderSystem.setShaderTexture(0, texture);
-			renderImage(poseStack, posSide, posHeight, 0, 0, width, height, width, height);
+			renderImage(guiGraphics, posSide, posHeight, 0, 0, width, height, width, height);
 			return posY + height;
 		}
 	}
@@ -442,11 +444,11 @@ public class GuideBookScreen extends Screen {
 		}
 		
 		@Override
-		int renderAndOffset(PoseStack poseStack, int posX, int posY, int pageWidth, int pageHeight) {
+		int renderAndOffset(GuiGraphics guiGraphics, int posX, int posY, int pageWidth, int pageHeight) {
 			int posSide = posX + (pageWidth - 16) / 2;
 			int posHeight = centered ? posY + (pageHeight) / 2 + 16 : posY + 16;
 			if (height != 16) ItemScaler.setScale(height);
-			minecraft.getItemRenderer().renderAndDecorateItem(item, posSide, posHeight);
+			guiGraphics.renderItem(item, posSide, posHeight);
 			return posY + height;
 		}
 	}

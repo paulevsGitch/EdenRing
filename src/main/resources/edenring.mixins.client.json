@@ -5,7 +5,6 @@
 	"compatibilityLevel": "JAVA_17",
 	"client": [
 		"LevelRendererMixin",
-		"ItemRendererMixin",
 		"ClientLevelMixin",
 		"MinecraftMixin"
 	],
